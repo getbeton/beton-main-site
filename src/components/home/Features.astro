@@ -31,7 +31,7 @@ const iconPaths: Record<string, string> = {
 };
 ---
 
-<Section id="features">
+<Section id="features" class="bg-[var(--color-surface-accent-primary)] border-y-2 border-[var(--color-border)]">
   <Container>
     <div class="text-center mb-10 lg:mb-14">
       <Heading as="h2">Built for Revenue Teams</Heading>
@@ -43,7 +43,7 @@ const iconPaths: Record<string, string> = {
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {features.map((feature, i) => (
         <Card class={`border-t-4 ${accentColors[i % accentColors.length]}`}>
-          <div class="inline-flex items-center justify-center w-10 h-10 border-2 border-[var(--color-primary-600)] bg-[var(--color-primary-50)] text-[var(--color-primary-600)] mb-4">
+          <div class="inline-flex items-center justify-center w-10 h-10 border-2 border-[var(--color-primary-600)] bg-[var(--color-primary-bg)] text-[var(--color-primary-600)] mb-4">
             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
               <path
                 stroke-linecap="round"

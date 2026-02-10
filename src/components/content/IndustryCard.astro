@@ -9,12 +9,22 @@ interface Props {
       description: string;
     };
   };
+  index?: number;
 }
 
-const { industry } = Astro.props;
+const { industry, index = 0 } = Astro.props;
+
+const accentColors = [
+  'border-t-[var(--color-primary-500)]',
+  'border-t-[var(--color-accent-500)]',
+  'border-t-[var(--color-primary-400)]',
+  'border-t-[var(--color-accent-400)]',
+  'border-t-[var(--color-primary-600)]',
+  'border-t-[var(--color-accent-600)]',
+];
 ---
 
-<Card href={`/industries/${industry.id}`}>
+<Card href={`/industries/${industry.id}`} class={`border-t-4 ${accentColors[index % accentColors.length]}`}>
   <h3 class="text-lg font-semibold mb-2">{industry.data.title}</h3>
   <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed mb-4">
     {industry.data.description}

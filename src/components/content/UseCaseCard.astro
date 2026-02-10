@@ -9,12 +9,22 @@ interface Props {
       description: string;
     };
   };
+  index?: number;
 }
 
-const { useCase } = Astro.props;
+const { useCase, index = 0 } = Astro.props;
+
+const accentColors = [
+  'border-t-[var(--color-primary-500)]',
+  'border-t-[var(--color-accent-500)]',
+  'border-t-[var(--color-primary-400)]',
+  'border-t-[var(--color-accent-400)]',
+  'border-t-[var(--color-primary-600)]',
+  'border-t-[var(--color-accent-600)]',
+];
 ---
 
-<Card href={`/use-cases/${useCase.id}`}>
+<Card href={`/use-cases/${useCase.id}`} class={`border-t-4 ${accentColors[index % accentColors.length]}`}>
   <h3 class="text-lg font-semibold mb-2">{useCase.data.title}</h3>
   <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed mb-4">
     {useCase.data.description}

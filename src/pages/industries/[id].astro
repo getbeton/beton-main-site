@@ -1,6 +1,8 @@
 ---
 import { getCollection, render } from 'astro:content';
 import ContentLayout from '../../layouts/ContentLayout.astro';
+import CTASection from '../../components/shared/CTASection.astro';
+import Button from '../../components/ui/Button.astro';
 import { SITE } from '../../utils/site';
 
 export async function getStaticPaths() {
@@ -48,7 +50,7 @@ const breadcrumbs = [
 
   <!-- Signals -->
   {signals.length > 0 && (
-    <div class="mb-6 p-4 rounded-xl bg-[var(--color-surface-raised)] border border-[var(--color-border)]">
+    <div class="mb-6 p-4 bg-[var(--color-surface-raised)] border-2 border-[var(--color-border)]">
       <h2 class="text-lg font-[family-name:var(--font-heading)] mb-2">Signals Beton Detects</h2>
       <ul class="space-y-2">
         {signals.map((signal) => (
@@ -82,4 +84,26 @@ const breadcrumbs = [
 
   <!-- Markdown body -->
   <Content />
+
+  <!-- Inline CTA -->
+  <div class="mt-10 p-6 border-2 border-[var(--color-primary-600)] bg-[var(--color-surface-accent-primary)]">
+    <h3 class="text-lg font-[family-name:var(--font-heading)] mb-2">Ready to get started?</h3>
+    <p class="text-sm text-[var(--color-text-secondary)] mb-4">
+      Start detecting {title.toLowerCase()} revenue signals. Free forever for self-hosted.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-3">
+      <Button href="https://inspector.getbeton.ai" size="lg" data-track-cta={`industry-${entry.id}-inline`}>
+        Get Started Free
+      </Button>
+      <Button href="/industries" variant="outline" size="md">
+        See All Industries
+      </Button>
+    </div>
+  </div>
 </ContentLayout>
+
+<CTASection
+  headline={`Beton for ${title}`}
+  description={`Turn ${title.toLowerCase()} product signals into revenue opportunities.`}
+  trackId={`industry-${entry.id}-cta`}
+/>

@@ -27,7 +27,7 @@ const faqSchema = {
 
   <div class="space-y-4">
     {faqs.map((faq) => (
-      <details class="group border border-[var(--color-border)] rounded-xl bg-[var(--color-surface-raised)]">
+      <details class="group border-2 border-[var(--color-border)] bg-[var(--color-surface-raised)] open:border-l-4 open:border-l-[var(--color-primary-500)]">
         <summary class="flex items-center justify-between cursor-pointer p-5 text-sm font-medium select-none">
           {faq.data.question}
           <svg

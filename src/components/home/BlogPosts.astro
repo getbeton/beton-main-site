@@ -9,7 +9,7 @@ const posts = await fetchBlogPosts(3);
 ---
 
 {posts.length > 0 && (
-  <Section id="blog">
+  <Section id="blog" class="bg-[var(--color-surface-raised)] border-y-2 border-[var(--color-border)]">
     <Container>
       <div class="text-center mb-10 lg:mb-14">
         <Heading as="h2">From the Blog</Heading>

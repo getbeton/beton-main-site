@@ -1,0 +1,149 @@
+---
+---
+
+<div class="w-full max-w-4xl mx-auto relative" aria-hidden="true">
+  <!-- macOS Slack Notification — positioned overlapping top-right of CRM -->
+  <div class="absolute -top-4 right-0 sm:right-4 z-20 w-[320px] sm:w-[380px] shadow-[6px_6px_0_var(--color-text)]">
+    <div class="border-3 border-[var(--color-text)] bg-[var(--color-surface-raised)]" style="border-width: 3px;">
+      <!-- Notification header bar -->
+      <div class="flex items-center gap-2.5 px-3 py-2 border-b-2 border-[var(--color-text)] bg-[var(--color-neutral-100)]">
+        <!-- Slack-like logo (4 colored dots in grid) -->
+        <div class="w-5 h-5 grid grid-cols-2 gap-0.5 shrink-0">
+          <div class="w-2 h-2 bg-[var(--color-accent-500)]"></div>
+          <div class="w-2 h-2 bg-[var(--color-primary-500)]"></div>
+          <div class="w-2 h-2 bg-[var(--color-primary-400)]"></div>
+          <div class="w-2 h-2 bg-[var(--color-accent-400)]"></div>
+        </div>
+        <span class="text-xs font-[family-name:var(--font-mono)] font-bold text-[var(--color-text)] uppercase tracking-wider">Slack</span>
+        <span class="text-[10px] font-[family-name:var(--font-mono)] text-[var(--color-text-tertiary)] ml-auto">now</span>
+      </div>
+      <!-- Notification body -->
+      <div class="px-3 py-3">
+        <div class="flex items-start gap-2.5">
+          <!-- Beton avatar -->
+          <div class="w-8 h-8 border-2 border-[var(--color-text)] bg-[var(--color-primary-600)] flex items-center justify-center shrink-0">
+            <span class="text-[10px] font-[family-name:var(--font-heading)] font-bold text-white">B</span>
+          </div>
+          <div class="min-w-0">
+            <div class="flex items-baseline gap-1.5">
+              <span class="text-xs font-bold text-[var(--color-text)]">Beton</span>
+              <span class="text-[10px] text-[var(--color-text-tertiary)]">#revenue-signals</span>
+            </div>
+            <p class="text-sm text-[var(--color-text)] mt-1 leading-snug">
+              New deal created with <span class="font-bold">bmwgroup.com</span>
+            </p>
+            <!-- Deal card inside notification -->
+            <div class="mt-2 border-l-3 border-[var(--color-accent-500)] pl-2.5" style="border-left-width: 3px;">
+              <div class="flex items-center gap-2 mb-1">
+                <!-- BMW-like circle logo (abstract, not exact) -->
+                <div class="w-5 h-5 border-2 border-[var(--color-text)] flex items-center justify-center bg-[var(--color-primary-bg-emphasis)]">
+                  <svg viewBox="0 0 16 16" class="w-3 h-3">
+                    <circle cx="8" cy="8" r="7" stroke="var(--color-text)" stroke-width="1.5" fill="none" />
+                    <line x1="8" y1="1" x2="8" y2="15" stroke="var(--color-text)" stroke-width="1" />
+                    <line x1="1" y1="8" x2="15" y2="8" stroke="var(--color-text)" stroke-width="1" />
+                    <path d="M8 1 A7 7 0 0 1 15 8" fill="var(--color-primary-400)" />
+                    <path d="M1 8 A7 7 0 0 1 8 15" fill="var(--color-primary-400)" />
+                  </svg>
+                </div>
+                <span class="text-xs font-bold text-[var(--color-text)]">BMW Group</span>
+              </div>
+              <div class="space-y-0.5">
+                <p class="text-[11px] text-[var(--color-text-secondary)]">Signal: <span class="font-medium text-[var(--color-primary-600)]">Product Qualified Lead</span></p>
+                <p class="text-[11px] text-[var(--color-text-secondary)]">Confidence: <span class="font-bold text-[var(--color-accent-600)]">94%</span></p>
+                <p class="text-[11px] text-[var(--color-text-secondary)]">Routed to Attio &middot; Deal value: <span class="font-bold">$48,000</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CRM Window -->
+  <div class="border-3 border-[var(--color-text)] bg-[var(--color-surface-raised)] mt-12 sm:mt-8" style="border-width: 3px;">
+    <!-- Title bar -->
+    <div class="flex items-center gap-2 px-4 py-3 border-b-3 border-[var(--color-text)] bg-[var(--color-neutral-100)]" style="border-bottom-width: 3px;">
+      <div class="w-3 h-3 border-2 border-[var(--color-text)] bg-[var(--color-accent-400)]"></div>
+      <div class="w-3 h-3 border-2 border-[var(--color-text)] bg-[var(--color-primary-400)]"></div>
+      <div class="w-3 h-3 border-2 border-[var(--color-text)]"></div>
+      <span class="ml-3 text-xs font-[family-name:var(--font-mono)] text-[var(--color-text-secondary)]">CRM &mdash; Deals Pipeline</span>
+    </div>
+
+    <!-- CRM Content -->
+    <div class="p-4 sm:p-6 space-y-5">
+      <!-- Pipeline columns header -->
+      <div class="grid grid-cols-4 gap-3">
+        <div class="text-center">
+          <div class="text-[10px] font-[family-name:var(--font-mono)] font-bold text-[var(--color-text-secondary)] uppercase tracking-wider">Qualified</div>
+          <div class="text-lg font-[family-name:var(--font-heading)] text-[var(--color-primary-600)]">12</div>
+        </div>
+        <div class="text-center">
+          <div class="text-[10px] font-[family-name:var(--font-mono)] font-bold text-[var(--color-text-secondary)] uppercase tracking-wider">Meeting</div>
+          <div class="text-lg font-[family-name:var(--font-heading)]">8</div>
+        </div>
+        <div class="text-center">
+          <div class="text-[10px] font-[family-name:var(--font-mono)] font-bold text-[var(--color-text-secondary)] uppercase tracking-wider">Proposal</div>
+          <div class="text-lg font-[family-name:var(--font-heading)]">5</div>
+        </div>
+        <div class="text-center">
+          <div class="text-[10px] font-[family-name:var(--font-mono)] font-bold text-[var(--color-text-secondary)] uppercase tracking-wider">Won</div>
+          <div class="text-lg font-[family-name:var(--font-heading)] text-[var(--color-accent-600)]">3</div>
+        </div>
+      </div>
+
+      <!-- Pipeline visual bar -->
+      <div class="flex h-3 border-2 border-[var(--color-text)] overflow-hidden">
+        <div class="bg-[var(--color-primary-300)]" style="width: 43%"></div>
+        <div class="bg-[var(--color-primary-500)] border-l-2 border-[var(--color-text)]" style="width: 28%"></div>
+        <div class="bg-[var(--color-accent-400)] border-l-2 border-[var(--color-text)]" style="width: 18%"></div>
+        <div class="bg-[var(--color-accent-600)] border-l-2 border-[var(--color-text)]" style="width: 11%"></div>
+      </div>
+
+      <!-- Deal rows -->
+      <div class="border-2 border-[var(--color-text)]">
+        <div class="flex items-center gap-3 px-3 py-2 border-b-2 border-[var(--color-text)] bg-[var(--color-neutral-100)]">
+          <div class="text-[9px] font-[family-name:var(--font-mono)] font-bold text-[var(--color-text-secondary)] w-28 sm:w-32">COMPANY</div>
+          <div class="text-[9px] font-[family-name:var(--font-mono)] font-bold text-[var(--color-text-secondary)] w-16 sm:w-20 hidden sm:block">SIGNAL</div>
+          <div class="text-[9px] font-[family-name:var(--font-mono)] font-bold text-[var(--color-text-secondary)] w-16">VALUE</div>
+          <div class="text-[9px] font-[family-name:var(--font-mono)] font-bold text-[var(--color-text-secondary)] flex-1">STAGE</div>
+        </div>
+        <!-- BMW row (highlighted as new) -->
+        <div class="flex items-center gap-3 px-3 py-2.5 border-b border-[var(--color-border)] bg-[var(--color-accent-bg)]">
+          <div class="flex items-center gap-2 w-28 sm:w-32">
+            <div class="w-4 h-4 border border-[var(--color-text)] flex items-center justify-center shrink-0 bg-[var(--color-primary-bg-emphasis)]">
+              <svg viewBox="0 0 16 16" class="w-2.5 h-2.5">
+                <circle cx="8" cy="8" r="6" stroke="var(--color-text)" stroke-width="1" fill="none" />
+                <line x1="8" y1="2" x2="8" y2="14" stroke="var(--color-text)" stroke-width="0.75" />
+                <line x1="2" y1="8" x2="14" y2="8" stroke="var(--color-text)" stroke-width="0.75" />
+              </svg>
+            </div>
+            <span class="text-xs font-bold text-[var(--color-text)] truncate">BMW Group</span>
+            <span class="text-[8px] font-bold uppercase tracking-wider text-[var(--color-accent-fg)] bg-[var(--color-accent-bg-emphasis)] px-1 py-0.5 border border-[var(--color-accent-500)] shrink-0">NEW</span>
+          </div>
+          <div class="w-16 sm:w-20 hidden sm:block"><span class="text-[10px] font-[family-name:var(--font-mono)] text-[var(--color-primary-600)]">PQL</span></div>
+          <div class="w-16 text-xs font-bold">$48k</div>
+          <div class="flex-1"><div class="w-14 h-2 bg-[var(--color-primary-400)] border border-[var(--color-text)]"></div></div>
+        </div>
+        <!-- Other rows -->
+        <div class="flex items-center gap-3 px-3 py-2 border-b border-[var(--color-border)]">
+          <div class="w-28 sm:w-32"><span class="text-xs text-[var(--color-text)]">Stripe Inc</span></div>
+          <div class="w-16 sm:w-20 hidden sm:block"><span class="text-[10px] font-[family-name:var(--font-mono)] text-[var(--color-text-secondary)]">Expansion</span></div>
+          <div class="w-16 text-xs">$22k</div>
+          <div class="flex-1"><div class="w-20 h-2 bg-[var(--color-accent-400)] border border-[var(--color-text)]"></div></div>
+        </div>
+        <div class="flex items-center gap-3 px-3 py-2 border-b border-[var(--color-border)]">
+          <div class="w-28 sm:w-32"><span class="text-xs text-[var(--color-text)]">Vercel</span></div>
+          <div class="w-16 sm:w-20 hidden sm:block"><span class="text-[10px] font-[family-name:var(--font-mono)] text-[var(--color-text-secondary)]">Trial</span></div>
+          <div class="w-16 text-xs">$15k</div>
+          <div class="flex-1"><div class="w-10 h-2 bg-[var(--color-primary-300)] border border-[var(--color-text)]"></div></div>
+        </div>
+        <div class="flex items-center gap-3 px-3 py-2">
+          <div class="w-28 sm:w-32"><span class="text-xs text-[var(--color-text)]">Linear</span></div>
+          <div class="w-16 sm:w-20 hidden sm:block"><span class="text-[10px] font-[family-name:var(--font-mono)] text-[var(--color-text-secondary)]">PQL</span></div>
+          <div class="w-16 text-xs">$31k</div>
+          <div class="flex-1"><div class="w-16 h-2 bg-[var(--color-primary-500)] border border-[var(--color-text)]"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -5,6 +5,7 @@ import Container from '../../components/ui/Container.astro';
 import Section from '../../components/ui/Section.astro';
 import Heading from '../../components/ui/Heading.astro';
 import UseCaseCard from '../../components/content/UseCaseCard.astro';
+import CTASection from '../../components/shared/CTASection.astro';
 
 const useCases = (await getCollection('use-cases')).sort(
   (a, b) => a.data.order - b.data.order
@@ -25,10 +26,16 @@ const useCases = (await getCollection('use-cases')).sort(
       </div>
 
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {useCases.map((uc) => (
-          <UseCaseCard useCase={uc} />
+        {useCases.map((uc, i) => (
+          <UseCaseCard useCase={uc} index={i} />
         ))}
       </div>
     </Container>
   </Section>
+
+  <CTASection
+    headline="Find the Right Signal for Your Team"
+    description="Connect your product analytics and start detecting buying signals in minutes."
+    trackId="use-cases-cta"
+  />
 </PageLayout>

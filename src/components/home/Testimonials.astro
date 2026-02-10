@@ -11,7 +11,7 @@ const testimonials = (await getCollection('testimonials'))
 ---
 
 {testimonials.length > 0 && (
-  <Section id="testimonials">
+  <Section id="testimonials" class="bg-[var(--color-surface-accent-secondary)] border-y-2 border-[var(--color-border)]">
     <Container>
       <div class="text-center mb-10 lg:mb-14">
         <Heading as="h2">What People Are Saying</Heading>
@@ -35,7 +35,7 @@ const testimonials = (await getCollection('testimonials'))
                     loading="lazy"
                   />
                 ) : (
-                  <div class="w-10 h-10 bg-[var(--color-primary-100)] flex items-center justify-center text-sm font-semibold text-[var(--color-primary-700)]">
+                  <div class="w-10 h-10 bg-[var(--color-primary-bg-emphasis)] flex items-center justify-center text-sm font-semibold text-[var(--color-primary-700)]">
                     {testimonial.data.name.charAt(0)}
                   </div>
                 )}

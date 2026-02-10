@@ -2,7 +2,7 @@
 import { getEntry } from 'astro:content';
 import PageLayout from '../layouts/PageLayout.astro';
 import Hero from '../components/home/Hero.astro';
-
+import StatsBar from '../components/home/StatsBar.astro';
 import HowItWorks from '../components/home/HowItWorks.astro';
 import Features from '../components/home/Features.astro';
 import UseCasesPreview from '../components/home/UseCasesPreview.astro';
@@ -11,6 +11,11 @@ import BlogPosts from '../components/home/BlogPosts.astro';
 import Testimonials from '../components/home/Testimonials.astro';
 import PricingPreview from '../components/home/PricingPreview.astro';
 import CTABanner from '../components/home/CTABanner.astro';
+import DashboardMockup from '../components/illustrations/DashboardMockup.astro';
+import SignalFlow from '../components/illustrations/SignalFlow.astro';
+import ZigzagDivider from '../components/ui/ZigzagDivider.astro';
+import Container from '../components/ui/Container.astro';
+import Section from '../components/ui/Section.astro';
 
 const page = await getEntry('pages', 'home');
 const hero = page?.data.hero;
@@ -26,11 +31,34 @@ const hero = page?.data.hero;
     primaryCta={hero?.primaryCta}
     secondaryCta={hero?.secondaryCta}
   />
+
+  <ZigzagDivider />
+
+  <StatsBar />
+
+  <!-- Dashboard Mockup -->
+  <Section>
+    <Container>
+      <DashboardMockup />
+    </Container>
+  </Section>
+
   <HowItWorks />
+
+  <!-- Signal Flow Diagram -->
+  <Section class="border-b-2 border-[var(--color-border)]">
+    <Container>
+      <SignalFlow />
+    </Container>
+  </Section>
+
   <Features />
   <UseCasesPreview />
   <Integrations />
   <Testimonials />
+
+  <ZigzagDivider />
+
   <PricingPreview />
   <BlogPosts />
 

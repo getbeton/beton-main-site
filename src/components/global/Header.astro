@@ -23,7 +23,7 @@ const currentPath = Astro.url.pathname;
             class:list={[
               'px-3 py-2 text-sm font-medium',
               currentPath === link.href || currentPath.startsWith(link.href + '/')
-                ? 'text-[var(--color-primary-600)] bg-[var(--color-primary-50)]'
+                ? 'text-[var(--color-primary-600)] bg-[var(--color-primary-bg)]'
                 : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text)] hover:bg-[var(--color-neutral-100)]',
             ]}
             aria-current={currentPath === link.href ? 'page' : undefined}

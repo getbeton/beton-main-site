@@ -1,15 +1,40 @@
 ---
 import { getEntry, render } from 'astro:content';
-import ContentLayout from '../layouts/ContentLayout.astro';
+import PageLayout from '../layouts/PageLayout.astro';
+import Container from '../components/ui/Container.astro';
+import CTASection from '../components/shared/CTASection.astro';
 
 const page = await getEntry('pages', 'about');
 const { Content } = await render(page!);
 ---
 
-<ContentLayout
+<PageLayout
   title={page!.data.title}
-  subtitle={page!.data.subtitle}
   description={page!.data.seo?.metaDescription}
 >
-  <Content />
-</ContentLayout>
+  <article class="py-16 lg:py-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <!-- Hero -->
+      <header class="max-w-3xl mb-12">
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-[family-name:var(--font-heading)] tracking-tight">
+          {page!.data.title}
+        </h1>
+        {page!.data.subtitle && (
+          <p class="mt-4 text-lg text-[var(--color-text-secondary)]">{page!.data.subtitle}</p>
+        )}
+      </header>
+
+      <!-- Prose content -->
+      <div class="prose max-w-3xl">
+        <Content />
+      </div>
+    </div>
+  </article>
+
+  <CTASection
+    headline="Join the Open-Source Revenue Intelligence Movement"
+    description="Beton is free to self-host and open for contributions. Start building with us."
+    secondaryCta={{ label: 'View on GitHub', href: 'https://github.com/getbeton' }}
+    trackId="about-cta"
+  />
+</PageLayout>

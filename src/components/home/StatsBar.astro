@@ -1,0 +1,33 @@
+---
+import Container from '../ui/Container.astro';
+
+const stats = [
+  { value: '7', label: 'Integrations' },
+  { value: '5+', label: 'Use Cases' },
+  { value: 'Free', label: 'Self-Hosted' },
+  { value: 'Open', label: 'Source' },
+];
+---
+
+<section class="py-8 lg:py-10 border-y-2 border-[var(--color-text)] bg-[var(--color-surface-raised)]" data-track-section="stats-bar">
+  <Container>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-0">
+      {stats.map((stat, i) => (
+        <div class:list={[
+          'text-center py-4 px-2',
+          i < stats.length - 1 && 'md:border-r-2 border-[var(--color-text)]',
+          i < 2 && 'border-b-2 md:border-b-0 border-[var(--color-text)]',
+          i === 0 && 'border-r-2 border-[var(--color-text)]',
+          i === 2 && 'border-r-2 md:border-r-2 border-[var(--color-text)]',
+        ]}>
+          <div class="text-2xl sm:text-3xl font-[family-name:var(--font-heading)] tracking-wide text-[var(--color-primary-600)]">
+            {stat.value}
+          </div>
+          <div class="text-sm font-[family-name:var(--font-mono)] text-[var(--color-text-secondary)] uppercase tracking-wider mt-1">
+            {stat.label}
+          </div>
+        </div>
+      ))}
+    </div>
+  </Container>
+</section>

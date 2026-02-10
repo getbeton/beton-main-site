@@ -24,6 +24,18 @@ const date = post.pubDate
     rel="noopener noreferrer"
     class="block group"
   >
+    {post.thumbnail && (
+      <div class="mb-4 -mx-6 -mt-6 border-b-2 border-[var(--color-border)] overflow-hidden">
+        <img
+          src={post.thumbnail}
+          alt=""
+          width="400"
+          height="200"
+          loading="lazy"
+          class="w-full h-40 object-cover"
+        />
+      </div>
+    )}
     <div class="flex items-center gap-2 text-xs text-[var(--color-text-tertiary)] mb-2">
       <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z"></path>
@@ -37,7 +49,7 @@ const date = post.pubDate
       {post.description}
     </p>
     <span class="text-sm font-medium text-[var(--color-primary-600)]">
-      Subscribe to Newsletter &rarr;
+      Read more &rarr;
     </span>
   </a>
 </Card>

@@ -33,7 +33,7 @@ const iconPaths: Record<string, string> = {
       {useCases.map((uc) => (
         <Card href={`/use-cases/${uc.id}`}>
           {uc.data.icon && iconPaths[uc.data.icon] && (
-            <div class="inline-flex items-center justify-center w-10 h-10 border-2 border-[var(--color-primary-600)] bg-[var(--color-primary-50)] text-[var(--color-primary-600)] mb-3">
+            <div class="inline-flex items-center justify-center w-10 h-10 border-2 border-[var(--color-primary-600)] bg-[var(--color-primary-bg)] text-[var(--color-primary-600)] mb-3">
               <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" d={iconPaths[uc.data.icon]}></path>
               </svg>

@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import PageLayout from '../../layouts/PageLayout.astro';
 import Container from '../../components/ui/Container.astro';
+import CTASection from '../../components/shared/CTASection.astro';
 
 const integrations = await getCollection('integrations');
 const sources = integrations.filter((i) => i.data.category === 'source');
@@ -79,4 +80,11 @@ const destinations = integrations.filter((i) => i.data.category === 'destination
       </div>
     </Container>
   </section>
+
+  <CTASection
+    headline="Connect Your Stack"
+    description="Beton integrates with your existing tools to route revenue signals where they matter."
+    secondaryCta={{ label: 'View on GitHub', href: 'https://github.com/getbeton' }}
+    trackId="integrations-cta"
+  />
 </PageLayout>

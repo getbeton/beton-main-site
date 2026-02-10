@@ -1,0 +1,38 @@
+---
+interface Props {
+  title?: string;
+  bars: { label: string; value: number; color?: 'primary' | 'accent' }[];
+}
+
+const { title, bars } = Astro.props;
+const maxValue = Math.max(...bars.map((b) => b.value));
+---
+
+<div class="border-2 border-[var(--color-text)] bg-[var(--color-surface-raised)] p-5" aria-hidden="true">
+  {title && (
+    <div class="text-xs font-[family-name:var(--font-mono)] font-bold text-[var(--color-text-secondary)] uppercase tracking-wider mb-4">
+      {title}
+    </div>
+  )}
+  <svg viewBox={`0 0 ${bars.length * 80} 160`} class="w-full h-auto" xmlns="http://www.w3.org/2000/svg">
+    {bars.map((bar, i) => {
+      const barHeight = (bar.value / maxValue) * 120;
+      const x = i * 80 + 10;
+      const y = 130 - barHeight;
+      const fill = bar.color === 'accent' ? 'var(--color-accent-400)' : 'var(--color-primary-500)';
+      return (
+        <g>
+          <rect x={x} y={y} width="60" height={barHeight} fill={fill} stroke="var(--color-text)" stroke-width="2" />
+          <text x={x + 30} y="150" text-anchor="middle" fill="var(--color-text-secondary)" font-family="var(--font-mono)" font-size="10">
+            {bar.label}
+          </text>
+          <text x={x + 30} y={y - 6} text-anchor="middle" fill="var(--color-text)" font-family="var(--font-mono)" font-size="11" font-weight="bold">
+            {bar.value}
+          </text>
+        </g>
+      );
+    })}
+    <!-- Baseline -->
+    <line x1="0" y1="130" x2={bars.length * 80} y2="130" stroke="var(--color-text)" stroke-width="2" />
+  </svg>
+</div>

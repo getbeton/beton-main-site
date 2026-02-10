@@ -5,6 +5,7 @@ import Container from '../components/ui/Container.astro';
 import Section from '../components/ui/Section.astro';
 import Heading from '../components/ui/Heading.astro';
 import TeamCard from '../components/team/TeamCard.astro';
+import CTASection from '../components/shared/CTASection.astro';
 
 const members = (await getCollection('team')).sort(
   (a, b) => a.data.order - b.data.order
@@ -31,4 +32,11 @@ const members = (await getCollection('team')).sort(
       </div>
     </Container>
   </Section>
+
+  <CTASection
+    headline="Want to Work with Us?"
+    description="We're building the future of revenue intelligence. Join our open-source community."
+    secondaryCta={{ label: 'View on GitHub', href: 'https://github.com/getbeton' }}
+    trackId="team-cta"
+  />
 </PageLayout>

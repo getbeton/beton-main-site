@@ -5,6 +5,7 @@ import Container from '../../components/ui/Container.astro';
 import Section from '../../components/ui/Section.astro';
 import Heading from '../../components/ui/Heading.astro';
 import IndustryCard from '../../components/content/IndustryCard.astro';
+import CTASection from '../../components/shared/CTASection.astro';
 
 const industries = (await getCollection('industries')).sort(
   (a, b) => a.data.order - b.data.order
@@ -25,10 +26,16 @@ const industries = (await getCollection('industries')).sort(
       </div>
 
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {industries.map((industry) => (
-          <IndustryCard industry={industry} />
+        {industries.map((industry, i) => (
+          <IndustryCard industry={industry} index={i} />
         ))}
       </div>
     </Container>
   </Section>
+
+  <CTASection
+    headline="Revenue Intelligence for Your Industry"
+    description="Every industry has unique buying signals. Beton detects the ones that matter."
+    trackId="industries-cta"
+  />
 </PageLayout>

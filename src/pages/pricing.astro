@@ -8,6 +8,7 @@ import PricingTable from '../components/pricing/PricingTable.astro';
 import PricingComparison from '../components/pricing/PricingComparison.astro';
 import AddOnCard from '../components/pricing/AddOnCard.astro';
 import PricingFAQ from '../components/pricing/PricingFAQ.astro';
+import CTASection from '../components/shared/CTASection.astro';
 import { SITE } from '../utils/site';
 
 const page = await getEntry('pages', 'pricing');
@@ -87,4 +88,10 @@ const breadcrumbs = [
       <PricingFAQ />
     </Container>
   </Section>
+
+  <CTASection
+    headline="Start Free, Scale When Ready"
+    description="Free forever for self-hosted. No credit card required."
+    trackId="pricing-cta"
+  />
 </PageLayout>

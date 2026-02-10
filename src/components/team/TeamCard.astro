@@ -20,7 +20,7 @@ const { member } = Astro.props;
 const { name, role, bio, photo, social } = member.data;
 ---
 
-<div class="bg-[var(--color-surface-raised)] border border-[var(--color-border)] rounded-xl p-6 shadow-[var(--shadow-card)]">
+<div class="bg-[var(--color-surface-raised)] border-2 border-[var(--color-border)] p-6 shadow-[var(--shadow-card)]">
   <div class="flex items-center gap-4 mb-4">
     {photo ? (
       <img
@@ -28,11 +28,11 @@ const { name, role, bio, photo, social } = member.data;
         alt={name}
         width="64"
         height="64"
-        class="w-16 h-16 rounded-full object-cover"
+        class="w-16 h-16 object-cover"
         loading="lazy"
       />
     ) : (
-      <div class="w-16 h-16 rounded-full bg-[var(--color-primary-100)] flex items-center justify-center text-2xl font-semibold text-[var(--color-primary-700)]">
+      <div class="w-16 h-16 bg-[var(--color-primary-bg-emphasis)] flex items-center justify-center text-2xl font-semibold text-[var(--color-primary-700)]">
         {name.charAt(0)}
       </div>
     )}
