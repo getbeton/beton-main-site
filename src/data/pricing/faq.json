@@ -2,19 +2,19 @@
   {
     "id": "what-is-tracked-user",
     "question": "What counts as a tracked user?",
-    "answer": "A tracked user is any unique user in your PostHog instance that Beton monitors for behavioral signals. If a user is inactive for 30+ days, they stop counting toward your limit.",
+    "answer": "A tracked user is any unique email in your PostHog instance that Beton monitors for behavioral signals. ",
     "order": 1
   },
   {
     "id": "data-storage",
     "question": "Does Beton store my product data?",
-    "answer": "No. Beton reads events from your PostHog instance and routes signals to your CRM. We don't store your product analytics data. Signal metadata is retained briefly for routing purposes only.",
+    "answer": "No. Beton reads events from your PostHog instance and routes signals to your CRM. We don't store your granular product analytics data (e.g. particular events or groups of events) but we store results of aggregated analytics. Self-hosting is always available and free with your own LLM keys. If you want we can do an airgapped deployment – it comes with a silver hat.",
     "order": 2
   },
   {
     "id": "self-hosted-llm",
     "question": "What LLM key do I need for self-hosted?",
-    "answer": "The self-hosted version requires an API key from a supported LLM provider (OpenAI, Anthropic, or compatible). This is used for signal detection heuristics. You control the model and costs.",
+    "answer": "The self-hosted version requires an API key from a supported LLM provider (OpenAI, Anthropic, Gemini, Openrouter or compatible). This is used for signal detection heuristics. You control the model and costs.",
     "order": 3
   },
   {

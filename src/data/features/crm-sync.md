@@ -1,6 +1,6 @@
 ---
 title: "CRM Sync"
-description: "Automatically create and update records in Attio, HubSpot, Zoho, and Pipedrive when behavioral signals are detected. No manual data entry."
+description: "Automatically create and update deals in Attio, HubSpot, Zoho, and Pipedrive when behavioral signals are detected. No manual data entry."
 icon: "arrow-path"
 category: "routing"
 order: 4

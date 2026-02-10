@@ -9,12 +9,14 @@
     "highlighted": false,
     "cta": {
       "label": "Get Started",
-      "href": "https://github.com/getbeton"
+      "href": "https://github.com/getbeton/inspector"
     },
     "features": [
       "Unlimited users",
       "All signal detection features",
       "All CRM integrations",
+      "Sync data – weekly",
+      "Signal detection –weekly"
       "Webhook & n8n support",
       "Bring your own LLM key",
       "Community support",
@@ -35,6 +37,8 @@
     },
     "features": [
       "Everything in Self-Hosted",
+      "Sync data – daily",
+      "Signal detection – daily"
       "Managed infrastructure",
       "No data storage on Beton side",
       "Instant setup — connect PostHog in minutes",
@@ -52,10 +56,12 @@
     "highlighted": false,
     "cta": {
       "label": "Contact Sales",
-      "href": "mailto:sales@getbeton.ai"
+      "href": "https://cal.com/beton/thanks-for-your-interest-in-beton"
     },
     "features": [
       "Everything in Cloud",
+      "Sync data – every 4 hours",
+      "Signal detection – every 4 hours"
       "Air-gapped deployment",
       "Role-based access controls",
       "White-glove onboarding",

@@ -27,8 +27,8 @@ Beton connects your product analytics (PostHog) to your revenue tools (CRMs, web
 
 ## The Company
 
-Beton is built by PGS-Sheben Inc. We're a small, focused team building tools that bridge the gap between product analytics and revenue operations.
+Beton is built by a team of repeat founders and published ML researchers. We're a small, focused team building tools that bridge the gap between product analytics and revenue operations.
 
 ## Open Source
 
-Beton is licensed under GPL. We believe open-source infrastructure for revenue intelligence makes the ecosystem stronger. You can view, modify, and self-host the entire codebase.
+Beton is licensed under AGPLv3. We believe open-source infrastructure for revenue intelligence makes the ecosystem stronger. You can view, modify, and self-host the entire codebase. See more info in our [Github repo](https://github.com/getbeton/inspector).
