@@ -6,9 +6,11 @@ interface Props {
   title: string;
   description: string;
   url: string;
+  faqData?: { question: string; answer: string }[];
+  breadcrumbs?: { name: string; url: string }[];
 }
 
-const { type, title, description, url } = Astro.props;
+const { type, title, description, url, faqData, breadcrumbs } = Astro.props;
 
 const orgSchema = {
   '@context': 'https://schema.org',
@@ -16,7 +18,22 @@ const orgSchema = {
   name: SITE.name,
   url: SITE.url,
   logo: `${SITE.url}/images/beton-logo.svg`,
+  description: SITE.description,
   sameAs: [SITE.social.github, SITE.social.linkedin, SITE.social.twitter],
+  contactPoint: {
+    '@type': 'ContactPoint',
+    url: `${SITE.url}/pricing`,
+    contactType: 'sales',
+  },
+};
+
+const webSiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: SITE.name,
+  url: SITE.url,
+  description: SITE.description,
+  publisher: { '@type': 'Organization', name: SITE.name },
 };
 
 const webPageSchema = {
@@ -25,6 +42,7 @@ const webPageSchema = {
   name: title,
   description,
   url,
+  isPartOf: { '@type': 'WebSite', url: SITE.url },
   publisher: { '@type': 'Organization', name: SITE.name },
 };
 
@@ -35,9 +53,11 @@ const softwareSchema =
         '@type': 'SoftwareApplication',
         name: SITE.name,
         applicationCategory: 'BusinessApplication',
+        applicationSubCategory: 'Revenue Intelligence',
         operatingSystem: 'Web',
         description: SITE.description,
         url: SITE.url,
+        publisher: { '@type': 'Organization', name: SITE.name },
         offers: [
           {
             '@type': 'Offer',
@@ -54,10 +74,51 @@ const softwareSchema =
             description: 'Per tracked user per month',
           },
         ],
+        featureList: [
+          'Behavioral signal detection',
+          'CRM integration (Attio, HubSpot, Zoho, Pipedrive)',
+          'PostHog analytics integration',
+          'Churn prediction',
+          'Expansion revenue detection',
+          'PLG conversion tracking',
+        ],
+      }
+    : null;
+
+const faqSchema =
+  faqData && faqData.length > 0
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: faqData.map((item) => ({
+          '@type': 'Question',
+          name: item.question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: item.answer,
+          },
+        })),
+      }
+    : null;
+
+const breadcrumbSchema =
+  breadcrumbs && breadcrumbs.length > 0
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: breadcrumbs.map((crumb, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          name: crumb.name,
+          item: crumb.url,
+        })),
       }
     : null;
 ---
 
 <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
+<script type="application/ld+json" set:html={JSON.stringify(webSiteSchema)} />
 <script type="application/ld+json" set:html={JSON.stringify(webPageSchema)} />
 {softwareSchema && <script type="application/ld+json" set:html={JSON.stringify(softwareSchema)} />}
+{faqSchema && <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />}
+{breadcrumbSchema && <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />}

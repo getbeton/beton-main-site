@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import ContentLayout from '../../layouts/ContentLayout.astro';
+import { SITE } from '../../utils/site';
 
 export async function getStaticPaths() {
   const industries = await getCollection('industries');
@@ -13,6 +14,12 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 const { title, subtitle, description, challenges, signals, outcomes, seo } = entry.data;
+
+const breadcrumbs = [
+  { name: 'Home', url: SITE.url },
+  { name: 'Industries', url: `${SITE.url}/industries/` },
+  { name: title, url: `${SITE.url}/industries/${entry.id}/` },
+];
 ---
 
 <ContentLayout
@@ -20,6 +27,7 @@ const { title, subtitle, description, challenges, signals, outcomes, seo } = ent
   subtitle={subtitle}
   description={seo?.metaDescription || description}
   canonicalPath={`/industries/${entry.id}`}
+  breadcrumbs={breadcrumbs}
 >
   <!-- Challenges -->
   {challenges.length > 0 && (

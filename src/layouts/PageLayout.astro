@@ -13,9 +13,11 @@ interface Props {
   canonicalPath?: string;
   noIndex?: boolean;
   schemaType?: string;
+  faqData?: { question: string; answer: string }[];
+  breadcrumbs?: { name: string; url: string }[];
 }
 
-const { title, description, ogImage, canonicalPath, noIndex, schemaType } = Astro.props;
+const { title, description, ogImage, canonicalPath, noIndex, schemaType, faqData, breadcrumbs } = Astro.props;
 ---
 
 <BaseLayout
@@ -25,6 +27,8 @@ const { title, description, ogImage, canonicalPath, noIndex, schemaType } = Astr
   canonicalPath={canonicalPath}
   noIndex={noIndex}
   schemaType={schemaType}
+  faqData={faqData}
+  breadcrumbs={breadcrumbs}
 >
   <SkipLink />
   <Header />

@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import ContentLayout from '../../layouts/ContentLayout.astro';
+import { SITE } from '../../utils/site';
 
 export async function getStaticPaths() {
   const useCases = await getCollection('use-cases');
@@ -13,6 +14,12 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 const { title, subtitle, description, problem, solution, benefits, seo } = entry.data;
+
+const breadcrumbs = [
+  { name: 'Home', url: SITE.url },
+  { name: 'Use Cases', url: `${SITE.url}/use-cases/` },
+  { name: title, url: `${SITE.url}/use-cases/${entry.id}/` },
+];
 ---
 
 <ContentLayout
@@ -20,6 +27,7 @@ const { title, subtitle, description, problem, solution, benefits, seo } = entry
   subtitle={subtitle}
   description={seo?.metaDescription || description}
   canonicalPath={`/use-cases/${entry.id}`}
+  breadcrumbs={breadcrumbs}
 >
   <!-- Structured sections -->
   <div class="mb-6 p-4 rounded-xl bg-[var(--color-surface-raised)] border border-[var(--color-border)]">

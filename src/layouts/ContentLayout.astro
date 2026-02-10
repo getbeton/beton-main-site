@@ -7,12 +7,13 @@ interface Props {
   description?: string;
   ogImage?: string;
   canonicalPath?: string;
+  breadcrumbs?: { name: string; url: string }[];
 }
 
-const { title, subtitle, description, ogImage, canonicalPath } = Astro.props;
+const { title, subtitle, description, ogImage, canonicalPath, breadcrumbs } = Astro.props;
 ---
 
-<PageLayout title={title} description={description} ogImage={ogImage} canonicalPath={canonicalPath}>
+<PageLayout title={title} description={description} ogImage={ogImage} canonicalPath={canonicalPath} breadcrumbs={breadcrumbs}>
   <article class="py-16 lg:py-24">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <!-- Hero -->

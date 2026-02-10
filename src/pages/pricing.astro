@@ -8,15 +8,29 @@ import PricingTable from '../components/pricing/PricingTable.astro';
 import PricingComparison from '../components/pricing/PricingComparison.astro';
 import AddOnCard from '../components/pricing/AddOnCard.astro';
 import PricingFAQ from '../components/pricing/PricingFAQ.astro';
+import { SITE } from '../utils/site';
 
 const page = await getEntry('pages', 'pricing');
 const addons = await getCollection('pricing-addons');
+const faqItems = (await getCollection('pricing-faq')).sort((a, b) => a.data.order - b.data.order);
+
+const faqData = faqItems.map((item) => ({
+  question: item.data.question,
+  answer: item.data.answer,
+}));
+
+const breadcrumbs = [
+  { name: 'Home', url: SITE.url },
+  { name: 'Pricing', url: `${SITE.url}/pricing/` },
+];
 ---
 
 <PageLayout
   title={page?.data.title || 'Pricing'}
   description={page?.data.seo?.metaDescription}
   schemaType={page?.data.schemaType}
+  faqData={faqData}
+  breadcrumbs={breadcrumbs}
 >
   <Section>
     <Container>
