@@ -1,0 +1,107 @@
+---
+const tiers = ['Self-Hosted', 'Cloud', 'Enterprise'];
+
+type FeatureValue = boolean | string;
+
+interface FeatureRow {
+  name: string;
+  values: [FeatureValue, FeatureValue, FeatureValue];
+}
+
+interface FeatureGroup {
+  category: string;
+  features: FeatureRow[];
+}
+
+const comparison: FeatureGroup[] = [
+  {
+    category: 'Core',
+    features: [
+      { name: 'Users', values: ['Unlimited', 'Unlimited', 'Unlimited'] },
+      { name: 'Signal detection', values: [true, true, true] },
+      { name: 'CRM integrations', values: [true, true, true] },
+      { name: 'Webhook & n8n', values: [true, true, true] },
+      { name: 'Custom integrations', values: [false, false, true] },
+    ],
+  },
+  {
+    category: 'Data & Performance',
+    features: [
+      { name: 'Data sync frequency', values: ['Weekly', 'Daily', 'Every 4 hours'] },
+      { name: 'Signal detection frequency', values: ['Weekly', 'Daily', 'Every 4 hours'] },
+    ],
+  },
+  {
+    category: 'Infrastructure',
+    features: [
+      { name: 'Self-hosted deployment', values: [true, false, true] },
+      { name: 'Managed cloud', values: [false, true, true] },
+      { name: 'Air-gapped deployment', values: [false, false, true] },
+      { name: 'Automatic updates', values: [false, true, true] },
+      { name: 'Bring your own LLM key', values: [true, false, true] },
+      { name: 'No data storage on Beton side', values: ['N/A', true, true] },
+      { name: 'Uptime SLA', values: [false, '99.9%', 'Custom'] },
+    ],
+  },
+  {
+    category: 'Security & Access',
+    features: [
+      { name: 'Role-based access controls', values: [false, false, true] },
+      { name: 'GPL licensed', values: [true, true, true] },
+    ],
+  },
+  {
+    category: 'Support',
+    features: [
+      { name: 'Community support', values: [true, true, true] },
+      { name: 'Priority support', values: [false, true, true] },
+      { name: 'Dedicated support', values: [false, false, true] },
+      { name: 'White-glove onboarding', values: [false, false, true] },
+      { name: 'SLA guarantees', values: [false, false, true] },
+    ],
+  },
+];
+---
+
+<div class="overflow-x-auto -mx-4 sm:mx-0">
+  <table class="w-full min-w-[600px] border-collapse">
+    <!-- Header -->
+    <thead>
+      <tr class="border-b-2 border-[var(--color-text)]">
+        <th class="text-left text-sm font-semibold py-4 px-4 w-2/5">Feature</th>
+        {tiers.map((tier) => (
+          <th class="text-center text-sm font-semibold py-4 px-4">{tier}</th>
+        ))}
+      </tr>
+    </thead>
+    <tbody>
+      {comparison.map((group) => (
+        <>
+          <tr class="border-b-2 border-[var(--color-text)] bg-[var(--color-surface-raised)]">
+            <td colspan="4" class="text-xs font-bold uppercase tracking-wider text-[var(--color-text-secondary)] py-3 px-4">
+              {group.category}
+            </td>
+          </tr>
+          {group.features.map((feature) => (
+            <tr class="border-b border-[var(--color-border)]">
+              <td class="text-sm py-3 px-4 text-[var(--color-text-secondary)]">{feature.name}</td>
+              {feature.values.map((value) => (
+                <td class="text-center text-sm py-3 px-4">
+                  {value === true ? (
+                    <svg class="w-5 h-5 text-[var(--color-accent-500)] mx-auto" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path>
+                    </svg>
+                  ) : value === false ? (
+                    <span class="text-[var(--color-text-tertiary)]">—</span>
+                  ) : (
+                    <span class="font-medium">{value}</span>
+                  )}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </>
+      ))}
+    </tbody>
+  </table>
+</div>

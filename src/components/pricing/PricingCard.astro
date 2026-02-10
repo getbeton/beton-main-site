@@ -44,32 +44,20 @@ const { tier } = Astro.props;
     )}
   </div>
 
-  {tier.cta.href.startsWith('mailto:') ? (
-    <button
-      type="button"
-      data-open-contact
-      class:list={[
-        'block w-full text-center px-4 py-2.5 font-bold uppercase tracking-wider border-2 mb-6 cursor-pointer',
-        'border-[var(--color-text)] text-[var(--color-text)] hover:bg-[var(--color-text)] hover:text-[var(--color-surface)]',
-      ]}
-      data-track-cta={`pricing-${tier.slug}`}
-    >
-      {tier.cta.label}
-    </button>
-  ) : (
-    <a
-      href={tier.cta.href}
-      class:list={[
-        'block w-full text-center px-4 py-2.5 font-bold uppercase tracking-wider border-2 mb-6',
-        tier.highlighted
-          ? 'bg-[var(--color-primary-600)] text-white border-[var(--color-primary-600)] hover:bg-white hover:text-[var(--color-primary-600)]'
-          : 'border-[var(--color-text)] text-[var(--color-text)] hover:bg-[var(--color-text)] hover:text-[var(--color-surface)]',
-      ]}
-      data-track-cta={`pricing-${tier.slug}`}
-    >
-      {tier.cta.label}
-    </a>
-  )}
+  <a
+    href={tier.cta.href}
+    target={tier.cta.href.startsWith('http') ? '_blank' : undefined}
+    rel={tier.cta.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+    class:list={[
+      'block w-full text-center px-4 py-2.5 font-bold uppercase tracking-wider border-2 mb-6',
+      tier.highlighted
+        ? 'bg-[var(--color-primary-600)] text-white border-[var(--color-primary-600)] hover:bg-white hover:text-[var(--color-primary-600)]'
+        : 'border-[var(--color-text)] text-[var(--color-text)] hover:bg-[var(--color-text)] hover:text-[var(--color-surface)]',
+    ]}
+    data-track-cta={`pricing-${tier.slug}`}
+  >
+    {tier.cta.label}
+  </a>
 
   <ul class="space-y-3 flex-1">
     {tier.features.map((feature) => (

@@ -16,7 +16,7 @@
       "All signal detection features",
       "All CRM integrations",
       "Sync data – weekly",
-      "Signal detection –weekly"
+      "Signal detection – weekly",
       "Webhook & n8n support",
       "Bring your own LLM key",
       "Community support",
@@ -38,7 +38,7 @@
     "features": [
       "Everything in Self-Hosted",
       "Sync data – daily",
-      "Signal detection – daily"
+      "Signal detection – daily",
       "Managed infrastructure",
       "No data storage on Beton side",
       "Instant setup — connect PostHog in minutes",
@@ -61,7 +61,7 @@
     "features": [
       "Everything in Cloud",
       "Sync data – every 4 hours",
-      "Signal detection – every 4 hours"
+      "Signal detection – every 4 hours",
       "Air-gapped deployment",
       "Role-based access controls",
       "White-glove onboarding",

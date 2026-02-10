@@ -5,6 +5,7 @@ import Container from '../components/ui/Container.astro';
 import Section from '../components/ui/Section.astro';
 import Heading from '../components/ui/Heading.astro';
 import PricingTable from '../components/pricing/PricingTable.astro';
+import PricingComparison from '../components/pricing/PricingComparison.astro';
 import AddOnCard from '../components/pricing/AddOnCard.astro';
 import PricingFAQ from '../components/pricing/PricingFAQ.astro';
 
@@ -29,6 +30,22 @@ const addons = await getCollection('pricing-addons');
       </div>
 
       <PricingTable />
+    </Container>
+  </Section>
+
+  <!-- Feature Comparison -->
+  <Section id="compare" class="border-t border-[var(--color-border)]">
+    <Container>
+      <div class="text-center mb-10">
+        <Heading as="h2">Compare Plans</Heading>
+        <p class="mt-4 text-[var(--color-text-secondary)]">
+          See exactly what's included in each plan.
+        </p>
+      </div>
+
+      <div class="max-w-4xl mx-auto">
+        <PricingComparison />
+      </div>
     </Container>
   </Section>
 
