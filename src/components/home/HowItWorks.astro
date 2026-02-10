@@ -28,9 +28,9 @@ const steps = [
 ];
 ---
 
-<Section id="how-it-works">
+<Section id="how-it-works" class="bg-[var(--color-surface-raised)] border-y-2 border-[var(--color-border)]">
   <Container>
-    <div class="text-center mb-12 lg:mb-16">
+    <div class="text-center mb-10 lg:mb-14">
       <Heading as="h2">How It Works</Heading>
       <p class="mt-4 text-lg text-[var(--color-text-secondary)] max-w-2xl mx-auto">
         Three steps from product data to revenue action.
@@ -40,14 +40,14 @@ const steps = [
     <div class="grid md:grid-cols-3 gap-8 lg:gap-12">
       {steps.map((step) => (
         <div class="text-center">
-          <div class="inline-flex items-center justify-center w-14 h-14 border-2 border-[var(--color-primary-600)] bg-[var(--color-primary-50)] text-[var(--color-primary-600)] mb-4">
-            <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+          <div class="inline-flex items-center justify-center w-16 h-16 border-2 border-[var(--color-primary-600)] bg-[var(--color-primary-50)] text-[var(--color-primary-600)] mb-5">
+            <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" d={step.icon}></path>
             </svg>
           </div>
-          <div class="text-sm font-mono text-[var(--color-primary-500)] mb-2">Step {step.number}</div>
-          <h3 class="text-lg font-[family-name:var(--font-heading)] mb-2">{step.title}</h3>
-          <p class="text-[var(--color-text-secondary)] text-sm leading-relaxed">{step.description}</p>
+          <div class="text-sm font-mono font-semibold text-[var(--color-primary-500)] mb-2">Step {step.number}</div>
+          <h3 class="text-xl font-bold font-[family-name:var(--font-heading)] mb-3">{step.title}</h3>
+          <p class="text-[var(--color-text-secondary)] text-base leading-relaxed">{step.description}</p>
         </div>
       ))}
     </div>

@@ -22,19 +22,19 @@ const { title, subtitle, description, problem, solution, benefits, seo } = entry
   canonicalPath={`/use-cases/${entry.id}`}
 >
   <!-- Structured sections -->
-  <div class="mb-8 p-6 rounded-xl bg-[var(--color-surface-raised)] border border-[var(--color-border)]">
-    <h2 class="text-lg font-[family-name:var(--font-heading)] mb-3">The Problem</h2>
+  <div class="mb-6 p-4 rounded-xl bg-[var(--color-surface-raised)] border border-[var(--color-border)]">
+    <h2 class="text-lg font-[family-name:var(--font-heading)] mb-2">The Problem</h2>
     <p class="text-[var(--color-text-secondary)]">{problem}</p>
   </div>
 
-  <div class="mb-8 p-6 rounded-xl bg-[var(--color-surface-raised)] border border-[var(--color-border)]">
-    <h2 class="text-lg font-[family-name:var(--font-heading)] mb-3">The Solution</h2>
+  <div class="mb-6 p-4 rounded-xl bg-[var(--color-surface-raised)] border border-[var(--color-border)]">
+    <h2 class="text-lg font-[family-name:var(--font-heading)] mb-2">The Solution</h2>
     <p class="text-[var(--color-text-secondary)]">{solution}</p>
   </div>
 
   {benefits.length > 0 && (
-    <div class="mb-8">
-      <h2 class="text-lg font-[family-name:var(--font-heading)] mb-3">Key Benefits</h2>
+    <div class="mb-6">
+      <h2 class="text-lg font-[family-name:var(--font-heading)] mb-2">Key Benefits</h2>
       <ul class="space-y-2">
         {benefits.map((benefit) => (
           <li class="flex items-start gap-2 text-[var(--color-text-secondary)]">

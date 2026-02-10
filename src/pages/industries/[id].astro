@@ -23,7 +23,7 @@ const { title, subtitle, description, challenges, signals, outcomes, seo } = ent
 >
   <!-- Challenges -->
   {challenges.length > 0 && (
-    <div class="mb-8">
+    <div class="mb-6">
       <h2 class="text-lg font-[family-name:var(--font-heading)] mb-3">Challenges</h2>
       <ul class="space-y-2">
         {challenges.map((challenge) => (
@@ -40,8 +40,8 @@ const { title, subtitle, description, challenges, signals, outcomes, seo } = ent
 
   <!-- Signals -->
   {signals.length > 0 && (
-    <div class="mb-8 p-6 rounded-xl bg-[var(--color-surface-raised)] border border-[var(--color-border)]">
-      <h2 class="text-lg font-[family-name:var(--font-heading)] mb-3">Signals Beton Detects</h2>
+    <div class="mb-6 p-4 rounded-xl bg-[var(--color-surface-raised)] border border-[var(--color-border)]">
+      <h2 class="text-lg font-[family-name:var(--font-heading)] mb-2">Signals Beton Detects</h2>
       <ul class="space-y-2">
         {signals.map((signal) => (
           <li class="flex items-start gap-2 text-[var(--color-text-secondary)]">
@@ -57,7 +57,7 @@ const { title, subtitle, description, challenges, signals, outcomes, seo } = ent
 
   <!-- Outcomes -->
   {outcomes.length > 0 && (
-    <div class="mb-8">
+    <div class="mb-6">
       <h2 class="text-lg font-[family-name:var(--font-heading)] mb-3">Expected Outcomes</h2>
       <ul class="space-y-2">
         {outcomes.map((outcome) => (

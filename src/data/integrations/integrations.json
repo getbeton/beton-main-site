@@ -7,7 +7,27 @@
     "url": "https://posthog.com",
     "category": "source",
     "description": "Connect your PostHog instance as the primary data source for behavioral signal detection.",
-    "featured": true
+    "featured": true,
+    "tagline": "Your product analytics, powering revenue intelligence",
+    "howItWorks": [
+      { "step": "Connect your PostHog instance", "description": "Provide your PostHog API credentials. Beton connects directly to your instance — no data export or migration needed." },
+      { "step": "Beton reads your events in real-time", "description": "Product analytics events flow through Beton's signal detection engine, analyzing user behavior patterns automatically." },
+      { "step": "Behavioral signals are detected", "description": "Beton identifies buying intent, expansion opportunities, and churn risk from your PostHog event data." }
+    ],
+    "features": [
+      "Direct API connection — no data export needed",
+      "Real-time event processing",
+      "Supports all PostHog event types and properties",
+      "Historical data analysis for signal calibration",
+      "Zero impact on your PostHog performance",
+      "Works with PostHog Cloud and self-hosted"
+    ],
+    "useCases": [
+      "Detect when free users exhibit buying behavior in your product",
+      "Identify power users ready for expansion conversations",
+      "Spot churn signals before users downgrade or leave",
+      "Route product-qualified leads to your sales team automatically"
+    ]
   },
   {
     "id": "attio",
@@ -17,7 +37,27 @@
     "url": "https://attio.com",
     "category": "destination",
     "description": "Route signals to Attio CRM. Automatically create and update records when buying signals are detected.",
-    "featured": true
+    "featured": true,
+    "tagline": "Turn product signals into Attio records automatically",
+    "howItWorks": [
+      { "step": "Connect your Attio workspace", "description": "Authenticate Beton with your Attio API key. Map signal types to Attio record types and attributes." },
+      { "step": "Configure signal routing rules", "description": "Define which signals create new records, update existing ones, or trigger specific workflows in Attio." },
+      { "step": "Signals flow to Attio in real-time", "description": "When Beton detects a revenue signal, it automatically creates or updates the corresponding record in Attio." }
+    ],
+    "features": [
+      "Automatic record creation and updates",
+      "Custom field mapping for signal context",
+      "Support for companies, contacts, and deals",
+      "Bi-directional sync capabilities",
+      "Configurable routing rules per signal type",
+      "Full signal context attached to records"
+    ],
+    "useCases": [
+      "Auto-create deals when buying signals are detected",
+      "Enrich contact records with product usage context",
+      "Update deal stages based on behavioral signals",
+      "Alert sales reps in Attio when accounts show expansion intent"
+    ]
   },
   {
     "id": "hubspot",
@@ -27,7 +67,27 @@
     "url": "https://hubspot.com",
     "category": "destination",
     "description": "Route signals to HubSpot CRM. Update contacts, create deals, and trigger workflows automatically.",
-    "featured": true
+    "featured": true,
+    "tagline": "Bridge the gap between product usage and your HubSpot pipeline",
+    "howItWorks": [
+      { "step": "Connect your HubSpot account", "description": "Authenticate via OAuth. Beton automatically discovers your HubSpot properties and pipeline stages." },
+      { "step": "Map signals to HubSpot actions", "description": "Configure which signals create contacts, update deals, set lifecycle stages, or trigger HubSpot workflows." },
+      { "step": "Revenue signals appear in HubSpot", "description": "Your sales team sees product usage signals directly in HubSpot — no context switching required." }
+    ],
+    "features": [
+      "OAuth-based authentication",
+      "Contact and company record updates",
+      "Automatic deal creation and stage updates",
+      "Custom property mapping",
+      "HubSpot workflow triggers",
+      "Timeline event logging for full context"
+    ],
+    "useCases": [
+      "Trigger outreach workflows when users hit product milestones",
+      "Create deals automatically when buying intent is detected",
+      "Score leads based on real product engagement data",
+      "Keep your HubSpot pipeline synced with actual product usage"
+    ]
   },
   {
     "id": "zoho",
@@ -37,7 +97,27 @@
     "url": "https://zoho.com/crm",
     "category": "destination",
     "description": "Route signals to Zoho CRM. Sync behavioral signals with your Zoho sales pipeline.",
-    "featured": true
+    "featured": true,
+    "tagline": "Behavioral signals, delivered straight to your Zoho pipeline",
+    "howItWorks": [
+      { "step": "Connect your Zoho CRM account", "description": "Authenticate with Zoho OAuth. Beton maps your modules, fields, and pipeline stages automatically." },
+      { "step": "Configure signal-to-action mapping", "description": "Define how each signal type translates into Zoho records, field updates, or workflow triggers." },
+      { "step": "Signals sync to Zoho in real-time", "description": "Revenue signals from your product appear as records, notes, and updates in your Zoho CRM pipeline." }
+    ],
+    "features": [
+      "Full Zoho CRM module support",
+      "Lead and deal record creation",
+      "Custom field and layout mapping",
+      "Blueprint workflow triggers",
+      "Activity logging with signal context",
+      "Support for Zoho CRM Plus features"
+    ],
+    "useCases": [
+      "Convert product-qualified leads into Zoho deals automatically",
+      "Trigger Zoho Blueprints based on product behavior signals",
+      "Enrich lead records with real usage data",
+      "Prioritize pipeline based on product engagement scores"
+    ]
   },
   {
     "id": "pipedrive",
@@ -47,7 +127,27 @@
     "url": "https://pipedrive.com",
     "category": "destination",
     "description": "Route signals to Pipedrive. Create activities and update deals when revenue signals are detected.",
-    "featured": true
+    "featured": true,
+    "tagline": "Let product signals drive your Pipedrive pipeline",
+    "howItWorks": [
+      { "step": "Connect your Pipedrive account", "description": "Provide your Pipedrive API token. Beton discovers your pipelines, stages, and custom fields." },
+      { "step": "Map signals to Pipedrive actions", "description": "Choose which signals create deals, update stages, add activities, or create notes in Pipedrive." },
+      { "step": "Your pipeline stays in sync", "description": "Deals move through your pipeline automatically as product signals indicate progression or risk." }
+    ],
+    "features": [
+      "Deal creation and stage progression",
+      "Activity and note creation",
+      "Custom field mapping",
+      "Organization and person record updates",
+      "Pipeline-specific routing rules",
+      "Full signal context in deal details"
+    ],
+    "useCases": [
+      "Auto-create deals when free users show buying intent",
+      "Move deals through stages based on product milestones",
+      "Add activities for sales follow-up on expansion signals",
+      "Flag at-risk deals when churn signals are detected"
+    ]
   },
   {
     "id": "webhook",
@@ -57,7 +157,27 @@
     "url": "#",
     "category": "destination",
     "description": "Send signals to any tool via webhooks. Build custom integrations with your existing stack.",
-    "featured": true
+    "featured": true,
+    "tagline": "Send revenue signals anywhere with HTTP webhooks",
+    "howItWorks": [
+      { "step": "Configure your webhook endpoint", "description": "Provide any HTTP endpoint URL. Beton sends structured JSON payloads for each detected signal." },
+      { "step": "Filter and transform signals", "description": "Choose which signal types to forward and customize the payload format to match your system's expectations." },
+      { "step": "Receive signals in real-time", "description": "Your endpoint receives a POST request with full signal context every time a matching signal is detected." }
+    ],
+    "features": [
+      "Standard HTTP POST with JSON payloads",
+      "Configurable headers and authentication",
+      "Signal type filtering",
+      "Payload transformation and mapping",
+      "Retry logic with exponential backoff",
+      "Delivery logging and debugging tools"
+    ],
+    "useCases": [
+      "Send signals to Slack channels for team visibility",
+      "Trigger custom scripts or serverless functions",
+      "Feed signals into data warehouses or analytics tools",
+      "Build custom integrations with internal tools"
+    ]
   },
   {
     "id": "n8n",
@@ -67,6 +187,26 @@
     "url": "https://n8n.io",
     "category": "destination",
     "description": "Connect to n8n for unlimited automation. Route signals through complex multi-step workflows.",
-    "featured": false
+    "featured": false,
+    "tagline": "Unlimited automation possibilities with n8n workflows",
+    "howItWorks": [
+      { "step": "Set up a Beton trigger in n8n", "description": "Add the Beton webhook trigger node to any n8n workflow. Configure which signal types should activate the workflow." },
+      { "step": "Build your automation workflow", "description": "Use n8n's visual workflow builder to process signals — enrich data, apply logic, route to multiple destinations." },
+      { "step": "Signals trigger your workflows", "description": "Every matching signal automatically kicks off your n8n workflow, executing your custom automation logic." }
+    ],
+    "features": [
+      "Native n8n webhook trigger support",
+      "Compatible with all n8n nodes and integrations",
+      "Multi-step workflow automation",
+      "Conditional logic and branching",
+      "Works with n8n Cloud and self-hosted",
+      "Full signal context in workflow data"
+    ],
+    "useCases": [
+      "Build multi-step enrichment and routing workflows",
+      "Combine signals with data from other sources before routing",
+      "Create complex approval workflows for high-value signals",
+      "Route signals to tools that don't have native Beton integration"
+    ]
   }
 ]

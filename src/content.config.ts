@@ -150,6 +150,13 @@ const integrations = defineCollection({
     category: z.string(),
     description: z.string(),
     featured: z.boolean().default(false),
+    tagline: z.string().optional(),
+    howItWorks: z.array(z.object({
+      step: z.string(),
+      description: z.string(),
+    })).optional(),
+    features: z.array(z.string()).optional(),
+    useCases: z.array(z.string()).optional(),
   }),
 });
 

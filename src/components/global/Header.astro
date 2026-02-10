@@ -53,7 +53,15 @@ const currentPath = Astro.url.pathname;
       <div class="flex items-center gap-2">
         <ThemeToggle />
 
-        <!-- Desktop CTA -->
+        <!-- Desktop CTAs -->
+        <button
+          id="contact-sales-btn"
+          type="button"
+          class="hidden lg:inline-flex items-center px-4 py-2 text-sm font-bold border-2 border-[var(--color-text)] text-[var(--color-text)] hover:bg-[var(--color-text)] hover:text-[var(--color-surface)] uppercase tracking-wider"
+          data-track-cta="header-contact-sales"
+        >
+          Contact Sales
+        </button>
         <a
           href="https://inspector.getbeton.ai"
           class="hidden lg:inline-flex items-center px-4 py-2 text-sm font-bold bg-[var(--color-primary-600)] text-white border-2 border-[var(--color-primary-600)] hover:bg-white hover:text-[var(--color-primary-600)] uppercase tracking-wider"

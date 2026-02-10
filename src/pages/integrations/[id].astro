@@ -1,0 +1,199 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '../../layouts/PageLayout.astro';
+import Container from '../../components/ui/Container.astro';
+import Button from '../../components/ui/Button.astro';
+
+export async function getStaticPaths() {
+  const integrations = await getCollection('integrations');
+  return integrations.map((integration) => ({
+    params: { id: integration.data.slug },
+    props: { entry: integration },
+  }));
+}
+
+const { entry } = Astro.props;
+const { name, slug, logo, url, category, description, tagline, howItWorks, features, useCases } = entry.data;
+
+const allIntegrations = (await getCollection('integrations')).filter(
+  (i) => i.data.slug !== slug && i.data.featured
+);
+---
+
+<PageLayout
+  title={`${name} Integration`}
+  description={description}
+  canonicalPath={`/integrations/${slug}`}
+>
+  <!-- Hero -->
+  <section class="relative py-14 lg:py-20 overflow-hidden">
+    <div class="absolute inset-0 -z-10" aria-hidden="true">
+      <div class="absolute -top-24 -right-24 w-96 h-96 bg-[var(--color-primary-100)] opacity-30 blur-3xl"></div>
+      <div class="absolute -bottom-24 -left-24 w-72 h-72 bg-[var(--color-accent-100)] opacity-20 blur-3xl"></div>
+    </div>
+    <Container>
+      <div class="max-w-3xl">
+        <div class="flex items-center gap-4 mb-6">
+          <div class="w-14 h-14 flex items-center justify-center border-2 border-[var(--color-text)] bg-[var(--color-surface-raised)] p-2.5">
+            <img src={logo} alt={name} width="40" height="40" class="w-full h-full object-contain" />
+          </div>
+          <span class="inline-flex items-center px-3 py-1 text-xs font-bold uppercase tracking-wider border-2 border-[var(--color-text)] bg-[var(--color-surface-raised)]">
+            {category === 'source' ? 'Data Source' : 'Destination'}
+          </span>
+        </div>
+
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-[family-name:var(--font-heading)] tracking-wide leading-[1.1] mb-4">
+          Beton + {name}
+        </h1>
+
+        {tagline && (
+          <p class="text-lg sm:text-xl text-[var(--color-text-secondary)] leading-relaxed mb-4">
+            {tagline}
+          </p>
+        )}
+
+        <p class="text-base text-[var(--color-text-secondary)] leading-relaxed mb-8">
+          {description}
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-3">
+          <Button href="https://inspector.getbeton.ai" size="lg" data-track-cta={`integration-${slug}-get-started`}>
+            Get Started Free
+          </Button>
+          {url !== '#' && (
+            <Button href={url} variant="outline" size="lg" target="_blank" rel="noopener noreferrer">
+              Visit {name}
+            </Button>
+          )}
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- How it works -->
+  {howItWorks && howItWorks.length > 0 && (
+    <section class="py-10 lg:py-16 bg-[var(--color-surface-raised)] border-y-2 border-[var(--color-border)]">
+      <Container>
+        <h2 class="text-2xl sm:text-3xl font-[family-name:var(--font-heading)] tracking-wide text-center mb-10">
+          How It Works
+        </h2>
+        <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+          {howItWorks.map((item, i) => (
+            <div class="text-center">
+              <div class="inline-flex items-center justify-center w-12 h-12 border-2 border-[var(--color-primary-600)] bg-[var(--color-primary-50)] text-[var(--color-primary-600)] mb-4">
+                <span class="text-lg font-bold font-[family-name:var(--font-heading)]">{i + 1}</span>
+              </div>
+              <h3 class="text-base font-bold mb-2">{item.step}</h3>
+              <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed">{item.description}</p>
+            </div>
+          ))}
+        </div>
+      </Container>
+    </section>
+  )}
+
+  <!-- Features & Use Cases -->
+  <section class="py-10 lg:py-16">
+    <Container>
+      <div class="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto">
+        <!-- Features -->
+        {features && features.length > 0 && (
+          <div>
+            <h2 class="text-xl sm:text-2xl font-[family-name:var(--font-heading)] tracking-wide mb-6">
+              Features
+            </h2>
+            <ul class="space-y-3">
+              {features.map((feature) => (
+                <li class="flex items-start gap-3">
+                  <svg class="w-5 h-5 text-[var(--color-accent-500)] shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path>
+                  </svg>
+                  <span class="text-[var(--color-text-secondary)]">{feature}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        <!-- Use Cases -->
+        {useCases && useCases.length > 0 && (
+          <div>
+            <h2 class="text-xl sm:text-2xl font-[family-name:var(--font-heading)] tracking-wide mb-6">
+              Use Cases
+            </h2>
+            <ul class="space-y-3">
+              {useCases.map((useCase) => (
+                <li class="flex items-start gap-3">
+                  <svg class="w-5 h-5 text-[var(--color-primary-500)] shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"></path>
+                  </svg>
+                  <span class="text-[var(--color-text-secondary)]">{useCase}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+    </Container>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-10 lg:py-16 bg-[var(--color-primary-600)] border-y-4 border-[var(--color-text)]">
+    <Container>
+      <div class="text-center max-w-2xl mx-auto">
+        <h2 class="text-2xl sm:text-3xl font-[family-name:var(--font-heading)] tracking-wide text-white mb-4">
+          Ready to connect {name}?
+        </h2>
+        <p class="text-lg text-white/80 mb-8">
+          Start detecting revenue signals and routing them to {name} in minutes.
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+          <a
+            href="https://inspector.getbeton.ai"
+            class="inline-flex items-center px-6 py-3 text-base font-bold uppercase tracking-wider bg-white text-[var(--color-primary-700)] border-2 border-white hover:bg-[var(--color-primary-700)] hover:text-white"
+            data-track-cta={`integration-${slug}-cta`}
+          >
+            Get Started Free
+          </a>
+          <a
+            href="https://github.com/getbeton"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center px-6 py-3 text-base font-bold uppercase tracking-wider text-white border-2 border-white hover:bg-white hover:text-[var(--color-primary-700)]"
+          >
+            View on GitHub
+          </a>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- Other integrations -->
+  {allIntegrations.length > 0 && (
+    <section class="py-10 lg:py-16">
+      <Container>
+        <h2 class="text-xl sm:text-2xl font-[family-name:var(--font-heading)] tracking-wide text-center mb-8">
+          Other Integrations
+        </h2>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 max-w-3xl mx-auto">
+          {allIntegrations.map((integration) => (
+            <a
+              href={`/integrations/${integration.data.slug}`}
+              class="flex flex-col items-center gap-2 p-4 border-2 border-[var(--color-text)] shadow-[var(--shadow-card)] hover:shadow-[6px_6px_0_var(--color-text)] hover:-translate-x-0.5 hover:-translate-y-0.5"
+            >
+              <img
+                src={integration.data.logo}
+                alt={integration.data.name}
+                width="32"
+                height="32"
+                loading="lazy"
+                class="w-8 h-8 object-contain"
+              />
+              <span class="text-xs font-medium text-[var(--color-text)]">{integration.data.name}</span>
+            </a>
+          ))}
+        </div>
+      </Container>
+    </section>
+  )}
+</PageLayout>

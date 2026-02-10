@@ -1,0 +1,82 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '../../layouts/PageLayout.astro';
+import Container from '../../components/ui/Container.astro';
+
+const integrations = await getCollection('integrations');
+const sources = integrations.filter((i) => i.data.category === 'source');
+const destinations = integrations.filter((i) => i.data.category === 'destination');
+---
+
+<PageLayout
+  title="Integrations"
+  description="Connect your data source and route revenue signals to your favorite CRM and tools."
+  canonicalPath="/integrations"
+>
+  <section class="py-14 lg:py-20">
+    <Container>
+      <div class="max-w-3xl mx-auto text-center mb-12">
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-[family-name:var(--font-heading)] tracking-wide mb-4">
+          Integrations
+        </h1>
+        <p class="text-lg text-[var(--color-text-secondary)] leading-relaxed">
+          Connect your data source and route revenue signals to your favorite CRM and tools.
+        </p>
+      </div>
+
+      <!-- Sources -->
+      <div class="mb-12">
+        <h2 class="text-lg font-[family-name:var(--font-heading)] tracking-wide mb-6 text-center">
+          Data Sources
+        </h2>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
+          {sources.map((integration) => (
+            <a
+              href={`/integrations/${integration.data.slug}`}
+              class="flex items-start gap-4 p-5 border-2 border-[var(--color-text)] bg-[var(--color-surface-raised)] shadow-[var(--shadow-card)] hover:shadow-[6px_6px_0_var(--color-text)] hover:-translate-x-0.5 hover:-translate-y-0.5"
+            >
+              <img
+                src={integration.data.logo}
+                alt={integration.data.name}
+                width="40"
+                height="40"
+                class="w-10 h-10 object-contain shrink-0"
+              />
+              <div>
+                <h3 class="font-semibold mb-1">{integration.data.name}</h3>
+                <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed">{integration.data.description}</p>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- Destinations -->
+      <div>
+        <h2 class="text-lg font-[family-name:var(--font-heading)] tracking-wide mb-6 text-center">
+          Destinations
+        </h2>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
+          {destinations.map((integration) => (
+            <a
+              href={`/integrations/${integration.data.slug}`}
+              class="flex items-start gap-4 p-5 border-2 border-[var(--color-text)] bg-[var(--color-surface-raised)] shadow-[var(--shadow-card)] hover:shadow-[6px_6px_0_var(--color-text)] hover:-translate-x-0.5 hover:-translate-y-0.5"
+            >
+              <img
+                src={integration.data.logo}
+                alt={integration.data.name}
+                width="40"
+                height="40"
+                class="w-10 h-10 object-contain shrink-0"
+              />
+              <div>
+                <h3 class="font-semibold mb-1">{integration.data.name}</h3>
+                <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed">{integration.data.description}</p>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </Container>
+  </section>
+</PageLayout>

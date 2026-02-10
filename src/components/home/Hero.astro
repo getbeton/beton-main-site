@@ -13,7 +13,12 @@ interface Props {
 const { headline, subheadline, primaryCta, secondaryCta } = Astro.props;
 ---
 
-<section class="py-20 lg:py-32" data-track-section="hero">
+<section class="relative py-14 lg:py-24 overflow-hidden" data-track-section="hero">
+  <!-- Background decoration -->
+  <div class="absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
+    <div class="absolute -top-24 -right-24 w-96 h-96 bg-[var(--color-primary-100)] opacity-40 blur-3xl"></div>
+    <div class="absolute -bottom-24 -left-24 w-72 h-72 bg-[var(--color-accent-100)] opacity-30 blur-3xl"></div>
+  </div>
   <Container>
     <div class="max-w-3xl mx-auto text-center">
       <Badge variant="primary" class="mb-6">Open Source &middot; GPL Licensed</Badge>

@@ -4,6 +4,7 @@ import SkipLink from '../components/global/SkipLink.astro';
 import Header from '../components/global/Header.astro';
 import MobileMenu from '../components/global/MobileMenu.astro';
 import Footer from '../components/global/Footer.astro';
+import ContactFormModal from '../components/global/ContactFormModal.astro';
 
 interface Props {
   title?: string;
@@ -32,4 +33,5 @@ const { title, description, ogImage, canonicalPath, noIndex, schemaType } = Astr
     <slot />
   </main>
   <Footer />
+  <ContactFormModal />
 </BaseLayout>

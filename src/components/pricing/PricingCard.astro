@@ -38,24 +38,38 @@ const { tier } = Astro.props;
   </div>
 
   <div class="mb-6">
-    <span class="text-4xl font-[family-name:var(--font-heading)] tracking-tight">{tier.price}</span>
+    <div class="text-4xl font-[family-name:var(--font-heading)] tracking-tight">{tier.price}</div>
     {tier.priceNote && (
-      <span class="text-sm text-[var(--color-text-secondary)] ml-1">{tier.priceNote}</span>
+      <div class="text-sm text-[var(--color-text-secondary)] mt-1">{tier.priceNote}</div>
     )}
   </div>
 
-  <a
-    href={tier.cta.href}
-    class:list={[
-      'block w-full text-center px-4 py-2.5 font-bold uppercase tracking-wider border-2 mb-6',
-      tier.highlighted
-        ? 'bg-[var(--color-primary-600)] text-white border-[var(--color-primary-600)] hover:bg-white hover:text-[var(--color-primary-600)]'
-        : 'border-[var(--color-text)] text-[var(--color-text)] hover:bg-[var(--color-text)] hover:text-[var(--color-surface)]',
-    ]}
-    data-track-cta={`pricing-${tier.slug}`}
-  >
-    {tier.cta.label}
-  </a>
+  {tier.cta.href.startsWith('mailto:') ? (
+    <button
+      type="button"
+      data-open-contact
+      class:list={[
+        'block w-full text-center px-4 py-2.5 font-bold uppercase tracking-wider border-2 mb-6 cursor-pointer',
+        'border-[var(--color-text)] text-[var(--color-text)] hover:bg-[var(--color-text)] hover:text-[var(--color-surface)]',
+      ]}
+      data-track-cta={`pricing-${tier.slug}`}
+    >
+      {tier.cta.label}
+    </button>
+  ) : (
+    <a
+      href={tier.cta.href}
+      class:list={[
+        'block w-full text-center px-4 py-2.5 font-bold uppercase tracking-wider border-2 mb-6',
+        tier.highlighted
+          ? 'bg-[var(--color-primary-600)] text-white border-[var(--color-primary-600)] hover:bg-white hover:text-[var(--color-primary-600)]'
+          : 'border-[var(--color-text)] text-[var(--color-text)] hover:bg-[var(--color-text)] hover:text-[var(--color-surface)]',
+      ]}
+      data-track-cta={`pricing-${tier.slug}`}
+    >
+      {tier.cta.label}
+    </a>
+  )}
 
   <ul class="space-y-3 flex-1">
     {tier.features.map((feature) => (

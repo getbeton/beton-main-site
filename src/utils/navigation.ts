@@ -16,7 +16,6 @@ export const mainNav: NavLink[] = [
 
 export const externalNav: NavLink[] = [
   { label: 'Blog', href: SITE.external.blog, external: true },
-  { label: 'Docs', href: SITE.external.docs, external: true },
   { label: 'GitHub', href: SITE.social.github, external: true },
 ];
 
@@ -25,7 +24,7 @@ export const footerNav = {
     { label: 'Use Cases', href: '/use-cases' },
     { label: 'Industries', href: '/industries' },
     { label: 'Pricing', href: '/pricing' },
-    { label: 'Integrations', href: '/#integrations' },
+    { label: 'Integrations', href: '/integrations' },
   ] as NavLink[],
   company: [
     { label: 'About', href: '/about' },
@@ -33,7 +32,6 @@ export const footerNav = {
     { label: 'Blog', href: SITE.external.blog, external: true },
   ] as NavLink[],
   resources: [
-    { label: 'Docs', href: SITE.external.docs, external: true },
     { label: 'GitHub', href: SITE.social.github, external: true },
     { label: 'App', href: SITE.external.app, external: true },
   ] as NavLink[],

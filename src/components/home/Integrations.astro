@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import Container from '../ui/Container.astro';
 import Section from '../ui/Section.astro';
 import Heading from '../ui/Heading.astro';
+import Button from '../ui/Button.astro';
 
 const integrations = (await getCollection('integrations'))
   .filter((i) => i.data.featured)
@@ -11,7 +12,7 @@ const integrations = (await getCollection('integrations'))
 
 <Section id="integrations">
   <Container>
-    <div class="text-center mb-12 lg:mb-16">
+    <div class="text-center mb-10 lg:mb-14">
       <Heading as="h2">Integrations</Heading>
       <p class="mt-4 text-lg text-[var(--color-text-secondary)] max-w-2xl mx-auto">
         Connect your data source and route signals to your favorite tools.
@@ -37,6 +38,10 @@ const integrations = (await getCollection('integrations'))
           <span class="text-sm font-medium text-[var(--color-text)]">{integration.data.name}</span>
         </a>
       ))}
+    </div>
+
+    <div class="text-center mt-8">
+      <Button href="/integrations" variant="outline">View all integrations</Button>
     </div>
   </Container>
 </Section>

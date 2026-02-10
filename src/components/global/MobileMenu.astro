@@ -63,7 +63,15 @@ const currentPath = Astro.url.pathname;
       ))}
     </nav>
 
-    <div class="mt-8">
+    <div class="mt-8 space-y-3">
+      <button
+        id="mobile-contact-sales-btn"
+        type="button"
+        class="block w-full text-center px-4 py-2.5 border-2 border-[var(--color-text)] text-[var(--color-text)] font-bold hover:bg-[var(--color-text)] hover:text-[var(--color-surface)] uppercase tracking-wider"
+        data-track-cta="mobile-contact-sales"
+      >
+        Contact Sales
+      </button>
       <a
         href="https://inspector.getbeton.ai"
         class="block w-full text-center px-4 py-2.5 bg-[var(--color-primary-600)] text-white border-2 border-[var(--color-primary-600)] font-bold hover:bg-white hover:text-[var(--color-primary-600)] uppercase tracking-wider"

@@ -8,6 +8,15 @@ import Card from '../ui/Card.astro';
 const features = (await getCollection('features'))
   .sort((a, b) => a.data.order - b.data.order);
 
+const accentColors = [
+  'border-t-[var(--color-primary-500)]',
+  'border-t-[var(--color-accent-500)]',
+  'border-t-[var(--color-primary-400)]',
+  'border-t-[var(--color-accent-400)]',
+  'border-t-[var(--color-primary-600)]',
+  'border-t-[var(--color-accent-600)]',
+];
+
 const iconPaths: Record<string, string> = {
   sparkles:
     'M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456z',
@@ -17,12 +26,14 @@ const iconPaths: Record<string, string> = {
   'arrow-path':
     'M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.678 48.678 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3l-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 003.7 3.7 48.656 48.656 0 007.324 0 4.006 4.006 0 003.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3l-3 3',
   bolt: 'M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z',
+  'bell-alert':
+    'M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0',
 };
 ---
 
 <Section id="features">
   <Container>
-    <div class="text-center mb-12 lg:mb-16">
+    <div class="text-center mb-10 lg:mb-14">
       <Heading as="h2">Built for Revenue Teams</Heading>
       <p class="mt-4 text-lg text-[var(--color-text-secondary)] max-w-2xl mx-auto">
         Everything you need to turn product usage data into revenue signals.
@@ -30,8 +41,8 @@ const iconPaths: Record<string, string> = {
     </div>
 
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {features.map((feature) => (
-        <Card>
+      {features.map((feature, i) => (
+        <Card class={`border-t-4 ${accentColors[i % accentColors.length]}`}>
           <div class="inline-flex items-center justify-center w-10 h-10 border-2 border-[var(--color-primary-600)] bg-[var(--color-primary-50)] text-[var(--color-primary-600)] mb-4">
             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
               <path

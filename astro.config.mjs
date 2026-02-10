@@ -16,7 +16,6 @@ export default defineConfig({
     }),
   ],
   redirects: {
-    '/docs': 'https://docs.getbeton.ai',
     '/blog': 'https://blog.getbeton.ai',
     '/app': 'https://inspector.getbeton.ai',
   },
