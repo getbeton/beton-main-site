@@ -1,5 +1,5 @@
 ---
-title: "Churn Prevention"
+title: "Prevent churn"
 subtitle: "Detect disengagement signals before it's too late"
 description: "Identify at-risk customers by detecting declining engagement patterns and route alerts to your success team for timely intervention."
 icon: "shield-check"

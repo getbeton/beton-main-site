@@ -1,6 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
-  <rect width="32" height="32" rx="6" fill="#3b82f6"/>
-  <path d="M8 10h6c2.2 0 4 1.8 4 4s-1.8 4-4 4H8V10zm3 2v4h3c1.1 0 2-.9 2-2s-.9-2-2-2h-3z" fill="white"/>
-  <circle cx="22" cy="14" r="3" fill="#34d399"/>
-  <path d="M19 20l3 3 3-3" stroke="#34d399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Beton logo">
+  <!-- Bottom slab -->
+  <polygon fill="#fff" points="10,66 50,80 90,66 50,52"/>
+  <!-- Top slab -->
+  <polygon fill="#fff" points="20,56 50,67 80,56 50,45"/>
+  <!-- Trowel handle -->
+  <circle cx="84" cy="52" r="9" fill="#fff"/>
+  <!-- Trowel shank -->
+  <rect x="66" y="37" width="6" height="12" fill="#fff"/>
+  <!-- Trowel blade (drawn last so it's always visible) -->
+  <polygon fill="#fff" points="38,36 63,27 73,36 48,45"/>
 </svg>

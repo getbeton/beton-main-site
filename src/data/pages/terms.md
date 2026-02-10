@@ -5,7 +5,7 @@ seo:
   metaDescription: "Terms and Conditions for using Beton revenue intelligence platform and related services."
 ---
 
-**Last updated: February 2025**
+**Last updated: February 2026**
 
 ## 1. Agreement to Terms
 

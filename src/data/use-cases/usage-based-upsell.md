@@ -1,5 +1,5 @@
 ---
-title: "Usage-Based Upsell"
+title: "Upsell based on usage"
 subtitle: "Trigger sales outreach on usage milestones"
 description: "Automatically detect when customers hit usage milestones that indicate readiness for a higher tier, and route timely upsell opportunities to your sales team."
 icon: "rocket"

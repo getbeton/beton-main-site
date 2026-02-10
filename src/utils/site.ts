@@ -4,7 +4,7 @@ export const SITE = {
   title: 'Beton - Open-Source Revenue Intelligence',
   description:
     'Predict which customers will convert to enterprise deals. Detect behavioral signals in product usage and route them to your CRM.',
-  entity: 'PGS-Sheben Inc.',
+  entity: 'PGS Scheben, Inc.',
   license: 'GPL',
   social: {
     github: 'https://github.com/getbeton',

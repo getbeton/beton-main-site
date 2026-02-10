@@ -1,5 +1,5 @@
 ---
-title: "Expansion Revenue"
+title: "Expand Accounts"
 subtitle: "Identify upsell opportunities in existing accounts"
 description: "Spot accounts ready for expansion by detecting usage patterns that signal growing needs, then route opportunities to your account managers."
 icon: "chart-bar"

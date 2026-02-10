@@ -1,5 +1,5 @@
 ---
-title: "PLG Conversion"
+title: "Convert self-service users"
 subtitle: "Turn free users into paying customers with behavioral signals"
 description: "Detect when free or self-serve users exhibit buying behavior and route signals to your sales team at exactly the right moment."
 icon: "arrow-trending-up"

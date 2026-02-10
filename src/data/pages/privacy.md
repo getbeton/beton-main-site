@@ -5,7 +5,7 @@ seo:
   metaDescription: "Privacy Policy for Beton revenue intelligence platform. Learn how we handle your data, cookies, and privacy rights."
 ---
 
-**Last updated: February 2025**
+**Last updated: February 2026**
 
 ## 1. Introduction
 

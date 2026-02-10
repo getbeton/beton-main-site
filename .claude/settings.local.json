@@ -17,7 +17,12 @@
       "Bash(/Users/nadyyym/beton-marketing-site/public/images/logos/zoho.svg << 'EOF'\n<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 40 40\" fill=\"none\">\n  <rect width=\"40\" height=\"40\" rx=\"8\" fill=\"#E42527\"/>\n  <text x=\"20\" y=\"25\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"14\" font-weight=\"bold\" fill=\"white\">Zo</text>\n</svg>\nEOF)",
       "Bash(/Users/nadyyym/beton-marketing-site/public/images/logos/pipedrive.svg << 'EOF'\n<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 40 40\" fill=\"none\">\n  <rect width=\"40\" height=\"40\" rx=\"8\" fill=\"#017737\"/>\n  <text x=\"20\" y=\"25\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"14\" font-weight=\"bold\" fill=\"white\">PD</text>\n</svg>\nEOF)",
       "Bash(/Users/nadyyym/beton-marketing-site/public/images/logos/webhook.svg << 'EOF'\n<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 40 40\" fill=\"none\">\n  <rect width=\"40\" height=\"40\" rx=\"8\" fill=\"#6B7280\"/>\n  <text x=\"20\" y=\"25\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"14\" font-weight=\"bold\" fill=\"white\">WH</text>\n</svg>\nEOF)",
-      "Bash(/Users/nadyyym/beton-marketing-site/public/images/logos/n8n.svg << 'EOF'\n<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 40 40\" fill=\"none\">\n  <rect width=\"40\" height=\"40\" rx=\"8\" fill=\"#EA4B71\"/>\n  <text x=\"20\" y=\"25\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"14\" font-weight=\"bold\" fill=\"white\">n8n</text>\n</svg>\nEOF)"
+      "Bash(/Users/nadyyym/beton-marketing-site/public/images/logos/n8n.svg << 'EOF'\n<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 40 40\" fill=\"none\">\n  <rect width=\"40\" height=\"40\" rx=\"8\" fill=\"#EA4B71\"/>\n  <text x=\"20\" y=\"25\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"14\" font-weight=\"bold\" fill=\"white\">n8n</text>\n</svg>\nEOF)",
+      "Bash(npx vercel --version)",
+      "Bash(vercel deploy:*)",
+      "Bash(npx vercel:*)",
+      "WebFetch(domain:brandfetch.com)",
+      "Bash(gh auth status:*)"
     ]
   },
   "enableAllProjectMcpServers": true,

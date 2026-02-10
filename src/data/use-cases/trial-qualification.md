@@ -1,5 +1,5 @@
 ---
-title: "Trial Qualification"
+title: "Qualify successful trials"
 subtitle: "Score trial users by product engagement depth"
 description: "Automatically qualify trial users based on their actual product engagement, so sales focuses on the trials most likely to convert."
 icon: "funnel"
