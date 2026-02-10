@@ -21,7 +21,7 @@ const testimonials = (await getCollection('testimonials'))
         {testimonials.map((testimonial) => (
           <Card>
             <blockquote>
-              <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed italic">
+              <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed">
                 &ldquo;{testimonial.data.quote}&rdquo;
               </p>
               <footer class="mt-4 flex items-center gap-3">
@@ -31,11 +31,11 @@ const testimonials = (await getCollection('testimonials'))
                     alt={testimonial.data.name}
                     width="40"
                     height="40"
-                    class="w-10 h-10 rounded-full object-cover"
+                    class="w-10 h-10 object-cover"
                     loading="lazy"
                   />
                 ) : (
-                  <div class="w-10 h-10 rounded-full bg-[var(--color-primary-100)] flex items-center justify-center text-sm font-semibold text-[var(--color-primary-700)]">
+                  <div class="w-10 h-10 bg-[var(--color-primary-100)] flex items-center justify-center text-sm font-semibold text-[var(--color-primary-700)]">
                     {testimonial.data.name.charAt(0)}
                   </div>
                 )}

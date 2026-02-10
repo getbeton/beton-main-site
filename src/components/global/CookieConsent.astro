@@ -9,7 +9,7 @@
   role="dialog"
   aria-label="Cookie consent"
 >
-  <div class="mx-auto max-w-3xl bg-[var(--color-surface-raised)] border border-[var(--color-border)] rounded-xl shadow-lg p-4 sm:p-6">
+  <div class="mx-auto max-w-3xl bg-[var(--color-surface-raised)] border-2 border-[var(--color-text)] shadow-[var(--shadow-card)] p-4 sm:p-6">
     <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
       <div class="flex-1">
         <p class="text-sm text-[var(--color-text-secondary)]">
@@ -21,14 +21,14 @@
         <button
           id="cookie-reject"
           type="button"
-          class="px-4 py-2 text-sm font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-text)] border border-[var(--color-border)] rounded-lg hover:bg-[var(--color-neutral-100)] transition-colors"
+          class="px-4 py-2 text-sm font-bold uppercase tracking-wider text-[var(--color-text-secondary)] hover:text-[var(--color-text)] border-2 border-[var(--color-text)] hover:bg-[var(--color-neutral-100)]"
         >
           Reject
         </button>
         <button
           id="cookie-accept"
           type="button"
-          class="px-4 py-2 text-sm font-medium bg-[var(--color-primary-600)] text-white rounded-lg hover:bg-[var(--color-primary-700)] transition-colors"
+          class="px-4 py-2 text-sm font-bold uppercase tracking-wider bg-[var(--color-primary-600)] text-white border-2 border-[var(--color-primary-600)] hover:bg-white hover:text-[var(--color-primary-600)]"
         >
           Accept
         </button>

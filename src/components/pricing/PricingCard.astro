@@ -17,16 +17,16 @@ const { tier } = Astro.props;
 
 <div
   class:list={[
-    'relative flex flex-col rounded-xl border p-6 lg:p-8',
+    'relative flex flex-col border-2 p-6 lg:p-8',
     tier.highlighted
-      ? 'border-[var(--color-primary-500)] shadow-[var(--shadow-lg)] ring-1 ring-[var(--color-primary-500)]'
-      : 'border-[var(--color-border)] bg-[var(--color-surface-raised)]',
+      ? 'border-[var(--color-primary-500)] shadow-[var(--shadow-card)] bg-[var(--color-surface-raised)]'
+      : 'border-[var(--color-text)] bg-[var(--color-surface-raised)]',
   ]}
   data-track-pricing={tier.slug}
 >
   {tier.highlighted && (
     <div class="absolute -top-3 left-1/2 -translate-x-1/2">
-      <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-[var(--color-primary-600)] text-white">
+      <span class="inline-flex items-center px-3 py-1 text-xs font-bold uppercase tracking-wider bg-[var(--color-primary-600)] text-white border-2 border-[var(--color-primary-600)]">
         Most Popular
       </span>
     </div>
@@ -47,10 +47,10 @@ const { tier } = Astro.props;
   <a
     href={tier.cta.href}
     class:list={[
-      'block w-full text-center px-4 py-2.5 rounded-lg font-medium transition-colors mb-6',
+      'block w-full text-center px-4 py-2.5 font-bold uppercase tracking-wider border-2 mb-6',
       tier.highlighted
-        ? 'bg-[var(--color-primary-600)] text-white hover:bg-[var(--color-primary-700)]'
-        : 'border border-[var(--color-border-strong)] text-[var(--color-text)] hover:bg-[var(--color-neutral-100)]',
+        ? 'bg-[var(--color-primary-600)] text-white border-[var(--color-primary-600)] hover:bg-white hover:text-[var(--color-primary-600)]'
+        : 'border-[var(--color-text)] text-[var(--color-text)] hover:bg-[var(--color-text)] hover:text-[var(--color-surface)]',
     ]}
     data-track-cta={`pricing-${tier.slug}`}
   >

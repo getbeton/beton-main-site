@@ -17,7 +17,7 @@ const { headline, subheadline, primaryCta, secondaryCta } = Astro.props;
   <Container>
     <div class="max-w-3xl mx-auto text-center">
       <Badge variant="primary" class="mb-6">Open Source &middot; GPL Licensed</Badge>
-      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-[family-name:var(--font-heading)] tracking-tight leading-[1.1]">
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-[family-name:var(--font-heading)] tracking-wide leading-[1.1] border-b-4 border-[var(--color-primary-600)] pb-4 inline-block">
         {headline}
       </h1>
       {subheadline && (

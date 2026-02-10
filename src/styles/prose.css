@@ -43,7 +43,8 @@
   margin-top: 0;
   margin-bottom: 1.5rem;
   color: var(--prose-headings);
-  letter-spacing: -0.02em;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 .prose h2 {
@@ -52,7 +53,8 @@
   margin-top: 3rem;
   margin-bottom: 1rem;
   color: var(--prose-headings);
-  letter-spacing: -0.02em;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 .prose h3 {
@@ -127,8 +129,11 @@
 .prose blockquote {
   font-style: italic;
   color: var(--prose-quotes);
-  border-left: 3px solid var(--prose-quote-borders);
+  border-left: 5px solid var(--prose-quote-borders);
   padding-left: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  background-color: var(--color-surface-raised);
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
 }
@@ -145,7 +150,7 @@
   font-size: 0.875em;
   font-weight: 500;
   padding: 0.2em 0.4em;
-  border-radius: 0.25rem;
+  border-radius: 0;
 }
 
 .prose pre {
@@ -156,7 +161,7 @@
   line-height: 1.7;
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
-  border-radius: 0.5rem;
+  border-radius: 0;
   padding: 1rem 1.25rem;
 }
 
@@ -207,7 +212,7 @@
 .prose img {
   margin-top: 2rem;
   margin-bottom: 2rem;
-  border-radius: 0.5rem;
+  border-radius: 0;
 }
 
 .prose figure {

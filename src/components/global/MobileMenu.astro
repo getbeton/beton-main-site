@@ -12,16 +12,16 @@ const currentPath = Astro.url.pathname;
   aria-label="Navigation menu"
 >
   <!-- Backdrop -->
-  <div id="mobile-menu-backdrop" class="fixed inset-0 bg-black/50"></div>
+  <div id="mobile-menu-backdrop" class="fixed inset-0 bg-black/70"></div>
 
   <!-- Panel -->
-  <div class="fixed inset-y-0 right-0 w-full max-w-sm bg-[var(--color-surface-raised)] shadow-lg p-6 overflow-y-auto">
+  <div class="fixed inset-y-0 right-0 w-full max-w-sm bg-[var(--color-surface-raised)] border-l-2 border-[var(--color-text)] p-6 overflow-y-auto">
     <div class="flex items-center justify-between mb-8">
       <a href="/" class="text-lg font-bold font-[family-name:var(--font-heading)]">Beton</a>
       <button
         id="mobile-menu-close"
         type="button"
-        class="inline-flex items-center justify-center w-9 h-9 rounded-md text-[var(--color-text-secondary)] hover:text-[var(--color-text)]"
+        class="inline-flex items-center justify-center w-9 h-9 text-[var(--color-text-secondary)] hover:text-[var(--color-text)]"
         aria-label="Close menu"
       >
         <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -35,7 +35,7 @@ const currentPath = Astro.url.pathname;
         <a
           href={link.href}
           class:list={[
-            'block px-3 py-2 rounded-md text-base font-medium transition-colors',
+            'block px-3 py-2 text-base font-medium',
             currentPath === link.href || currentPath.startsWith(link.href + '/')
               ? 'bg-[var(--color-primary-50)] text-[var(--color-primary-700)]'
               : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text)] hover:bg-[var(--color-neutral-100)]',
@@ -53,7 +53,7 @@ const currentPath = Astro.url.pathname;
           href={link.href}
           target="_blank"
           rel="noopener noreferrer"
-          class="flex items-center gap-2 px-3 py-2 rounded-md text-base font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-text)] hover:bg-[var(--color-neutral-100)] transition-colors"
+          class="flex items-center gap-2 px-3 py-2 text-base font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-text)] hover:bg-[var(--color-neutral-100)]"
         >
           {link.label}
           <svg class="w-4 h-4 opacity-50" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -66,7 +66,7 @@ const currentPath = Astro.url.pathname;
     <div class="mt-8">
       <a
         href="https://inspector.getbeton.ai"
-        class="block w-full text-center px-4 py-2.5 bg-[var(--color-primary-600)] text-white rounded-lg font-medium hover:bg-[var(--color-primary-700)] transition-colors"
+        class="block w-full text-center px-4 py-2.5 bg-[var(--color-primary-600)] text-white border-2 border-[var(--color-primary-600)] font-bold hover:bg-white hover:text-[var(--color-primary-600)] uppercase tracking-wider"
         data-track-cta="mobile-get-started"
       >
         Get Started

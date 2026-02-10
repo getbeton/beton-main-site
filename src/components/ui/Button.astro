@@ -20,15 +20,15 @@ const {
 const Tag = href ? 'a' : 'button';
 
 const baseClasses =
-  'inline-flex items-center justify-center font-medium rounded-lg transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-primary-500)]';
+  'inline-flex items-center justify-center font-bold border-2 uppercase tracking-wider focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-primary-500)]';
 
 const variantClasses = {
-  primary: 'bg-[var(--color-primary-600)] text-white hover:bg-[var(--color-primary-700)]',
+  primary: 'bg-[var(--color-primary-600)] text-white border-[var(--color-primary-600)] hover:bg-white hover:text-[var(--color-primary-600)]',
   secondary:
-    'bg-[var(--color-neutral-100)] text-[var(--color-text)] hover:bg-[var(--color-neutral-200)]',
-  ghost: 'text-[var(--color-text-secondary)] hover:text-[var(--color-text)] hover:bg-[var(--color-neutral-100)]',
+    'bg-[var(--color-neutral-100)] text-[var(--color-text)] border-[var(--color-text)] hover:bg-[var(--color-text)] hover:text-[var(--color-surface)]',
+  ghost: 'text-[var(--color-text-secondary)] border-transparent hover:text-[var(--color-text)] hover:border-[var(--color-text)]',
   outline:
-    'border border-[var(--color-border-strong)] text-[var(--color-text)] hover:bg-[var(--color-neutral-100)]',
+    'border-[var(--color-text)] text-[var(--color-text)] hover:bg-[var(--color-text)] hover:text-[var(--color-surface)]',
 };
 
 const sizeClasses = {
