@@ -1,0 +1,30 @@
+---
+import { getCollection } from 'astro:content';
+import Container from '../ui/Container.astro';
+
+const companies = (await getCollection('social-proof')).sort(
+  (a, b) => a.data.order - b.data.order
+);
+---
+
+<section class="py-12 border-y border-[var(--color-border)] bg-[var(--color-surface)]" data-track-section="social-proof">
+  <Container>
+    <p class="text-center text-sm font-medium text-[var(--color-text-tertiary)] mb-8">
+      Trusted by teams at
+    </p>
+    <div class="flex flex-wrap items-center justify-center gap-8 lg:gap-12">
+      {companies.map((company) => (
+        <div class="flex items-center justify-center h-8 opacity-50 hover:opacity-80 transition-opacity grayscale hover:grayscale-0">
+          <img
+            src={company.data.logo}
+            alt={company.data.name}
+            width="120"
+            height="32"
+            loading="lazy"
+            class="h-6 w-auto object-contain"
+          />
+        </div>
+      ))}
+    </div>
+  </Container>
+</section>

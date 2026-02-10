@@ -1,0 +1,27 @@
+---
+interface Props {
+  as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+  class?: string;
+}
+
+const { as: Tag = 'h2', class: className } = Astro.props;
+
+const sizeClasses = {
+  h1: 'text-3xl sm:text-4xl lg:text-5xl',
+  h2: 'text-2xl sm:text-3xl lg:text-4xl',
+  h3: 'text-xl sm:text-2xl',
+  h4: 'text-lg sm:text-xl',
+  h5: 'text-base sm:text-lg',
+  h6: 'text-sm sm:text-base',
+};
+---
+
+<Tag
+  class:list={[
+    'font-[family-name:var(--font-heading)] tracking-tight',
+    sizeClasses[Tag],
+    className,
+  ]}
+>
+  <slot />
+</Tag>

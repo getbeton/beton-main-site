@@ -1,0 +1,14 @@
+---
+import { getEntry, render } from 'astro:content';
+import LegalLayout from '../layouts/LegalLayout.astro';
+
+const page = await getEntry('pages', 'terms');
+const { Content } = await render(page!);
+---
+
+<LegalLayout
+  title={page!.data.title}
+  description={page!.data.seo?.metaDescription}
+>
+  <Content />
+</LegalLayout>

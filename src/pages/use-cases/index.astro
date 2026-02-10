@@ -1,0 +1,34 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '../../layouts/PageLayout.astro';
+import Container from '../../components/ui/Container.astro';
+import Section from '../../components/ui/Section.astro';
+import Heading from '../../components/ui/Heading.astro';
+import UseCaseCard from '../../components/content/UseCaseCard.astro';
+
+const useCases = (await getCollection('use-cases')).sort(
+  (a, b) => a.data.order - b.data.order
+);
+---
+
+<PageLayout
+  title="Use Cases"
+  description="See how teams use Beton to turn product signals into revenue. From PLG conversion to churn prevention."
+>
+  <Section>
+    <Container>
+      <div class="text-center mb-12 lg:mb-16">
+        <Heading as="h1">Use Cases</Heading>
+        <p class="mt-4 text-lg text-[var(--color-text-secondary)] max-w-2xl mx-auto">
+          Discover how Beton helps revenue teams detect and act on behavioral signals.
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {useCases.map((uc) => (
+          <UseCaseCard useCase={uc} />
+        ))}
+      </div>
+    </Container>
+  </Section>
+</PageLayout>

@@ -1,0 +1,63 @@
+---
+import { SITE } from '../../utils/site';
+
+interface Props {
+  type?: string;
+  title: string;
+  description: string;
+  url: string;
+}
+
+const { type, title, description, url } = Astro.props;
+
+const orgSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: SITE.name,
+  url: SITE.url,
+  logo: `${SITE.url}/images/beton-logo.svg`,
+  sameAs: [SITE.social.github, SITE.social.linkedin, SITE.social.twitter],
+};
+
+const webPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: title,
+  description,
+  url,
+  publisher: { '@type': 'Organization', name: SITE.name },
+};
+
+const softwareSchema =
+  type === 'SoftwareApplication'
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'SoftwareApplication',
+        name: SITE.name,
+        applicationCategory: 'BusinessApplication',
+        operatingSystem: 'Web',
+        description: SITE.description,
+        url: SITE.url,
+        offers: [
+          {
+            '@type': 'Offer',
+            name: 'Self-Hosted',
+            price: '0',
+            priceCurrency: 'USD',
+            description: 'Free self-hosted deployment with your own LLM key',
+          },
+          {
+            '@type': 'Offer',
+            name: 'Cloud',
+            price: '0.50',
+            priceCurrency: 'USD',
+            description: 'Per tracked user per month',
+          },
+        ],
+      }
+    : null;
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
+<script type="application/ld+json" set:html={JSON.stringify(webPageSchema)} />
+{softwareSchema && <script type="application/ld+json" set:html={JSON.stringify(softwareSchema)} />}

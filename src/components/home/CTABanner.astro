@@ -1,0 +1,35 @@
+---
+import Container from '../ui/Container.astro';
+import Button from '../ui/Button.astro';
+---
+
+<section class="py-16 lg:py-24 bg-[var(--color-primary-600)]" data-track-section="cta-banner">
+  <Container>
+    <div class="text-center max-w-2xl mx-auto">
+      <h2 class="text-2xl sm:text-3xl lg:text-4xl font-[family-name:var(--font-heading)] tracking-tight text-white">
+        Ready to turn product signals into revenue?
+      </h2>
+      <p class="mt-4 text-lg text-white/80">
+        Connect your PostHog instance and start detecting buying signals in minutes.
+      </p>
+      <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+        <a
+          href="https://inspector.getbeton.ai"
+          class="inline-flex items-center px-6 py-3 text-base font-medium bg-white text-[var(--color-primary-700)] rounded-lg hover:bg-white/90 transition-colors"
+          data-track-cta="cta-banner-primary"
+        >
+          Get Started Free
+        </a>
+        <a
+          href="https://github.com/getbeton"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center px-6 py-3 text-base font-medium text-white border border-white/30 rounded-lg hover:bg-white/10 transition-colors"
+          data-track-cta="cta-banner-github"
+        >
+          View on GitHub
+        </a>
+      </div>
+    </div>
+  </Container>
+</section>

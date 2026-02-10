@@ -1,0 +1,100 @@
+---
+// Lightweight vanilla JS cookie consent banner
+// Integrates with GTM consent mode
+---
+
+<div
+  id="cookie-consent"
+  class="hidden fixed bottom-0 left-0 right-0 z-50 p-4 sm:p-6"
+  role="dialog"
+  aria-label="Cookie consent"
+>
+  <div class="mx-auto max-w-3xl bg-[var(--color-surface-raised)] border border-[var(--color-border)] rounded-xl shadow-lg p-4 sm:p-6">
+    <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+      <div class="flex-1">
+        <p class="text-sm text-[var(--color-text-secondary)]">
+          We use cookies to analyze site usage and improve your experience. You can choose which cookies to accept.
+          <a href="/privacy" class="text-[var(--color-primary-600)] hover:underline">Privacy Policy</a>
+        </p>
+      </div>
+      <div class="flex items-center gap-2 shrink-0">
+        <button
+          id="cookie-reject"
+          type="button"
+          class="px-4 py-2 text-sm font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-text)] border border-[var(--color-border)] rounded-lg hover:bg-[var(--color-neutral-100)] transition-colors"
+        >
+          Reject
+        </button>
+        <button
+          id="cookie-accept"
+          type="button"
+          class="px-4 py-2 text-sm font-medium bg-[var(--color-primary-600)] text-white rounded-lg hover:bg-[var(--color-primary-700)] transition-colors"
+        >
+          Accept
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+(function () {
+  var COOKIE_NAME = 'beton_consent';
+  var banner = document.getElementById('cookie-consent');
+  var acceptBtn = document.getElementById('cookie-accept');
+  var rejectBtn = document.getElementById('cookie-reject');
+
+  // Initialize GTM consent defaults
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { window.dataLayer.push(arguments); }
+  gtag('consent', 'default', {
+    analytics_storage: 'denied',
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+  });
+
+  function getCookie(name) {
+    var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    return match ? match[2] : null;
+  }
+
+  function setCookie(name, value, days) {
+    var expires = new Date(Date.now() + days * 864e5).toUTCString();
+    document.cookie = name + '=' + value + '; expires=' + expires + '; path=/; SameSite=Lax';
+  }
+
+  function updateConsent(granted) {
+    var state = granted ? 'granted' : 'denied';
+    gtag('consent', 'update', {
+      analytics_storage: state,
+      ad_storage: state,
+      ad_user_data: state,
+      ad_personalization: state,
+    });
+  }
+
+  var existing = getCookie(COOKIE_NAME);
+  if (existing) {
+    updateConsent(existing === 'accepted');
+  } else if (banner) {
+    banner.classList.remove('hidden');
+  }
+
+  if (acceptBtn) {
+    acceptBtn.addEventListener('click', function () {
+      setCookie(COOKIE_NAME, 'accepted', 365);
+      updateConsent(true);
+      if (banner) banner.classList.add('hidden');
+    });
+  }
+
+  if (rejectBtn) {
+    rejectBtn.addEventListener('click', function () {
+      setCookie(COOKIE_NAME, 'rejected', 365);
+      updateConsent(false);
+      if (banner) banner.classList.add('hidden');
+    });
+  }
+})();
+</script>

@@ -1,0 +1,44 @@
+---
+import { getCollection } from 'astro:content';
+import Container from '../ui/Container.astro';
+import Section from '../ui/Section.astro';
+import Heading from '../ui/Heading.astro';
+
+const integrations = (await getCollection('integrations'))
+  .filter((i) => i.data.featured)
+  .sort((a, b) => a.data.name.localeCompare(b.data.name));
+---
+
+<Section id="integrations">
+  <Container>
+    <div class="text-center mb-12 lg:mb-16">
+      <Heading as="h2">Integrations</Heading>
+      <p class="mt-4 text-lg text-[var(--color-text-secondary)] max-w-2xl mx-auto">
+        Connect your data source and route signals to your favorite tools.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6">
+      {integrations.map((integration) => (
+        <a
+          href={integration.data.url !== '#' ? integration.data.url : undefined}
+          target={integration.data.url !== '#' ? '_blank' : undefined}
+          rel={integration.data.url !== '#' ? 'noopener noreferrer' : undefined}
+          class="flex flex-col items-center gap-3 p-4 rounded-xl border border-[var(--color-border)] hover:border-[var(--color-border-strong)] hover:shadow-[var(--shadow-card)] transition-all"
+        >
+          <div class="w-10 h-10 flex items-center justify-center">
+            <img
+              src={integration.data.logo}
+              alt={integration.data.name}
+              width="40"
+              height="40"
+              loading="lazy"
+              class="w-8 h-8 object-contain"
+            />
+          </div>
+          <span class="text-sm font-medium text-[var(--color-text)]">{integration.data.name}</span>
+        </a>
+      ))}
+    </div>
+  </Container>
+</Section>

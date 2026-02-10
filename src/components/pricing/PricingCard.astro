@@ -1,0 +1,76 @@
+---
+interface Props {
+  tier: {
+    name: string;
+    slug: string;
+    price: string;
+    priceNote?: string;
+    description: string;
+    highlighted: boolean;
+    cta: { label: string; href: string };
+    features: string[];
+  };
+}
+
+const { tier } = Astro.props;
+---
+
+<div
+  class:list={[
+    'relative flex flex-col rounded-xl border p-6 lg:p-8',
+    tier.highlighted
+      ? 'border-[var(--color-primary-500)] shadow-[var(--shadow-lg)] ring-1 ring-[var(--color-primary-500)]'
+      : 'border-[var(--color-border)] bg-[var(--color-surface-raised)]',
+  ]}
+  data-track-pricing={tier.slug}
+>
+  {tier.highlighted && (
+    <div class="absolute -top-3 left-1/2 -translate-x-1/2">
+      <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-[var(--color-primary-600)] text-white">
+        Most Popular
+      </span>
+    </div>
+  )}
+
+  <div class="mb-6">
+    <h3 class="text-lg font-semibold">{tier.name}</h3>
+    <p class="text-sm text-[var(--color-text-secondary)] mt-1">{tier.description}</p>
+  </div>
+
+  <div class="mb-6">
+    <span class="text-4xl font-[family-name:var(--font-heading)] tracking-tight">{tier.price}</span>
+    {tier.priceNote && (
+      <span class="text-sm text-[var(--color-text-secondary)] ml-1">{tier.priceNote}</span>
+    )}
+  </div>
+
+  <a
+    href={tier.cta.href}
+    class:list={[
+      'block w-full text-center px-4 py-2.5 rounded-lg font-medium transition-colors mb-6',
+      tier.highlighted
+        ? 'bg-[var(--color-primary-600)] text-white hover:bg-[var(--color-primary-700)]'
+        : 'border border-[var(--color-border-strong)] text-[var(--color-text)] hover:bg-[var(--color-neutral-100)]',
+    ]}
+    data-track-cta={`pricing-${tier.slug}`}
+  >
+    {tier.cta.label}
+  </a>
+
+  <ul class="space-y-3 flex-1">
+    {tier.features.map((feature) => (
+      <li class="flex items-start gap-2 text-sm">
+        <svg
+          class="w-5 h-5 text-[var(--color-accent-500)] shrink-0 mt-0.5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+          stroke="currentColor"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path>
+        </svg>
+        <span class="text-[var(--color-text-secondary)]">{feature}</span>
+      </li>
+    ))}
+  </ul>
+</div>

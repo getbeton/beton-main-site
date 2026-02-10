@@ -1,0 +1,31 @@
+---
+import { getCollection } from 'astro:content';
+import Container from '../ui/Container.astro';
+import Section from '../ui/Section.astro';
+import Heading from '../ui/Heading.astro';
+import PricingCard from '../pricing/PricingCard.astro';
+import Button from '../ui/Button.astro';
+
+const tiers = await getCollection('pricing-tiers');
+---
+
+<Section id="pricing">
+  <Container>
+    <div class="text-center mb-12 lg:mb-16">
+      <Heading as="h2">Simple, Transparent Pricing</Heading>
+      <p class="mt-4 text-lg text-[var(--color-text-secondary)] max-w-2xl mx-auto">
+        Self-host for free or use our managed cloud. No hidden fees.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+      {tiers.map((tier) => (
+        <PricingCard tier={tier.data} />
+      ))}
+    </div>
+
+    <div class="text-center mt-10">
+      <Button href="/pricing" variant="outline">View full pricing details</Button>
+    </div>
+  </Container>
+</Section>

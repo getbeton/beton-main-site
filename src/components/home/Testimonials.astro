@@ -1,0 +1,55 @@
+---
+import { getCollection } from 'astro:content';
+import Container from '../ui/Container.astro';
+import Section from '../ui/Section.astro';
+import Heading from '../ui/Heading.astro';
+import Card from '../ui/Card.astro';
+
+const testimonials = (await getCollection('testimonials'))
+  .filter((t) => t.data.featured)
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+{testimonials.length > 0 && (
+  <Section id="testimonials">
+    <Container>
+      <div class="text-center mb-12 lg:mb-16">
+        <Heading as="h2">What People Are Saying</Heading>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        {testimonials.map((testimonial) => (
+          <Card>
+            <blockquote>
+              <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed italic">
+                &ldquo;{testimonial.data.quote}&rdquo;
+              </p>
+              <footer class="mt-4 flex items-center gap-3">
+                {testimonial.data.avatar ? (
+                  <img
+                    src={testimonial.data.avatar}
+                    alt={testimonial.data.name}
+                    width="40"
+                    height="40"
+                    class="w-10 h-10 rounded-full object-cover"
+                    loading="lazy"
+                  />
+                ) : (
+                  <div class="w-10 h-10 rounded-full bg-[var(--color-primary-100)] flex items-center justify-center text-sm font-semibold text-[var(--color-primary-700)]">
+                    {testimonial.data.name.charAt(0)}
+                  </div>
+                )}
+                <div>
+                  <div class="text-sm font-medium">{testimonial.data.name}</div>
+                  <div class="text-xs text-[var(--color-text-tertiary)]">
+                    {testimonial.data.role}, {testimonial.data.company}
+                  </div>
+                </div>
+              </footer>
+            </blockquote>
+          </Card>
+        ))}
+      </div>
+    </Container>
+  </Section>
+)}

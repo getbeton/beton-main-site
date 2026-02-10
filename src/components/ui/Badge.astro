@@ -1,0 +1,24 @@
+---
+interface Props {
+  variant?: 'default' | 'primary' | 'accent';
+  class?: string;
+}
+
+const { variant = 'default', class: className } = Astro.props;
+
+const variantClasses = {
+  default: 'bg-[var(--color-neutral-100)] text-[var(--color-text-secondary)]',
+  primary: 'bg-[var(--color-primary-50)] text-[var(--color-primary-700)]',
+  accent: 'bg-[var(--color-accent-50)] text-[var(--color-accent-700)]',
+};
+---
+
+<span
+  class:list={[
+    'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium',
+    variantClasses[variant],
+    className,
+  ]}
+>
+  <slot />
+</span>

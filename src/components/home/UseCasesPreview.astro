@@ -1,0 +1,42 @@
+---
+import { getCollection } from 'astro:content';
+import Container from '../ui/Container.astro';
+import Section from '../ui/Section.astro';
+import Heading from '../ui/Heading.astro';
+import Card from '../ui/Card.astro';
+import Button from '../ui/Button.astro';
+
+const useCases = (await getCollection('use-cases'))
+  .filter((uc) => uc.data.featured)
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 3);
+---
+
+<Section id="use-cases">
+  <Container>
+    <div class="text-center mb-12 lg:mb-16">
+      <Heading as="h2">Use Cases</Heading>
+      <p class="mt-4 text-lg text-[var(--color-text-secondary)] max-w-2xl mx-auto">
+        See how teams use Beton to turn product signals into revenue.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      {useCases.map((uc) => (
+        <Card href={`/use-cases/${uc.id}`}>
+          <h3 class="text-lg font-semibold mb-2">{uc.data.title}</h3>
+          <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed mb-4">
+            {uc.data.description}
+          </p>
+          <span class="text-sm font-medium text-[var(--color-primary-600)]">
+            Learn more &rarr;
+          </span>
+        </Card>
+      ))}
+    </div>
+
+    <div class="text-center mt-10">
+      <Button href="/use-cases" variant="outline">View all use cases</Button>
+    </div>
+  </Container>
+</Section>

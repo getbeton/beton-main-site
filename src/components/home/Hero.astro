@@ -1,0 +1,44 @@
+---
+import Container from '../ui/Container.astro';
+import Button from '../ui/Button.astro';
+import Badge from '../ui/Badge.astro';
+
+interface Props {
+  headline: string;
+  subheadline?: string;
+  primaryCta?: { label: string; href: string };
+  secondaryCta?: { label: string; href: string };
+}
+
+const { headline, subheadline, primaryCta, secondaryCta } = Astro.props;
+---
+
+<section class="py-20 lg:py-32" data-track-section="hero">
+  <Container>
+    <div class="max-w-3xl mx-auto text-center">
+      <Badge variant="primary" class="mb-6">Open Source &middot; GPL Licensed</Badge>
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-[family-name:var(--font-heading)] tracking-tight leading-[1.1]">
+        {headline}
+      </h1>
+      {subheadline && (
+        <p class="mt-6 text-lg sm:text-xl text-[var(--color-text-secondary)] max-w-2xl mx-auto leading-relaxed">
+          {subheadline}
+        </p>
+      )}
+      {(primaryCta || secondaryCta) && (
+        <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3">
+          {primaryCta && (
+            <Button href={primaryCta.href} size="lg" data-track-cta="hero-primary">
+              {primaryCta.label}
+            </Button>
+          )}
+          {secondaryCta && (
+            <Button href={secondaryCta.href} variant="outline" size="lg" target="_blank" rel="noopener noreferrer" data-track-cta="hero-secondary">
+              {secondaryCta.label}
+            </Button>
+          )}
+        </div>
+      )}
+    </div>
+  </Container>
+</section>

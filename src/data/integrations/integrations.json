@@ -1,0 +1,72 @@
+[
+  {
+    "id": "posthog",
+    "name": "PostHog",
+    "slug": "posthog",
+    "logo": "/images/logos/posthog.svg",
+    "url": "https://posthog.com",
+    "category": "source",
+    "description": "Connect your PostHog instance as the primary data source for behavioral signal detection.",
+    "featured": true
+  },
+  {
+    "id": "attio",
+    "name": "Attio",
+    "slug": "attio",
+    "logo": "/images/logos/attio.svg",
+    "url": "https://attio.com",
+    "category": "destination",
+    "description": "Route signals to Attio CRM. Automatically create and update records when buying signals are detected.",
+    "featured": true
+  },
+  {
+    "id": "hubspot",
+    "name": "HubSpot",
+    "slug": "hubspot",
+    "logo": "/images/logos/hubspot.svg",
+    "url": "https://hubspot.com",
+    "category": "destination",
+    "description": "Route signals to HubSpot CRM. Update contacts, create deals, and trigger workflows automatically.",
+    "featured": true
+  },
+  {
+    "id": "zoho",
+    "name": "Zoho CRM",
+    "slug": "zoho",
+    "logo": "/images/logos/zoho.svg",
+    "url": "https://zoho.com/crm",
+    "category": "destination",
+    "description": "Route signals to Zoho CRM. Sync behavioral signals with your Zoho sales pipeline.",
+    "featured": true
+  },
+  {
+    "id": "pipedrive",
+    "name": "Pipedrive",
+    "slug": "pipedrive",
+    "logo": "/images/logos/pipedrive.svg",
+    "url": "https://pipedrive.com",
+    "category": "destination",
+    "description": "Route signals to Pipedrive. Create activities and update deals when revenue signals are detected.",
+    "featured": true
+  },
+  {
+    "id": "webhook",
+    "name": "Webhooks",
+    "slug": "webhook",
+    "logo": "/images/logos/webhook.svg",
+    "url": "#",
+    "category": "destination",
+    "description": "Send signals to any tool via webhooks. Build custom integrations with your existing stack.",
+    "featured": true
+  },
+  {
+    "id": "n8n",
+    "name": "n8n",
+    "slug": "n8n",
+    "logo": "/images/logos/n8n.svg",
+    "url": "https://n8n.io",
+    "category": "destination",
+    "description": "Connect to n8n for unlimited automation. Route signals through complex multi-step workflows.",
+    "featured": false
+  }
+]

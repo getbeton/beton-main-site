@@ -1,0 +1,24 @@
+---
+import PageLayout from './PageLayout.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  canonicalPath?: string;
+}
+
+const { title, description, canonicalPath } = Astro.props;
+---
+
+<PageLayout title={title} description={description} canonicalPath={canonicalPath}>
+  <article class="py-12 lg:py-20">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <h1 class="text-2xl sm:text-3xl font-[family-name:var(--font-heading)] tracking-tight mb-8">
+        {title}
+      </h1>
+      <div class="prose">
+        <slot />
+      </div>
+    </div>
+  </article>
+</PageLayout>

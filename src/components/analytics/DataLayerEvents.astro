@@ -1,0 +1,105 @@
+---
+// Inline script for custom dataLayer event tracking
+---
+
+<script is:inline>
+(function () {
+  var dl = (window.dataLayer = window.dataLayer || []);
+
+  // Virtual page view
+  dl.push({
+    event: 'virtual_page_view',
+    page_path: window.location.pathname,
+    page_title: document.title,
+  });
+
+  // CTA click tracking
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest('[data-track-cta]');
+    if (el) {
+      dl.push({
+        event: 'cta_click',
+        event_category: 'cta',
+        event_action: 'click',
+        event_label: el.getAttribute('data-track-cta'),
+        page_path: window.location.pathname,
+      });
+    }
+  });
+
+  // Outbound link tracking
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest('a[href]');
+    if (el && el.hostname !== window.location.hostname) {
+      dl.push({
+        event: 'outbound_click',
+        event_category: 'outbound',
+        event_action: 'click',
+        event_label: el.href,
+      });
+    }
+  });
+
+  // Pricing interaction tracking
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest('[data-track-pricing]');
+    if (el) {
+      dl.push({
+        event: 'pricing_interaction',
+        event_category: 'pricing',
+        event_action: 'click',
+        event_label: el.getAttribute('data-track-pricing'),
+      });
+    }
+  });
+
+  // Scroll depth tracking
+  var scrollMarks = { 25: false, 50: false, 75: false, 100: false };
+  function checkScroll() {
+    var scrollTop = window.scrollY || document.documentElement.scrollTop;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    if (docHeight <= 0) return;
+    var percent = Math.round((scrollTop / docHeight) * 100);
+    [25, 50, 75, 100].forEach(function (mark) {
+      if (percent >= mark && !scrollMarks[mark]) {
+        scrollMarks[mark] = true;
+        dl.push({
+          event: 'scroll_depth',
+          event_category: 'engagement',
+          event_action: 'scroll',
+          event_label: mark + '%',
+          page_path: window.location.pathname,
+        });
+      }
+    });
+  }
+  var scrollTimer;
+  window.addEventListener('scroll', function () {
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(checkScroll, 150);
+  }, { passive: true });
+
+  // Section view tracking with IntersectionObserver
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            dl.push({
+              event: 'section_view',
+              event_category: 'engagement',
+              event_action: 'section_view',
+              event_label: entry.target.getAttribute('data-track-section') || entry.target.id,
+            });
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+    document.querySelectorAll('[data-track-section]').forEach(function (el) {
+      observer.observe(el);
+    });
+  }
+})();
+</script>

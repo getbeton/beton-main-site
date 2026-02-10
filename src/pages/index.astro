@@ -1,0 +1,38 @@
+---
+import { getEntry } from 'astro:content';
+import PageLayout from '../layouts/PageLayout.astro';
+import Hero from '../components/home/Hero.astro';
+import SocialProof from '../components/home/SocialProof.astro';
+import HowItWorks from '../components/home/HowItWorks.astro';
+import Features from '../components/home/Features.astro';
+import UseCasesPreview from '../components/home/UseCasesPreview.astro';
+import Integrations from '../components/home/Integrations.astro';
+import BlogPosts from '../components/home/BlogPosts.astro';
+import Testimonials from '../components/home/Testimonials.astro';
+import PricingPreview from '../components/home/PricingPreview.astro';
+import CTABanner from '../components/home/CTABanner.astro';
+
+const page = await getEntry('pages', 'home');
+const hero = page?.data.hero;
+---
+
+<PageLayout
+  description={page?.data.seo?.metaDescription}
+  schemaType={page?.data.schemaType}
+>
+  <Hero
+    headline={hero?.headline || 'Open-Source Revenue Intelligence'}
+    subheadline={hero?.subheadline}
+    primaryCta={hero?.primaryCta}
+    secondaryCta={hero?.secondaryCta}
+  />
+  <SocialProof />
+  <HowItWorks />
+  <Features />
+  <UseCasesPreview />
+  <Integrations />
+  <BlogPosts />
+  <Testimonials />
+  <PricingPreview />
+  <CTABanner />
+</PageLayout>

@@ -1,0 +1,31 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import Container from '../components/ui/Container.astro';
+import Button from '../components/ui/Button.astro';
+---
+
+<PageLayout title="Page Not Found" noIndex={true}>
+  <section class="py-24 lg:py-32">
+    <Container>
+      <div class="text-center max-w-lg mx-auto">
+        <div class="text-7xl font-[family-name:var(--font-heading)] text-[var(--color-text-tertiary)] mb-4">
+          404
+        </div>
+        <h1 class="text-2xl sm:text-3xl font-[family-name:var(--font-heading)] tracking-tight mb-4">
+          Page not found
+        </h1>
+        <p class="text-[var(--color-text-secondary)] mb-8">
+          The page you're looking for doesn't exist or has been moved.
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+          <Button href="/">Go Home</Button>
+          <Button href="/use-cases" variant="outline">Use Cases</Button>
+          <Button href="/pricing" variant="outline">Pricing</Button>
+        </div>
+        <p class="mt-6 text-sm text-[var(--color-text-tertiary)]">
+          Need help? Check our <a href="https://docs.getbeton.ai" target="_blank" rel="noopener noreferrer" class="text-[var(--color-primary-600)] hover:underline">documentation</a>.
+        </p>
+      </div>
+    </Container>
+  </section>
+</PageLayout>

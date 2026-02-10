@@ -1,0 +1,53 @@
+---
+import { getCollection, render } from 'astro:content';
+import ContentLayout from '../../layouts/ContentLayout.astro';
+
+export async function getStaticPaths() {
+  const useCases = await getCollection('use-cases');
+  return useCases.map((uc) => ({
+    params: { id: uc.id },
+    props: { entry: uc },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { title, subtitle, description, problem, solution, benefits, seo } = entry.data;
+---
+
+<ContentLayout
+  title={title}
+  subtitle={subtitle}
+  description={seo?.metaDescription || description}
+  canonicalPath={`/use-cases/${entry.id}`}
+>
+  <!-- Structured sections -->
+  <div class="mb-8 p-6 rounded-xl bg-[var(--color-surface-raised)] border border-[var(--color-border)]">
+    <h2 class="text-lg font-[family-name:var(--font-heading)] mb-3">The Problem</h2>
+    <p class="text-[var(--color-text-secondary)]">{problem}</p>
+  </div>
+
+  <div class="mb-8 p-6 rounded-xl bg-[var(--color-surface-raised)] border border-[var(--color-border)]">
+    <h2 class="text-lg font-[family-name:var(--font-heading)] mb-3">The Solution</h2>
+    <p class="text-[var(--color-text-secondary)]">{solution}</p>
+  </div>
+
+  {benefits.length > 0 && (
+    <div class="mb-8">
+      <h2 class="text-lg font-[family-name:var(--font-heading)] mb-3">Key Benefits</h2>
+      <ul class="space-y-2">
+        {benefits.map((benefit) => (
+          <li class="flex items-start gap-2 text-[var(--color-text-secondary)]">
+            <svg class="w-5 h-5 text-[var(--color-accent-500)] shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path>
+            </svg>
+            {benefit}
+          </li>
+        ))}
+      </ul>
+    </div>
+  )}
+
+  <!-- Markdown body -->
+  <Content />
+</ContentLayout>

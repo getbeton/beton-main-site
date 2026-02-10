@@ -1,0 +1,12 @@
+---
+import { getCollection } from 'astro:content';
+import PricingCard from './PricingCard.astro';
+
+const tiers = await getCollection('pricing-tiers');
+---
+
+<div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+  {tiers.map((tier) => (
+    <PricingCard tier={tier.data} />
+  ))}
+</div>

@@ -1,0 +1,59 @@
+---
+import { getEntry, getCollection } from 'astro:content';
+import PageLayout from '../layouts/PageLayout.astro';
+import Container from '../components/ui/Container.astro';
+import Section from '../components/ui/Section.astro';
+import Heading from '../components/ui/Heading.astro';
+import PricingTable from '../components/pricing/PricingTable.astro';
+import AddOnCard from '../components/pricing/AddOnCard.astro';
+import PricingFAQ from '../components/pricing/PricingFAQ.astro';
+
+const page = await getEntry('pages', 'pricing');
+const addons = await getCollection('pricing-addons');
+---
+
+<PageLayout
+  title={page?.data.title || 'Pricing'}
+  description={page?.data.seo?.metaDescription}
+  schemaType={page?.data.schemaType}
+>
+  <Section>
+    <Container>
+      <div class="text-center mb-12 lg:mb-16">
+        <Heading as="h1">{page?.data.title || 'Pricing'}</Heading>
+        {page?.data.subtitle && (
+          <p class="mt-4 text-lg text-[var(--color-text-secondary)] max-w-2xl mx-auto">
+            {page.data.subtitle}
+          </p>
+        )}
+      </div>
+
+      <PricingTable />
+    </Container>
+  </Section>
+
+  <!-- Add-ons -->
+  <Section id="addons" class="border-t border-[var(--color-border)]">
+    <Container>
+      <div class="text-center mb-10">
+        <Heading as="h2">Add-Ons</Heading>
+        <p class="mt-4 text-[var(--color-text-secondary)]">
+          Enterprise features available for teams with advanced needs.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-4 max-w-4xl mx-auto">
+        {addons.map((addon) => (
+          <AddOnCard addon={addon.data} />
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <!-- FAQ -->
+  <Section id="faq" class="border-t border-[var(--color-border)]">
+    <Container>
+      <PricingFAQ />
+    </Container>
+  </Section>
+</PageLayout>

@@ -1,0 +1,23 @@
+[
+  {
+    "id": "air-gapped",
+    "name": "Air-Gapped Deployment",
+    "price": "Custom",
+    "description": "Deploy Beton in fully isolated environments with no external network access. Ideal for regulated industries.",
+    "icon": "shield-check"
+  },
+  {
+    "id": "rbac",
+    "name": "Access Controls (RBAC)",
+    "price": "Custom",
+    "description": "Role-based access controls for teams. Define who can view, edit, and manage signals, integrations, and routing rules.",
+    "icon": "lock-closed"
+  },
+  {
+    "id": "onboarding",
+    "name": "White-Glove Onboarding",
+    "price": "Custom",
+    "description": "Dedicated onboarding support including PostHog setup review, signal configuration, CRM integration, and team training.",
+    "icon": "hand-raised"
+  }
+]

@@ -1,0 +1,34 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '../../layouts/PageLayout.astro';
+import Container from '../../components/ui/Container.astro';
+import Section from '../../components/ui/Section.astro';
+import Heading from '../../components/ui/Heading.astro';
+import IndustryCard from '../../components/content/IndustryCard.astro';
+
+const industries = (await getCollection('industries')).sort(
+  (a, b) => a.data.order - b.data.order
+);
+---
+
+<PageLayout
+  title="Industries"
+  description="Revenue intelligence for every industry. See how Beton helps SaaS, DevTools, Fintech, HealthTech, and Marketplace teams."
+>
+  <Section>
+    <Container>
+      <div class="text-center mb-12 lg:mb-16">
+        <Heading as="h1">Industries</Heading>
+        <p class="mt-4 text-lg text-[var(--color-text-secondary)] max-w-2xl mx-auto">
+          Revenue intelligence tailored to your industry's unique signals and challenges.
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {industries.map((industry) => (
+          <IndustryCard industry={industry} />
+        ))}
+      </div>
+    </Container>
+  </Section>
+</PageLayout>

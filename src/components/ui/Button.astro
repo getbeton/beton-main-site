@@ -1,0 +1,53 @@
+---
+interface Props {
+  href?: string;
+  variant?: 'primary' | 'secondary' | 'ghost' | 'outline';
+  size?: 'sm' | 'md' | 'lg';
+  fullWidth?: boolean;
+  class?: string;
+  [key: string]: unknown;
+}
+
+const {
+  href,
+  variant = 'primary',
+  size = 'md',
+  fullWidth = false,
+  class: className,
+  ...rest
+} = Astro.props;
+
+const Tag = href ? 'a' : 'button';
+
+const baseClasses =
+  'inline-flex items-center justify-center font-medium rounded-lg transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-primary-500)]';
+
+const variantClasses = {
+  primary: 'bg-[var(--color-primary-600)] text-white hover:bg-[var(--color-primary-700)]',
+  secondary:
+    'bg-[var(--color-neutral-100)] text-[var(--color-text)] hover:bg-[var(--color-neutral-200)]',
+  ghost: 'text-[var(--color-text-secondary)] hover:text-[var(--color-text)] hover:bg-[var(--color-neutral-100)]',
+  outline:
+    'border border-[var(--color-border-strong)] text-[var(--color-text)] hover:bg-[var(--color-neutral-100)]',
+};
+
+const sizeClasses = {
+  sm: 'px-3 py-1.5 text-sm gap-1.5',
+  md: 'px-4 py-2 text-sm gap-2',
+  lg: 'px-6 py-3 text-base gap-2',
+};
+---
+
+<Tag
+  href={href}
+  class:list={[
+    baseClasses,
+    variantClasses[variant],
+    sizeClasses[size],
+    fullWidth && 'w-full',
+    className,
+  ]}
+  {...rest}
+>
+  <slot />
+</Tag>

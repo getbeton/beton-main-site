@@ -1,0 +1,44 @@
+[
+  {
+    "id": "what-is-tracked-user",
+    "question": "What counts as a tracked user?",
+    "answer": "A tracked user is any unique user in your PostHog instance that Beton monitors for behavioral signals. If a user is inactive for 30+ days, they stop counting toward your limit.",
+    "order": 1
+  },
+  {
+    "id": "data-storage",
+    "question": "Does Beton store my product data?",
+    "answer": "No. Beton reads events from your PostHog instance and routes signals to your CRM. We don't store your product analytics data. Signal metadata is retained briefly for routing purposes only.",
+    "order": 2
+  },
+  {
+    "id": "self-hosted-llm",
+    "question": "What LLM key do I need for self-hosted?",
+    "answer": "The self-hosted version requires an API key from a supported LLM provider (OpenAI, Anthropic, or compatible). This is used for signal detection heuristics. You control the model and costs.",
+    "order": 3
+  },
+  {
+    "id": "crm-integrations",
+    "question": "Which CRMs are supported?",
+    "answer": "Beton currently integrates with Attio, HubSpot, Zoho, and Pipedrive. For other CRMs, you can use webhooks or n8n to route signals to any tool with an API.",
+    "order": 4
+  },
+  {
+    "id": "posthog-requirement",
+    "question": "Do I need PostHog to use Beton?",
+    "answer": "Yes, PostHog is currently the primary data source. Beton connects to your PostHog instance to monitor product analytics events. Additional data source integrations are on the roadmap.",
+    "order": 5
+  },
+  {
+    "id": "open-source",
+    "question": "Is Beton really open-source?",
+    "answer": "Yes. Beton is licensed under GPL. You can view, modify, and self-host the entire codebase. The cloud version provides managed hosting on the same open-source code.",
+    "order": 6
+  },
+  {
+    "id": "trial",
+    "question": "Is there a free trial for Cloud?",
+    "answer": "Yes. You can start a free trial of Beton Cloud with no credit card required. Connect your PostHog instance and see signals within minutes.",
+    "order": 7
+  }
+]

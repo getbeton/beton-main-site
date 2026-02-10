@@ -1,0 +1,17 @@
+---
+interface Props {
+  id?: string;
+  class?: string;
+  trackSection?: string;
+}
+
+const { id, class: className, trackSection } = Astro.props;
+---
+
+<section
+  id={id}
+  class:list={['py-16 lg:py-24', className]}
+  data-track-section={trackSection || id}
+>
+  <slot />
+</section>

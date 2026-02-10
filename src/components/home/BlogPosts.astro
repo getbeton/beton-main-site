@@ -1,0 +1,28 @@
+---
+import { fetchBlogPosts } from '../../lib/blog';
+import Container from '../ui/Container.astro';
+import Section from '../ui/Section.astro';
+import Heading from '../ui/Heading.astro';
+import BlogPostCard from '../content/BlogPostCard.astro';
+
+const posts = await fetchBlogPosts(3);
+---
+
+{posts.length > 0 && (
+  <Section id="blog">
+    <Container>
+      <div class="text-center mb-12 lg:mb-16">
+        <Heading as="h2">From the Blog</Heading>
+        <p class="mt-4 text-lg text-[var(--color-text-secondary)] max-w-2xl mx-auto">
+          Latest thoughts on revenue intelligence, product-led growth, and behavioral signals.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        {posts.map((post) => (
+          <BlogPostCard post={post} />
+        ))}
+      </div>
+    </Container>
+  </Section>
+)}

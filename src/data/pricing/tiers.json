@@ -1,0 +1,67 @@
+[
+  {
+    "id": "self-hosted",
+    "name": "Self-Hosted",
+    "slug": "self-hosted",
+    "price": "Free",
+    "priceNote": "Requires your own LLM API key",
+    "description": "Full control. Deploy on your own infrastructure with GPL license.",
+    "highlighted": false,
+    "cta": {
+      "label": "Get Started",
+      "href": "https://github.com/getbeton"
+    },
+    "features": [
+      "Unlimited users",
+      "All signal detection features",
+      "All CRM integrations",
+      "Webhook & n8n support",
+      "Bring your own LLM key",
+      "Community support",
+      "GPL licensed"
+    ]
+  },
+  {
+    "id": "cloud",
+    "name": "Cloud",
+    "slug": "cloud",
+    "price": "$0.50",
+    "priceNote": "per tracked user / month",
+    "description": "Managed hosting. No data storage on our side, instant setup.",
+    "highlighted": true,
+    "cta": {
+      "label": "Start Free Trial",
+      "href": "https://inspector.getbeton.ai"
+    },
+    "features": [
+      "Everything in Self-Hosted",
+      "Managed infrastructure",
+      "No data storage on Beton side",
+      "Instant setup — connect PostHog in minutes",
+      "Automatic updates",
+      "Priority support",
+      "99.9% uptime SLA"
+    ]
+  },
+  {
+    "id": "enterprise",
+    "name": "Enterprise",
+    "slug": "enterprise",
+    "price": "Custom",
+    "description": "For organizations with advanced security, compliance, and deployment needs.",
+    "highlighted": false,
+    "cta": {
+      "label": "Contact Sales",
+      "href": "mailto:sales@getbeton.ai"
+    },
+    "features": [
+      "Everything in Cloud",
+      "Air-gapped deployment",
+      "Role-based access controls",
+      "White-glove onboarding",
+      "Custom integrations",
+      "Dedicated support",
+      "SLA guarantees"
+    ]
+  }
+]

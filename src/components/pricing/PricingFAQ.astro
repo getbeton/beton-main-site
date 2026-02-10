@@ -1,0 +1,51 @@
+---
+import { getCollection } from 'astro:content';
+import { SITE } from '../../utils/site';
+
+const faqs = (await getCollection('pricing-faq'))
+  .sort((a, b) => a.data.order - b.data.order);
+
+// FAQPage schema
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.data.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.data.answer,
+    },
+  })),
+};
+---
+
+<div class="max-w-3xl mx-auto">
+  <h2 class="text-2xl sm:text-3xl font-[family-name:var(--font-heading)] tracking-tight text-center mb-10">
+    Frequently Asked Questions
+  </h2>
+
+  <div class="space-y-4">
+    {faqs.map((faq) => (
+      <details class="group border border-[var(--color-border)] rounded-xl bg-[var(--color-surface-raised)]">
+        <summary class="flex items-center justify-between cursor-pointer p-5 text-sm font-medium select-none">
+          {faq.data.question}
+          <svg
+            class="w-5 h-5 text-[var(--color-text-tertiary)] transition-transform group-open:rotate-180"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path>
+          </svg>
+        </summary>
+        <div class="px-5 pb-5 text-sm text-[var(--color-text-secondary)] leading-relaxed">
+          {faq.data.answer}
+        </div>
+      </details>
+    ))}
+  </div>
+</div>
+
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />

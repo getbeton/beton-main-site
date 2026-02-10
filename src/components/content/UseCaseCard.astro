@@ -1,0 +1,25 @@
+---
+import Card from '../ui/Card.astro';
+
+interface Props {
+  useCase: {
+    id: string;
+    data: {
+      title: string;
+      description: string;
+    };
+  };
+}
+
+const { useCase } = Astro.props;
+---
+
+<Card href={`/use-cases/${useCase.id}`}>
+  <h3 class="text-lg font-semibold mb-2">{useCase.data.title}</h3>
+  <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed mb-4">
+    {useCase.data.description}
+  </p>
+  <span class="text-sm font-medium text-[var(--color-primary-600)]">
+    Learn more &rarr;
+  </span>
+</Card>

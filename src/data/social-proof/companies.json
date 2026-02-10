@@ -1,0 +1,32 @@
+[
+  {
+    "id": "company-1",
+    "name": "Company 1",
+    "logo": "/images/logos/company-placeholder.svg",
+    "order": 1
+  },
+  {
+    "id": "company-2",
+    "name": "Company 2",
+    "logo": "/images/logos/company-placeholder.svg",
+    "order": 2
+  },
+  {
+    "id": "company-3",
+    "name": "Company 3",
+    "logo": "/images/logos/company-placeholder.svg",
+    "order": 3
+  },
+  {
+    "id": "company-4",
+    "name": "Company 4",
+    "logo": "/images/logos/company-placeholder.svg",
+    "order": 4
+  },
+  {
+    "id": "company-5",
+    "name": "Company 5",
+    "logo": "/images/logos/company-placeholder.svg",
+    "order": 5
+  }
+]

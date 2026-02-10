@@ -1,0 +1,35 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import SkipLink from '../components/global/SkipLink.astro';
+import Header from '../components/global/Header.astro';
+import MobileMenu from '../components/global/MobileMenu.astro';
+import Footer from '../components/global/Footer.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  canonicalPath?: string;
+  noIndex?: boolean;
+  schemaType?: string;
+}
+
+const { title, description, ogImage, canonicalPath, noIndex, schemaType } = Astro.props;
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  ogImage={ogImage}
+  canonicalPath={canonicalPath}
+  noIndex={noIndex}
+  schemaType={schemaType}
+>
+  <SkipLink />
+  <Header />
+  <MobileMenu />
+  <main id="main-content" class="flex-1">
+    <slot />
+  </main>
+  <Footer />
+</BaseLayout>

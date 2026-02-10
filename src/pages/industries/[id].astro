@@ -1,0 +1,77 @@
+---
+import { getCollection, render } from 'astro:content';
+import ContentLayout from '../../layouts/ContentLayout.astro';
+
+export async function getStaticPaths() {
+  const industries = await getCollection('industries');
+  return industries.map((ind) => ({
+    params: { id: ind.id },
+    props: { entry: ind },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { title, subtitle, description, challenges, signals, outcomes, seo } = entry.data;
+---
+
+<ContentLayout
+  title={title}
+  subtitle={subtitle}
+  description={seo?.metaDescription || description}
+  canonicalPath={`/industries/${entry.id}`}
+>
+  <!-- Challenges -->
+  {challenges.length > 0 && (
+    <div class="mb-8">
+      <h2 class="text-lg font-[family-name:var(--font-heading)] mb-3">Challenges</h2>
+      <ul class="space-y-2">
+        {challenges.map((challenge) => (
+          <li class="flex items-start gap-2 text-[var(--color-text-secondary)]">
+            <svg class="w-5 h-5 text-[var(--color-neutral-400)] shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
+            </svg>
+            {challenge}
+          </li>
+        ))}
+      </ul>
+    </div>
+  )}
+
+  <!-- Signals -->
+  {signals.length > 0 && (
+    <div class="mb-8 p-6 rounded-xl bg-[var(--color-surface-raised)] border border-[var(--color-border)]">
+      <h2 class="text-lg font-[family-name:var(--font-heading)] mb-3">Signals Beton Detects</h2>
+      <ul class="space-y-2">
+        {signals.map((signal) => (
+          <li class="flex items-start gap-2 text-[var(--color-text-secondary)]">
+            <svg class="w-5 h-5 text-[var(--color-primary-500)] shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"></path>
+            </svg>
+            {signal}
+          </li>
+        ))}
+      </ul>
+    </div>
+  )}
+
+  <!-- Outcomes -->
+  {outcomes.length > 0 && (
+    <div class="mb-8">
+      <h2 class="text-lg font-[family-name:var(--font-heading)] mb-3">Expected Outcomes</h2>
+      <ul class="space-y-2">
+        {outcomes.map((outcome) => (
+          <li class="flex items-start gap-2 text-[var(--color-text-secondary)]">
+            <svg class="w-5 h-5 text-[var(--color-accent-500)] shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path>
+            </svg>
+            {outcome}
+          </li>
+        ))}
+      </ul>
+    </div>
+  )}
+
+  <!-- Markdown body -->
+  <Content />
+</ContentLayout>

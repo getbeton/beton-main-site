@@ -1,0 +1,79 @@
+---
+import { mainNav, externalNav } from '../../utils/navigation';
+import ThemeToggle from './ThemeToggle.astro';
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="sticky top-0 z-30 w-full border-b border-[var(--color-border)] bg-[var(--color-surface)]/95 backdrop-blur-sm">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="flex h-16 items-center justify-between">
+      <!-- Logo -->
+      <a href="/" class="flex items-center gap-2 text-lg font-bold font-[family-name:var(--font-heading)]">
+        <img src="/images/beton-logo.svg" alt="Beton" width="28" height="28" class="block [html[data-theme=dark]_&]:hidden" />
+        <img src="/images/beton-logo-dark.svg" alt="Beton" width="28" height="28" class="hidden [html[data-theme=dark]_&]:block" />
+        Beton
+      </a>
+
+      <!-- Desktop nav -->
+      <nav class="hidden lg:flex items-center gap-1" aria-label="Main navigation">
+        {mainNav.map((link) => (
+          <a
+            href={link.href}
+            class:list={[
+              'px-3 py-2 text-sm font-medium rounded-md transition-colors',
+              currentPath === link.href || currentPath.startsWith(link.href + '/')
+                ? 'text-[var(--color-primary-600)] bg-[var(--color-primary-50)]'
+                : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text)] hover:bg-[var(--color-neutral-100)]',
+            ]}
+            aria-current={currentPath === link.href ? 'page' : undefined}
+          >
+            {link.label}
+          </a>
+        ))}
+
+        <span class="mx-2 h-5 w-px bg-[var(--color-border)]" aria-hidden="true"></span>
+
+        {externalNav.map((link) => (
+          <a
+            href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center gap-1 px-3 py-2 text-sm font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-text)] rounded-md transition-colors"
+          >
+            {link.label}
+            <svg class="w-3.5 h-3.5 opacity-50" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"></path>
+            </svg>
+          </a>
+        ))}
+      </nav>
+
+      <!-- Right side -->
+      <div class="flex items-center gap-2">
+        <ThemeToggle />
+
+        <!-- Desktop CTA -->
+        <a
+          href="https://inspector.getbeton.ai"
+          class="hidden lg:inline-flex items-center px-4 py-2 text-sm font-medium bg-[var(--color-primary-600)] text-white rounded-lg hover:bg-[var(--color-primary-700)] transition-colors"
+          data-track-cta="header-get-started"
+        >
+          Get Started
+        </a>
+
+        <!-- Mobile menu button -->
+        <button
+          id="mobile-menu-open"
+          type="button"
+          class="inline-flex items-center justify-center w-9 h-9 rounded-md text-[var(--color-text-secondary)] hover:text-[var(--color-text)] lg:hidden"
+          aria-label="Open menu"
+        >
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>

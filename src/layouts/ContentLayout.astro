@@ -1,0 +1,34 @@
+---
+import PageLayout from './PageLayout.astro';
+
+interface Props {
+  title: string;
+  subtitle?: string;
+  description?: string;
+  ogImage?: string;
+  canonicalPath?: string;
+}
+
+const { title, subtitle, description, ogImage, canonicalPath } = Astro.props;
+---
+
+<PageLayout title={title} description={description} ogImage={ogImage} canonicalPath={canonicalPath}>
+  <article class="py-16 lg:py-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <!-- Hero -->
+      <header class="max-w-3xl mb-12">
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-[family-name:var(--font-heading)] tracking-tight">
+          {title}
+        </h1>
+        {subtitle && (
+          <p class="mt-4 text-lg text-[var(--color-text-secondary)]">{subtitle}</p>
+        )}
+      </header>
+
+      <!-- Prose content -->
+      <div class="prose max-w-3xl">
+        <slot />
+      </div>
+    </div>
+  </article>
+</PageLayout>

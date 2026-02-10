@@ -1,0 +1,55 @@
+---
+import Head from '../components/seo/Head.astro';
+import GTMNoscript from '../components/analytics/GTMNoscript.astro';
+import DataLayerEvents from '../components/analytics/DataLayerEvents.astro';
+import CookieConsent from '../components/global/CookieConsent.astro';
+import '../styles/global.css';
+import '../styles/prose.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  canonicalPath?: string;
+  noIndex?: boolean;
+  schemaType?: string;
+}
+
+const { title, description, ogImage, canonicalPath, noIndex, schemaType } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <Head
+      title={title}
+      description={description}
+      ogImage={ogImage}
+      canonicalPath={canonicalPath}
+      noIndex={noIndex}
+      schemaType={schemaType}
+    />
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <GTMNoscript />
+
+    <!-- Theme initialization (prevents flash) -->
+    <script is:inline>
+      (function () {
+        try {
+          var t = localStorage.getItem('theme');
+          if (t === 'dark' || t === 'light') {
+            document.documentElement.setAttribute('data-theme', t);
+          } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
+
+    <slot />
+
+    <CookieConsent />
+    <DataLayerEvents />
+  </body>
+</html>
