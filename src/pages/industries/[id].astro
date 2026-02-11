@@ -110,53 +110,55 @@ const breadcrumbs = [
       </Button>
     </div>
   </div>
+
+  <Fragment slot="sections">
+    {otherIndustries.length > 0 && (
+      <section class="py-10 lg:py-16 border-t-2 border-[var(--color-border)]">
+        <Container>
+          <h2 class="text-xl sm:text-2xl font-[family-name:var(--font-heading)] tracking-wide text-center mb-8">
+            Other Industries
+          </h2>
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
+            {otherIndustries.map((ind) => (
+              <a
+                href={`/industries/${ind.id}/`}
+                class="block p-5 border-2 border-[var(--color-text)] shadow-[var(--shadow-card)] hover:shadow-[6px_6px_0_var(--color-text)] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-150"
+              >
+                <h3 class="text-sm font-bold mb-1">{ind.data.title}</h3>
+                <p class="text-xs text-[var(--color-text-secondary)] leading-relaxed">{ind.data.subtitle}</p>
+              </a>
+            ))}
+          </div>
+        </Container>
+      </section>
+    )}
+
+    {relatedUCs.length > 0 && (
+      <section class="py-10 lg:py-16 border-t-2 border-[var(--color-border)]">
+        <Container>
+          <h2 class="text-xl sm:text-2xl font-[family-name:var(--font-heading)] tracking-wide text-center mb-8">
+            Related Use Cases
+          </h2>
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
+            {relatedUCs.map((uc) => (
+              <a
+                href={`/use-cases/${uc.id}/`}
+                class="block p-5 border-2 border-[var(--color-text)] shadow-[var(--shadow-card)] hover:shadow-[6px_6px_0_var(--color-text)] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-150"
+              >
+                <h3 class="text-sm font-bold mb-1">{uc.data.title}</h3>
+                <p class="text-xs text-[var(--color-text-secondary)] leading-relaxed">{uc.data.subtitle}</p>
+              </a>
+            ))}
+          </div>
+        </Container>
+      </section>
+    )}
+
+    <CTASection
+      headline={`Beton for ${title}`}
+      description={`Turn ${title.toLowerCase()} product signals into revenue opportunities.`}
+      secondaryCta={{ label: 'Browse Use Cases', href: '/use-cases/' }}
+      trackId={`industry-${entry.id}-cta`}
+    />
+  </Fragment>
 </ContentLayout>
-
-<CTASection
-  headline={`Beton for ${title}`}
-  description={`Turn ${title.toLowerCase()} product signals into revenue opportunities.`}
-  secondaryCta={{ label: 'Browse Use Cases', href: '/use-cases/' }}
-  trackId={`industry-${entry.id}-cta`}
-/>
-
-{otherIndustries.length > 0 && (
-  <section class="py-10 lg:py-16 border-t-2 border-[var(--color-border)]">
-    <Container>
-      <h2 class="text-xl sm:text-2xl font-[family-name:var(--font-heading)] tracking-wide text-center mb-8">
-        Other Industries
-      </h2>
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
-        {otherIndustries.map((ind) => (
-          <a
-            href={`/industries/${ind.id}/`}
-            class="block p-5 border-2 border-[var(--color-text)] shadow-[var(--shadow-card)] hover:shadow-[6px_6px_0_var(--color-text)] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-150"
-          >
-            <h3 class="text-sm font-bold mb-1">{ind.data.title}</h3>
-            <p class="text-xs text-[var(--color-text-secondary)] leading-relaxed">{ind.data.subtitle}</p>
-          </a>
-        ))}
-      </div>
-    </Container>
-  </section>
-)}
-
-{relatedUCs.length > 0 && (
-  <section class="py-10 lg:py-16 border-t-2 border-[var(--color-border)]">
-    <Container>
-      <h2 class="text-xl sm:text-2xl font-[family-name:var(--font-heading)] tracking-wide text-center mb-8">
-        Related Use Cases
-      </h2>
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
-        {relatedUCs.map((uc) => (
-          <a
-            href={`/use-cases/${uc.id}/`}
-            class="block p-5 border-2 border-[var(--color-text)] shadow-[var(--shadow-card)] hover:shadow-[6px_6px_0_var(--color-text)] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-150"
-          >
-            <h3 class="text-sm font-bold mb-1">{uc.data.title}</h3>
-            <p class="text-xs text-[var(--color-text-secondary)] leading-relaxed">{uc.data.subtitle}</p>
-          </a>
-        ))}
-      </div>
-    </Container>
-  </section>
-)}

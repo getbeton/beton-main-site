@@ -86,60 +86,62 @@ const breadcrumbs = [
       </Button>
     </div>
   </div>
+
+  <Fragment slot="sections">
+    {relatedIntegrations.length > 0 && (
+      <section class="py-10 lg:py-16 border-t-2 border-[var(--color-border)]">
+        <Container>
+          <h2 class="text-xl sm:text-2xl font-[family-name:var(--font-heading)] tracking-wide text-center mb-8">
+            Works With
+          </h2>
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 max-w-3xl mx-auto">
+            {relatedIntegrations.map((integration) => (
+              <a
+                href={`/integrations/${integration.data.slug}/`}
+                class="flex flex-col items-center gap-2 p-4 border-2 border-[var(--color-text)] shadow-[var(--shadow-card)] hover:shadow-[6px_6px_0_var(--color-text)] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-150"
+              >
+                <img
+                  src={integration.data.logo}
+                  alt={integration.data.name}
+                  width="32"
+                  height="32"
+                  loading="lazy"
+                  class="w-8 h-8 object-contain logo-adaptive"
+                />
+                <span class="text-xs font-medium text-[var(--color-text)]">{integration.data.name}</span>
+              </a>
+            ))}
+          </div>
+        </Container>
+      </section>
+    )}
+
+    {relatedUseCases.length > 0 && (
+      <section class="py-10 lg:py-16 border-t-2 border-[var(--color-border)]">
+        <Container>
+          <h2 class="text-xl sm:text-2xl font-[family-name:var(--font-heading)] tracking-wide text-center mb-8">
+            Related Use Cases
+          </h2>
+          <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
+            {relatedUseCases.map((uc) => (
+              <a
+                href={`/use-cases/${uc.id}/`}
+                class="block p-5 border-2 border-[var(--color-text)] shadow-[var(--shadow-card)] hover:shadow-[6px_6px_0_var(--color-text)] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-150"
+              >
+                <h3 class="text-sm font-bold mb-1">{uc.data.title}</h3>
+                <p class="text-xs text-[var(--color-text-secondary)] leading-relaxed">{uc.data.subtitle}</p>
+              </a>
+            ))}
+          </div>
+        </Container>
+      </section>
+    )}
+
+    <CTASection
+      headline={`Start ${title} with Beton`}
+      description="Connect your product analytics and start detecting buying signals today."
+      secondaryCta={{ label: 'Browse Industries', href: '/industries/' }}
+      trackId={`use-case-${entry.id}-cta`}
+    />
+  </Fragment>
 </ContentLayout>
-
-<CTASection
-  headline={`Start ${title} with Beton`}
-  description="Connect your product analytics and start detecting buying signals today."
-  secondaryCta={{ label: 'Browse Industries', href: '/industries/' }}
-  trackId={`use-case-${entry.id}-cta`}
-/>
-
-{relatedIntegrations.length > 0 && (
-  <section class="py-10 lg:py-16 border-t-2 border-[var(--color-border)]">
-    <Container>
-      <h2 class="text-xl sm:text-2xl font-[family-name:var(--font-heading)] tracking-wide text-center mb-8">
-        Works With
-      </h2>
-      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 max-w-3xl mx-auto">
-        {relatedIntegrations.map((integration) => (
-          <a
-            href={`/integrations/${integration.data.slug}/`}
-            class="flex flex-col items-center gap-2 p-4 border-2 border-[var(--color-text)] shadow-[var(--shadow-card)] hover:shadow-[6px_6px_0_var(--color-text)] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-150"
-          >
-            <img
-              src={integration.data.logo}
-              alt={integration.data.name}
-              width="32"
-              height="32"
-              loading="lazy"
-              class="w-8 h-8 object-contain logo-adaptive"
-            />
-            <span class="text-xs font-medium text-[var(--color-text)]">{integration.data.name}</span>
-          </a>
-        ))}
-      </div>
-    </Container>
-  </section>
-)}
-
-{relatedUseCases.length > 0 && (
-  <section class="py-10 lg:py-16 border-t-2 border-[var(--color-border)]">
-    <Container>
-      <h2 class="text-xl sm:text-2xl font-[family-name:var(--font-heading)] tracking-wide text-center mb-8">
-        Related Use Cases
-      </h2>
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
-        {relatedUseCases.map((uc) => (
-          <a
-            href={`/use-cases/${uc.id}/`}
-            class="block p-5 border-2 border-[var(--color-text)] shadow-[var(--shadow-card)] hover:shadow-[6px_6px_0_var(--color-text)] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-150"
-          >
-            <h3 class="text-sm font-bold mb-1">{uc.data.title}</h3>
-            <p class="text-xs text-[var(--color-text-secondary)] leading-relaxed">{uc.data.subtitle}</p>
-          </a>
-        ))}
-      </div>
-    </Container>
-  </section>
-)}

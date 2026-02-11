@@ -88,11 +88,20 @@ const softwareSchema =
           {
             '@type': 'Offer',
             name: 'Cloud',
-            price: '0.50',
-            priceCurrency: 'USD',
             url: `${SITE.url}/pricing/`,
             availability: 'https://schema.org/InStock',
             description: 'Per tracked user per month. Managed hosting, daily sync.',
+            priceSpecification: {
+              '@type': 'UnitPriceSpecification',
+              price: '0.50',
+              priceCurrency: 'USD',
+              unitText: 'per tracked user per month',
+              referenceQuantity: {
+                '@type': 'QuantitativeValue',
+                value: '1',
+                unitCode: 'MON',
+              },
+            },
           },
         ],
         featureList: [
