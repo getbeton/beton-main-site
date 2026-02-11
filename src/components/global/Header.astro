@@ -1,6 +1,7 @@
 ---
 import { mainNav, externalNav } from '../../utils/navigation';
 import ThemeToggle from './ThemeToggle.astro';
+import { SITE } from '../../utils/site';
 
 const currentPath = Astro.url.pathname;
 ---
@@ -74,7 +75,7 @@ const currentPath = Astro.url.pathname;
           Book a Demo
         </a>
         <a
-          href="https://inspector.getbeton.ai"
+          href={SITE.external.app}
           class="hidden lg:inline-flex items-center px-3 py-2 text-sm font-bold whitespace-nowrap bg-[var(--color-primary-600)] text-white border-2 border-[var(--color-primary-600)] hover:bg-white hover:text-[var(--color-primary-600)] uppercase tracking-wider"
           data-track-cta="header-get-started"
         >

@@ -14,6 +14,6 @@ export const SITE = {
   external: {
     blog: 'https://blog.getbeton.ai',
     docs: 'https://docs.getbeton.ai',
-    app: 'https://inspector.getbeton.ai',
+    app: 'https://inspector.getbeton.ai/login',
   },
 } as const;

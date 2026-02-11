@@ -1,5 +1,6 @@
 ---
 import Container from '../ui/Container.astro';
+import { SITE } from '../../utils/site';
 
 interface Props {
   headline: string;
@@ -12,7 +13,7 @@ interface Props {
 const {
   headline,
   description,
-  primaryCta = { label: 'Get Started Free', href: 'https://inspector.getbeton.ai' },
+  primaryCta = { label: 'Get Started Free', href: SITE.external.app },
   secondaryCta = { label: 'Book a Demo', href: 'https://cal.com/beton/thanks-for-your-interest-in-beton' },
   trackId = 'cta-section',
 } = Astro.props;

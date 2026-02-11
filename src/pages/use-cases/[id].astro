@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import ContentLayout from '../../layouts/ContentLayout.astro';
+import Container from '../../components/ui/Container.astro';
 import CTASection from '../../components/shared/CTASection.astro';
 import Button from '../../components/ui/Button.astro';
 import { SITE } from '../../utils/site';
@@ -16,6 +17,15 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 const { title, subtitle, description, problem, solution, benefits, seo } = entry.data;
+
+const relatedUseCases = (await getCollection('use-cases'))
+  .filter((uc) => uc.id !== entry.id)
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 4);
+
+const relatedIntegrations = entry.data.integrations?.length
+  ? (await getCollection('integrations')).filter((i) => entry.data.integrations.includes(i.data.slug))
+  : [];
 
 const breadcrumbs = [
   { name: 'Home', url: SITE.url },
@@ -68,7 +78,7 @@ const breadcrumbs = [
       Set up {title.toLowerCase()} detection in minutes. Free forever for self-hosted.
     </p>
     <div class="flex flex-col sm:flex-row gap-3">
-      <Button href="https://inspector.getbeton.ai" size="lg" data-track-cta={`use-case-${entry.id}-inline`}>
+      <Button href={SITE.external.app} size="lg" data-track-cta={`use-case-${entry.id}-inline`}>
         Get Started Free
       </Button>
       <Button href="/industries/" variant="outline" size="md">
@@ -84,3 +94,52 @@ const breadcrumbs = [
   secondaryCta={{ label: 'Browse Industries', href: '/industries/' }}
   trackId={`use-case-${entry.id}-cta`}
 />
+
+{relatedIntegrations.length > 0 && (
+  <section class="py-10 lg:py-16 border-t-2 border-[var(--color-border)]">
+    <Container>
+      <h2 class="text-xl sm:text-2xl font-[family-name:var(--font-heading)] tracking-wide text-center mb-8">
+        Works With
+      </h2>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 max-w-3xl mx-auto">
+        {relatedIntegrations.map((integration) => (
+          <a
+            href={`/integrations/${integration.data.slug}/`}
+            class="flex flex-col items-center gap-2 p-4 border-2 border-[var(--color-text)] shadow-[var(--shadow-card)] hover:shadow-[6px_6px_0_var(--color-text)] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-150"
+          >
+            <img
+              src={integration.data.logo}
+              alt={integration.data.name}
+              width="32"
+              height="32"
+              loading="lazy"
+              class="w-8 h-8 object-contain logo-adaptive"
+            />
+            <span class="text-xs font-medium text-[var(--color-text)]">{integration.data.name}</span>
+          </a>
+        ))}
+      </div>
+    </Container>
+  </section>
+)}
+
+{relatedUseCases.length > 0 && (
+  <section class="py-10 lg:py-16 border-t-2 border-[var(--color-border)]">
+    <Container>
+      <h2 class="text-xl sm:text-2xl font-[family-name:var(--font-heading)] tracking-wide text-center mb-8">
+        Related Use Cases
+      </h2>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
+        {relatedUseCases.map((uc) => (
+          <a
+            href={`/use-cases/${uc.id}/`}
+            class="block p-5 border-2 border-[var(--color-text)] shadow-[var(--shadow-card)] hover:shadow-[6px_6px_0_var(--color-text)] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-150"
+          >
+            <h3 class="text-sm font-bold mb-1">{uc.data.title}</h3>
+            <p class="text-xs text-[var(--color-text-secondary)] leading-relaxed">{uc.data.subtitle}</p>
+          </a>
+        ))}
+      </div>
+    </Container>
+  </section>
+)}

@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import ContentLayout from '../../layouts/ContentLayout.astro';
+import Container from '../../components/ui/Container.astro';
 import CTASection from '../../components/shared/CTASection.astro';
 import Button from '../../components/ui/Button.astro';
 import { SITE } from '../../utils/site';
@@ -16,6 +17,14 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 const { title, subtitle, description, challenges, signals, outcomes, seo } = entry.data;
+
+const otherIndustries = (await getCollection('industries'))
+  .filter((ind) => ind.id !== entry.id)
+  .sort((a, b) => a.data.order - b.data.order);
+
+const relatedUCs = entry.data.relatedUseCases?.length
+  ? (await getCollection('use-cases')).filter((uc) => entry.data.relatedUseCases.includes(uc.id))
+  : [];
 
 const breadcrumbs = [
   { name: 'Home', url: SITE.url },
@@ -93,7 +102,7 @@ const breadcrumbs = [
       Start detecting {title.toLowerCase()} revenue signals. Free forever for self-hosted.
     </p>
     <div class="flex flex-col sm:flex-row gap-3">
-      <Button href="https://inspector.getbeton.ai" size="lg" data-track-cta={`industry-${entry.id}-inline`}>
+      <Button href={SITE.external.app} size="lg" data-track-cta={`industry-${entry.id}-inline`}>
         Get Started Free
       </Button>
       <Button href="/use-cases/" variant="outline" size="md">
@@ -109,3 +118,45 @@ const breadcrumbs = [
   secondaryCta={{ label: 'Browse Use Cases', href: '/use-cases/' }}
   trackId={`industry-${entry.id}-cta`}
 />
+
+{otherIndustries.length > 0 && (
+  <section class="py-10 lg:py-16 border-t-2 border-[var(--color-border)]">
+    <Container>
+      <h2 class="text-xl sm:text-2xl font-[family-name:var(--font-heading)] tracking-wide text-center mb-8">
+        Other Industries
+      </h2>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
+        {otherIndustries.map((ind) => (
+          <a
+            href={`/industries/${ind.id}/`}
+            class="block p-5 border-2 border-[var(--color-text)] shadow-[var(--shadow-card)] hover:shadow-[6px_6px_0_var(--color-text)] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-150"
+          >
+            <h3 class="text-sm font-bold mb-1">{ind.data.title}</h3>
+            <p class="text-xs text-[var(--color-text-secondary)] leading-relaxed">{ind.data.subtitle}</p>
+          </a>
+        ))}
+      </div>
+    </Container>
+  </section>
+)}
+
+{relatedUCs.length > 0 && (
+  <section class="py-10 lg:py-16 border-t-2 border-[var(--color-border)]">
+    <Container>
+      <h2 class="text-xl sm:text-2xl font-[family-name:var(--font-heading)] tracking-wide text-center mb-8">
+        Related Use Cases
+      </h2>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
+        {relatedUCs.map((uc) => (
+          <a
+            href={`/use-cases/${uc.id}/`}
+            class="block p-5 border-2 border-[var(--color-text)] shadow-[var(--shadow-card)] hover:shadow-[6px_6px_0_var(--color-text)] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-150"
+          >
+            <h3 class="text-sm font-bold mb-1">{uc.data.title}</h3>
+            <p class="text-xs text-[var(--color-text-secondary)] leading-relaxed">{uc.data.subtitle}</p>
+          </a>
+        ))}
+      </div>
+    </Container>
+  </section>
+)}

@@ -1,6 +1,7 @@
 ---
 import Container from '../ui/Container.astro';
 import Button from '../ui/Button.astro';
+import { SITE } from '../../utils/site';
 ---
 
 <section class="py-10 lg:py-16 bg-[var(--color-primary-600)] border-y-4 border-[var(--color-text)] relative overflow-hidden" data-track-section="cta-banner">
@@ -16,7 +17,7 @@ import Button from '../ui/Button.astro';
       </p>
       <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
         <a
-          href="https://inspector.getbeton.ai"
+          href={SITE.external.app}
           class="inline-flex items-center px-6 py-3 text-base font-bold uppercase tracking-wider bg-white text-[var(--color-primary-700)] border-2 border-white hover:bg-[var(--color-primary-700)] hover:text-white"
           data-track-cta="cta-banner-primary"
         >
