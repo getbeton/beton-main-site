@@ -27,7 +27,11 @@
       "Identify power users ready for expansion conversations",
       "Spot churn signals before users downgrade or leave",
       "Route product-qualified leads to your sales team automatically"
-    ]
+    ],
+    "seo": {
+      "metaTitle": "PostHog Integration - Product Signal Detection",
+      "metaDescription": "Connect PostHog to Beton for behavioral signal detection. Turn product analytics events into revenue signals automatically."
+    }
   },
   {
     "id": "attio",
@@ -57,7 +61,11 @@
       "Enrich contact records with product usage context",
       "Update deal stages based on behavioral signals",
       "Alert sales reps in Attio when accounts show expansion intent"
-    ]
+    ],
+    "seo": {
+      "metaTitle": "Attio CRM Integration - Signal Routing",
+      "metaDescription": "Route revenue signals from Beton to Attio CRM. Automatically create and update records when buying signals are detected."
+    }
   },
   {
     "id": "hubspot",
@@ -87,7 +95,11 @@
       "Create deals automatically when buying intent is detected",
       "Score leads based on real product engagement data",
       "Keep your HubSpot pipeline synced with actual product usage"
-    ]
+    ],
+    "seo": {
+      "metaTitle": "HubSpot Integration - Revenue Signal Routing",
+      "metaDescription": "Route product signals to HubSpot CRM. Update contacts, create deals, and trigger workflows from behavioral data automatically."
+    }
   },
   {
     "id": "zoho",
@@ -117,7 +129,11 @@
       "Trigger Zoho Blueprints based on product behavior signals",
       "Enrich lead records with real usage data",
       "Prioritize pipeline based on product engagement scores"
-    ]
+    ],
+    "seo": {
+      "metaTitle": "Zoho CRM Integration - Behavioral Signal Sync",
+      "metaDescription": "Sync behavioral signals from Beton to Zoho CRM. Route product usage data to your Zoho sales pipeline in real-time."
+    }
   },
   {
     "id": "pipedrive",
@@ -147,7 +163,11 @@
       "Move deals through stages based on product milestones",
       "Add activities for sales follow-up on expansion signals",
       "Flag at-risk deals when churn signals are detected"
-    ]
+    ],
+    "seo": {
+      "metaTitle": "Pipedrive Integration - Pipeline Signal Automation",
+      "metaDescription": "Connect Pipedrive to Beton for automated pipeline updates. Create activities and update deals when revenue signals are detected."
+    }
   },
   {
     "id": "webhook",
@@ -177,7 +197,11 @@
       "Trigger custom scripts or serverless functions",
       "Feed signals into data warehouses or analytics tools",
       "Build custom integrations with internal tools"
-    ]
+    ],
+    "seo": {
+      "metaTitle": "Webhooks Integration - Custom Signal Delivery",
+      "metaDescription": "Send revenue signals anywhere via HTTP webhooks. Build custom integrations with your existing stack using Beton's webhook support."
+    }
   },
   {
     "id": "n8n",
@@ -207,6 +231,10 @@
       "Combine signals with data from other sources before routing",
       "Create complex approval workflows for high-value signals",
       "Route signals to tools that don't have native Beton integration"
-    ]
+    ],
+    "seo": {
+      "metaTitle": "n8n Integration - Workflow Automation",
+      "metaDescription": "Connect Beton to n8n for unlimited workflow automation. Route revenue signals through complex multi-step workflows."
+    }
   }
 ]

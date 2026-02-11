@@ -6,15 +6,22 @@ import Section from '../components/ui/Section.astro';
 import Heading from '../components/ui/Heading.astro';
 import TeamCard from '../components/team/TeamCard.astro';
 import CTASection from '../components/shared/CTASection.astro';
+import { SITE } from '../utils/site';
 
 const members = (await getCollection('team')).sort(
   (a, b) => a.data.order - b.data.order
 );
+
+const breadcrumbs = [
+  { name: 'Home', url: SITE.url },
+  { name: 'Team', url: `${SITE.url}/team/` },
+];
 ---
 
 <PageLayout
   title="Meet the Team"
   description="Meet the team behind Beton, building open-source revenue intelligence."
+  breadcrumbs={breadcrumbs}
 >
   <Section>
     <Container>

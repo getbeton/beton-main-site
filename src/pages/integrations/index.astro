@@ -3,16 +3,23 @@ import { getCollection } from 'astro:content';
 import PageLayout from '../../layouts/PageLayout.astro';
 import Container from '../../components/ui/Container.astro';
 import CTASection from '../../components/shared/CTASection.astro';
+import { SITE } from '../../utils/site';
 
 const integrations = await getCollection('integrations');
 const sources = integrations.filter((i) => i.data.category === 'source');
 const destinations = integrations.filter((i) => i.data.category === 'destination');
+
+const breadcrumbs = [
+  { name: 'Home', url: SITE.url },
+  { name: 'Integrations', url: `${SITE.url}/integrations/` },
+];
 ---
 
 <PageLayout
   title="Integrations"
   description="Connect your data source and route revenue signals to your favorite CRM and tools."
   canonicalPath="/integrations"
+  breadcrumbs={breadcrumbs}
 >
   <section class="py-14 lg:py-20">
     <Container>

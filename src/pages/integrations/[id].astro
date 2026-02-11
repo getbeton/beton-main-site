@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import PageLayout from '../../layouts/PageLayout.astro';
 import Container from '../../components/ui/Container.astro';
 import Button from '../../components/ui/Button.astro';
+import { SITE } from '../../utils/site';
 
 export async function getStaticPaths() {
   const integrations = await getCollection('integrations');
@@ -13,17 +14,24 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-const { name, slug, logo, url, category, description, tagline, howItWorks, features, useCases } = entry.data;
+const { name, slug, logo, url, category, description, tagline, howItWorks, features, useCases, seo } = entry.data;
 
 const allIntegrations = (await getCollection('integrations')).filter(
   (i) => i.data.slug !== slug && i.data.featured
 );
+
+const breadcrumbs = [
+  { name: 'Home', url: SITE.url },
+  { name: 'Integrations', url: `${SITE.url}/integrations/` },
+  { name: `${name} Integration`, url: `${SITE.url}/integrations/${slug}/` },
+];
 ---
 
 <PageLayout
-  title={`${name} Integration`}
-  description={description}
+  title={seo?.metaTitle || `${name} Integration`}
+  description={seo?.metaDescription || description}
   canonicalPath={`/integrations/${slug}`}
+  breadcrumbs={breadcrumbs}
 >
   <!-- Hero -->
   <section class="relative py-14 lg:py-20 overflow-hidden">

@@ -40,12 +40,21 @@ const ogImageUrl = buildOgImageUrl(ogImage);
 <meta name="description" content={description} />
 <link rel="canonical" href={canonicalUrl} />
 
-{noIndex && <meta name="robots" content="noindex,nofollow" />}
+{noIndex
+  ? <meta name="robots" content="noindex,nofollow" />
+  : <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
+}
 
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 <link rel="sitemap" href="/sitemap-index.xml" />
+
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+<link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+<link rel="dns-prefetch" href="https://blog.getbeton.ai" />
+<link rel="dns-prefetch" href="https://docs.getbeton.ai" />
+<link rel="dns-prefetch" href="https://inspector.getbeton.ai" />
 
 <meta name="generator" content={Astro.generator} />
 <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)" />
@@ -53,7 +62,6 @@ const ogImageUrl = buildOgImageUrl(ogImage);
 
 <link rel="preload" href="/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" href="/fonts/cal-sans-semibold.woff2" as="font" type="font/woff2" crossorigin />
-<link rel="preload" href="/fonts/JetBrainsMono-Bold.woff2" as="font" type="font/woff2" crossorigin />
 
 <OpenGraph
   title={pageTitle}

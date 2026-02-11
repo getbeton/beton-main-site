@@ -41,7 +41,8 @@
       "WebFetch(domain:cdn.simpleicons.org)",
       "WebFetch(domain:cdn.jsdelivr.net)",
       "WebFetch(domain:simpleicons.org)",
-      "WebFetch(domain:app.pipedrive.com)"
+      "WebFetch(domain:app.pipedrive.com)",
+      "Bash(npm run check:*)"
     ]
   },
   "enableAllProjectMcpServers": true,

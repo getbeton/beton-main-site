@@ -6,15 +6,22 @@ import Section from '../../components/ui/Section.astro';
 import Heading from '../../components/ui/Heading.astro';
 import IndustryCard from '../../components/content/IndustryCard.astro';
 import CTASection from '../../components/shared/CTASection.astro';
+import { SITE } from '../../utils/site';
 
 const industries = (await getCollection('industries')).sort(
   (a, b) => a.data.order - b.data.order
 );
+
+const breadcrumbs = [
+  { name: 'Home', url: SITE.url },
+  { name: 'Industries', url: `${SITE.url}/industries/` },
+];
 ---
 
 <PageLayout
   title="Industries"
   description="Revenue intelligence for every industry. See how Beton helps SaaS, DevTools, Fintech, HealthTech, and Marketplace teams."
+  breadcrumbs={breadcrumbs}
 >
   <Section>
     <Container>

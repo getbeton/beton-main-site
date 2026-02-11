@@ -157,6 +157,7 @@ const integrations = defineCollection({
     })).optional(),
     features: z.array(z.string()).optional(),
     useCases: z.array(z.string()).optional(),
+    seo: seoSchema.optional(),
   }),
 });
 
