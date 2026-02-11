@@ -9,7 +9,10 @@ import Integrations from '../components/home/Integrations.astro';
 import BlogPosts from '../components/home/BlogPosts.astro';
 import Testimonials from '../components/home/Testimonials.astro';
 import PricingPreview from '../components/home/PricingPreview.astro';
+import AlternativesPreview from '../components/home/AlternativesPreview.astro';
+import SocialProof from '../components/home/SocialProof.astro';
 import CTABanner from '../components/home/CTABanner.astro';
+import CTASection from '../components/shared/CTASection.astro';
 import DashboardMockup from '../components/illustrations/DashboardMockup.astro';
 import SignalFlow from '../components/illustrations/SignalFlow.astro';
 import ZigzagDivider from '../components/ui/ZigzagDivider.astro';
@@ -42,6 +45,13 @@ const hero = page?.data.hero;
 
   <HowItWorks />
 
+  <!-- CTA after How It Works -->
+  <CTASection
+    headline="Ready to detect revenue signals?"
+    description="Start free — connect PostHog and see your first signals in minutes."
+    trackId="mid-page-cta"
+  />
+
   <!-- Signal Flow Diagram -->
   <Section class="border-b-2 border-[var(--color-border)]">
     <Container>
@@ -51,12 +61,23 @@ const hero = page?.data.hero;
 
   <Features />
   <UseCasesPreview />
+
+  <SocialProof />
+
+  <!-- CTA after Social Proof -->
+  <CTASection
+    headline="Join teams already using Beton"
+    description="Open-source, self-hostable, and free to start."
+    trackId="social-proof-cta"
+  />
+
   <Integrations />
   <Testimonials />
 
   <ZigzagDivider />
 
   <PricingPreview />
+  <AlternativesPreview />
   <BlogPosts />
 
   <CTABanner />

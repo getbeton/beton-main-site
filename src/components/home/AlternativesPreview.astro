@@ -1,0 +1,45 @@
+---
+import { getCollection } from 'astro:content';
+import Container from '../ui/Container.astro';
+import Section from '../ui/Section.astro';
+import Heading from '../ui/Heading.astro';
+
+const competitors = await getCollection('competitors');
+---
+
+<Section id="alternatives" class="bg-[var(--color-surface-raised)] border-y-2 border-[var(--color-border)]">
+  <Container>
+    <div class="text-center mb-10 lg:mb-14">
+      <Heading as="h2">Compare Beton to Alternatives</Heading>
+      <p class="mt-4 text-lg text-[var(--color-text-secondary)] max-w-2xl mx-auto">
+        See how Beton stacks up against popular lead scoring and revenue intelligence platforms.
+      </p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+      {competitors.map((entry) => (
+        <a
+          href={`/alternatives/${entry.data.slug}`}
+          class="border-2 border-[var(--color-text)] shadow-[var(--shadow-card)] hover:shadow-[6px_6px_0_var(--color-text)] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-150 p-6 block"
+        >
+          <span class="inline-flex items-center px-2 py-0.5 text-xs font-bold uppercase tracking-wider border border-[var(--color-border)] text-[var(--color-text-secondary)] mb-3">
+            {entry.data.category}
+          </span>
+          <h3 class="text-lg font-bold mb-1">Beton vs {entry.data.name}</h3>
+          <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed">
+            {entry.data.description.slice(0, 100)}...
+          </p>
+        </a>
+      ))}
+    </div>
+
+    <div class="text-center mt-8">
+      <a
+        href="/alternatives"
+        class="inline-flex items-center px-6 py-3 text-sm font-bold uppercase tracking-wider border-2 border-[var(--color-text)] text-[var(--color-text)] hover:bg-[var(--color-text)] hover:text-[var(--color-surface)] transition-all duration-150"
+      >
+        View All Comparisons
+      </a>
+    </div>
+  </Container>
+</Section>

@@ -7,12 +7,15 @@ const year = new Date().getFullYear();
 
 <footer class="border-t-2 border-[var(--color-text)] bg-[var(--color-surface)]">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8">
       <!-- Brand -->
       <div class="col-span-2 md:col-span-4 lg:col-span-2">
         <a href="/" class="inline-flex items-center gap-2 text-lg font-bold font-[family-name:'JetBrains_Mono']">
-          <img src="/images/beton-logo.svg" alt="Beton" width="24" height="24" class="block [html[data-theme=dark]_&]:hidden" />
-          <img src="/images/beton-logo-dark.svg" alt="Beton" width="24" height="24" class="hidden [html[data-theme=dark]_&]:block" />
+          <svg width="24" height="24" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M246.5 220C246.5 220 230 150 280 110C330 70 410 130 380 180C350 230 280 200 280 200L250 235" stroke="currentColor" stroke-width="45" stroke-linecap="round"/>
+            <path d="M110 320L210 240L390 310L290 390L110 320Z" fill="currentColor"/>
+            <path d="M110 335L110 375L290 445L290 405L110 335Z" fill="currentColor"/>
+          </svg>
           Beton
         </a>
         <p class="mt-3 text-sm text-[var(--color-text-secondary)] max-w-xs">
@@ -94,6 +97,23 @@ const year = new Date().getFullYear();
                 href={link.href}
                 target={link.external ? '_blank' : undefined}
                 rel={link.external ? 'noopener noreferrer' : undefined}
+                class="text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text)]"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Comparisons -->
+      <div>
+        <h3 class="text-sm font-semibold text-[var(--color-text)]">Comparisons</h3>
+        <ul class="mt-3 space-y-2">
+          {footerNav.comparisons.map((link) => (
+            <li>
+              <a
+                href={link.href}
                 class="text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text)]"
               >
                 {link.label}

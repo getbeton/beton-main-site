@@ -36,6 +36,14 @@ export const footerNav = {
     { label: 'GitHub', href: SITE.social.github, external: true },
     { label: 'App', href: SITE.external.app, external: true },
   ] as NavLink[],
+  comparisons: [
+    { label: 'Beton vs Pocus', href: '/alternatives/pocus' },
+    { label: 'Beton vs MadKudu', href: '/alternatives/madkudu' },
+    { label: 'Beton vs Common Room', href: '/alternatives/common-room' },
+    { label: 'Beton vs Breadcrumbs', href: '/alternatives/breadcrumbs' },
+    { label: 'Beton vs Clay', href: '/alternatives/clay' },
+    { label: 'Beton vs Lead Scoring', href: '/alternatives/lead-scoring-software' },
+  ] as NavLink[],
   legal: [
     { label: 'Terms and Conditions', href: '/terms' },
     { label: 'Privacy Policy', href: '/privacy' },
