@@ -161,6 +161,42 @@ const integrations = defineCollection({
   }),
 });
 
+const competitors = defineCollection({
+  loader: file('src/data/competitors/competitors.json'),
+  schema: z.object({
+    name: z.string(),
+    slug: z.string(),
+    tagline: z.string(),
+    description: z.string(),
+    url: z.string(),
+    category: z.string(),
+    pricing: z.object({
+      model: z.string(),
+      startingPrice: z.string(),
+    }),
+    keyFeatures: z.array(z.string()),
+    limitations: z.array(z.string()),
+    idealFor: z.array(z.string()),
+    comparison: z.array(z.object({
+      category: z.string(),
+      rows: z.array(z.object({
+        feature: z.string(),
+        competitor: z.union([z.boolean(), z.string()]),
+        beton: z.union([z.boolean(), z.string()]),
+      })),
+    })),
+    whySwitch: z.array(z.object({
+      title: z.string(),
+      description: z.string(),
+    })),
+    faq: z.array(z.object({
+      question: z.string(),
+      answer: z.string(),
+    })),
+    seo: seoSchema.optional(),
+  }),
+});
+
 const socialProof = defineCollection({
   loader: file('src/data/social-proof/companies.json'),
   schema: z.object({
@@ -182,5 +218,6 @@ export const collections = {
   'pricing-faq': pricingFaq,
   pages,
   integrations,
+  competitors,
   'social-proof': socialProof,
 };

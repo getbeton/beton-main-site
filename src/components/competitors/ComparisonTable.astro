@@ -1,0 +1,57 @@
+---
+interface Props {
+  columns: string[];
+  categories: {
+    name: string;
+    rows: {
+      feature: string;
+      values: (boolean | string)[];
+    }[];
+  }[];
+}
+
+const { columns, categories } = Astro.props;
+const colCount = columns.length + 1;
+---
+
+<div class="overflow-x-auto -mx-4 sm:mx-0">
+  <table class="w-full min-w-[600px] border-collapse border-2 border-[var(--color-text)]">
+    <thead>
+      <tr class="border-b-2 border-[var(--color-text)]">
+        <th class="text-left text-sm font-semibold py-4 px-4 w-2/5">Feature</th>
+        {columns.map((col) => (
+          <th class="text-center text-sm font-semibold py-4 px-4">{col}</th>
+        ))}
+      </tr>
+    </thead>
+    <tbody>
+      {categories.map((group) => (
+        <>
+          <tr class="border-b-2 border-[var(--color-text)] bg-[var(--color-surface-raised)]">
+            <td colspan={colCount} class="text-xs font-bold uppercase tracking-wider text-[var(--color-text-secondary)] py-3 px-4">
+              {group.name}
+            </td>
+          </tr>
+          {group.rows.map((row) => (
+            <tr class="border-b border-[var(--color-border)]">
+              <td class="text-sm py-3 px-4 text-[var(--color-text-secondary)]">{row.feature}</td>
+              {row.values.map((value) => (
+                <td class="text-center text-sm py-3 px-4">
+                  {value === true ? (
+                    <svg class="w-5 h-5 text-[var(--color-accent-500)] mx-auto" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                    </svg>
+                  ) : value === false ? (
+                    <span class="text-[var(--color-text-tertiary)]">—</span>
+                  ) : (
+                    <span class="font-medium">{value}</span>
+                  )}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </>
+      ))}
+    </tbody>
+  </table>
+</div>

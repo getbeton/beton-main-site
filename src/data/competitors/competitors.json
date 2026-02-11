@@ -1,0 +1,559 @@
+[
+  {
+    "id": "pocus",
+    "name": "Pocus",
+    "slug": "pocus",
+    "tagline": "Product-led sales platform for signal-based selling",
+    "description": "Pocus aggregates product usage data and buyer signals to help sales teams prioritize accounts. It focuses on PLG workflows with CRM integrations and playbook automation.",
+    "url": "https://www.pocus.com",
+    "category": "Product-Led Sales",
+    "pricing": {
+      "model": "Upfront annual contract",
+      "startingPrice": "Their sales did not tell us"
+    },
+    "keyFeatures": [
+      "Product usage scoring",
+      "CRM enrichment",
+      "Playbook automation",
+      "Account prioritization"
+    ],
+    "limitations": [
+      "Closed-source with no self-hosting option",
+      "Pricing scales with seat count — expensive for growing teams",
+      "No self-hosted deployment or open-source option",
+      "No open API for custom signal pipelines"
+    ],
+    "idealFor": [
+      "PLG SaaS companies with existing sales teams",
+      "Teams already invested in Salesforce workflows"
+    ],
+    "comparison": [
+      {
+        "category": "Core Capabilities",
+        "rows": [
+          { "feature": "Behavioral signal detection", "competitor": true, "beton": true },
+          { "feature": "Product usage scoring", "competitor": true, "beton": true },
+          { "feature": "CRM integrations", "competitor": true, "beton": true },
+          { "feature": "Custom signal pipelines", "competitor": false, "beton": true },
+          { "feature": "Autopilot detection (no rules)", "competitor": false, "beton": true }
+        ]
+      },
+      {
+        "category": "Deployment & Pricing",
+        "rows": [
+          { "feature": "Open-source", "competitor": false, "beton": true },
+          { "feature": "Self-hosted option", "competitor": false, "beton": true },
+          { "feature": "Free tier", "competitor": false, "beton": true },
+          { "feature": "Per-seat pricing", "competitor": true, "beton": false },
+          { "feature": "Transparent pricing", "competitor": false, "beton": true }
+        ]
+      },
+      {
+        "category": "Data & Integrations",
+        "rows": [
+          { "feature": "Webhook support", "competitor": true, "beton": true },
+          { "feature": "n8n / Zapier automation", "competitor": "Zapier only", "beton": true },
+          { "feature": "Bring your own LLM", "competitor": false, "beton": true },
+          { "feature": "Data stays on your infra", "competitor": false, "beton": true }
+        ]
+      }
+    ],
+    "whySwitch": [
+      {
+        "title": "Open-Source & Self-Hosted",
+        "description": "Run Beton on your own infrastructure. No vendor lock-in, full data control, and the transparency of GPL-licensed code."
+      },
+      {
+        "title": "No Per-Seat Pricing",
+        "description": "Beton doesn't charge per user. Your entire team gets access without costs scaling linearly with headcount."
+      },
+      {
+        "title": "Autopilot Signal Detection",
+        "description": "Beton's AI detects revenue signals automatically — no manual rule configuration or playbook setup required."
+      }
+    ],
+    "faq": [
+      {
+        "question": "How does Beton compare to Pocus for product-led sales?",
+        "answer": "Both platforms detect product usage signals, but Beton uses AI-powered autopilot detection instead of manual playbook rules. Beton is also open-source and can be self-hosted, giving you full control over your data and infrastructure."
+      },
+      {
+        "question": "Can I migrate from Pocus to Beton?",
+        "answer": "Yes. Beton integrates with the same CRMs and data sources as Pocus. You can run both in parallel during migration, then cut over when you're confident in the signal detection quality."
+      },
+      {
+        "question": "Is Beton really free?",
+        "answer": "Beton's self-hosted version is free and open-source under GPL. We also offer a managed cloud plan and an enterprise plan with premium support and advanced features."
+      }
+    ],
+    "seo": {
+      "metaTitle": "Open-Source Pocus Alternative | Beton",
+      "metaDescription": "Looking for a Pocus alternative? Beton offers open-source signal detection with self-hosting, no per-seat pricing, and autopilot AI — free to start."
+    }
+  },
+  {
+    "id": "madkudu",
+    "name": "MadKudu",
+    "slug": "madkudu",
+    "tagline": "Predictive lead scoring and product-qualified lead identification",
+    "description": "MadKudu uses predictive models to score leads based on firmographic, behavioral, and product usage data. It integrates with marketing automation and CRM platforms to prioritize MQLs and PQLs.",
+    "url": "https://www.madkudu.com",
+    "category": "Predictive Lead Scoring",
+    "pricing": {
+      "model": "Usage-based SaaS",
+      "startingPrice": "$999/mo"
+    },
+    "keyFeatures": [
+      "Predictive lead scoring",
+      "PQL identification",
+      "Firmographic enrichment",
+      "Marketing-to-sales handoff"
+    ],
+    "limitations": [
+      "High starting price — not accessible for early-stage teams",
+      "Closed-source with opaque scoring models",
+      "Complex setup requiring data engineering resources",
+      "Limited customization of scoring algorithms"
+    ],
+    "idealFor": [
+      "Mid-market to enterprise B2B SaaS with dedicated data teams",
+      "Companies with complex lead qualification workflows"
+    ],
+    "comparison": [
+      {
+        "category": "Core Capabilities",
+        "rows": [
+          { "feature": "Predictive lead scoring", "competitor": true, "beton": true },
+          { "feature": "PQL identification", "competitor": true, "beton": true },
+          { "feature": "Behavioral signal detection", "competitor": true, "beton": true },
+          { "feature": "Firmographic enrichment", "competitor": true, "beton": "Via integrations" },
+          { "feature": "Autopilot detection (no rules)", "competitor": false, "beton": true }
+        ]
+      },
+      {
+        "category": "Deployment & Pricing",
+        "rows": [
+          { "feature": "Open-source", "competitor": false, "beton": true },
+          { "feature": "Self-hosted option", "competitor": false, "beton": true },
+          { "feature": "Free tier", "competitor": false, "beton": true },
+          { "feature": "Starting price", "competitor": "$999/mo", "beton": "$0" },
+          { "feature": "Transparent scoring models", "competitor": false, "beton": true }
+        ]
+      },
+      {
+        "category": "Data & Integrations",
+        "rows": [
+          { "feature": "CRM integrations", "competitor": true, "beton": true },
+          { "feature": "Webhook support", "competitor": true, "beton": true },
+          { "feature": "Custom signal pipelines", "competitor": false, "beton": true },
+          { "feature": "Bring your own LLM", "competitor": false, "beton": true },
+          { "feature": "Data stays on your infra", "competitor": false, "beton": true }
+        ]
+      }
+    ],
+    "whySwitch": [
+      {
+        "title": "10x Lower Cost",
+        "description": "MadKudu starts at $999/mo. Beton's self-hosted version is free, and cloud plans start at a fraction of the cost."
+      },
+      {
+        "title": "Transparent AI Models",
+        "description": "Beton is open-source — you can inspect, modify, and understand exactly how signals are detected and scored."
+      },
+      {
+        "title": "No Data Engineering Required",
+        "description": "Beton's autopilot detection works out of the box. No need for dedicated data teams to configure scoring models."
+      }
+    ],
+    "faq": [
+      {
+        "question": "How does Beton's scoring compare to MadKudu's predictive models?",
+        "answer": "MadKudu uses traditional ML models that require training data and configuration. Beton uses LLM-powered autopilot detection that identifies revenue signals automatically without manual model training."
+      },
+      {
+        "question": "Do I need a data team to set up Beton?",
+        "answer": "No. Unlike MadKudu, Beton is designed for self-serve setup. Connect your data sources, and autopilot detection starts identifying signals immediately."
+      },
+      {
+        "question": "Can Beton handle the same volume as MadKudu?",
+        "answer": "Yes. Beton's self-hosted version scales with your infrastructure, and the cloud version is built for high-volume signal processing."
+      }
+    ],
+    "seo": {
+      "metaTitle": "Open-Source MadKudu Alternative | Beton",
+      "metaDescription": "Looking for a MadKudu alternative? Beton delivers AI-powered signal detection at a fraction of the cost — open-source, self-hostable, and free to start."
+    }
+  },
+  {
+    "id": "common-room",
+    "name": "Common Room",
+    "slug": "common-room",
+    "tagline": "Community-led growth and signal intelligence platform",
+    "description": "Common Room unifies community, product, and social signals to identify champions and buying intent across digital touchpoints. It focuses on community-led growth motions.",
+    "url": "https://www.commonroom.io",
+    "category": "Customer Intelligence",
+    "pricing": {
+      "model": "Per-seat SaaS",
+      "startingPrice": "$30K/year (or $10K/year if you don't need integrations)"
+    },
+    "keyFeatures": [
+      "Community signal aggregation",
+      "Identity resolution across channels",
+      "Champion identification",
+      "Social listening"
+    ],
+    "limitations": [
+      "Broad signal coverage can create noise without careful configuration",
+      "Custom pricing with no published rates",
+      "Closed-source platform",
+      "Can be noisy without careful signal tuning"
+    ],
+    "idealFor": [
+      "Developer-focused companies with active communities",
+      "Teams running community-led growth motions"
+    ],
+    "comparison": [
+      {
+        "category": "Core Capabilities",
+        "rows": [
+          { "feature": "Product usage signal detection", "competitor": true, "beton": true },
+          { "feature": "Community signal aggregation", "competitor": true, "beton": "Via webhooks" },
+          { "feature": "Identity resolution", "competitor": true, "beton": true },
+          { "feature": "CRM integrations", "competitor": true, "beton": true },
+          { "feature": "Autopilot detection (no rules)", "competitor": false, "beton": true }
+        ]
+      },
+      {
+        "category": "Deployment & Pricing",
+        "rows": [
+          { "feature": "Open-source", "competitor": false, "beton": true },
+          { "feature": "Self-hosted option", "competitor": false, "beton": true },
+          { "feature": "Free tier", "competitor": "Limited", "beton": true },
+          { "feature": "Published pricing", "competitor": false, "beton": true },
+          { "feature": "Transparent scoring", "competitor": false, "beton": true }
+        ]
+      },
+      {
+        "category": "Data & Integrations",
+        "rows": [
+          { "feature": "Webhook support", "competitor": true, "beton": true },
+          { "feature": "Social platform integrations", "competitor": true, "beton": "Via webhooks" },
+          { "feature": "Custom signal pipelines", "competitor": false, "beton": true },
+          { "feature": "Bring your own LLM", "competitor": false, "beton": true },
+          { "feature": "Data stays on your infra", "competitor": false, "beton": true }
+        ]
+      }
+    ],
+    "whySwitch": [
+      {
+        "title": "Product-First Signal Detection",
+        "description": "While Common Room focuses on community signals, Beton excels at detecting product usage patterns that predict conversion — the strongest buying signals."
+      },
+      {
+        "title": "Open-Source Transparency",
+        "description": "Beton is fully open-source. No black-box scoring, no vendor lock-in, and full control over your signal detection pipeline."
+      },
+      {
+        "title": "Simpler, Focused Tool",
+        "description": "Instead of aggregating every social signal, Beton focuses on the signals that actually predict revenue — less noise, more action."
+      }
+    ],
+    "faq": [
+      {
+        "question": "Does Beton track community signals like Common Room?",
+        "answer": "Beton focuses on product usage and behavioral signals rather than community channels. You can pipe community signals into Beton via webhooks, but its core strength is detecting revenue-predictive patterns in product data."
+      },
+      {
+        "question": "Can I use Beton and Common Room together?",
+        "answer": "Yes. Some teams use Common Room for community intelligence and Beton for product signal detection, combining both into their CRM for a complete picture."
+      },
+      {
+        "question": "Is Beton better for developer tools than Common Room?",
+        "answer": "If your primary buying signal is product usage (not community engagement), Beton is likely a better fit. It detects patterns like API key creation, feature adoption, and team expansion that predict enterprise deals."
+      }
+    ],
+    "seo": {
+      "metaTitle": "Open-Source Common Room Alternative | Beton",
+      "metaDescription": "Looking for a Common Room alternative focused on product signals? Beton offers open-source revenue intelligence with self-hosting and AI autopilot detection."
+    }
+  },
+  {
+    "id": "breadcrumbs",
+    "name": "Breadcrumbs",
+    "slug": "breadcrumbs",
+    "tagline": "Revenue acceleration through contact scoring and attribution",
+    "description": "Breadcrumbs provided co-dynamic lead scoring that combined fit and activity data to prioritize leads. Breadcrumbs was acquired by MadKudu in October 2024, and customers are being migrated to the MadKudu platform.",
+    "url": "https://www.breadcrumbs.io",
+    "category": "Lead Scoring",
+    "pricing": {
+      "model": "Acquired by MadKudu (Oct 2024)",
+      "startingPrice": "Migrating to MadKudu"
+    },
+    "keyFeatures": [
+      "Co-dynamic scoring models",
+      "Fit + activity scoring",
+      "Marketing attribution",
+      "Lead prioritization"
+    ],
+    "limitations": [
+      "Being sunset — customers migrating to MadKudu platform",
+      "Focused on scoring — no end-to-end signal pipeline",
+      "Limited product usage signal support",
+      "No self-hosting option"
+    ],
+    "idealFor": [
+      "Small to mid-size B2B teams focused on lead scoring",
+      "Marketing teams needing quick scoring setup"
+    ],
+    "comparison": [
+      {
+        "category": "Core Capabilities",
+        "rows": [
+          { "feature": "Lead scoring", "competitor": true, "beton": true },
+          { "feature": "Product usage signals", "competitor": "Limited", "beton": true },
+          { "feature": "Behavioral signal detection", "competitor": true, "beton": true },
+          { "feature": "CRM integrations", "competitor": true, "beton": true },
+          { "feature": "Autopilot detection (no rules)", "competitor": false, "beton": true }
+        ]
+      },
+      {
+        "category": "Deployment & Pricing",
+        "rows": [
+          { "feature": "Open-source", "competitor": false, "beton": true },
+          { "feature": "Self-hosted option", "competitor": false, "beton": true },
+          { "feature": "Free tier", "competitor": false, "beton": true },
+          { "feature": "Starting price", "competitor": "Migrating to MadKudu", "beton": "$0" },
+          { "feature": "Transparent scoring", "competitor": "Partial", "beton": true }
+        ]
+      },
+      {
+        "category": "Data & Integrations",
+        "rows": [
+          { "feature": "Webhook support", "competitor": true, "beton": true },
+          { "feature": "n8n / Zapier automation", "competitor": "Zapier only", "beton": true },
+          { "feature": "Custom signal pipelines", "competitor": false, "beton": true },
+          { "feature": "Bring your own LLM", "competitor": false, "beton": true },
+          { "feature": "Data stays on your infra", "competitor": false, "beton": true }
+        ]
+      }
+    ],
+    "whySwitch": [
+      {
+        "title": "Beyond Scoring — Full Signal Pipeline",
+        "description": "Breadcrumbs scores leads, but Beton detects, scores, and routes signals in one pipeline. No need to stitch together multiple tools."
+      },
+      {
+        "title": "AI-Powered Detection",
+        "description": "Beton's autopilot mode discovers revenue signals you didn't know to look for — no manual scoring model configuration."
+      },
+      {
+        "title": "Open-Source & Free to Start",
+        "description": "Self-host Beton for free with unlimited users. No per-seat or tiered pricing gates."
+      }
+    ],
+    "faq": [
+      {
+        "question": "How is Beton different from Breadcrumbs?",
+        "answer": "Breadcrumbs focuses on lead scoring with fit + activity models. Beton goes further with end-to-end signal detection, AI-powered autopilot scoring, and signal routing to your CRM and sales tools."
+      },
+      {
+        "question": "Is Beton harder to set up than Breadcrumbs?",
+        "answer": "No. Beton's autopilot mode requires less configuration than Breadcrumbs' manual scoring models. Connect your data sources and Beton starts detecting signals automatically."
+      },
+      {
+        "question": "Can Beton replace Breadcrumbs for lead scoring?",
+        "answer": "Yes. Beton includes lead scoring as part of its signal detection pipeline, plus adds capabilities like autopilot detection and self-hosted deployment that Breadcrumbs doesn't offer."
+      }
+    ],
+    "seo": {
+      "metaTitle": "Open-Source Breadcrumbs Alternative | Beton",
+      "metaDescription": "Looking for a Breadcrumbs alternative? Beton offers AI-powered signal detection with a full pipeline — open-source, self-hosted, and free to start."
+    }
+  },
+  {
+    "id": "clay",
+    "name": "Clay",
+    "slug": "clay",
+    "tagline": "Data enrichment and outbound automation platform",
+    "description": "Clay is a data enrichment platform that helps go-to-market teams build targeted prospect lists, enrich contacts with 75+ data providers, and automate outbound sequences.",
+    "url": "https://www.clay.com",
+    "category": "Data Enrichment",
+    "pricing": {
+      "model": "Credit-based SaaS",
+      "startingPrice": "$134/mo (billed annually)"
+    },
+    "keyFeatures": [
+      "75+ data enrichment providers",
+      "Waterfall enrichment",
+      "AI-powered research agents",
+      "Outbound sequence automation"
+    ],
+    "limitations": [
+      "Focused on outbound — not built for inbound signal detection",
+      "Credit-based pricing can get expensive at scale",
+      "No product usage signal support",
+      "No self-hosting option"
+    ],
+    "idealFor": [
+      "Outbound-focused sales teams building prospect lists",
+      "Teams needing multi-provider data enrichment"
+    ],
+    "comparison": [
+      {
+        "category": "Core Capabilities",
+        "rows": [
+          { "feature": "Product usage signal detection", "competitor": false, "beton": true },
+          { "feature": "Data enrichment", "competitor": true, "beton": "Via integrations" },
+          { "feature": "Lead scoring", "competitor": false, "beton": true },
+          { "feature": "CRM integrations", "competitor": true, "beton": true },
+          { "feature": "Autopilot detection", "competitor": false, "beton": true }
+        ]
+      },
+      {
+        "category": "Deployment & Pricing",
+        "rows": [
+          { "feature": "Open-source", "competitor": false, "beton": true },
+          { "feature": "Self-hosted option", "competitor": false, "beton": true },
+          { "feature": "Free tier", "competitor": "100 credits/mo", "beton": true },
+          { "feature": "Usage-based credits", "competitor": true, "beton": false },
+          { "feature": "Transparent pricing", "competitor": true, "beton": true }
+        ]
+      },
+      {
+        "category": "Data & Integrations",
+        "rows": [
+          { "feature": "Webhook support", "competitor": true, "beton": true },
+          { "feature": "75+ data providers", "competitor": true, "beton": false },
+          { "feature": "Custom signal pipelines", "competitor": false, "beton": true },
+          { "feature": "Bring your own LLM", "competitor": false, "beton": true },
+          { "feature": "Data stays on your infra", "competitor": false, "beton": true }
+        ]
+      }
+    ],
+    "whySwitch": [
+      {
+        "title": "Inbound Signal Intelligence",
+        "description": "Clay excels at outbound enrichment, but misses the signals hiding in your product data. Beton detects when users are ready to buy based on actual behavior."
+      },
+      {
+        "title": "No Credit Limits",
+        "description": "Beton doesn't use credit-based pricing. Self-host for free with unlimited signal detection, or use cloud plans with predictable pricing."
+      },
+      {
+        "title": "Complementary Tools",
+        "description": "Use Clay for outbound enrichment and Beton for inbound signal detection — they solve different problems and work well together."
+      }
+    ],
+    "faq": [
+      {
+        "question": "Is Beton a replacement for Clay?",
+        "answer": "Not exactly. Clay focuses on outbound data enrichment and prospecting, while Beton focuses on inbound product signal detection. Many teams use both — Clay for building lists and Beton for identifying which existing users are ready to convert."
+      },
+      {
+        "question": "Does Beton offer data enrichment like Clay?",
+        "answer": "Beton integrates with enrichment providers via its signal pipeline, but it's not a dedicated enrichment tool. Its strength is detecting behavioral signals in your product data that predict revenue."
+      },
+      {
+        "question": "Can I connect Clay and Beton?",
+        "answer": "Yes. You can use webhooks or n8n to connect Beton's signal output to Clay's enrichment workflows, creating a powerful inbound-to-outbound pipeline."
+      }
+    ],
+    "seo": {
+      "metaTitle": "Open-Source Clay Alternative | Beton",
+      "metaDescription": "Looking for a Clay alternative for signal detection? Beton offers open-source inbound revenue intelligence — detect product signals Clay can't see."
+    }
+  },
+  {
+    "id": "lead-scoring-software",
+    "name": "Lead Scoring Software",
+    "slug": "lead-scoring-software",
+    "tagline": "Traditional rule-based lead scoring tools",
+    "description": "Traditional lead scoring software uses point-based rules and manual thresholds to qualify leads. Common tools include HubSpot Lead Scoring, Salesforce Einstein, and Marketo scoring.",
+    "url": "#",
+    "category": "Lead Scoring",
+    "pricing": {
+      "model": "Varies",
+      "startingPrice": "Varies"
+    },
+    "keyFeatures": [
+      "Rule-based point scoring",
+      "CRM-native integration",
+      "Demographic + firmographic scoring",
+      "Marketing automation triggers"
+    ],
+    "limitations": [
+      "Manual rule creation and maintenance required",
+      "Scoring models go stale without constant tuning",
+      "Limited to predefined criteria — misses novel signals",
+      "Often bundled with expensive CRM/MAP licenses"
+    ],
+    "idealFor": [
+      "Teams already paying for HubSpot or Salesforce and wanting basic scoring",
+      "Simple qualification workflows with clear, static criteria"
+    ],
+    "comparison": [
+      {
+        "category": "Core Capabilities",
+        "rows": [
+          { "feature": "Lead scoring", "competitor": true, "beton": true },
+          { "feature": "Product usage signal detection", "competitor": false, "beton": true },
+          { "feature": "AI-powered scoring", "competitor": "Some tools", "beton": true },
+          { "feature": "Autopilot detection (no rules)", "competitor": false, "beton": true },
+          { "feature": "Signal routing to CRM", "competitor": "Native", "beton": true }
+        ]
+      },
+      {
+        "category": "Deployment & Pricing",
+        "rows": [
+          { "feature": "Open-source", "competitor": false, "beton": true },
+          { "feature": "Self-hosted option", "competitor": false, "beton": true },
+          { "feature": "Standalone tool", "competitor": "Usually bundled", "beton": true },
+          { "feature": "Free tier", "competitor": "Varies", "beton": true },
+          { "feature": "Transparent pricing", "competitor": "Varies", "beton": true }
+        ]
+      },
+      {
+        "category": "Data & Integrations",
+        "rows": [
+          { "feature": "Webhook support", "competitor": "Varies", "beton": true },
+          { "feature": "Custom signal pipelines", "competitor": false, "beton": true },
+          { "feature": "Bring your own LLM", "competitor": false, "beton": true },
+          { "feature": "Data stays on your infra", "competitor": false, "beton": true },
+          { "feature": "Works with any CRM", "competitor": "Platform-locked", "beton": true }
+        ]
+      }
+    ],
+    "whySwitch": [
+      {
+        "title": "Beyond Rules — AI Autopilot",
+        "description": "Traditional lead scoring needs constant rule maintenance. Beton's AI detects signals automatically, adapting to changing user behavior without manual tuning."
+      },
+      {
+        "title": "Product Signal Detection",
+        "description": "Most lead scoring tools only look at form fills and page views. Beton analyzes actual product usage — API calls, feature adoption, team growth — to find real buying intent."
+      },
+      {
+        "title": "No Platform Lock-in",
+        "description": "Traditional scoring is locked to your CRM vendor. Beton is open-source, works with any CRM, and can be self-hosted on your own infrastructure."
+      }
+    ],
+    "faq": [
+      {
+        "question": "How is Beton different from my CRM's built-in lead scoring?",
+        "answer": "CRM-native scoring uses rules you define manually (page visits = 5 points, etc.). Beton uses AI to automatically detect revenue signals in product usage data — patterns you might never think to score manually."
+      },
+      {
+        "question": "Can Beton work alongside my existing lead scoring?",
+        "answer": "Yes. Many teams use Beton's signal detection to enrich their existing CRM scoring. Beton sends detected signals to your CRM where they can inform your existing scoring models."
+      },
+      {
+        "question": "Why not just use HubSpot or Salesforce scoring?",
+        "answer": "Built-in scoring is fine for basic demographic qualification. But if you have a product with user activity data, Beton can detect behavioral signals that predict conversion far better than static rules."
+      }
+    ],
+    "seo": {
+      "metaTitle": "Open-Source Lead Scoring Alternative | Beton",
+      "metaDescription": "Move beyond rule-based lead scoring. Beton uses AI to detect product usage signals that predict revenue — open-source, self-hosted, and free to start."
+    }
+  }
+]

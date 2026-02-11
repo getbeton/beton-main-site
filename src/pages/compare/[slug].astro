@@ -1,0 +1,266 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '../../layouts/PageLayout.astro';
+import Container from '../../components/ui/Container.astro';
+import Button from '../../components/ui/Button.astro';
+import ComparisonTable from '../../components/competitors/ComparisonTable.astro';
+import CTASection from '../../components/shared/CTASection.astro';
+import { SITE } from '../../utils/site';
+
+interface Pairing {
+  slug: string;
+  a: string;
+  b: string;
+}
+
+const pairings: Pairing[] = [
+  { slug: 'pocus-vs-madkudu', a: 'pocus', b: 'madkudu' },
+  { slug: 'pocus-vs-common-room', a: 'pocus', b: 'common-room' },
+  { slug: 'clay-vs-madkudu', a: 'clay', b: 'madkudu' },
+];
+
+export async function getStaticPaths() {
+  const competitors = await getCollection('competitors');
+  const pairings = [
+    { slug: 'pocus-vs-madkudu', a: 'pocus', b: 'madkudu' },
+    { slug: 'pocus-vs-common-room', a: 'pocus', b: 'common-room' },
+    { slug: 'clay-vs-madkudu', a: 'clay', b: 'madkudu' },
+  ];
+
+  return pairings.map((pairing) => {
+    const entryA = competitors.find((c) => c.data.slug === pairing.a);
+    const entryB = competitors.find((c) => c.data.slug === pairing.b);
+    return {
+      params: { slug: pairing.slug },
+      props: { entryA: entryA!, entryB: entryB!, pairing },
+    };
+  });
+}
+
+const { entryA, entryB, pairing } = Astro.props;
+const a = entryA.data;
+const b = entryB.data;
+
+// Build 3-way comparison categories by merging features from both competitors
+const allCategories = new Map<string, Map<string, { a: boolean | string; b: boolean | string; beton: boolean | string }>>();
+
+for (const group of a.comparison) {
+  if (!allCategories.has(group.category)) {
+    allCategories.set(group.category, new Map());
+  }
+  const cat = allCategories.get(group.category)!;
+  for (const row of group.rows) {
+    cat.set(row.feature, { a: row.competitor, b: false, beton: row.beton });
+  }
+}
+
+for (const group of b.comparison) {
+  if (!allCategories.has(group.category)) {
+    allCategories.set(group.category, new Map());
+  }
+  const cat = allCategories.get(group.category)!;
+  for (const row of group.rows) {
+    const existing = cat.get(row.feature);
+    if (existing) {
+      existing.b = row.competitor;
+    } else {
+      cat.set(row.feature, { a: false, b: row.competitor, beton: row.beton });
+    }
+  }
+}
+
+const categories = Array.from(allCategories.entries()).map(([name, features]) => ({
+  name,
+  rows: Array.from(features.entries()).map(([feature, vals]) => ({
+    feature,
+    values: [vals.a, vals.b, vals.beton],
+  })),
+}));
+
+const breadcrumbs = [
+  { name: 'Home', url: SITE.url },
+  { name: 'Alternatives', url: `${SITE.url}/alternatives/` },
+  { name: `${a.name} vs ${b.name}`, url: `${SITE.url}/compare/${pairing.slug}/` },
+];
+---
+
+<PageLayout
+  title={`${a.name} vs ${b.name}: Comparison | Beton`}
+  description={`Compare ${a.name} and ${b.name} for revenue intelligence. See features, pricing, and deployment side by side — plus how Beton offers a third option.`}
+  canonicalPath={`/compare/${pairing.slug}`}
+  breadcrumbs={breadcrumbs}
+>
+  <!-- Hero -->
+  <section class="relative py-14 lg:py-20 overflow-hidden">
+    <div class="absolute inset-0 -z-10" aria-hidden="true">
+      <div class="absolute -top-24 -right-24 w-96 h-96 bg-[var(--color-primary-bg-emphasis)] opacity-30 blur-3xl"></div>
+      <div class="absolute -bottom-24 -left-24 w-72 h-72 bg-[var(--color-accent-bg-emphasis)] opacity-20 blur-3xl"></div>
+    </div>
+    <Container>
+      <div class="max-w-3xl">
+        <span class="inline-flex items-center px-3 py-1 text-xs font-bold uppercase tracking-wider border-2 border-[var(--color-text)] bg-[var(--color-surface-raised)] mb-6">
+          Comparison
+        </span>
+
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-[family-name:var(--font-heading)] tracking-wide leading-[1.1] mb-4">
+          {a.name} vs {b.name}
+        </h1>
+
+        <p class="text-lg sm:text-xl text-[var(--color-text-secondary)] leading-relaxed mb-8">
+          Comparing two popular approaches to revenue intelligence — plus a third option. See how {a.name}, {b.name}, and Beton stack up on features, pricing, and deployment.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-3">
+          <Button href="https://inspector.getbeton.ai" size="lg" data-track-cta={`compare-${pairing.slug}-hero`}>
+            Try Beton Free
+          </Button>
+          <Button href="/alternatives" variant="outline" size="lg">
+            See All Alternatives
+          </Button>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- 3-Way Comparison Table -->
+  <section class="py-10 lg:py-16">
+    <Container>
+      <h2 class="text-2xl sm:text-3xl font-[family-name:var(--font-heading)] tracking-wide text-center mb-10">
+        Feature Comparison
+      </h2>
+      <div class="max-w-5xl mx-auto">
+        <ComparisonTable columns={[a.name, b.name, 'Beton']} categories={categories} />
+      </div>
+    </Container>
+  </section>
+
+  <!-- Platform Overviews -->
+  <section class="py-10 lg:py-16 bg-[var(--color-surface-raised)] border-y-2 border-[var(--color-border)]">
+    <Container>
+      <h2 class="text-2xl sm:text-3xl font-[family-name:var(--font-heading)] tracking-wide text-center mb-10">
+        Platform Overview
+      </h2>
+      <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        {/* Competitor A */}
+        <div class="border-2 border-[var(--color-border)] p-6">
+          <h3 class="text-lg font-bold mb-1">{a.name}</h3>
+          <p class="text-xs text-[var(--color-text-tertiary)] mb-3">{a.category}</p>
+          <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed mb-4">{a.tagline}</p>
+          <div class="space-y-2 mb-4">
+            <p class="text-xs font-bold uppercase tracking-wider text-[var(--color-text-secondary)]">Pricing</p>
+            <p class="text-sm">{a.pricing.startingPrice} ({a.pricing.model})</p>
+          </div>
+          <div class="space-y-2">
+            <p class="text-xs font-bold uppercase tracking-wider text-[var(--color-text-secondary)]">Strengths</p>
+            <ul class="space-y-1">
+              {a.keyFeatures.slice(0, 3).map((f) => (
+                <li class="text-sm text-[var(--color-text-secondary)]">&#8250; {f}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Competitor B */}
+        <div class="border-2 border-[var(--color-border)] p-6">
+          <h3 class="text-lg font-bold mb-1">{b.name}</h3>
+          <p class="text-xs text-[var(--color-text-tertiary)] mb-3">{b.category}</p>
+          <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed mb-4">{b.tagline}</p>
+          <div class="space-y-2 mb-4">
+            <p class="text-xs font-bold uppercase tracking-wider text-[var(--color-text-secondary)]">Pricing</p>
+            <p class="text-sm">{b.pricing.startingPrice} ({b.pricing.model})</p>
+          </div>
+          <div class="space-y-2">
+            <p class="text-xs font-bold uppercase tracking-wider text-[var(--color-text-secondary)]">Strengths</p>
+            <ul class="space-y-1">
+              {b.keyFeatures.slice(0, 3).map((f) => (
+                <li class="text-sm text-[var(--color-text-secondary)]">&#8250; {f}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Beton */}
+        <div class="border-2 border-[var(--color-text)] p-6 bg-[var(--color-primary-bg)]">
+          <h3 class="text-lg font-bold mb-1">Beton</h3>
+          <p class="text-xs text-[var(--color-text-tertiary)] mb-3">Revenue Intelligence</p>
+          <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed mb-4">Open-source revenue signal detection with AI autopilot</p>
+          <div class="space-y-2 mb-4">
+            <p class="text-xs font-bold uppercase tracking-wider text-[var(--color-text-secondary)]">Pricing</p>
+            <p class="text-sm">Free (self-hosted) or Cloud plans</p>
+          </div>
+          <div class="space-y-2">
+            <p class="text-xs font-bold uppercase tracking-wider text-[var(--color-text-secondary)]">Strengths</p>
+            <ul class="space-y-1">
+              <li class="text-sm text-[var(--color-text-secondary)]">&#8250; Open-source & self-hostable</li>
+              <li class="text-sm text-[var(--color-text-secondary)]">&#8250; AI autopilot detection</li>
+              <li class="text-sm text-[var(--color-text-secondary)]">&#8250; No per-seat pricing</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- Decision Framework -->
+  <section class="py-10 lg:py-16">
+    <Container>
+      <h2 class="text-2xl sm:text-3xl font-[family-name:var(--font-heading)] tracking-wide text-center mb-10">
+        Which Should You Choose?
+      </h2>
+      <div class="max-w-4xl mx-auto space-y-6">
+        <div class="border-2 border-[var(--color-border)] p-6">
+          <h3 class="text-lg font-bold mb-3">Choose {a.name} if...</h3>
+          <ul class="space-y-2">
+            {a.idealFor.map((scenario) => (
+              <li class="flex items-start gap-3 text-sm text-[var(--color-text-secondary)]">
+                <span class="text-[var(--color-text-tertiary)] shrink-0 mt-0.5">&#8250;</span>
+                {scenario}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="border-2 border-[var(--color-border)] p-6">
+          <h3 class="text-lg font-bold mb-3">Choose {b.name} if...</h3>
+          <ul class="space-y-2">
+            {b.idealFor.map((scenario) => (
+              <li class="flex items-start gap-3 text-sm text-[var(--color-text-secondary)]">
+                <span class="text-[var(--color-text-tertiary)] shrink-0 mt-0.5">&#8250;</span>
+                {scenario}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="border-2 border-[var(--color-text)] p-6 bg-[var(--color-primary-bg)]">
+          <h3 class="text-lg font-bold mb-3">Choose Beton if...</h3>
+          <ul class="space-y-2">
+            <li class="flex items-start gap-3 text-sm">
+              <svg class="w-4 h-4 text-[var(--color-accent-500)] shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+              You want open-source software with full transparency
+            </li>
+            <li class="flex items-start gap-3 text-sm">
+              <svg class="w-4 h-4 text-[var(--color-accent-500)] shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+              You need self-hosted deployment for data sovereignty
+            </li>
+            <li class="flex items-start gap-3 text-sm">
+              <svg class="w-4 h-4 text-[var(--color-accent-500)] shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+              You prefer AI autopilot over manual rule configuration
+            </li>
+            <li class="flex items-start gap-3 text-sm">
+              <svg class="w-4 h-4 text-[var(--color-accent-500)] shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+              You want to start free without per-seat or credit-based pricing
+            </li>
+          </ul>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- CTA -->
+  <CTASection
+    headline="Try Beton — the open-source option"
+    description={`Compare for yourself. Start detecting revenue signals free — no credit card required.`}
+    trackId={`compare-${pairing.slug}-cta`}
+  />
+</PageLayout>

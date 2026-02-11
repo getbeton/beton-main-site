@@ -1,0 +1,224 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '../../layouts/PageLayout.astro';
+import Container from '../../components/ui/Container.astro';
+import Button from '../../components/ui/Button.astro';
+import ComparisonTable from '../../components/competitors/ComparisonTable.astro';
+import CTASection from '../../components/shared/CTASection.astro';
+import { SITE } from '../../utils/site';
+
+export async function getStaticPaths() {
+  const competitors = await getCollection('competitors');
+  return competitors.map((entry) => ({
+    params: { id: entry.data.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { name, slug, description, category, pricing, keyFeatures, limitations, idealFor, comparison, faq, seo } = entry.data;
+
+const categories = comparison.map((group) => ({
+  name: group.category,
+  rows: group.rows.map((row) => ({
+    feature: row.feature,
+    values: [row.beton, row.competitor],
+  })),
+}));
+
+const breadcrumbs = [
+  { name: 'Home', url: SITE.url },
+  { name: 'Alternatives', url: `${SITE.url}/alternatives/` },
+  { name: `Beton vs ${name}`, url: `${SITE.url}/vs/${slug}/` },
+];
+---
+
+<PageLayout
+  title={seo?.metaTitle ? seo.metaTitle.replace('Alternative', `Comparison`) : `Beton vs ${name} | Beton`}
+  description={seo?.metaDescription || `An honest comparison of Beton and ${name}. See how they differ on pricing, features, deployment, and more.`}
+  canonicalPath={`/vs/${slug}`}
+  breadcrumbs={breadcrumbs}
+  faqData={faq}
+>
+  <!-- Hero -->
+  <section class="relative py-14 lg:py-20 overflow-hidden">
+    <div class="absolute inset-0 -z-10" aria-hidden="true">
+      <div class="absolute -top-24 -right-24 w-96 h-96 bg-[var(--color-primary-bg-emphasis)] opacity-30 blur-3xl"></div>
+      <div class="absolute -bottom-24 -left-24 w-72 h-72 bg-[var(--color-accent-bg-emphasis)] opacity-20 blur-3xl"></div>
+    </div>
+    <Container>
+      <div class="max-w-3xl">
+        <span class="inline-flex items-center px-3 py-1 text-xs font-bold uppercase tracking-wider border-2 border-[var(--color-text)] bg-[var(--color-surface-raised)] mb-6">
+          Comparison
+        </span>
+
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-[family-name:var(--font-heading)] tracking-wide leading-[1.1] mb-4">
+          Beton vs {name}
+        </h1>
+
+        <p class="text-lg sm:text-xl text-[var(--color-text-secondary)] leading-relaxed mb-8">
+          An honest comparison between Beton and {name}. Both solve signal detection differently — here's how they stack up so you can make the right choice.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-3">
+          <Button href="https://inspector.getbeton.ai" size="lg" data-track-cta={`vs-${slug}-hero`}>
+            Try Beton Free
+          </Button>
+          <Button href={`/alternatives/${slug}`} variant="outline" size="lg">
+            See Why Teams Switch
+          </Button>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- At a Glance -->
+  <section class="py-10 lg:py-16 bg-[var(--color-surface-raised)] border-y-2 border-[var(--color-border)]">
+    <Container>
+      <h2 class="text-2xl sm:text-3xl font-[family-name:var(--font-heading)] tracking-wide text-center mb-10">
+        At a Glance
+      </h2>
+      <div class="max-w-3xl mx-auto border-2 border-[var(--color-text)]">
+        <table class="w-full">
+          <thead>
+            <tr class="border-b-2 border-[var(--color-text)]">
+              <th class="text-left text-sm font-semibold py-3 px-4 w-1/3"></th>
+              <th class="text-center text-sm font-semibold py-3 px-4">Beton</th>
+              <th class="text-center text-sm font-semibold py-3 px-4">{name}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-[var(--color-border)]">
+              <td class="text-sm py-3 px-4 font-medium">Category</td>
+              <td class="text-center text-sm py-3 px-4 text-[var(--color-text-secondary)]">Revenue Intelligence</td>
+              <td class="text-center text-sm py-3 px-4 text-[var(--color-text-secondary)]">{category}</td>
+            </tr>
+            <tr class="border-b border-[var(--color-border)]">
+              <td class="text-sm py-3 px-4 font-medium">Pricing</td>
+              <td class="text-center text-sm py-3 px-4 text-[var(--color-text-secondary)]">Free (self-hosted)</td>
+              <td class="text-center text-sm py-3 px-4 text-[var(--color-text-secondary)]">{pricing.startingPrice}</td>
+            </tr>
+            <tr class="border-b border-[var(--color-border)]">
+              <td class="text-sm py-3 px-4 font-medium">Deployment</td>
+              <td class="text-center text-sm py-3 px-4 text-[var(--color-text-secondary)]">Self-hosted or Cloud</td>
+              <td class="text-center text-sm py-3 px-4 text-[var(--color-text-secondary)]">Cloud only</td>
+            </tr>
+            <tr class="border-b border-[var(--color-border)]">
+              <td class="text-sm py-3 px-4 font-medium">Open-Source</td>
+              <td class="text-center text-sm py-3 px-4">
+                <svg class="w-5 h-5 text-[var(--color-accent-500)] mx-auto" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+              </td>
+              <td class="text-center text-sm py-3 px-4">
+                <span class="text-[var(--color-text-tertiary)]">—</span>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-sm py-3 px-4 font-medium">Best For</td>
+              <td class="text-center text-sm py-3 px-4 text-[var(--color-text-secondary)]">Product-led signal detection</td>
+              <td class="text-center text-sm py-3 px-4 text-[var(--color-text-secondary)]">{idealFor[0] ? idealFor[0].slice(0, 50) : category}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </Container>
+  </section>
+
+  <!-- Detailed Comparison -->
+  <section class="py-10 lg:py-16">
+    <Container>
+      <h2 class="text-2xl sm:text-3xl font-[family-name:var(--font-heading)] tracking-wide text-center mb-10">
+        Detailed Feature Comparison
+      </h2>
+      <div class="max-w-4xl mx-auto">
+        <ComparisonTable columns={['Beton', name]} categories={categories} />
+      </div>
+    </Container>
+  </section>
+
+  <!-- When to Choose Competitor -->
+  <section class="py-10 lg:py-16 bg-[var(--color-surface-raised)] border-y-2 border-[var(--color-border)]">
+    <Container>
+      <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <div class="border-2 border-[var(--color-border)] p-6">
+          <h2 class="text-xl font-[family-name:var(--font-heading)] tracking-wide mb-4">
+            When to Choose {name}
+          </h2>
+          <ul class="space-y-3">
+            {idealFor.map((scenario) => (
+              <li class="flex items-start gap-3 text-sm text-[var(--color-text-secondary)]">
+                <span class="text-[var(--color-text-tertiary)] shrink-0 mt-0.5">&#8250;</span>
+                {scenario}
+              </li>
+            ))}
+            {keyFeatures.slice(0, 2).map((feature) => (
+              <li class="flex items-start gap-3 text-sm text-[var(--color-text-secondary)]">
+                <span class="text-[var(--color-text-tertiary)] shrink-0 mt-0.5">&#8250;</span>
+                You need {feature.toLowerCase()}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="border-2 border-[var(--color-text)] p-6 bg-[var(--color-primary-bg)]">
+          <h2 class="text-xl font-[family-name:var(--font-heading)] tracking-wide mb-4">
+            When to Choose Beton
+          </h2>
+          <ul class="space-y-3">
+            <li class="flex items-start gap-3 text-sm">
+              <svg class="w-4 h-4 text-[var(--color-accent-500)] shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+              You want open-source with full code access
+            </li>
+            <li class="flex items-start gap-3 text-sm">
+              <svg class="w-4 h-4 text-[var(--color-accent-500)] shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+              You need self-hosted deployment for data sovereignty
+            </li>
+            <li class="flex items-start gap-3 text-sm">
+              <svg class="w-4 h-4 text-[var(--color-accent-500)] shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+              You want AI autopilot instead of manual rule configuration
+            </li>
+            <li class="flex items-start gap-3 text-sm">
+              <svg class="w-4 h-4 text-[var(--color-accent-500)] shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+              You want to avoid per-seat or credit-based pricing
+            </li>
+            <li class="flex items-start gap-3 text-sm">
+              <svg class="w-4 h-4 text-[var(--color-accent-500)] shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+              You need product usage signals to predict enterprise deals
+            </li>
+          </ul>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- FAQ -->
+  {faq.length > 0 && (
+    <section class="py-10 lg:py-16">
+      <Container>
+        <h2 class="text-2xl sm:text-3xl font-[family-name:var(--font-heading)] tracking-wide text-center mb-10">
+          Frequently Asked Questions
+        </h2>
+        <div class="max-w-3xl mx-auto space-y-4">
+          {faq.map((item) => (
+            <details class="group border-2 border-[var(--color-text)]">
+              <summary class="flex items-center justify-between p-4 cursor-pointer font-bold text-sm hover:bg-[var(--color-surface-raised)]">
+                {item.question}
+                <svg class="w-5 h-5 shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                </svg>
+              </summary>
+              <div class="px-4 pb-4 text-sm text-[var(--color-text-secondary)] leading-relaxed border-t-2 border-[var(--color-border)] pt-4">
+                {item.answer}
+              </div>
+            </details>
+          ))}
+        </div>
+      </Container>
+    </section>
+  )}
+
+  <!-- CTA -->
+  <CTASection
+    headline={`Ready to try Beton?`}
+    description={`See how Beton compares to ${name} in practice. Start for free — no credit card required.`}
+    trackId={`vs-${slug}-cta`}
+  />
+</PageLayout>

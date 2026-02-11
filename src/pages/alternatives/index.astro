@@ -1,0 +1,117 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '../../layouts/PageLayout.astro';
+import Container from '../../components/ui/Container.astro';
+import Button from '../../components/ui/Button.astro';
+import CTASection from '../../components/shared/CTASection.astro';
+import { SITE } from '../../utils/site';
+
+const competitors = await getCollection('competitors');
+
+const breadcrumbs = [
+  { name: 'Home', url: SITE.url },
+  { name: 'Alternatives', url: `${SITE.url}/alternatives/` },
+];
+---
+
+<PageLayout
+  title="Open-Source Alternatives to Lead Scoring Tools | Beton"
+  description="Compare Beton to popular lead scoring and revenue intelligence platforms. Open-source, self-hostable, and AI-powered signal detection — free to start."
+  canonicalPath="/alternatives"
+  breadcrumbs={breadcrumbs}
+>
+  <!-- Hero -->
+  <section class="relative py-14 lg:py-20 overflow-hidden">
+    <div class="absolute inset-0 -z-10" aria-hidden="true">
+      <div class="absolute -top-24 -right-24 w-96 h-96 bg-[var(--color-primary-bg-emphasis)] opacity-30 blur-3xl"></div>
+      <div class="absolute -bottom-24 -left-24 w-72 h-72 bg-[var(--color-accent-bg-emphasis)] opacity-20 blur-3xl"></div>
+    </div>
+    <Container>
+      <div class="max-w-3xl mx-auto text-center">
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-[family-name:var(--font-heading)] tracking-wide leading-[1.1] mb-4">
+          Beton Alternatives & Comparisons
+        </h1>
+        <p class="text-lg sm:text-xl text-[var(--color-text-secondary)] leading-relaxed mb-8">
+          See how Beton compares to popular lead scoring and revenue intelligence platforms. Open-source, self-hostable, and powered by AI autopilot.
+        </p>
+        <Button href="https://inspector.getbeton.ai" size="lg" data-track-cta="alt-index-hero">
+          Try Beton Free
+        </Button>
+      </div>
+    </Container>
+  </section>
+
+  <!-- Competitor Grid -->
+  <section class="py-10 lg:py-16">
+    <Container>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        {competitors.map((entry) => (
+          <div class="border-2 border-[var(--color-text)] shadow-[var(--shadow-card)] hover:shadow-[6px_6px_0_var(--color-text)] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-150 flex flex-col">
+            <div class="p-6 flex-1">
+              <span class="inline-flex items-center px-2 py-0.5 text-xs font-bold uppercase tracking-wider border border-[var(--color-border)] text-[var(--color-text-secondary)] mb-3">
+                {entry.data.category}
+              </span>
+              <h2 class="text-lg font-bold mb-1">{entry.data.name}</h2>
+              <p class="text-xs text-[var(--color-text-tertiary)] mb-3">{entry.data.tagline}</p>
+              <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed mb-4">
+                {entry.data.description.slice(0, 120)}...
+              </p>
+              <ul class="space-y-1.5 mb-4">
+                {entry.data.limitations.slice(0, 2).map((item) => (
+                  <li class="flex items-start gap-2 text-xs text-[var(--color-text-secondary)]">
+                    <span class="text-[var(--color-text-tertiary)] shrink-0">—</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div class="border-t-2 border-[var(--color-border)] p-4 flex gap-2">
+              <a
+                href={`/alternatives/${entry.data.slug}`}
+                class="flex-1 inline-flex items-center justify-center px-3 py-2 text-xs font-bold uppercase tracking-wider border-2 border-[var(--color-text)] bg-[var(--color-primary-600)] text-white hover:bg-white hover:text-[var(--color-primary-600)]"
+              >
+                Alternative
+              </a>
+              <a
+                href={`/vs/${entry.data.slug}`}
+                class="flex-1 inline-flex items-center justify-center px-3 py-2 text-xs font-bold uppercase tracking-wider border-2 border-[var(--color-text)] bg-[var(--color-surface)] text-[var(--color-text)] hover:bg-[var(--color-text)] hover:text-[var(--color-surface)]"
+              >
+                Beton vs {entry.data.name}
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  <!-- Why Beton -->
+  <section class="py-10 lg:py-16 bg-[var(--color-surface-raised)] border-y-2 border-[var(--color-border)]">
+    <Container>
+      <h2 class="text-2xl sm:text-3xl font-[family-name:var(--font-heading)] tracking-wide text-center mb-10">
+        Why Teams Choose Beton
+      </h2>
+      <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        <div class="border-2 border-[var(--color-text)] p-6 shadow-[var(--shadow-card)]">
+          <h3 class="text-lg font-bold mb-2">Open-Source</h3>
+          <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed">GPL-licensed code you can inspect, modify, and self-host. No vendor lock-in, ever.</p>
+        </div>
+        <div class="border-2 border-[var(--color-text)] p-6 shadow-[var(--shadow-card)]">
+          <h3 class="text-lg font-bold mb-2">AI Autopilot</h3>
+          <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed">Beton's AI detects revenue signals automatically — no manual rules, no playbook configuration.</p>
+        </div>
+        <div class="border-2 border-[var(--color-text)] p-6 shadow-[var(--shadow-card)]">
+          <h3 class="text-lg font-bold mb-2">Free to Start</h3>
+          <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed">Self-host for free with unlimited users. No per-seat pricing, no credit limits, no surprises.</p>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- CTA -->
+  <CTASection
+    headline="Ready to try Beton?"
+    description="Start detecting revenue signals today — open-source, self-hostable, and free to start."
+    trackId="alt-index-cta"
+  />
+</PageLayout>

@@ -1,0 +1,199 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '../../layouts/PageLayout.astro';
+import Container from '../../components/ui/Container.astro';
+import Button from '../../components/ui/Button.astro';
+import ComparisonTable from '../../components/competitors/ComparisonTable.astro';
+import CTASection from '../../components/shared/CTASection.astro';
+import { SITE } from '../../utils/site';
+
+export async function getStaticPaths() {
+  const competitors = await getCollection('competitors');
+  return competitors.map((entry) => ({
+    params: { id: entry.data.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { name, slug, description, comparison, whySwitch, faq, seo, limitations } = entry.data;
+
+const categories = comparison.map((group) => ({
+  name: group.category,
+  rows: group.rows.map((row) => ({
+    feature: row.feature,
+    values: [row.competitor, row.beton],
+  })),
+}));
+
+const breadcrumbs = [
+  { name: 'Home', url: SITE.url },
+  { name: 'Alternatives', url: `${SITE.url}/alternatives/` },
+  { name: `${name} Alternative`, url: `${SITE.url}/alternatives/${slug}/` },
+];
+---
+
+<PageLayout
+  title={seo?.metaTitle || `Open-Source ${name} Alternative`}
+  description={seo?.metaDescription || `Looking for a ${name} alternative? Beton offers open-source revenue intelligence with self-hosting, AI autopilot, and no per-seat pricing.`}
+  canonicalPath={`/alternatives/${slug}`}
+  breadcrumbs={breadcrumbs}
+  faqData={faq}
+>
+  <!-- Hero -->
+  <section class="relative py-14 lg:py-20 overflow-hidden">
+    <div class="absolute inset-0 -z-10" aria-hidden="true">
+      <div class="absolute -top-24 -right-24 w-96 h-96 bg-[var(--color-primary-bg-emphasis)] opacity-30 blur-3xl"></div>
+      <div class="absolute -bottom-24 -left-24 w-72 h-72 bg-[var(--color-accent-bg-emphasis)] opacity-20 blur-3xl"></div>
+    </div>
+    <Container>
+      <div class="max-w-3xl">
+        <span class="inline-flex items-center px-3 py-1 text-xs font-bold uppercase tracking-wider border-2 border-[var(--color-text)] bg-[var(--color-surface-raised)] mb-6">
+          Alternative
+        </span>
+
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-[family-name:var(--font-heading)] tracking-wide leading-[1.1] mb-4">
+          The Open-Source {name} Alternative
+        </h1>
+
+        <p class="text-lg sm:text-xl text-[var(--color-text-secondary)] leading-relaxed mb-8">
+          {description} Beton offers a different approach — open-source, self-hostable, and powered by AI autopilot detection.
+        </p>
+
+        <div class="grid sm:grid-cols-2 gap-4 mb-8">
+          <div class="border-2 border-[var(--color-text)] p-4 bg-[var(--color-surface-raised)]">
+            <p class="text-xs font-bold uppercase tracking-wider text-[var(--color-text-secondary)] mb-2">{name}</p>
+            <ul class="space-y-1.5">
+              {limitations.slice(0, 3).map((item) => (
+                <li class="flex items-start gap-2 text-sm text-[var(--color-text-secondary)]">
+                  <span class="text-[var(--color-text-tertiary)] shrink-0 mt-0.5">—</span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div class="border-2 border-[var(--color-text)] p-4 bg-[var(--color-primary-bg)]">
+            <p class="text-xs font-bold uppercase tracking-wider text-[var(--color-primary-600)] mb-2">Beton</p>
+            <ul class="space-y-1.5">
+              <li class="flex items-start gap-2 text-sm">
+                <svg class="w-4 h-4 text-[var(--color-accent-500)] shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+                Open-source & self-hostable
+              </li>
+              <li class="flex items-start gap-2 text-sm">
+                <svg class="w-4 h-4 text-[var(--color-accent-500)] shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+                AI autopilot — no manual rules
+              </li>
+              <li class="flex items-start gap-2 text-sm">
+                <svg class="w-4 h-4 text-[var(--color-accent-500)] shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+                Free to start, no per-seat pricing
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-3">
+          <Button href="https://inspector.getbeton.ai" size="lg" data-track-cta={`alt-${slug}-hero`}>
+            Get Started Free
+          </Button>
+          <Button href={`/vs/${slug}`} variant="outline" size="lg">
+            See Full Comparison
+          </Button>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- Why Teams Switch -->
+  <section class="py-10 lg:py-16 bg-[var(--color-surface-raised)] border-y-2 border-[var(--color-border)]">
+    <Container>
+      <h2 class="text-2xl sm:text-3xl font-[family-name:var(--font-heading)] tracking-wide text-center mb-10">
+        Why Teams Switch from {name}
+      </h2>
+      <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        {whySwitch.map((reason) => (
+          <div class="border-2 border-[var(--color-text)] p-6 shadow-[var(--shadow-card)]">
+            <h3 class="text-lg font-bold mb-2">{reason.title}</h3>
+            <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed">{reason.description}</p>
+          </div>
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  <!-- Feature Comparison -->
+  <section class="py-10 lg:py-16">
+    <Container>
+      <h2 class="text-2xl sm:text-3xl font-[family-name:var(--font-heading)] tracking-wide text-center mb-10">
+        {name} vs Beton: Feature Comparison
+      </h2>
+      <div class="max-w-4xl mx-auto">
+        <ComparisonTable columns={[name, 'Beton']} categories={categories} />
+      </div>
+    </Container>
+  </section>
+
+  <!-- How to Migrate -->
+  <section class="py-10 lg:py-16 bg-[var(--color-surface-raised)] border-y-2 border-[var(--color-border)]">
+    <Container>
+      <h2 class="text-2xl sm:text-3xl font-[family-name:var(--font-heading)] tracking-wide text-center mb-10">
+        How to Migrate from {name}
+      </h2>
+      <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+        <div class="text-center">
+          <div class="inline-flex items-center justify-center w-12 h-12 border-2 border-[var(--color-primary-600)] bg-[var(--color-primary-bg)] text-[var(--color-primary-600)] mb-4">
+            <span class="text-lg font-bold font-[family-name:var(--font-heading)]">1</span>
+          </div>
+          <h3 class="text-base font-bold mb-2">Connect Your Data</h3>
+          <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed">Link your existing CRM, product analytics, and data sources to Beton. Same integrations, zero data loss.</p>
+        </div>
+        <div class="text-center">
+          <div class="inline-flex items-center justify-center w-12 h-12 border-2 border-[var(--color-primary-600)] bg-[var(--color-primary-bg)] text-[var(--color-primary-600)] mb-4">
+            <span class="text-lg font-bold font-[family-name:var(--font-heading)]">2</span>
+          </div>
+          <h3 class="text-base font-bold mb-2">Run in Parallel</h3>
+          <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed">Keep {name} running while Beton's autopilot detects signals. Compare results side by side to build confidence.</p>
+        </div>
+        <div class="text-center">
+          <div class="inline-flex items-center justify-center w-12 h-12 border-2 border-[var(--color-primary-600)] bg-[var(--color-primary-bg)] text-[var(--color-primary-600)] mb-4">
+            <span class="text-lg font-bold font-[family-name:var(--font-heading)]">3</span>
+          </div>
+          <h3 class="text-base font-bold mb-2">Cut Over</h3>
+          <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed">Once you're confident in Beton's signal quality, switch your routing and decommission {name}.</p>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- FAQ -->
+  {faq.length > 0 && (
+    <section class="py-10 lg:py-16">
+      <Container>
+        <h2 class="text-2xl sm:text-3xl font-[family-name:var(--font-heading)] tracking-wide text-center mb-10">
+          Frequently Asked Questions
+        </h2>
+        <div class="max-w-3xl mx-auto space-y-4">
+          {faq.map((item) => (
+            <details class="group border-2 border-[var(--color-text)]">
+              <summary class="flex items-center justify-between p-4 cursor-pointer font-bold text-sm hover:bg-[var(--color-surface-raised)]">
+                {item.question}
+                <svg class="w-5 h-5 shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                </svg>
+              </summary>
+              <div class="px-4 pb-4 text-sm text-[var(--color-text-secondary)] leading-relaxed border-t-2 border-[var(--color-border)] pt-4">
+                {item.answer}
+              </div>
+            </details>
+          ))}
+        </div>
+      </Container>
+    </section>
+  )}
+
+  <!-- CTA -->
+  <CTASection
+    headline={`Ready to switch from ${name}?`}
+    description={`Start detecting revenue signals with Beton — open-source, self-hostable, and free to start.`}
+    trackId={`alt-${slug}-cta`}
+  />
+</PageLayout>
