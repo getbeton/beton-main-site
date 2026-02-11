@@ -23,7 +23,6 @@
     }
   ],
   "redirects": [
-    { "source": "/sitemap.xml", "destination": "/sitemap-index.xml", "permanent": true },
     { "source": "/all-enrichment-data-sources-and-destinations", "destination": "/integrations", "permanent": true },
     { "source": "/docs", "destination": "https://docs.getbeton.ai", "permanent": false },
     { "source": "/blog", "destination": "https://blog.getbeton.ai", "permanent": false },

@@ -56,7 +56,9 @@
       "WebFetch(domain:www.crunchbase.com)",
       "WebFetch(domain:www.linkedin.com)",
       "Bash(unzip:*)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "WebFetch(domain:www.getbeton.ai)",
+      "WebFetch(domain:inspector.getbeton.ai)"
     ]
   },
   "enableAllProjectMcpServers": true,

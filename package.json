@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && node scripts/indexnow.mjs",
+    "build": "astro build && node scripts/post-build-sitemap.mjs && node scripts/indexnow.mjs",
     "preview": "astro preview",
     "check": "astro check"
   },

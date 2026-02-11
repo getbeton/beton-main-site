@@ -7,19 +7,19 @@
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
 
-const SITE_URL = 'https://getbeton.ai';
+const SITE_URL = 'https://www.getbeton.ai';
 const INDEXNOW_KEY = 'a1b2c3d4e5f6g7h8i9j0';
 const INDEXNOW_ENDPOINT = 'https://api.indexnow.org/indexnow';
 
 async function submitUrls() {
   // Read the generated sitemap to get all URLs
-  const sitemapPath = resolve('dist/sitemap-0.xml');
+  const sitemapPath = resolve('dist/sitemap.xml');
   let sitemapXml;
 
   try {
     sitemapXml = readFileSync(sitemapPath, 'utf-8');
   } catch {
-    console.log('[IndexNow] No sitemap found at dist/sitemap-0.xml, skipping.');
+    console.log('[IndexNow] No sitemap found at dist/sitemap.xml, skipping.');
     return;
   }
 
@@ -35,7 +35,7 @@ async function submitUrls() {
   console.log(`[IndexNow] Submitting ${urls.length} URLs...`);
 
   const payload = {
-    host: 'getbeton.ai',
+    host: 'www.getbeton.ai',
     key: INDEXNOW_KEY,
     keyLocation: `${SITE_URL}/${INDEXNOW_KEY}.txt`,
     urlList: urls,

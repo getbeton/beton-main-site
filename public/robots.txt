@@ -1,4 +1,13 @@
+# https://www.getbeton.ai/robots.txt
+
 User-agent: *
 Allow: /
+Disallow: /404
 
-Sitemap: https://www.getbeton.ai/sitemap-index.xml
+# Sitemaps
+Sitemap: https://www.getbeton.ai/sitemap.xml
+Sitemap: https://blog.getbeton.ai/sitemap.xml
+Sitemap: https://inspector.getbeton.ai/sitemap.xml
+
+# Preferred domain
+Host: https://www.getbeton.ai
