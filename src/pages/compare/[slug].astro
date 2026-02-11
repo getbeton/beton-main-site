@@ -122,23 +122,11 @@ const breadcrumbs = [
     </Container>
   </section>
 
-  <!-- 3-Way Comparison Table -->
-  <section class="py-10 lg:py-16">
-    <Container>
-      <h2 class="text-2xl sm:text-3xl font-[family-name:var(--font-heading)] tracking-wide text-center mb-10">
-        Feature Comparison
-      </h2>
-      <div class="max-w-5xl mx-auto">
-        <ComparisonTable columns={[a.name, b.name, 'Beton']} categories={categories} />
-      </div>
-    </Container>
-  </section>
-
   <!-- Platform Overviews -->
   <section class="py-10 lg:py-16 bg-[var(--color-surface-raised)] border-y-2 border-[var(--color-border)]">
     <Container>
       <h2 class="text-2xl sm:text-3xl font-[family-name:var(--font-heading)] tracking-wide text-center mb-10">
-        Platform Overview
+        Alternatives & options
       </h2>
       <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
         {/* Competitor A */}
@@ -257,10 +245,22 @@ const breadcrumbs = [
     </Container>
   </section>
 
+  <!-- 3-Way Comparison Table -->
+  <section class="py-10 lg:py-16 bg-[var(--color-surface-raised)] border-y-2 border-[var(--color-border)]">
+    <Container>
+      <h2 class="text-2xl sm:text-3xl font-[family-name:var(--font-heading)] tracking-wide text-center mb-10">
+        Feature Comparison
+      </h2>
+      <div class="max-w-5xl mx-auto">
+        <ComparisonTable columns={[a.name, b.name, 'Beton']} highlightColumn="Beton" categories={categories} />
+      </div>
+    </Container>
+  </section>
+
   <!-- CTA -->
   <CTASection
     headline="Try Beton — the open-source option"
-    description={`Compare for yourself. Start detecting revenue signals free — no credit card required.`}
+    description={`Compare for yourself. Start detecting revenue signals free — we offer 100% refunds in the first 30 days.`}
     trackId={`compare-${pairing.slug}-cta`}
   />
 </PageLayout>

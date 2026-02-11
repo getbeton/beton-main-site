@@ -123,20 +123,8 @@ const breadcrumbs = [
     </Container>
   </section>
 
-  <!-- Detailed Comparison -->
-  <section class="py-10 lg:py-16">
-    <Container>
-      <h2 class="text-2xl sm:text-3xl font-[family-name:var(--font-heading)] tracking-wide text-center mb-10">
-        Detailed Feature Comparison
-      </h2>
-      <div class="max-w-4xl mx-auto">
-        <ComparisonTable columns={['Beton', name]} categories={categories} />
-      </div>
-    </Container>
-  </section>
-
   <!-- When to Choose Competitor -->
-  <section class="py-10 lg:py-16 bg-[var(--color-surface-raised)] border-y-2 border-[var(--color-border)]">
+  <section class="py-10 lg:py-16">
     <Container>
       <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
         <div class="border-2 border-[var(--color-border)] p-6">
@@ -185,6 +173,18 @@ const breadcrumbs = [
             </li>
           </ul>
         </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- Detailed Comparison -->
+  <section class="py-10 lg:py-16 bg-[var(--color-surface-raised)] border-y-2 border-[var(--color-border)]">
+    <Container>
+      <h2 class="text-2xl sm:text-3xl font-[family-name:var(--font-heading)] tracking-wide text-center mb-10">
+        Detailed Feature Comparison
+      </h2>
+      <div class="max-w-4xl mx-auto">
+        <ComparisonTable columns={['Beton', name]} highlightColumn="Beton" categories={categories} />
       </div>
     </Container>
   </section>

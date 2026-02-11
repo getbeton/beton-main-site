@@ -1,6 +1,7 @@
 ---
 interface Props {
   columns: string[];
+  highlightColumn?: string;
   categories: {
     name: string;
     rows: {
@@ -10,8 +11,9 @@ interface Props {
   }[];
 }
 
-const { columns, categories } = Astro.props;
+const { columns, highlightColumn, categories } = Astro.props;
 const colCount = columns.length + 1;
+const highlightIndex = highlightColumn ? columns.indexOf(highlightColumn) : -1;
 ---
 
 <div class="overflow-x-auto -mx-4 sm:mx-0">
@@ -19,8 +21,8 @@ const colCount = columns.length + 1;
     <thead>
       <tr class="border-b-2 border-[var(--color-text)]">
         <th class="text-left text-sm font-semibold py-4 px-4 w-2/5">Feature</th>
-        {columns.map((col) => (
-          <th class="text-center text-sm font-semibold py-4 px-4">{col}</th>
+        {columns.map((col, i) => (
+          <th class:list={["text-center text-sm font-semibold py-4 px-4", i === highlightIndex && "bg-[var(--color-primary-bg)]"]}>{col}</th>
         ))}
       </tr>
     </thead>
@@ -35,8 +37,8 @@ const colCount = columns.length + 1;
           {group.rows.map((row) => (
             <tr class="border-b border-[var(--color-border)]">
               <td class="text-sm py-3 px-4 text-[var(--color-text-secondary)]">{row.feature}</td>
-              {row.values.map((value) => (
-                <td class="text-center text-sm py-3 px-4">
+              {row.values.map((value, i) => (
+                <td class:list={["text-center text-sm py-3 px-4", i === highlightIndex && "bg-[var(--color-primary-bg)]"]}>
                   {value === true ? (
                     <svg class="w-5 h-5 text-[var(--color-accent-500)] mx-auto" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />

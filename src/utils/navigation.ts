@@ -21,13 +21,8 @@ export const externalNav: NavLink[] = [
 ];
 
 export const footerNav = {
-  product: [
-    { label: 'Use Cases', href: '/use-cases/' },
-    { label: 'Industries', href: '/industries/' },
-    { label: 'Pricing', href: '/pricing/' },
-    { label: 'Integrations', href: '/integrations/' },
-  ] as NavLink[],
   company: [
+    { label: 'Pricing', href: '/pricing/' },
     { label: 'About', href: '/about/' },
     { label: 'Team', href: '/team/' },
     { label: 'Blog', href: SITE.external.blog, external: true },

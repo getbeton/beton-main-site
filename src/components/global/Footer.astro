@@ -1,13 +1,20 @@
 ---
+import { getCollection } from 'astro:content';
 import { footerNav, socialLinks } from '../../utils/navigation';
 import { SITE } from '../../utils/site';
 
 const year = new Date().getFullYear();
+
+const useCases = (await getCollection('use-cases')).sort((a, b) => a.data.order - b.data.order);
+const industries = (await getCollection('industries')).sort((a, b) => a.data.order - b.data.order);
+const integrations = await getCollection('integrations');
+const sources = integrations.filter(i => i.data.category === 'source');
+const destinations = integrations.filter(i => i.data.category === 'destination');
 ---
 
 <footer class="border-t-2 border-[var(--color-text)] bg-[var(--color-surface)]">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8">
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-8">
       <!-- Brand -->
       <div class="col-span-2 md:col-span-4 lg:col-span-2">
         <a href="/" class="inline-flex items-center gap-2 text-lg font-bold font-[family-name:'JetBrains_Mono']">
@@ -51,23 +58,6 @@ const year = new Date().getFullYear();
         </div>
       </div>
 
-      <!-- Product -->
-      <div>
-        <h3 class="text-sm font-semibold text-[var(--color-text)]">Product</h3>
-        <ul class="mt-3 space-y-2">
-          {footerNav.product.map((link) => (
-            <li>
-              <a
-                href={link.href}
-                class="text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text)]"
-              >
-                {link.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-
       <!-- Company -->
       <div>
         <h3 class="text-sm font-semibold text-[var(--color-text)]">Company</h3>
@@ -87,9 +77,23 @@ const year = new Date().getFullYear();
         </ul>
       </div>
 
-      <!-- Resources -->
+      <!-- Industries + Resources -->
       <div>
-        <h3 class="text-sm font-semibold text-[var(--color-text)]">Resources</h3>
+        <h3 class="text-sm font-semibold text-[var(--color-text)]">Industries</h3>
+        <ul class="mt-3 space-y-2">
+          {industries.map((ind) => (
+            <li>
+              <a
+                href={`/industries/${ind.id}/`}
+                class="text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text)]"
+              >
+                {ind.data.title}
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        <h3 class="text-sm font-semibold text-[var(--color-text)] mt-6">Resources</h3>
         <ul class="mt-3 space-y-2">
           {footerNav.resources.map((link) => (
             <li>
@@ -100,6 +104,54 @@ const year = new Date().getFullYear();
                 class="text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text)]"
               >
                 {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Data Sources + Destinations -->
+      <div>
+        <h3 class="text-sm font-semibold text-[var(--color-text)]">Data Sources</h3>
+        <ul class="mt-3 space-y-2">
+          {sources.map((integration) => (
+            <li>
+              <a
+                href={`/integrations/${integration.data.slug}/`}
+                class="text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text)]"
+              >
+                {integration.data.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        <h3 class="text-sm font-semibold text-[var(--color-text)] mt-6">Destinations</h3>
+        <ul class="mt-3 space-y-2">
+          {destinations.map((integration) => (
+            <li>
+              <a
+                href={`/integrations/${integration.data.slug}/`}
+                class="text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text)]"
+              >
+                {integration.data.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Use Cases -->
+      <div>
+        <h3 class="text-sm font-semibold text-[var(--color-text)]">Use Cases</h3>
+        <ul class="mt-3 space-y-2">
+          {useCases.map((uc) => (
+            <li>
+              <a
+                href={`/use-cases/${uc.id}/`}
+                class="text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text)]"
+              >
+                {uc.data.title}
               </a>
             </li>
           ))}
