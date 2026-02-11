@@ -7,7 +7,7 @@ import Features from '../components/home/Features.astro';
 import UseCasesPreview from '../components/home/UseCasesPreview.astro';
 import Integrations from '../components/home/Integrations.astro';
 import BlogPosts from '../components/home/BlogPosts.astro';
-import Testimonials from '../components/home/Testimonials.astro';
+// import Testimonials from '../components/home/Testimonials.astro';
 import PricingPreview from '../components/home/PricingPreview.astro';
 import AlternativesPreview from '../components/home/AlternativesPreview.astro';
 import SocialProof from '../components/home/SocialProof.astro';
@@ -56,12 +56,9 @@ const reviewData = testimonials.map((t) => ({
 
   <UseCasesPreview />
 
-  <HowItWorks />
-
-  <!-- CTA after How It Works -->
   <CTASection
-    headline="Ready to detect revenue signals?"
-    description="Start free — connect PostHog and see your first signals in minutes."
+    headline="Stop guessing which users will convert"
+    description="Connect your product analytics and surface real buying signals — no code, no complex setup."
     trackId="mid-page-cta"
   />
 
@@ -74,6 +71,8 @@ const reviewData = testimonials.map((t) => ({
 
   <Features />
 
+  <HowItWorks />
+
   <!-- CTA after Features -->
   <CTASection
     headline="Join teams already using Beton"
@@ -82,7 +81,7 @@ const reviewData = testimonials.map((t) => ({
   />
 
   <Integrations />
-  <Testimonials />
+  <!-- <Testimonials /> -->
 
   <ZigzagDivider />
 
