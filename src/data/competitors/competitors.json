@@ -464,42 +464,135 @@
     }
   },
   {
-    "id": "lead-scoring-software",
-    "name": "Lead Scoring Software",
-    "slug": "lead-scoring-software",
-    "tagline": "Traditional rule-based lead scoring tools",
-    "description": "Traditional lead scoring software uses point-based rules and manual thresholds to qualify leads. Common tools include HubSpot Lead Scoring, Salesforce Einstein, and Marketo scoring.",
+    "id": "excel-google-sheets",
+    "name": "Excel & Google Sheets",
+    "slug": "excel-google-sheets",
+    "tagline": "Manual spreadsheet-based lead scoring and revenue tracking",
+    "description": "Many teams start with Excel or Google Sheets to track leads, score accounts, and monitor revenue signals. Spreadsheets are flexible but break down as data grows — formulas get fragile, updates are manual, and there's no real-time signal detection.",
     "url": "#",
-    "category": "Lead Scoring",
+    "category": "Spreadsheets",
     "pricing": {
-      "model": "Varies",
-      "startingPrice": "Varies"
+      "model": "Free / Subscription",
+      "startingPrice": "$0 (Google Sheets) / $6.99/mo (Microsoft 365)"
     },
     "keyFeatures": [
-      "Rule-based point scoring",
-      "CRM-native integration",
-      "Demographic + firmographic scoring",
-      "Marketing automation triggers"
+      "Flexible data modeling",
+      "Pivot tables and charts",
+      "Formula-based scoring",
+      "Collaboration and sharing"
     ],
     "limitations": [
-      "Manual rule creation and maintenance required",
-      "Scoring models go stale without constant tuning",
-      "Limited to predefined criteria — misses novel signals",
-      "Often bundled with expensive CRM/MAP licenses"
+      "Manual data entry and updates — no real-time signal detection",
+      "Scoring formulas break as data complexity grows",
+      "No native CRM or product analytics integrations",
+      "No AI-powered pattern detection or autopilot mode"
     ],
     "idealFor": [
-      "Teams already paying for HubSpot or Salesforce and wanting basic scoring",
-      "Simple qualification workflows with clear, static criteria"
+      "Very early-stage teams with under 100 leads",
+      "One-off analysis before investing in a dedicated tool"
     ],
     "comparison": [
       {
         "category": "Core Capabilities",
         "rows": [
-          { "feature": "Lead scoring", "competitor": true, "beton": true },
+          { "feature": "Lead scoring", "competitor": "Manual formulas", "beton": true },
           { "feature": "Product usage signal detection", "competitor": false, "beton": true },
-          { "feature": "AI-powered scoring", "competitor": "Some tools", "beton": true },
+          { "feature": "AI-powered scoring", "competitor": false, "beton": true },
           { "feature": "Autopilot detection (no rules)", "competitor": false, "beton": true },
-          { "feature": "Signal routing to CRM", "competitor": "Native", "beton": true }
+          { "feature": "Real-time signal routing", "competitor": false, "beton": true }
+        ]
+      },
+      {
+        "category": "Deployment & Pricing",
+        "rows": [
+          { "feature": "Open-source", "competitor": "Google Sheets only", "beton": true },
+          { "feature": "Self-hosted option", "competitor": "Excel only", "beton": true },
+          { "feature": "Free tier", "competitor": true, "beton": true },
+          { "feature": "Scales with data growth", "competitor": false, "beton": true },
+          { "feature": "Transparent pricing", "competitor": true, "beton": true }
+        ]
+      },
+      {
+        "category": "Data & Integrations",
+        "rows": [
+          { "feature": "CRM integrations", "competitor": "Manual export/import", "beton": true },
+          { "feature": "Webhook support", "competitor": false, "beton": true },
+          { "feature": "Custom signal pipelines", "competitor": false, "beton": true },
+          { "feature": "Bring your own LLM", "competitor": false, "beton": true },
+          { "feature": "Data stays on your infra", "competitor": "Varies", "beton": true }
+        ]
+      }
+    ],
+    "whySwitch": [
+      {
+        "title": "From Manual to Autopilot",
+        "description": "Stop maintaining fragile VLOOKUP formulas and manual scoring sheets. Beton detects revenue signals automatically from your product data — no spreadsheet gymnastics required."
+      },
+      {
+        "title": "Real-Time Signal Detection",
+        "description": "Spreadsheets show you yesterday's data. Beton monitors product usage in real time and routes signals to your CRM the moment they happen."
+      },
+      {
+        "title": "Built to Scale",
+        "description": "Spreadsheets break at a few hundred rows of complex logic. Beton handles millions of events and scales with your growth — self-hosted or cloud."
+      }
+    ],
+    "faq": [
+      {
+        "question": "When should I switch from spreadsheets to Beton?",
+        "answer": "If you're spending more than an hour a week maintaining scoring sheets, manually updating lead statuses, or copying data between tools — it's time. Beton automates what you're doing manually and catches signals spreadsheets can't."
+      },
+      {
+        "question": "Can I import my existing spreadsheet data into Beton?",
+        "answer": "Yes. Beton connects to your product analytics and CRM directly. Your existing spreadsheet logic can inform your initial signal configuration, but Beton's autopilot will quickly discover patterns you weren't tracking manually."
+      },
+      {
+        "question": "Is Beton overkill for a small team?",
+        "answer": "No. Beton's self-hosted version is free and takes minutes to set up. Even small teams benefit from automated signal detection — it catches revenue opportunities you'd miss in a spreadsheet."
+      }
+    ],
+    "seo": {
+      "metaTitle": "Excel & Google Sheets Alternative for Lead Scoring | Beton",
+      "metaDescription": "Move beyond spreadsheet-based lead scoring. Beton automates revenue signal detection with AI — open-source, real-time, and free to start."
+    }
+  },
+  {
+    "id": "claude-code",
+    "name": "Claude Code",
+    "slug": "claude-code",
+    "tagline": "General-purpose AI coding agent by Anthropic",
+    "description": "Claude Code is Anthropic's CLI-based AI coding agent. It's excellent for general software engineering tasks — writing code, debugging, refactoring — but it's a generalist. For specialized revenue intelligence workflows, you need a purpose-built agent that delivers precise, repeatable output every time.",
+    "url": "https://claude.ai",
+    "category": "AI Coding Agent",
+    "pricing": {
+      "model": "Usage-based API",
+      "startingPrice": "$20/mo (Pro) or API pricing"
+    },
+    "keyFeatures": [
+      "General-purpose code generation",
+      "Multi-file codebase navigation",
+      "Debugging and refactoring",
+      "Terminal command execution"
+    ],
+    "limitations": [
+      "Generalist — no domain-specific revenue intelligence knowledge",
+      "Output varies between runs for the same prompt",
+      "No built-in product analytics or CRM integrations",
+      "Requires prompt engineering for repeatable signal detection"
+    ],
+    "idealFor": [
+      "General software engineering and coding tasks",
+      "Teams needing a versatile AI coding assistant"
+    ],
+    "comparison": [
+      {
+        "category": "Core Capabilities",
+        "rows": [
+          { "feature": "Revenue signal detection", "competitor": "Requires prompting", "beton": true },
+          { "feature": "Product usage analysis", "competitor": "Manual setup", "beton": true },
+          { "feature": "CRM integration", "competitor": false, "beton": true },
+          { "feature": "Repeatable output", "competitor": "Variable", "beton": true },
+          { "feature": "MCP tool server", "competitor": "Client only", "beton": true }
         ]
       },
       {
@@ -507,53 +600,332 @@
         "rows": [
           { "feature": "Open-source", "competitor": false, "beton": true },
           { "feature": "Self-hosted option", "competitor": false, "beton": true },
-          { "feature": "Standalone tool", "competitor": "Usually bundled", "beton": true },
-          { "feature": "Free tier", "competitor": "Varies", "beton": true },
-          { "feature": "Transparent pricing", "competitor": "Varies", "beton": true }
+          { "feature": "Free tier", "competitor": false, "beton": true },
+          { "feature": "Domain-specific agent", "competitor": false, "beton": true },
+          { "feature": "Transparent scoring", "competitor": false, "beton": true }
         ]
       },
       {
-        "category": "Data & Integrations",
+        "category": "Integration & Workflow",
         "rows": [
-          { "feature": "Webhook support", "competitor": "Varies", "beton": true },
-          { "feature": "Custom signal pipelines", "competitor": false, "beton": true },
-          { "feature": "Bring your own LLM", "competitor": false, "beton": true },
-          { "feature": "Data stays on your infra", "competitor": false, "beton": true },
-          { "feature": "Works with any CRM", "competitor": "Platform-locked", "beton": true }
+          { "feature": "Works as MCP tool server", "competitor": false, "beton": true },
+          { "feature": "Callable by other AI agents", "competitor": false, "beton": true },
+          { "feature": "Webhook support", "competitor": false, "beton": true },
+          { "feature": "Stable API output", "competitor": "Variable", "beton": true },
+          { "feature": "Background signal processing", "competitor": false, "beton": true }
         ]
       }
     ],
     "whySwitch": [
       {
-        "title": "Beyond Rules — AI Autopilot",
-        "description": "Traditional lead scoring needs constant rule maintenance. Beton's AI detects signals automatically, adapting to changing user behavior without manual tuning."
+        "title": "Specialized Beats Generalist",
+        "description": "Claude Code is a brilliant generalist, but revenue intelligence requires domain expertise. Beton's agent is purpose-built for signal detection — it knows what patterns predict conversion without being told."
       },
       {
-        "title": "Product Signal Detection",
-        "description": "Most lead scoring tools only look at form fills and page views. Beton analyzes actual product usage — API calls, feature adoption, team growth — to find real buying intent."
+        "title": "Stable Output, Every Time",
+        "description": "Generalist agents produce variable output for the same input. Beton's specialized agent delivers deterministic, repeatable signal detection — the same data always produces the same scoring."
       },
       {
-        "title": "No Platform Lock-in",
-        "description": "Traditional scoring is locked to your CRM vendor. Beton is open-source, works with any CRM, and can be self-hosted on your own infrastructure."
+        "title": "Better Together via MCP",
+        "description": "Don't replace your AI coding agent — augment it. Your Claude Code agent calls Beton as an MCP tool server for the revenue intelligence work, getting precise output while it handles everything else."
       }
     ],
     "faq": [
       {
-        "question": "How is Beton different from my CRM's built-in lead scoring?",
-        "answer": "CRM-native scoring uses rules you define manually (page visits = 5 points, etc.). Beton uses AI to automatically detect revenue signals in product usage data — patterns you might never think to score manually."
+        "question": "Should I use Beton instead of Claude Code?",
+        "answer": "No — use them together. Claude Code is great for general coding tasks. Beton is a specialized agent for revenue intelligence. Your Claude Code agent can call Beton via MCP to handle signal detection, scoring, and CRM routing as a background task."
       },
       {
-        "question": "Can Beton work alongside my existing lead scoring?",
-        "answer": "Yes. Many teams use Beton's signal detection to enrich their existing CRM scoring. Beton sends detected signals to your CRM where they can inform your existing scoring models."
+        "question": "How does the MCP integration work?",
+        "answer": "Beton exposes itself as an MCP tool server. Your AI coding agent (Claude Code, Cursor, etc.) connects to Beton as a tool, sends product data, and gets back structured signal detection results — no prompt engineering needed."
       },
       {
-        "question": "Why not just use HubSpot or Salesforce scoring?",
-        "answer": "Built-in scoring is fine for basic demographic qualification. But if you have a product with user activity data, Beton can detect behavioral signals that predict conversion far better than static rules."
+        "question": "Why can't I just prompt Claude Code to do signal detection?",
+        "answer": "You can, but the output will vary between runs and requires careful prompt engineering. Beton's specialized agent has built-in knowledge of revenue signals, integrates directly with your data sources, and produces stable, deterministic output that your pipeline can rely on."
       }
     ],
     "seo": {
-      "metaTitle": "Open-Source Lead Scoring Alternative | Beton",
-      "metaDescription": "Move beyond rule-based lead scoring. Beton uses AI to detect product usage signals that predict revenue — open-source, self-hosted, and free to start."
+      "metaTitle": "Beton vs Claude Code — Specialized Revenue Agent | Beton",
+      "metaDescription": "Claude Code is a great generalist. Beton is a specialized revenue intelligence agent. Use them together via MCP for precise, repeatable signal detection."
+    }
+  },
+  {
+    "id": "openclaw",
+    "name": "OpenClaw",
+    "slug": "openclaw",
+    "tagline": "Open-source AI agent framework for general automation",
+    "description": "OpenClaw is an open-source AI agent framework for building general-purpose automation workflows. While it provides the scaffolding for custom agents, it requires significant configuration to handle specialized tasks like revenue signal detection — and the output quality depends on your prompt engineering.",
+    "url": "https://openclaw.ai",
+    "category": "AI Agent Framework",
+    "pricing": {
+      "model": "Open-source / Self-hosted",
+      "startingPrice": "$0 (self-hosted)"
+    },
+    "keyFeatures": [
+      "Open-source agent framework",
+      "Customizable agent workflows",
+      "Multi-model support",
+      "Plugin ecosystem"
+    ],
+    "limitations": [
+      "Generalist framework — no built-in revenue intelligence",
+      "Requires significant setup for domain-specific tasks",
+      "Output quality depends on prompt engineering skill",
+      "No native CRM or product analytics integrations"
+    ],
+    "idealFor": [
+      "Teams building custom AI agent workflows from scratch",
+      "Developers wanting full control over agent architecture"
+    ],
+    "comparison": [
+      {
+        "category": "Core Capabilities",
+        "rows": [
+          { "feature": "Revenue signal detection", "competitor": "Build-your-own", "beton": true },
+          { "feature": "Product usage analysis", "competitor": "Requires plugins", "beton": true },
+          { "feature": "CRM integration", "competitor": "Requires plugins", "beton": true },
+          { "feature": "Repeatable output", "competitor": "Variable", "beton": true },
+          { "feature": "Pre-built signal models", "competitor": false, "beton": true }
+        ]
+      },
+      {
+        "category": "Deployment & Pricing",
+        "rows": [
+          { "feature": "Open-source", "competitor": true, "beton": true },
+          { "feature": "Self-hosted option", "competitor": true, "beton": true },
+          { "feature": "Free tier", "competitor": true, "beton": true },
+          { "feature": "Domain-specific agent", "competitor": false, "beton": true },
+          { "feature": "Zero-config signal detection", "competitor": false, "beton": true }
+        ]
+      },
+      {
+        "category": "Integration & Workflow",
+        "rows": [
+          { "feature": "Works as MCP tool server", "competitor": false, "beton": true },
+          { "feature": "Callable by other AI agents", "competitor": false, "beton": true },
+          { "feature": "Webhook support", "competitor": "Via plugins", "beton": true },
+          { "feature": "Stable API output", "competitor": "Variable", "beton": true },
+          { "feature": "Background signal processing", "competitor": false, "beton": true }
+        ]
+      }
+    ],
+    "whySwitch": [
+      {
+        "title": "Purpose-Built, Not Build-Your-Own",
+        "description": "OpenClaw gives you a framework to build agents from scratch. Beton gives you a revenue intelligence agent that works out of the box — connect your data and start detecting signals immediately."
+      },
+      {
+        "title": "Deterministic Signal Detection",
+        "description": "Agents built on general frameworks produce inconsistent output. Beton's specialized model delivers the same scoring for the same data — reliable enough to drive your sales pipeline."
+      },
+      {
+        "title": "Let Your Agent Call Beton",
+        "description": "Already using OpenClaw? Have your agent call Beton via MCP for the revenue intelligence piece. Beton handles the specialized, tedious signal detection in the background and returns stable output your agent can act on."
+      }
+    ],
+    "faq": [
+      {
+        "question": "Can I build revenue intelligence with OpenClaw?",
+        "answer": "Technically yes, but you'd need to build and maintain the signal detection logic, CRM integrations, scoring models, and data pipelines yourself. Beton packages all of that into a single, purpose-built agent."
+      },
+      {
+        "question": "Can OpenClaw agents use Beton?",
+        "answer": "Yes. Beton works as an MCP tool server. Your OpenClaw agent can call Beton for signal detection tasks and get back structured, reliable results — letting your agent focus on higher-level workflow orchestration."
+      },
+      {
+        "question": "Why not just build a custom agent with OpenClaw?",
+        "answer": "You could, but maintaining a custom revenue intelligence agent is expensive. Beton is actively maintained, comes with pre-built signal models, and integrates with your stack out of the box. Focus your engineering effort on your product, not your tooling."
+      }
+    ],
+    "seo": {
+      "metaTitle": "Beton vs OpenClaw — Specialized Revenue Agent | Beton",
+      "metaDescription": "OpenClaw gives you a general agent framework. Beton gives you a specialized revenue intelligence agent — purpose-built, deterministic, and callable via MCP."
+    }
+  },
+  {
+    "id": "cursor",
+    "name": "Cursor",
+    "slug": "cursor",
+    "tagline": "AI-powered code editor for software development",
+    "description": "Cursor is an AI-powered code editor built on VS Code. It's excellent for writing, editing, and understanding code with AI assistance. But like all generalist AI tools, it produces variable output for specialized tasks like revenue signal detection — and it's not designed to run as a background service your pipeline can rely on.",
+    "url": "https://cursor.sh",
+    "category": "AI Code Editor",
+    "pricing": {
+      "model": "Subscription",
+      "startingPrice": "$20/mo (Pro)"
+    },
+    "keyFeatures": [
+      "AI-powered code completion",
+      "Codebase-aware chat",
+      "Multi-file editing",
+      "VS Code extension compatibility"
+    ],
+    "limitations": [
+      "Generalist — no domain-specific revenue intelligence capabilities",
+      "Output varies between sessions for the same query",
+      "IDE-bound — can't run as a background service or API",
+      "No native CRM or product analytics integrations"
+    ],
+    "idealFor": [
+      "Day-to-day software development",
+      "Teams wanting AI-assisted code editing"
+    ],
+    "comparison": [
+      {
+        "category": "Core Capabilities",
+        "rows": [
+          { "feature": "Revenue signal detection", "competitor": "Requires prompting", "beton": true },
+          { "feature": "Product usage analysis", "competitor": "Manual", "beton": true },
+          { "feature": "CRM integration", "competitor": false, "beton": true },
+          { "feature": "Repeatable output", "competitor": "Variable", "beton": true },
+          { "feature": "Runs as background service", "competitor": false, "beton": true }
+        ]
+      },
+      {
+        "category": "Deployment & Pricing",
+        "rows": [
+          { "feature": "Open-source", "competitor": false, "beton": true },
+          { "feature": "Self-hosted option", "competitor": false, "beton": true },
+          { "feature": "Free tier", "competitor": "Limited", "beton": true },
+          { "feature": "Domain-specific agent", "competitor": false, "beton": true },
+          { "feature": "API / headless mode", "competitor": false, "beton": true }
+        ]
+      },
+      {
+        "category": "Integration & Workflow",
+        "rows": [
+          { "feature": "Works as MCP tool server", "competitor": false, "beton": true },
+          { "feature": "Callable by other AI agents", "competitor": false, "beton": true },
+          { "feature": "Webhook support", "competitor": false, "beton": true },
+          { "feature": "Stable API output", "competitor": "Variable", "beton": true },
+          { "feature": "Background signal processing", "competitor": false, "beton": true }
+        ]
+      }
+    ],
+    "whySwitch": [
+      {
+        "title": "Different Tools, Different Jobs",
+        "description": "Cursor is for writing code. Beton is for detecting revenue signals. They solve completely different problems — and work best when used together via MCP."
+      },
+      {
+        "title": "Reliable Pipeline Output",
+        "description": "You can't build a revenue pipeline on variable AI output. Beton's specialized agent delivers deterministic scoring — the same data always yields the same signals, run after run."
+      },
+      {
+        "title": "Runs in the Background",
+        "description": "Cursor needs you in the editor. Beton runs as a service — continuously monitoring product data, detecting signals, and routing them to your CRM without human intervention."
+      }
+    ],
+    "faq": [
+      {
+        "question": "Should I replace Cursor with Beton?",
+        "answer": "No. They solve different problems. Use Cursor for coding and Beton for revenue intelligence. If you're building with Cursor, you can configure Beton as an MCP tool — Cursor's agent calls Beton for signal detection tasks while you focus on development."
+      },
+      {
+        "question": "Can Cursor connect to Beton via MCP?",
+        "answer": "Yes. Cursor supports MCP tool servers. Add Beton as an MCP tool and your Cursor agent can delegate revenue intelligence tasks to Beton — getting structured, reliable signal data back without leaving your editor."
+      },
+      {
+        "question": "Why not prompt Cursor to analyze my product data?",
+        "answer": "You can, but Cursor's AI is optimized for code, not revenue signals. The output will be inconsistent and require re-prompting. Beton's specialized agent understands product usage patterns natively and delivers stable results your pipeline can depend on."
+      }
+    ],
+    "seo": {
+      "metaTitle": "Beton vs Cursor — Specialized Revenue Agent | Beton",
+      "metaDescription": "Cursor is for coding. Beton is for revenue intelligence. Use them together via MCP — let your Cursor agent call Beton for precise, repeatable signal detection."
+    }
+  },
+  {
+    "id": "claude-cowork",
+    "name": "Claude Cowork",
+    "slug": "claude-cowork",
+    "tagline": "Anthropic's collaborative AI workspace for teams",
+    "description": "Claude Cowork is Anthropic's team-oriented AI workspace for collaborative analysis and document creation. It's powerful for general knowledge work, but for revenue intelligence, you need a specialized agent that integrates with your product data and delivers deterministic signal output — not a conversational assistant.",
+    "url": "https://claude.ai",
+    "category": "AI Workspace",
+    "pricing": {
+      "model": "Team subscription",
+      "startingPrice": "$25/user/mo"
+    },
+    "keyFeatures": [
+      "Collaborative AI workspace",
+      "Document and analysis creation",
+      "Team knowledge sharing",
+      "Multi-modal understanding"
+    ],
+    "limitations": [
+      "Generalist workspace — no built-in revenue intelligence pipeline",
+      "Conversational interface, not a programmable agent",
+      "No native CRM or product analytics integrations",
+      "Output varies between conversations"
+    ],
+    "idealFor": [
+      "Team collaboration on documents and analysis",
+      "General knowledge work and brainstorming"
+    ],
+    "comparison": [
+      {
+        "category": "Core Capabilities",
+        "rows": [
+          { "feature": "Revenue signal detection", "competitor": "Manual analysis", "beton": true },
+          { "feature": "Product usage scoring", "competitor": "Requires manual setup", "beton": true },
+          { "feature": "CRM integration", "competitor": false, "beton": true },
+          { "feature": "Automated pipeline", "competitor": false, "beton": true },
+          { "feature": "Deterministic output", "competitor": false, "beton": true }
+        ]
+      },
+      {
+        "category": "Deployment & Pricing",
+        "rows": [
+          { "feature": "Open-source", "competitor": false, "beton": true },
+          { "feature": "Self-hosted option", "competitor": false, "beton": true },
+          { "feature": "Free tier", "competitor": false, "beton": true },
+          { "feature": "Domain-specific agent", "competitor": false, "beton": true },
+          { "feature": "API / headless mode", "competitor": false, "beton": true }
+        ]
+      },
+      {
+        "category": "Integration & Workflow",
+        "rows": [
+          { "feature": "Works as MCP tool server", "competitor": false, "beton": true },
+          { "feature": "Callable by other AI agents", "competitor": false, "beton": true },
+          { "feature": "Webhook support", "competitor": false, "beton": true },
+          { "feature": "Stable API output", "competitor": "Variable", "beton": true },
+          { "feature": "Background signal processing", "competitor": false, "beton": true }
+        ]
+      }
+    ],
+    "whySwitch": [
+      {
+        "title": "Agent, Not Assistant",
+        "description": "Claude Cowork is a conversational assistant. Beton is an autonomous agent that runs in your pipeline — monitoring signals, scoring leads, and routing to your CRM without you asking it to."
+      },
+      {
+        "title": "Your Agent's Revenue Expert",
+        "description": "Instead of chatting with Claude Cowork about your revenue data, let your existing AI agent call Beton via MCP. Beton does the tedious signal detection in the background and returns structured output your agent can act on."
+      },
+      {
+        "title": "Deterministic Pipeline Output",
+        "description": "Conversations produce different answers every time. Beton's specialized agent produces the same scoring for the same data — reliable enough to trigger automated workflows and sales alerts."
+      }
+    ],
+    "faq": [
+      {
+        "question": "How is Beton different from using Claude Cowork for revenue analysis?",
+        "answer": "Claude Cowork is an interactive workspace — great for ad-hoc analysis and brainstorming. Beton is an autonomous agent that runs continuously, detecting signals in your product data and routing them to your CRM without human interaction."
+      },
+      {
+        "question": "Can my team use both Claude Cowork and Beton?",
+        "answer": "Absolutely. Use Claude Cowork for strategic analysis and collaboration. Use Beton for automated, deterministic signal detection in your revenue pipeline. They complement each other — Cowork for thinking, Beton for doing."
+      },
+      {
+        "question": "Why do I need a specialized agent?",
+        "answer": "General AI tools require you to explain what you want every time and produce variable output. Beton knows revenue signals natively — connect your data and it starts detecting patterns automatically, delivering consistent results your pipeline can depend on."
+      }
+    ],
+    "seo": {
+      "metaTitle": "Beton vs Claude Cowork — Specialized Revenue Agent | Beton",
+      "metaDescription": "Claude Cowork is for collaboration. Beton is a specialized revenue intelligence agent. Use them together — Beton handles automated signal detection via MCP."
     }
   }
 ]

@@ -12,19 +12,43 @@ const companies = (await getCollection('social-proof')).sort(
     <p class="text-center text-sm font-medium text-[var(--color-text-tertiary)] mb-8">
       Trusted by teams at
     </p>
-    <div class="flex flex-wrap items-center justify-center gap-8 lg:gap-12">
+    <div class="social-proof-logos flex flex-wrap items-center justify-center gap-8 lg:gap-12">
       {companies.map((company) => (
         <div class="flex items-center justify-center h-8">
-          <img
-            src={company.data.logo}
-            alt={company.data.name}
-            width="120"
-            height="32"
-            loading="lazy"
-            class="h-6 w-auto object-contain"
-          />
+          {company.data.url ? (
+            <a href={company.data.url} target="_blank" rel="noopener noreferrer" class="opacity-70 hover:opacity-100 transition-opacity">
+              <img
+                src={company.data.logo}
+                alt={company.data.name}
+                width="120"
+                height="32"
+                loading="lazy"
+                class="h-6 w-auto object-contain"
+              />
+            </a>
+          ) : (
+            <img
+              src={company.data.logo}
+              alt={company.data.name}
+              width="120"
+              height="32"
+              loading="lazy"
+              class="h-6 w-auto object-contain opacity-70"
+            />
+          )}
         </div>
       ))}
     </div>
   </Container>
 </section>
+
+<style>
+  [data-theme='dark'] .social-proof-logos img {
+    filter: brightness(0) invert(1);
+  }
+  @media (prefers-color-scheme: dark) {
+    :not([data-theme='light']) .social-proof-logos img {
+      filter: brightness(0) invert(1);
+    }
+  }
+</style>

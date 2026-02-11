@@ -42,7 +42,11 @@ export const footerNav = {
     { label: 'Beton vs Common Room', href: '/alternatives/common-room' },
     { label: 'Beton vs Breadcrumbs', href: '/alternatives/breadcrumbs' },
     { label: 'Beton vs Clay', href: '/alternatives/clay' },
-    { label: 'Beton vs Lead Scoring', href: '/alternatives/lead-scoring-software' },
+    { label: 'Beton vs Excel/Sheets', href: '/alternatives/excel-google-sheets' },
+    { label: 'Beton vs Claude Code', href: '/alternatives/claude-code' },
+    { label: 'Beton vs OpenClaw', href: '/alternatives/openclaw' },
+    { label: 'Beton vs Cursor', href: '/alternatives/cursor' },
+    { label: 'Beton vs Claude Cowork', href: '/alternatives/claude-cowork' },
   ] as NavLink[],
   legal: [
     { label: 'Terms and Conditions', href: '/terms' },
