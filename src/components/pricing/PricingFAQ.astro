@@ -1,23 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
-import { SITE } from '../../utils/site';
 
 const faqs = (await getCollection('pricing-faq'))
   .sort((a, b) => a.data.order - b.data.order);
-
-// FAQPage schema
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faqs.map((faq) => ({
-    '@type': 'Question',
-    name: faq.data.question,
-    acceptedAnswer: {
-      '@type': 'Answer',
-      text: faq.data.answer,
-    },
-  })),
-};
 ---
 
 <div class="max-w-3xl mx-auto">
@@ -47,5 +32,3 @@ const faqSchema = {
     ))}
   </div>
 </div>
-
-<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />

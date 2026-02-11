@@ -4,7 +4,7 @@ import sitemap from '@astrojs/sitemap';
 import vercel from '@astrojs/vercel';
 
 export default defineConfig({
-  site: 'https://getbeton.ai',
+  site: 'https://www.getbeton.ai',
   output: 'static',
   adapter: vercel(),
   vite: { plugins: [tailwindcss()] },
@@ -15,7 +15,7 @@ export default defineConfig({
       priority: 0.7,
       serialize(item) {
         // High-priority pages
-        if (item.url === 'https://getbeton.ai/' || item.url === 'https://getbeton.ai') {
+        if (item.url === 'https://www.getbeton.ai/' || item.url === 'https://www.getbeton.ai') {
           item.priority = 1.0;
           item.changefreq = 'daily';
         } else if (item.url.includes('/pricing')) {

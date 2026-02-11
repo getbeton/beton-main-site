@@ -24,7 +24,7 @@ relatedUseCases:
   - "usage-based-upsell"
   - "plg-conversion"
 seo:
-  metaTitle: "Marketplace Revenue Intelligence - Beton"
+  metaTitle: "Marketplace Revenue Intelligence"
   metaDescription: "Revenue intelligence for marketplaces. Detect seller and buyer activation patterns and route monetization signals to your team."
 ---
 

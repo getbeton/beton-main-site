@@ -1,6 +1,6 @@
 export const SITE = {
   name: 'Beton',
-  url: 'https://getbeton.ai',
+  url: 'https://www.getbeton.ai',
   title: 'Beton - Open-Source Revenue Intelligence',
   description:
     'Predict which customers will convert to enterprise deals. Detect behavioral signals in product usage and route them to your CRM.',

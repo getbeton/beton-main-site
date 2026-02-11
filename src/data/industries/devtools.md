@@ -24,7 +24,7 @@ relatedUseCases:
   - "plg-conversion"
   - "trial-qualification"
 seo:
-  metaTitle: "DevTools Revenue Intelligence - Beton"
+  metaTitle: "DevTools Revenue Intelligence"
   metaDescription: "Revenue intelligence for DevTool companies. Detect developer engagement signals and route buying intent to your sales team."
 ---
 

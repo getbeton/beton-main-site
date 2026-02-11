@@ -25,7 +25,7 @@ relatedUseCases:
   - "expansion-revenue"
   - "churn-prevention"
 seo:
-  metaTitle: "SaaS Revenue Intelligence - Beton"
+  metaTitle: "SaaS Revenue Intelligence"
   metaDescription: "Revenue intelligence for SaaS companies. Detect buying signals, expansion opportunities, and churn risk from product usage data."
 ---
 

@@ -24,7 +24,7 @@ relatedUseCases:
   - "expansion-revenue"
   - "usage-based-upsell"
 seo:
-  metaTitle: "Fintech Revenue Intelligence - Beton"
+  metaTitle: "Fintech Revenue Intelligence"
   metaDescription: "Revenue intelligence for fintech companies. Detect financial product adoption patterns and route enterprise-ready signals to sales."
 ---
 
