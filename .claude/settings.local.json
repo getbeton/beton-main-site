@@ -54,7 +54,9 @@
       "WebFetch(domain:www.google.com)",
       "Bash(sips:*)",
       "WebFetch(domain:www.crunchbase.com)",
-      "WebFetch(domain:www.linkedin.com)"
+      "WebFetch(domain:www.linkedin.com)",
+      "Bash(unzip:*)",
+      "Bash(node:*)"
     ]
   },
   "enableAllProjectMcpServers": true,

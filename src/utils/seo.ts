@@ -17,7 +17,8 @@ export function buildTitle(pageTitle?: string): string {
 export function buildCanonicalUrl(path: string): string {
   const base = SITE.url.replace(/\/$/, '');
   const cleanPath = path.startsWith('/') ? path : `/${path}`;
-  return `${base}${cleanPath}`;
+  const withSlash = cleanPath.endsWith('/') ? cleanPath : `${cleanPath}/`;
+  return `${base}${withSlash}`;
 }
 
 export function buildOgImageUrl(ogImage?: string): string {
