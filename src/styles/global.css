@@ -177,4 +177,15 @@
   [id] {
     scroll-margin-top: 5rem;
   }
+
+  /* Integration logos: black in light mode, white in dark mode */
+  [data-theme='dark'] .logo-adaptive {
+    filter: brightness(0) invert(1);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .logo-adaptive {
+    filter: brightness(0) invert(1);
+  }
 }

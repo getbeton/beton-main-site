@@ -43,7 +43,7 @@ const breadcrumbs = [
       <div class="max-w-3xl">
         <div class="flex items-center gap-4 mb-6">
           <div class="w-14 h-14 flex items-center justify-center border-2 border-[var(--color-text)] bg-[var(--color-surface-raised)] p-2.5">
-            <img src={logo} alt={name} width="40" height="40" class="w-full h-full object-contain" />
+            <img src={logo} alt={name} width="40" height="40" class="w-full h-full object-contain logo-adaptive" />
           </div>
           <span class="inline-flex items-center px-3 py-1 text-xs font-bold uppercase tracking-wider border-2 border-[var(--color-text)] bg-[var(--color-surface-raised)]">
             {category === 'source' ? 'Data Source' : 'Destination'}
@@ -231,7 +231,7 @@ const breadcrumbs = [
                 width="32"
                 height="32"
                 loading="lazy"
-                class="w-8 h-8 object-contain"
+                class="w-8 h-8 object-contain logo-adaptive"
               />
               <span class="text-xs font-medium text-[var(--color-text)]">{integration.data.name}</span>
             </a>

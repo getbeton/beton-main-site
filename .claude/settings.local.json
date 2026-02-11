@@ -42,7 +42,9 @@
       "WebFetch(domain:cdn.jsdelivr.net)",
       "WebFetch(domain:simpleicons.org)",
       "WebFetch(domain:app.pipedrive.com)",
-      "Bash(npm run check:*)"
+      "Bash(npm run check:*)",
+      "Bash(brew list:*)",
+      "Bash(inkscape:*)"
     ]
   },
   "enableAllProjectMcpServers": true,

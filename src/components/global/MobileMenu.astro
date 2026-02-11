@@ -38,7 +38,7 @@ const currentPath = Astro.url.pathname;
             'block px-3 py-2 text-base font-medium',
             currentPath === link.href || currentPath.startsWith(link.href + '/')
               ? 'bg-[var(--color-primary-bg)] text-[var(--color-primary-700)]'
-              : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text)] hover:bg-[var(--color-neutral-100)]',
+              : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text)] hover:bg-[var(--color-surface-overlay)]',
           ]}
           aria-current={currentPath === link.href ? 'page' : undefined}
         >
@@ -53,7 +53,7 @@ const currentPath = Astro.url.pathname;
           href={link.href}
           target="_blank"
           rel="noopener noreferrer"
-          class="flex items-center gap-2 px-3 py-2 text-base font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-text)] hover:bg-[var(--color-neutral-100)]"
+          class="flex items-center gap-2 px-3 py-2 text-base font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-text)] hover:bg-[var(--color-surface-overlay)]"
         >
           {link.label}
           <svg class="w-4 h-4 opacity-50" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
