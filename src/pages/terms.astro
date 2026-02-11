@@ -1,14 +1,21 @@
 ---
 import { getEntry, render } from 'astro:content';
 import LegalLayout from '../layouts/LegalLayout.astro';
+import { SITE } from '../utils/site';
 
 const page = await getEntry('pages', 'terms');
 const { Content } = await render(page!);
+
+const breadcrumbs = [
+  { name: 'Home', url: SITE.url },
+  { name: 'Terms of Service', url: `${SITE.url}/terms/` },
+];
 ---
 
 <LegalLayout
   title={page!.data.title}
   description={page!.data.seo?.metaDescription}
+  breadcrumbs={breadcrumbs}
 >
   <Content />
 </LegalLayout>

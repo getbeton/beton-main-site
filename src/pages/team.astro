@@ -16,12 +16,20 @@ const breadcrumbs = [
   { name: 'Home', url: SITE.url },
   { name: 'Team', url: `${SITE.url}/team/` },
 ];
+
+const personData = members.map((m) => ({
+  name: m.data.name,
+  role: m.data.role,
+  bio: m.data.bio,
+  social: m.data.social,
+}));
 ---
 
 <PageLayout
   title="Meet the Team"
   description="Meet the team behind Beton, building open-source revenue intelligence."
   breadcrumbs={breadcrumbs}
+  personData={personData}
 >
   <Section>
     <Container>

@@ -1,5 +1,5 @@
 ---
-import { getEntry } from 'astro:content';
+import { getEntry, getCollection } from 'astro:content';
 import PageLayout from '../layouts/PageLayout.astro';
 import Hero from '../components/home/Hero.astro';
 import HowItWorks from '../components/home/HowItWorks.astro';
@@ -21,11 +21,20 @@ import Section from '../components/ui/Section.astro';
 
 const page = await getEntry('pages', 'home');
 const hero = page?.data.hero;
+
+const testimonials = await getCollection('testimonials');
+const reviewData = testimonials.map((t) => ({
+  name: t.data.name,
+  role: t.data.role,
+  company: t.data.company,
+  quote: t.data.quote,
+}));
 ---
 
 <PageLayout
   description={page?.data.seo?.metaDescription}
   schemaType={page?.data.schemaType}
+  reviewData={reviewData}
 >
   <Hero
     headline={hero?.headline || 'Open-Source Revenue Intelligence'}

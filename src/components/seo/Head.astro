@@ -15,6 +15,8 @@ interface Props {
   schemaType?: string;
   faqData?: { question: string; answer: string }[];
   breadcrumbs?: { name: string; url: string }[];
+  reviewData?: { name: string; role?: string; company?: string; quote: string }[];
+  personData?: { name: string; role: string; bio?: string; social?: { twitter?: string; linkedin?: string; github?: string } }[];
 }
 
 const {
@@ -27,6 +29,8 @@ const {
   schemaType,
   faqData,
   breadcrumbs,
+  reviewData,
+  personData,
 } = Astro.props;
 
 const pageTitle = buildTitle(title);
@@ -78,6 +82,8 @@ const ogImageUrl = buildOgImageUrl(ogImage);
   url={canonicalUrl}
   faqData={faqData}
   breadcrumbs={breadcrumbs}
+  reviewData={reviewData}
+  personData={personData}
 />
 
 <GTM />

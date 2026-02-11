@@ -1,6 +1,24 @@
 ---
 import { SITE } from '../../utils/site';
 
+interface ReviewItem {
+  name: string;
+  role?: string;
+  company?: string;
+  quote: string;
+}
+
+interface PersonItem {
+  name: string;
+  role: string;
+  bio?: string;
+  social?: {
+    twitter?: string;
+    linkedin?: string;
+    github?: string;
+  };
+}
+
 interface Props {
   type?: string;
   title: string;
@@ -8,9 +26,11 @@ interface Props {
   url: string;
   faqData?: { question: string; answer: string }[];
   breadcrumbs?: { name: string; url: string }[];
+  reviewData?: ReviewItem[];
+  personData?: PersonItem[];
 }
 
-const { type, title, description, url, faqData, breadcrumbs } = Astro.props;
+const { type, title, description, url, faqData, breadcrumbs, reviewData, personData } = Astro.props;
 
 const orgSchema = {
   '@context': 'https://schema.org',
@@ -34,6 +54,14 @@ const webSiteSchema = {
   url: SITE.url,
   description: SITE.description,
   publisher: { '@type': 'Organization', name: SITE.name },
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: {
+      '@type': 'EntryPoint',
+      urlTemplate: `${SITE.url}/?q={search_term_string}`,
+    },
+    'query-input': 'required name=search_term_string',
+  },
 };
 
 const webPageSchema = {
@@ -63,14 +91,21 @@ const softwareSchema =
             name: 'Self-Hosted',
             price: '0',
             priceCurrency: 'USD',
-            description: 'Free self-hosted deployment with your own LLM key',
+            description: 'Free self-hosted deployment with your own LLM key. GPL licensed.',
           },
           {
             '@type': 'Offer',
             name: 'Cloud',
             price: '0.50',
             priceCurrency: 'USD',
-            description: 'Per tracked user per month',
+            description: 'Per tracked user per month. Managed hosting, daily sync.',
+          },
+          {
+            '@type': 'Offer',
+            name: 'Enterprise',
+            price: '0',
+            priceCurrency: 'USD',
+            description: 'Custom pricing for organizations with advanced security and compliance needs.',
           },
         ],
         featureList: [
@@ -113,6 +148,59 @@ const breadcrumbSchema =
         })),
       }
     : null;
+
+const reviewSchema =
+  reviewData && reviewData.length > 0
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'SoftwareApplication',
+        name: SITE.name,
+        aggregateRating: {
+          '@type': 'AggregateRating',
+          ratingValue: '5',
+          bestRating: '5',
+          ratingCount: String(reviewData.length),
+        },
+        review: reviewData.map((r) => ({
+          '@type': 'Review',
+          author: {
+            '@type': 'Person',
+            name: r.name,
+            ...(r.role && { jobTitle: r.role }),
+          },
+          reviewBody: r.quote,
+          reviewRating: {
+            '@type': 'Rating',
+            ratingValue: '5',
+            bestRating: '5',
+          },
+          ...(r.company && {
+            publisher: { '@type': 'Organization', name: r.company },
+          }),
+        })),
+      }
+    : null;
+
+const personSchemas =
+  personData && personData.length > 0
+    ? personData.map((p) => ({
+        '@context': 'https://schema.org',
+        '@type': 'Person',
+        name: p.name,
+        jobTitle: p.role,
+        ...(p.bio && { description: p.bio }),
+        worksFor: {
+          '@type': 'Organization',
+          name: SITE.name,
+          url: SITE.url,
+        },
+        sameAs: [
+          ...(p.social?.twitter ? [p.social.twitter] : []),
+          ...(p.social?.linkedin ? [p.social.linkedin] : []),
+          ...(p.social?.github ? [p.social.github] : []),
+        ].filter(Boolean),
+      }))
+    : null;
 ---
 
 <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
@@ -121,3 +209,5 @@ const breadcrumbSchema =
 {softwareSchema && <script type="application/ld+json" set:html={JSON.stringify(softwareSchema)} />}
 {faqSchema && <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />}
 {breadcrumbSchema && <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />}
+{reviewSchema && <script type="application/ld+json" set:html={JSON.stringify(reviewSchema)} />}
+{personSchemas && personSchemas.map((ps) => <script type="application/ld+json" set:html={JSON.stringify(ps)} />)}

@@ -15,9 +15,11 @@ interface Props {
   schemaType?: string;
   faqData?: { question: string; answer: string }[];
   breadcrumbs?: { name: string; url: string }[];
+  reviewData?: { name: string; role?: string; company?: string; quote: string }[];
+  personData?: { name: string; role: string; bio?: string; social?: { twitter?: string; linkedin?: string; github?: string } }[];
 }
 
-const { title, description, ogImage, canonicalPath, noIndex, schemaType, faqData, breadcrumbs } = Astro.props;
+const { title, description, ogImage, canonicalPath, noIndex, schemaType, faqData, breadcrumbs, reviewData, personData } = Astro.props;
 ---
 
 <BaseLayout
@@ -29,6 +31,8 @@ const { title, description, ogImage, canonicalPath, noIndex, schemaType, faqData
   schemaType={schemaType}
   faqData={faqData}
   breadcrumbs={breadcrumbs}
+  reviewData={reviewData}
+  personData={personData}
 >
   <SkipLink />
   <Header />
