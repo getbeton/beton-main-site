@@ -24,7 +24,7 @@ const accentColors = [
 ];
 ---
 
-<Card href={`/industries/${industry.id}`} class={`border-t-4 ${accentColors[index % accentColors.length]}`}>
+<Card href={`/industries/${industry.id}/`} class={`border-t-4 ${accentColors[index % accentColors.length]}`}>
   <h3 class="text-lg font-semibold mb-2">{industry.data.title}</h3>
   <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed mb-4">
     {industry.data.description}

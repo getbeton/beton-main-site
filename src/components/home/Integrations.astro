@@ -22,7 +22,7 @@ const integrations = (await getCollection('integrations'))
     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6">
       {integrations.map((integration) => (
         <a
-          href={`/integrations/${integration.data.slug}`}
+          href={`/integrations/${integration.data.slug}/`}
           class="flex flex-col items-center gap-3 p-4 border-2 border-[var(--color-text)] shadow-[var(--shadow-card)] hover:shadow-[6px_6px_0_var(--color-text)] hover:-translate-x-0.5 hover:-translate-y-0.5"
         >
           <div class="w-10 h-10 flex items-center justify-center">
@@ -41,7 +41,7 @@ const integrations = (await getCollection('integrations'))
     </div>
 
     <div class="text-center mt-8">
-      <Button href="/integrations" variant="outline">View all integrations</Button>
+      <Button href="/integrations/" variant="outline">View all integrations</Button>
     </div>
   </Container>
 </Section>

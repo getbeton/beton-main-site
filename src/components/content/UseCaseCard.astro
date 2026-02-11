@@ -24,7 +24,7 @@ const accentColors = [
 ];
 ---
 
-<Card href={`/use-cases/${useCase.id}`} class={`border-t-4 ${accentColors[index % accentColors.length]}`}>
+<Card href={`/use-cases/${useCase.id}/`} class={`border-t-4 ${accentColors[index % accentColors.length]}`}>
   <h3 class="text-lg font-semibold mb-2">{useCase.data.title}</h3>
   <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed mb-4">
     {useCase.data.description}

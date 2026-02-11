@@ -7,11 +7,11 @@ export interface NavLink {
 }
 
 export const mainNav: NavLink[] = [
-  { label: 'Use Cases', href: '/use-cases' },
-  { label: 'Industries', href: '/industries' },
-  { label: 'Pricing', href: '/pricing' },
-  { label: 'About', href: '/about' },
-  { label: 'Team', href: '/team' },
+  { label: 'Use Cases', href: '/use-cases/' },
+  { label: 'Industries', href: '/industries/' },
+  { label: 'Pricing', href: '/pricing/' },
+  { label: 'About', href: '/about/' },
+  { label: 'Team', href: '/team/' },
 ];
 
 export const externalNav: NavLink[] = [
@@ -21,36 +21,39 @@ export const externalNav: NavLink[] = [
 
 export const footerNav = {
   product: [
-    { label: 'Use Cases', href: '/use-cases' },
-    { label: 'Industries', href: '/industries' },
-    { label: 'Pricing', href: '/pricing' },
-    { label: 'Integrations', href: '/integrations' },
+    { label: 'Use Cases', href: '/use-cases/' },
+    { label: 'Industries', href: '/industries/' },
+    { label: 'Pricing', href: '/pricing/' },
+    { label: 'Integrations', href: '/integrations/' },
   ] as NavLink[],
   company: [
-    { label: 'About', href: '/about' },
-    { label: 'Team', href: '/team' },
+    { label: 'About', href: '/about/' },
+    { label: 'Team', href: '/team/' },
     { label: 'Blog', href: SITE.external.blog, external: true },
   ] as NavLink[],
   resources: [
-    { label: 'Alternatives', href: '/alternatives' },
+    { label: 'Alternatives', href: '/alternatives/' },
     { label: 'GitHub', href: SITE.social.github, external: true },
     { label: 'App', href: SITE.external.app, external: true },
   ] as NavLink[],
   comparisons: [
-    { label: 'Beton vs Pocus', href: '/alternatives/pocus' },
-    { label: 'Beton vs MadKudu', href: '/alternatives/madkudu' },
-    { label: 'Beton vs Common Room', href: '/alternatives/common-room' },
-    { label: 'Beton vs Breadcrumbs', href: '/alternatives/breadcrumbs' },
-    { label: 'Beton vs Clay', href: '/alternatives/clay' },
-    { label: 'Beton vs Excel/Sheets', href: '/alternatives/excel-google-sheets' },
-    { label: 'Beton vs Claude Code', href: '/alternatives/claude-code' },
-    { label: 'Beton vs OpenClaw', href: '/alternatives/openclaw' },
-    { label: 'Beton vs Cursor', href: '/alternatives/cursor' },
-    { label: 'Beton vs Claude Cowork', href: '/alternatives/claude-cowork' },
+    { label: 'Beton vs Pocus', href: '/alternatives/pocus/' },
+    { label: 'Beton vs MadKudu', href: '/alternatives/madkudu/' },
+    { label: 'Beton vs Common Room', href: '/alternatives/common-room/' },
+    { label: 'Beton vs Breadcrumbs', href: '/alternatives/breadcrumbs/' },
+    { label: 'Beton vs Clay', href: '/alternatives/clay/' },
+    { label: 'Beton vs Excel/Sheets', href: '/alternatives/excel-google-sheets/' },
+    { label: 'Beton vs Claude Code', href: '/alternatives/claude-code/' },
+    { label: 'Beton vs OpenClaw', href: '/alternatives/openclaw/' },
+    { label: 'Beton vs Cursor', href: '/alternatives/cursor/' },
+    { label: 'Beton vs Claude Cowork', href: '/alternatives/claude-cowork/' },
+    { label: 'Pocus vs MadKudu', href: '/compare/pocus-vs-madkudu/' },
+    { label: 'Pocus vs Common Room', href: '/compare/pocus-vs-common-room/' },
+    { label: 'Clay vs MadKudu', href: '/compare/clay-vs-madkudu/' },
   ] as NavLink[],
   legal: [
-    { label: 'Terms and Conditions', href: '/terms' },
-    { label: 'Privacy Policy', href: '/privacy' },
+    { label: 'Terms and Conditions', href: '/terms/' },
+    { label: 'Privacy Policy', href: '/privacy/' },
   ] as NavLink[],
 };
 

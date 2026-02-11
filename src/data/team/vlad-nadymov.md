@@ -5,6 +5,5 @@ bio: "Building open-source revenue intelligence to help product-led companies co
 order: 1
 social:
   twitter: "https://x.com/vladnadymov"
-  linkedin: "https://linkedin.com/in/vladnadymov"
-  github: "https://github.com/vladnadymov"
+  linkedin: "https://www.linkedin.com/in/vlad-nadymov/"
 ---

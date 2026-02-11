@@ -17,7 +17,7 @@ const breadcrumbs = [
 
 <PageLayout
   title="Integrations"
-  description="Connect your data source and route revenue signals to your favorite CRM and tools."
+  description="Browse Beton's integrations — connect PostHog, Amplitude, and other data sources, then route revenue signals to HubSpot, Attio, Slack, and more."
   canonicalPath="/integrations/"
   breadcrumbs={breadcrumbs}
 >
@@ -40,7 +40,7 @@ const breadcrumbs = [
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
           {sources.map((integration) => (
             <a
-              href={`/integrations/${integration.data.slug}`}
+              href={`/integrations/${integration.data.slug}/`}
               class="flex items-start gap-4 p-5 border-2 border-[var(--color-text)] bg-[var(--color-surface-raised)] shadow-[var(--shadow-card)] hover:shadow-[6px_6px_0_var(--color-text)] hover:-translate-x-0.5 hover:-translate-y-0.5"
             >
               <img
@@ -67,7 +67,7 @@ const breadcrumbs = [
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
           {destinations.map((integration) => (
             <a
-              href={`/integrations/${integration.data.slug}`}
+              href={`/integrations/${integration.data.slug}/`}
               class="flex items-start gap-4 p-5 border-2 border-[var(--color-text)] bg-[var(--color-surface-raised)] shadow-[var(--shadow-card)] hover:shadow-[6px_6px_0_var(--color-text)] hover:-translate-x-0.5 hover:-translate-y-0.5"
             >
               <img

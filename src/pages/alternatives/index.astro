@@ -67,13 +67,13 @@ const breadcrumbs = [
             </div>
             <div class="border-t-2 border-[var(--color-border)] p-4 flex gap-2">
               <a
-                href={`/alternatives/${entry.data.slug}`}
+                href={`/alternatives/${entry.data.slug}/`}
                 class="flex-1 inline-flex items-center justify-center px-3 py-2 text-xs font-bold uppercase tracking-wider border-2 border-[var(--color-text)] bg-[var(--color-primary-600)] text-white hover:bg-white hover:text-[var(--color-primary-600)]"
               >
                 Alternative
               </a>
               <a
-                href={`/vs/${entry.data.slug}`}
+                href={`/vs/${entry.data.slug}/`}
                 class="flex-1 inline-flex items-center justify-center px-3 py-2 text-xs font-bold uppercase tracking-wider border-2 border-[var(--color-text)] bg-[var(--color-surface)] text-[var(--color-text)] hover:bg-[var(--color-text)] hover:text-[var(--color-surface)]"
               >
                 Beton vs {entry.data.name}

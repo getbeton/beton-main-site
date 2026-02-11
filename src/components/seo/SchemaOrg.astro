@@ -42,7 +42,7 @@ const orgSchema = {
   sameAs: [SITE.social.github, SITE.social.linkedin, SITE.social.twitter],
   contactPoint: {
     '@type': 'ContactPoint',
-    url: `${SITE.url}/pricing`,
+    url: `${SITE.url}/pricing/`,
     contactType: 'sales',
   },
 };
@@ -92,13 +92,6 @@ const softwareSchema =
             priceCurrency: 'USD',
             description: 'Per tracked user per month. Managed hosting, daily sync.',
           },
-          {
-            '@type': 'Offer',
-            name: 'Enterprise',
-            price: '0',
-            priceCurrency: 'USD',
-            description: 'Custom pricing for organizations with advanced security and compliance needs.',
-          },
         ],
         featureList: [
           'Behavioral signal detection',
@@ -108,6 +101,33 @@ const softwareSchema =
           'Expansion revenue detection',
           'PLG conversion tracking',
         ],
+        ...(reviewData && reviewData.length > 0
+          ? {
+              aggregateRating: {
+                '@type': 'AggregateRating',
+                ratingValue: '5',
+                bestRating: '5',
+                ratingCount: String(reviewData.length),
+              },
+              review: reviewData.map((r) => ({
+                '@type': 'Review',
+                author: {
+                  '@type': 'Person',
+                  name: r.name,
+                  ...(r.role && { jobTitle: r.role }),
+                },
+                reviewBody: r.quote,
+                reviewRating: {
+                  '@type': 'Rating',
+                  ratingValue: '5',
+                  bestRating: '5',
+                },
+                ...(r.company && {
+                  publisher: { '@type': 'Organization', name: r.company },
+                }),
+              })),
+            }
+          : {}),
       }
     : null;
 
@@ -141,37 +161,6 @@ const breadcrumbSchema =
       }
     : null;
 
-const reviewSchema =
-  reviewData && reviewData.length > 0
-    ? {
-        '@context': 'https://schema.org',
-        '@type': 'SoftwareApplication',
-        name: SITE.name,
-        aggregateRating: {
-          '@type': 'AggregateRating',
-          ratingValue: '5',
-          bestRating: '5',
-          ratingCount: String(reviewData.length),
-        },
-        review: reviewData.map((r) => ({
-          '@type': 'Review',
-          author: {
-            '@type': 'Person',
-            name: r.name,
-            ...(r.role && { jobTitle: r.role }),
-          },
-          reviewBody: r.quote,
-          reviewRating: {
-            '@type': 'Rating',
-            ratingValue: '5',
-            bestRating: '5',
-          },
-          ...(r.company && {
-            publisher: { '@type': 'Organization', name: r.company },
-          }),
-        })),
-      }
-    : null;
 
 const personSchemas =
   personData && personData.length > 0
@@ -201,5 +190,4 @@ const personSchemas =
 {softwareSchema && <script type="application/ld+json" set:html={JSON.stringify(softwareSchema)} />}
 {faqSchema && <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />}
 {breadcrumbSchema && <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />}
-{reviewSchema && <script type="application/ld+json" set:html={JSON.stringify(reviewSchema)} />}
 {personSchemas && personSchemas.map((ps) => <script type="application/ld+json" set:html={JSON.stringify(ps)} />)}

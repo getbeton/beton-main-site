@@ -31,7 +31,7 @@ const iconPaths: Record<string, string> = {
 
     <div class="grid md:grid-cols-3 gap-6">
       {useCases.map((uc) => (
-        <Card href={`/use-cases/${uc.id}`}>
+        <Card href={`/use-cases/${uc.id}/`}>
           {uc.data.icon && iconPaths[uc.data.icon] && (
             <div class="inline-flex items-center justify-center w-10 h-10 border-2 border-[var(--color-primary-600)] bg-[var(--color-primary-bg)] text-[var(--color-primary-600)] mb-3">
               <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -51,7 +51,7 @@ const iconPaths: Record<string, string> = {
     </div>
 
     <div class="text-center mt-10">
-      <Button href="/use-cases" variant="outline">View all use cases</Button>
+      <Button href="/use-cases/" variant="outline">View all use cases</Button>
     </div>
   </Container>
 </Section>
