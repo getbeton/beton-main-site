@@ -1,37 +1,37 @@
 [
   {
-    "id": "n8n",
-    "name": "n8n",
-    "logo": "/images/logos/n8n.svg",
-    "url": "https://n8n.io",
+    "id": "maaaps",
+    "name": "Maaaps",
+    "logo": "/images/logos/maaaps.png",
+    "url": "https://maaaps.io",
     "order": 1
   },
   {
-    "id": "calcom",
-    "name": "Cal.com",
-    "logo": "/images/logos/calcom.svg",
-    "url": "https://cal.com",
+    "id": "botimize",
+    "name": "Botimize",
+    "logo": "/images/logos/botimize.png",
+    "url": "https://botimize.me",
     "order": 2
   },
   {
-    "id": "supabase",
-    "name": "Supabase",
-    "logo": "/images/logos/supabase.svg",
-    "url": "https://supabase.com",
+    "id": "manuscript-ai",
+    "name": "Manuscript AI",
+    "logo": "/images/logos/manuscript-ai.svg",
+    "url": "https://manuscript-ai.carrd.co",
     "order": 3
   },
   {
-    "id": "resend",
-    "name": "Resend",
-    "logo": "/images/logos/resend.svg",
-    "url": "https://resend.com",
+    "id": "immcore",
+    "name": "ImmCore",
+    "logo": "/images/logos/immcore.png",
+    "url": "https://immcore.ai",
     "order": 4
   },
   {
-    "id": "dub",
-    "name": "Dub.co",
-    "logo": "/images/logos/dub.svg",
-    "url": "https://dub.co",
+    "id": "ostrio",
+    "name": "ostr.io",
+    "logo": "/images/logos/ostrio.png",
+    "url": "https://ostr.io",
     "order": 5
   }
 ]

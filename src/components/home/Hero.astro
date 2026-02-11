@@ -23,7 +23,7 @@ const isSecondaryGitHub = secondaryCta?.href?.includes('github.com');
   </div>
   <Container>
     <div class="max-w-3xl mx-auto text-center">
-      <Badge variant="primary" class="mb-6">Open Source &middot; GPL Licensed</Badge>
+      <Badge variant="primary" class="mb-6">Open Source &middot; AGPLv3 licence</Badge>
       <h1 class="text-4xl sm:text-5xl lg:text-6xl font-[family-name:var(--font-heading)] tracking-wide leading-[1.1] border-b-4 border-[var(--color-primary-600)] pb-4 inline-block">
         {headline}
       </h1>
@@ -32,7 +32,7 @@ const isSecondaryGitHub = secondaryCta?.href?.includes('github.com');
           {subheadline}
         </p>
       )}
-      {(primaryCta || secondaryCta) && (
+      {(secondaryCta || primaryCta) && (
         <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3">
           {primaryCta && (
             <Button href={primaryCta.href} size="lg" data-track-cta="hero-primary">
@@ -51,7 +51,7 @@ const isSecondaryGitHub = secondaryCta?.href?.includes('github.com');
       )}
       <!-- Trust line -->
       <p class="mt-4 text-sm font-[family-name:var(--font-mono)] text-[var(--color-text-tertiary)]">
-        Free forever for self-hosted. No credit card required.
+        30-day money back guarantee for cloud. Free forever for self-hosted. 
       </p>
     </div>
   </Container>

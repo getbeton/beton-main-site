@@ -5,10 +5,10 @@ seo:
   metaTitle: "Beton - Open-Source Revenue Intelligence"
   metaDescription: "Predict which customers will convert to enterprise deals. Detect behavioral signals in product usage and route them to your CRM."
 hero:
-  headline: "Open-Source Revenue Intelligence"
-  subheadline: "Detect revenue drivers in product usage data and route them to your CRM. Predict which customers will convert to enterprise deals."
+  headline: "Alarm bell for your account expansion"
+  subheadline: "Predict which customers will convert to enterprise deals. Beton finds revenue drivers in product usage, deal history, billing and support tickets. Once patterns match, we create a deal your CRM."
   primaryCta:
-    label: "Get Started Free"
+    label: "Start Free"
     href: "https://inspector.getbeton.ai"
   secondaryCta:
     label: "View on GitHub"

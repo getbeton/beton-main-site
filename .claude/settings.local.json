@@ -44,7 +44,17 @@
       "WebFetch(domain:app.pipedrive.com)",
       "Bash(npm run check:*)",
       "Bash(brew list:*)",
-      "Bash(inkscape:*)"
+      "Bash(inkscape:*)",
+      "WebFetch(domain:maaaps.io)",
+      "WebFetch(domain:botimize.me)",
+      "WebFetch(domain:manuscript-ai.carrd.co)",
+      "WebFetch(domain:immcore.ai)",
+      "WebFetch(domain:ostr.io)",
+      "WebFetch(domain:ww38.maaaps.io)",
+      "WebFetch(domain:www.google.com)",
+      "Bash(sips:*)",
+      "WebFetch(domain:www.crunchbase.com)",
+      "WebFetch(domain:www.linkedin.com)"
     ]
   },
   "enableAllProjectMcpServers": true,
