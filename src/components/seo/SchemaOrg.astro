@@ -38,6 +38,7 @@ const orgSchema = {
   name: SITE.name,
   url: SITE.url,
   logo: `${SITE.url}/images/beton-logo.svg`,
+  image: `${SITE.url}/images/beton-logo.png`,
   description: SITE.description,
   sameAs: [SITE.social.github, SITE.social.linkedin, SITE.social.twitter],
   contactPoint: {
@@ -83,6 +84,8 @@ const softwareSchema =
             name: 'Self-Hosted',
             price: '0',
             priceCurrency: 'USD',
+            url: `${SITE.url}/pricing/`,
+            availability: 'https://schema.org/InStock',
             description: 'Free self-hosted deployment with your own LLM key. GPL licensed.',
           },
           {
@@ -90,6 +93,8 @@ const softwareSchema =
             name: 'Cloud',
             price: '0.50',
             priceCurrency: 'USD',
+            url: `${SITE.url}/pricing/`,
+            availability: 'https://schema.org/InStock',
             description: 'Per tracked user per month. Managed hosting, daily sync.',
           },
         ],
