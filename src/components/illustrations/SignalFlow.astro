@@ -1,7 +1,53 @@
 ---
 ---
 
-<div class="w-full max-w-2xl mx-auto mt-10" aria-hidden="true">
+<!-- Vertical flow for mobile -->
+<div class="w-full max-w-xs mx-auto mt-10 md:hidden" aria-hidden="true">
+  <svg viewBox="0 0 240 310" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto">
+    <!-- PostHog Node -->
+    <rect x="45" y="0" width="150" height="54" stroke="var(--color-text)" stroke-width="2.5" fill="var(--color-surface-raised)" />
+    <text x="120" y="24" text-anchor="middle" fill="var(--color-text)" font-family="var(--font-mono)" font-size="12" font-weight="bold">POSTHOG</text>
+    <text x="120" y="42" text-anchor="middle" fill="var(--color-text-secondary)" font-family="var(--font-mono)" font-size="9">Events &amp; Users</text>
+
+    <!-- Arrow down -->
+    <line x1="120" y1="54" x2="120" y2="90" stroke="var(--color-text)" stroke-width="2.5" />
+    <polygon points="114,87 120,98 126,87" fill="var(--color-text)" />
+
+    <!-- Beton Node -->
+    <rect x="30" y="98" width="180" height="70" stroke="var(--color-primary-600)" stroke-width="2.5" fill="var(--color-primary-600)" />
+    <text x="120" y="126" text-anchor="middle" fill="white" font-family="var(--font-heading)" font-size="16" font-weight="bold">BETON</text>
+    <text x="120" y="144" text-anchor="middle" fill="white" font-family="var(--font-mono)" font-size="9" opacity="0.8">Signal Detection &middot; AI Enrichment</text>
+
+    <!-- Single stem down from Beton -->
+    <line x1="120" y1="168" x2="120" y2="200" stroke="var(--color-text)" stroke-width="2.5" />
+
+    <!-- Horizontal branch line -->
+    <line x1="40" y1="200" x2="200" y2="200" stroke="var(--color-text)" stroke-width="2.5" />
+
+    <!-- Three short lines down to CRM nodes -->
+    <line x1="40" y1="200" x2="40" y2="220" stroke="var(--color-text)" stroke-width="2.5" />
+    <polygon points="34,217 40,228 46,217" fill="var(--color-text)" />
+
+    <line x1="120" y1="200" x2="120" y2="220" stroke="var(--color-text)" stroke-width="2.5" />
+    <polygon points="114,217 120,228 126,217" fill="var(--color-text)" />
+
+    <line x1="200" y1="200" x2="200" y2="220" stroke="var(--color-text)" stroke-width="2.5" />
+    <polygon points="194,217 200,228 206,217" fill="var(--color-text)" />
+
+    <!-- CRM Nodes in a row -->
+    <rect x="2" y="228" width="76" height="38" stroke="var(--color-text)" stroke-width="2" fill="var(--color-accent-bg-emphasis)" />
+    <text x="40" y="252" text-anchor="middle" fill="var(--color-text)" font-family="var(--font-mono)" font-size="10" font-weight="bold">ATTIO</text>
+
+    <rect x="82" y="228" width="76" height="38" stroke="var(--color-text)" stroke-width="2" fill="var(--color-accent-bg-emphasis)" />
+    <text x="120" y="252" text-anchor="middle" fill="var(--color-text)" font-family="var(--font-mono)" font-size="10" font-weight="bold">HUBSPOT</text>
+
+    <rect x="162" y="228" width="76" height="38" stroke="var(--color-text)" stroke-width="2" fill="var(--color-accent-bg-emphasis)" />
+    <text x="200" y="252" text-anchor="middle" fill="var(--color-text)" font-family="var(--font-mono)" font-size="10" font-weight="bold">WEBHOOKS</text>
+  </svg>
+</div>
+
+<!-- Horizontal flow for tablet/desktop -->
+<div class="w-full max-w-2xl mx-auto mt-10 hidden md:block" aria-hidden="true">
   <svg viewBox="0 0 600 140" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto">
     <!-- PostHog Node -->
     <rect x="10" y="40" width="120" height="60" stroke="var(--color-text)" stroke-width="3" fill="var(--color-surface-raised)" />

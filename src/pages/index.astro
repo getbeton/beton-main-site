@@ -37,7 +37,7 @@ const reviewData = testimonials.map((t) => ({
   reviewData={reviewData}
 >
   <!-- Hero: two-column grid -->
-  <section class="relative py-14 lg:py-24 overflow-hidden border-b-2 border-[var(--color-border)]" data-track-section="hero">
+  <section class="relative py-14 lg:py-24 overflow-hidden" data-track-section="hero">
     <Container>
       <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
         <!-- Left: text content -->
@@ -48,21 +48,25 @@ const reviewData = testimonials.map((t) => ({
             secondaryCta={hero?.secondaryCta}
           />
         </div>
-        <!-- Right: illustration (shown first on mobile for visual hook) -->
-        <div class="order-first lg:order-last">
+        <!-- Right: illustration -->
+        <div class="order-last">
           <DashboardMockup />
         </div>
       </div>
     </Container>
   </section>
 
+  <ZigzagDivider />
+
   <!-- Subheadline -->
   {hero?.subheadline && (
     <Section>
       <Container>
-        <p class="max-w-3xl mx-auto text-center text-lg sm:text-xl text-[var(--color-text-secondary)] leading-relaxed">
-          {hero.subheadline}
-        </p>
+        <div class="max-w-3xl mx-auto text-left sm:text-center space-y-4 text-lg sm:text-xl text-[var(--color-text-secondary)] leading-relaxed">
+          {hero.subheadline.split('. ').filter(Boolean).map((sentence: string) => (
+            <p>{sentence.endsWith('.') ? sentence : `${sentence}.`}</p>
+          ))}
+        </div>
       </Container>
     </Section>
   )}
