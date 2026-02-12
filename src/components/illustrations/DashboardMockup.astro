@@ -1,9 +1,9 @@
 ---
 ---
 
-<div class="w-full max-w-4xl mx-auto relative" aria-hidden="true">
+<div class="w-full max-w-4xl mx-auto relative overflow-hidden" aria-hidden="true">
   <!-- macOS Slack Notification — positioned overlapping top-right of CRM -->
-  <div class="absolute -top-4 right-0 sm:right-4 z-20 w-[320px] sm:w-[380px] shadow-[6px_6px_0_var(--color-text)]">
+  <div class="absolute -top-4 right-0 sm:right-4 z-20 w-full max-w-[320px] sm:max-w-[380px] shadow-[6px_6px_0_var(--color-text)]">
     <div class="border-3 border-[var(--color-text)] bg-[var(--color-surface-raised)]" style="border-width: 3px;">
       <!-- Notification header bar -->
       <div class="flex items-center gap-2.5 px-3 py-2 border-b-2 border-[var(--color-text)] bg-[var(--color-surface-overlay)]">
@@ -102,14 +102,14 @@
       <!-- Deal rows -->
       <div class="border-2 border-[var(--color-text)]">
         <div class="flex items-center gap-3 px-3 py-2 border-b-2 border-[var(--color-text)] bg-[var(--color-surface-overlay)]">
-          <div class="text-[9px] font-[family-name:var(--font-mono)] font-bold text-[var(--color-text-secondary)] w-28 sm:w-32">COMPANY</div>
-          <div class="text-[9px] font-[family-name:var(--font-mono)] font-bold text-[var(--color-text-secondary)] w-16 sm:w-20 hidden sm:block">SIGNAL</div>
-          <div class="text-[9px] font-[family-name:var(--font-mono)] font-bold text-[var(--color-text-secondary)] w-16">VALUE</div>
-          <div class="text-[9px] font-[family-name:var(--font-mono)] font-bold text-[var(--color-text-secondary)] flex-1">STAGE</div>
+          <div class="text-[9px] font-[family-name:var(--font-mono)] font-bold text-[var(--color-text-secondary)] w-24 sm:w-32">COMPANY</div>
+          <div class="text-[9px] font-[family-name:var(--font-mono)] font-bold text-[var(--color-text-secondary)] w-14 sm:w-16">VALUE</div>
+          <div class="text-[9px] font-[family-name:var(--font-mono)] font-bold text-[var(--color-text-secondary)] w-16 sm:w-20">TYPE</div>
+          <div class="text-[9px] font-[family-name:var(--font-mono)] font-bold text-[var(--color-text-secondary)] flex-1 hidden sm:block">STAGE</div>
         </div>
         <!-- BMW row (highlighted as new) -->
         <div class="flex items-center gap-3 px-3 py-2.5 border-b border-[var(--color-border)] bg-[var(--color-accent-bg)]">
-          <div class="flex items-center gap-2 w-28 sm:w-32">
+          <div class="flex items-center gap-2 w-24 sm:w-32">
             <div class="w-4 h-4 border border-[var(--color-text)] flex items-center justify-center shrink-0 bg-[var(--color-primary-bg-emphasis)]">
               <svg viewBox="0 0 16 16" class="w-2.5 h-2.5">
                 <circle cx="8" cy="8" r="6" stroke="var(--color-text)" stroke-width="1" fill="none" />
@@ -120,28 +120,28 @@
             <span class="text-xs font-bold text-[var(--color-text)] truncate">BMW Group</span>
             <span class="text-[8px] font-bold uppercase tracking-wider text-[var(--color-accent-fg)] bg-[var(--color-accent-bg-emphasis)] px-1 py-0.5 border border-[var(--color-accent-500)] shrink-0">NEW</span>
           </div>
-          <div class="w-16 sm:w-20 hidden sm:block"><span class="text-[10px] font-[family-name:var(--font-mono)] text-[var(--color-primary-600)]">PQL</span></div>
-          <div class="w-16 text-xs font-bold">$48k</div>
-          <div class="flex-1"><div class="w-14 h-2 bg-[var(--color-primary-400)] border border-[var(--color-text)]"></div></div>
+          <div class="w-14 sm:w-16 text-xs font-bold">$48k</div>
+          <div class="w-16 sm:w-20"><span class="text-[10px] font-[family-name:var(--font-mono)] text-[var(--color-primary-600)]">PQL</span></div>
+          <div class="flex-1 hidden sm:block"><div class="w-14 h-2 bg-[var(--color-primary-400)] border border-[var(--color-text)]"></div></div>
         </div>
         <!-- Other rows -->
         <div class="flex items-center gap-3 px-3 py-2 border-b border-[var(--color-border)]">
-          <div class="w-28 sm:w-32"><span class="text-xs text-[var(--color-text)]">Stripe Inc</span></div>
-          <div class="w-16 sm:w-20 hidden sm:block"><span class="text-[10px] font-[family-name:var(--font-mono)] text-[var(--color-text-secondary)]">Expansion</span></div>
-          <div class="w-16 text-xs">$22k</div>
-          <div class="flex-1"><div class="w-20 h-2 bg-[var(--color-accent-400)] border border-[var(--color-text)]"></div></div>
+          <div class="w-24 sm:w-32"><span class="text-xs text-[var(--color-text)]">Stripe Inc</span></div>
+          <div class="w-14 sm:w-16 text-xs">$22k</div>
+          <div class="w-16 sm:w-20"><span class="text-[10px] font-[family-name:var(--font-mono)] text-[var(--color-text-secondary)]">Expansion</span></div>
+          <div class="flex-1 hidden sm:block"><div class="w-20 h-2 bg-[var(--color-accent-400)] border border-[var(--color-text)]"></div></div>
         </div>
         <div class="flex items-center gap-3 px-3 py-2 border-b border-[var(--color-border)]">
-          <div class="w-28 sm:w-32"><span class="text-xs text-[var(--color-text)]">Vercel</span></div>
-          <div class="w-16 sm:w-20 hidden sm:block"><span class="text-[10px] font-[family-name:var(--font-mono)] text-[var(--color-text-secondary)]">Trial</span></div>
-          <div class="w-16 text-xs">$15k</div>
-          <div class="flex-1"><div class="w-10 h-2 bg-[var(--color-primary-300)] border border-[var(--color-text)]"></div></div>
+          <div class="w-24 sm:w-32"><span class="text-xs text-[var(--color-text)]">Vercel</span></div>
+          <div class="w-14 sm:w-16 text-xs">$15k</div>
+          <div class="w-16 sm:w-20"><span class="text-[10px] font-[family-name:var(--font-mono)] text-[var(--color-text-secondary)]">Trial</span></div>
+          <div class="flex-1 hidden sm:block"><div class="w-10 h-2 bg-[var(--color-primary-300)] border border-[var(--color-text)]"></div></div>
         </div>
         <div class="flex items-center gap-3 px-3 py-2">
-          <div class="w-28 sm:w-32"><span class="text-xs text-[var(--color-text)]">Linear</span></div>
-          <div class="w-16 sm:w-20 hidden sm:block"><span class="text-[10px] font-[family-name:var(--font-mono)] text-[var(--color-text-secondary)]">PQL</span></div>
-          <div class="w-16 text-xs">$31k</div>
-          <div class="flex-1"><div class="w-16 h-2 bg-[var(--color-primary-500)] border border-[var(--color-text)]"></div></div>
+          <div class="w-24 sm:w-32"><span class="text-xs text-[var(--color-text)]">Linear</span></div>
+          <div class="w-14 sm:w-16 text-xs">$31k</div>
+          <div class="w-16 sm:w-20"><span class="text-[10px] font-[family-name:var(--font-mono)] text-[var(--color-text-secondary)]">PQL</span></div>
+          <div class="flex-1 hidden sm:block"><div class="w-16 h-2 bg-[var(--color-primary-500)] border border-[var(--color-text)]"></div></div>
         </div>
       </div>
     </div>
