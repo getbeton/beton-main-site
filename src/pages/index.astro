@@ -36,23 +36,43 @@ const reviewData = testimonials.map((t) => ({
   schemaType={page?.data.schemaType}
   reviewData={reviewData}
 >
-  <Hero
-    headline={hero?.headline || 'Open-Source Revenue Intelligence'}
-    subheadline={hero?.subheadline}
-    primaryCta={hero?.primaryCta}
-    secondaryCta={hero?.secondaryCta}
-  />
-
-  <ZigzagDivider />
-
-  <!-- Dashboard Mockup -->
-  <Section>
+  <!-- Hero: two-column grid -->
+  <section class="relative py-14 lg:py-24 overflow-hidden border-b-2 border-[var(--color-border)]" data-track-section="hero">
     <Container>
-      <DashboardMockup />
+      <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+        <!-- Left: text content -->
+        <div>
+          <Hero
+            headline={hero?.headline || 'Open-Source Revenue Intelligence'}
+            primaryCta={hero?.primaryCta}
+            secondaryCta={hero?.secondaryCta}
+          />
+        </div>
+        <!-- Right: illustration (shown first on mobile for visual hook) -->
+        <div class="order-first lg:order-last">
+          <DashboardMockup />
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- Subheadline -->
+  {hero?.subheadline && (
+    <Section>
+      <Container>
+        <p class="max-w-3xl mx-auto text-center text-lg sm:text-xl text-[var(--color-text-secondary)] leading-relaxed">
+          {hero.subheadline}
+        </p>
+      </Container>
+    </Section>
+  )}
+
+  <!-- Signal Flow Diagram -->
+  <Section class="border-b-2 border-[var(--color-border)]">
+    <Container>
+      <SignalFlow />
     </Container>
   </Section>
-
-  <!-- <SocialProof /> -->
 
   <UseCasesPreview />
 
@@ -62,18 +82,11 @@ const reviewData = testimonials.map((t) => ({
     trackId="mid-page-cta"
   />
 
-  <!-- Signal Flow Diagram -->
-  <Section class="border-b-2 border-[var(--color-border)]">
-    <Container>
-      <SignalFlow />
-    </Container>
-  </Section>
-
   <Features />
 
   <HowItWorks />
 
-  <!-- CTA after Features -->
+  <!-- CTA after HowItWorks -->
   <CTASection
     headline="Join teams already using Beton"
     description="Open-source, self-hostable, and free to start."
