@@ -14,9 +14,9 @@
       "configFile": "~/.claude/claude_desktop_config.json",
       "configSnippet": "{\n  \"mcpServers\": {\n    \"beton\": {\n      \"command\": \"npx\",\n      \"args\": [\"-y\", \"@getbeton/mcp-server\"],\n      \"env\": {\n        \"BETON_API_KEY\": \"your-api-key\"\n      }\n    }\n  }\n}",
       "steps": [
-        "Install Claude Code: npm install -g @anthropic-ai/claude-code",
-        "Add Beton MCP config to ~/.claude/claude_desktop_config.json",
-        "Set your BETON_API_KEY in the config",
+        "Install Claude Code: `npm install -g @anthropic-ai/claude-code`",
+        "Add Beton MCP config to `~/.claude/claude_desktop_config.json`",
+        "Set your `BETON_API_KEY` in the config",
         "Restart Claude Code — Beton tools are now available"
       ]
     },
@@ -70,11 +70,11 @@
       },
       {
         "question": "What MCP tools does Beton expose?",
-        "answer": "Beton exposes five MCP tools: beton_check_signals (detect new signals), beton_score_leads (score and qualify), beton_route_signal (send to destinations), beton_analyze_account (behavioral analysis), and beton_list_signals (query signal history)."
+        "answer": "Beton exposes five MCP tools: `beton_check_signals` (detect new signals), `beton_score_leads` (score and qualify), `beton_route_signal` (send to destinations), `beton_analyze_account` (behavioral analysis), and `beton_list_signals` (query signal history)."
       },
       {
         "question": "Can Claude Code trigger actions in my CRM through Beton?",
-        "answer": "Yes. When Claude Code calls beton_route_signal, Beton delivers the signal to your configured destinations — HubSpot, Attio, Pipedrive, webhooks, or any connected integration."
+        "answer": "Yes. When Claude Code calls `beton_route_signal`, Beton delivers the signal to your configured destinations — HubSpot, Attio, Pipedrive, webhooks, or any connected integration."
       }
     ],
     "seo": {
@@ -98,8 +98,8 @@
       "configSnippet": "{\n  \"mcpServers\": {\n    \"beton\": {\n      \"command\": \"npx\",\n      \"args\": [\"-y\", \"@getbeton/mcp-server\"],\n      \"env\": {\n        \"BETON_API_KEY\": \"your-api-key\"\n      }\n    }\n  }\n}",
       "steps": [
         "Open Cursor Settings > MCP Servers",
-        "Add the Beton MCP server config to ~/.cursor/mcp.json",
-        "Set your BETON_API_KEY in the environment variables",
+        "Add the Beton MCP server config to `~/.cursor/mcp.json`",
+        "Set your `BETON_API_KEY` in the environment variables",
         "Reload Cursor — Beton tools appear in the agent panel"
       ]
     },
@@ -180,10 +180,10 @@
       "configFile": "~/.gemini/settings.json",
       "configSnippet": "{\n  \"mcpServers\": {\n    \"beton\": {\n      \"command\": \"npx\",\n      \"args\": [\"-y\", \"@getbeton/mcp-server\"],\n      \"env\": {\n        \"BETON_API_KEY\": \"your-api-key\"\n      }\n    }\n  }\n}",
       "steps": [
-        "Install Gemini CLI: npm install -g @anthropic-ai/gemini-cli or use npx",
-        "Create or edit ~/.gemini/settings.json with Beton MCP config",
-        "Set your BETON_API_KEY in the environment variables",
-        "Run gemini — Beton tools are automatically discovered"
+        "Install Gemini CLI: `npm install -g @google/gemini-cli`",
+        "Create or edit `~/.gemini/settings.json` with Beton MCP config",
+        "Set your `BETON_API_KEY` in the environment variables",
+        "Run `gemini` — Beton tools are automatically discovered"
       ]
     },
     "examplePrompts": [
@@ -236,7 +236,7 @@
       },
       {
         "question": "Can Gemini CLI access all of Beton's MCP tools?",
-        "answer": "Yes. All five Beton MCP tools (check_signals, score_leads, route_signal, analyze_account, list_signals) are available through Gemini CLI's MCP integration."
+        "answer": "Yes. All five Beton MCP tools (`beton_check_signals`, `beton_score_leads`, `beton_route_signal`, `beton_analyze_account`, `beton_list_signals`) are available through Gemini CLI's MCP integration."
       },
       {
         "question": "How is this different from using Beton's API directly?",
@@ -264,8 +264,8 @@
       "configSnippet": "{\n  \"mcpServers\": {\n    \"beton\": {\n      \"command\": \"npx\",\n      \"args\": [\"-y\", \"@getbeton/mcp-server\"],\n      \"env\": {\n        \"BETON_API_KEY\": \"your-api-key\"\n      }\n    }\n  }\n}",
       "steps": [
         "Install OpenClaw following their setup guide",
-        "Add Beton as an MCP server in your openclaw.config.json",
-        "Set your BETON_API_KEY in the environment configuration",
+        "Add Beton as an MCP server in your `openclaw.config.json`",
+        "Set your `BETON_API_KEY` in the environment configuration",
         "Beton tools are now available to all agents in your pipeline"
       ]
     },
@@ -347,8 +347,8 @@
       "configSnippet": "{\n  \"mcpServers\": {\n    \"beton\": {\n      \"command\": \"npx\",\n      \"args\": [\"-y\", \"@getbeton/mcp-server\"],\n      \"env\": {\n        \"BETON_API_KEY\": \"your-api-key\"\n      }\n    }\n  }\n}",
       "steps": [
         "Open Windsurf and go to Settings > MCP",
-        "Add Beton MCP server config to ~/.windsurf/mcp_config.json",
-        "Set your BETON_API_KEY in the environment variables",
+        "Add Beton MCP server config to `~/.windsurf/mcp_config.json`",
+        "Set your `BETON_API_KEY` in the environment variables",
         "Restart Windsurf — Beton tools are available in Cascade"
       ]
     },
@@ -431,7 +431,7 @@
       "steps": [
         "Install the Cline extension in VS Code",
         "Open Cline settings and navigate to MCP Servers",
-        "Add Beton MCP server configuration with your API key",
+        "Add Beton MCP server configuration with your `BETON_API_KEY`",
         "Cline will discover Beton tools automatically on next activation"
       ]
     },
