@@ -108,4 +108,3 @@ Head-to-head comparisons between competitors in the revenue intelligence space:
 - GitHub: https://github.com/getbeton/inspector
 - Blog: https://blog.getbeton.ai
 - App: https://inspector.getbeton.ai
-- Docs: https://docs.getbeton.ai

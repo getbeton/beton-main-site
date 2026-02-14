@@ -24,8 +24,6 @@
   ],
   "redirects": [
     { "source": "/all-enrichment-data-sources-and-destinations", "destination": "/integrations/", "permanent": true },
-    { "source": "/docs", "destination": "https://docs.getbeton.ai", "permanent": false },
-    { "source": "/docs/", "destination": "https://docs.getbeton.ai", "permanent": false },
     { "source": "/blog", "destination": "https://blog.getbeton.ai", "permanent": false },
     { "source": "/blog/", "destination": "https://blog.getbeton.ai", "permanent": false },
     { "source": "/app", "destination": "https://inspector.getbeton.ai/login", "permanent": false },

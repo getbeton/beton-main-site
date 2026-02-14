@@ -47,5 +47,4 @@ Beton is open-source revenue intelligence for product-led growth companies. It d
 
 - Full guide: https://www.getbeton.ai/for/gemini/
 - MCP docs: https://www.getbeton.ai/mcp.md
-- Beton docs: https://docs.getbeton.ai
 - GitHub: https://github.com/getbeton/inspector

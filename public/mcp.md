@@ -121,6 +121,5 @@ These work with any MCP-compatible agent:
 
 - Website: https://www.getbeton.ai
 - GitHub: https://github.com/getbeton/inspector
-- Docs: https://docs.getbeton.ai
 - App: https://inspector.getbeton.ai
 - Agent Integrations: https://www.getbeton.ai/for/
