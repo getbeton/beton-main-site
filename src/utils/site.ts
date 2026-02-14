@@ -7,7 +7,7 @@ export const SITE = {
   entity: 'PGS Scheben, Inc.',
   license: 'GPL',
   social: {
-    github: 'https://github.com/getbeton',
+    github: 'https://github.com/getbeton/inspector',
     linkedin: 'https://linkedin.com/company/getbeton',
     twitter: 'https://x.com/getbeton',
   },
