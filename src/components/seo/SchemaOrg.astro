@@ -34,6 +34,7 @@ const { type, title, description, url, faqData, breadcrumbs, reviewData, personD
 
 const orgSchema = {
   '@type': 'Organization',
+  '@id': `${SITE.url}/#organization`,
   name: SITE.name,
   url: SITE.url,
   logo: `${SITE.url}/images/beton-logo.svg`,
@@ -49,32 +50,35 @@ const orgSchema = {
 
 const webSiteSchema = {
   '@type': 'WebSite',
+  '@id': `${SITE.url}/#website`,
   name: SITE.name,
   url: SITE.url,
   description: SITE.description,
-  publisher: { '@type': 'Organization', name: SITE.name },
+  publisher: { '@id': `${SITE.url}/#organization` },
 };
 
 const webPageSchema = {
   '@type': 'WebPage',
+  '@id': `${url.replace(/\/$/, '')}/#webpage`,
   name: title,
   description,
   url,
-  isPartOf: { '@type': 'WebSite', url: SITE.url },
-  publisher: { '@type': 'Organization', name: SITE.name },
+  isPartOf: { '@id': `${SITE.url}/#website` },
+  publisher: { '@id': `${SITE.url}/#organization` },
 };
 
 const softwareSchema =
   type === 'SoftwareApplication'
     ? {
         '@type': 'SoftwareApplication',
+        '@id': `${SITE.url}/#software`,
         name: SITE.name,
         applicationCategory: 'BusinessApplication',
         applicationSubCategory: 'Revenue Intelligence',
         operatingSystem: 'Web',
         description: SITE.description,
         url: SITE.url,
-        publisher: { '@type': 'Organization', name: SITE.name },
+        publisher: { '@id': `${SITE.url}/#organization` },
         offers: [
           {
             '@type': 'Offer',
@@ -88,20 +92,11 @@ const softwareSchema =
           {
             '@type': 'Offer',
             name: 'Cloud',
+            price: '0.50',
+            priceCurrency: 'USD',
             url: `${SITE.url}/pricing/`,
             availability: 'https://schema.org/InStock',
             description: 'Per tracked user per month. Managed hosting, daily sync.',
-            priceSpecification: {
-              '@type': 'UnitPriceSpecification',
-              price: '0.50',
-              priceCurrency: 'USD',
-              unitText: 'per tracked user per month',
-              referenceQuantity: {
-                '@type': 'QuantitativeValue',
-                value: '1',
-                unitCode: 'MON',
-              },
-            },
           },
         ],
         featureList: [

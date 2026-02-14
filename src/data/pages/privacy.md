@@ -87,7 +87,7 @@ If you are in the European Economic Area, you have the right to:
 - **Object** to processing of your personal data
 - **Withdraw consent** for cookie-based tracking
 
-To exercise these rights, contact us at privacy@getbeton.ai.
+To exercise these rights, contact us at [privacy@getbeton.ai](mailto:privacy@getbeton.ai).
 
 ## 9. International Transfers
 
@@ -103,6 +103,6 @@ We may update this Privacy Policy from time to time. We will notify you of mater
 
 ## 12. Contact
 
-For privacy-related inquiries, contact us at privacy@getbeton.ai.
+For privacy-related inquiries, contact us at [privacy@getbeton.ai](mailto:privacy@getbeton.ai).
 
 PGS-Sheben Inc.

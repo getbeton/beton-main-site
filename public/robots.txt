@@ -5,7 +5,7 @@ Allow: /
 Disallow: /404
 
 # Sitemaps
-Sitemap: https://www.getbeton.ai/sitemap.xml
+Sitemap: https://www.getbeton.ai/sitemap-index.xml
 Sitemap: https://blog.getbeton.ai/sitemap.xml
 Sitemap: https://inspector.getbeton.ai/sitemap.xml
 

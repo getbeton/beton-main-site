@@ -74,4 +74,4 @@ These Terms are governed by and construed in accordance with applicable laws. An
 
 ## 14. Contact
 
-For questions about these Terms, contact us at legal@getbeton.ai.
+For questions about these Terms, contact us at [legal@getbeton.ai](mailto:legal@getbeton.ai).

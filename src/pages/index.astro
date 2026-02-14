@@ -1,6 +1,7 @@
 ---
 import { getEntry, getCollection } from 'astro:content';
 import PageLayout from '../layouts/PageLayout.astro';
+import { SITE } from '../utils/site';
 import Hero from '../components/home/Hero.astro';
 import HowItWorks from '../components/home/HowItWorks.astro';
 import Features from '../components/home/Features.astro';
@@ -32,6 +33,7 @@ const reviewData = testimonials.map((t) => ({
 ---
 
 <PageLayout
+  title={page?.data.seo?.metaTitle}
   description={page?.data.seo?.metaDescription}
   schemaType={page?.data.schemaType}
   reviewData={reviewData}
