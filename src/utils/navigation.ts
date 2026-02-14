@@ -47,6 +47,14 @@ export const footerNav = {
     { label: 'Pocus vs Common Room', href: '/compare/pocus-vs-common-room/' },
     { label: 'Clay vs MadKudu', href: '/compare/clay-vs-madkudu/' },
   ] as NavLink[],
+  agents: [
+    { label: 'Beton + Claude Code', href: '/for/claude-code/' },
+    { label: 'Beton + Cursor', href: '/for/cursor/' },
+    { label: 'Beton + Gemini CLI', href: '/for/gemini/' },
+    { label: 'Beton + OpenClaw', href: '/for/openclaw/' },
+    { label: 'Beton + Windsurf', href: '/for/windsurf/' },
+    { label: 'Beton + Cline', href: '/for/cline/' },
+  ] as NavLink[],
   legal: [
     { label: 'Terms and Conditions', href: '/terms/' },
     { label: 'Privacy Policy', href: '/privacy/' },

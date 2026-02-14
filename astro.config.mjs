@@ -28,6 +28,8 @@ export default defineConfig({
           item.priority = 0.8;
         } else if (item.url.includes('/integrations/') && !item.url.endsWith('/integrations/')) {
           item.priority = 0.8;
+        } else if (item.url.includes('/for/') && !item.url.endsWith('/for/')) {
+          item.priority = 0.8;
         } else if (
           item.url.includes('/use-cases') ||
           item.url.includes('/industries') ||

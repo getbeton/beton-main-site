@@ -1,0 +1,200 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '../../layouts/PageLayout.astro';
+import Container from '../../components/ui/Container.astro';
+import Button from '../../components/ui/Button.astro';
+import CTASection from '../../components/shared/CTASection.astro';
+import { SITE } from '../../utils/site';
+
+export async function getStaticPaths() {
+  const agents = await getCollection('agents');
+  return agents.map((entry) => ({
+    params: { slug: entry.data.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { name, slug, tagline, description, vendor, category, accentColor, mcpSetup, examplePrompts, capabilities, workflows, faq, seo } = entry.data;
+
+const breadcrumbs = [
+  { name: 'Home', url: SITE.url },
+  { name: 'For AI Agents', url: `${SITE.url}/for/` },
+  { name: `Beton + ${name}`, url: `${SITE.url}/for/${slug}/` },
+];
+---
+
+<PageLayout
+  title={seo?.metaTitle || `Beton + ${name}`}
+  description={seo?.metaDescription || description}
+  canonicalPath={`/for/${slug}`}
+  breadcrumbs={breadcrumbs}
+  faqData={faq}
+>
+  <!-- Hero -->
+  <section class="relative py-14 lg:py-20 overflow-hidden">
+    <div class="absolute inset-0 -z-10" aria-hidden="true">
+      <div class="absolute top-0 left-0 right-0 h-2" style={`background: ${accentColor};`}></div>
+      <div class="absolute -top-24 -right-24 w-96 h-96 opacity-25 blur-3xl" style={`background: ${accentColor};`}></div>
+      <div class="absolute -bottom-24 -left-24 w-72 h-72 opacity-15 blur-3xl" style={`background: ${accentColor};`}></div>
+    </div>
+    <Container>
+      <div class="max-w-3xl">
+        <span class="inline-flex items-center px-3 py-1 text-xs font-bold uppercase tracking-wider border-2 border-[var(--color-text)] bg-[var(--color-surface-raised)] mb-6">
+          MCP Integration
+        </span>
+
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-[family-name:var(--font-heading)] tracking-wide leading-[1.1] mb-4">
+          Beton + {name}
+        </h1>
+
+        <p class="text-lg sm:text-xl text-[var(--color-text-secondary)] leading-relaxed mb-2">
+          {tagline}
+        </p>
+        <p class="text-sm text-[var(--color-text-tertiary)] mb-8">
+          {vendor} &middot; {category}
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-3">
+          <Button href={SITE.external.app} size="lg" data-track-cta={`agent-${slug}-hero`}>
+            Get Started Free
+          </Button>
+          <Button href={`/for/${slug}.md`} variant="outline" size="lg">
+            View MCP Docs
+          </Button>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- Capabilities -->
+  <section class="py-10 lg:py-16 bg-[var(--color-surface-raised)] border-y-2 border-[var(--color-border)]">
+    <Container>
+      <h2 class="text-2xl sm:text-3xl font-[family-name:var(--font-heading)] tracking-wide text-center mb-10">
+        WHAT {name.toUpperCase()} CAN DO WITH BETON
+      </h2>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        {capabilities.map((cap) => (
+          <div class="border-2 border-[var(--color-text)] p-5 border-l-[6px]" style={`border-left-color: ${accentColor};`}>
+            <div class="flex items-start gap-3">
+              <svg class="w-5 h-5 shrink-0 mt-0.5" style={`color: ${accentColor};`} fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+              </svg>
+              <span class="text-sm text-[var(--color-text-secondary)] leading-relaxed">{cap}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  <!-- Example Prompts -->
+  <section class="py-10 lg:py-16">
+    <Container>
+      <h2 class="text-2xl sm:text-3xl font-[family-name:var(--font-heading)] tracking-wide text-center mb-10">
+        EXAMPLE PROMPTS
+      </h2>
+      <div class="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+        {examplePrompts.map((example) => (
+          <div class="border-2 border-[var(--color-text)] shadow-[var(--shadow-card)]">
+            <div class="flex items-center gap-2 px-4 py-2 border-b-2 border-[var(--color-text)]" style={`background: ${accentColor};`}>
+              <span class="text-xs font-[family-name:var(--font-mono)] font-bold uppercase tracking-wider" style={`color: ${accentColor === '#F0E442' ? '#1a1a1a' : '#ffffff'};`}>
+                PROMPT
+              </span>
+            </div>
+            <div class="p-4">
+              <p class="text-sm font-[family-name:var(--font-mono)] text-[var(--color-text)] leading-relaxed mb-3">
+                &gt; {example.prompt}
+              </p>
+              <p class="text-xs text-[var(--color-text-tertiary)] leading-relaxed">
+                {example.description}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  <!-- MCP Setup -->
+  <section class="py-10 lg:py-16 bg-[var(--color-surface-raised)] border-y-2 border-[var(--color-border)]">
+    <Container>
+      <h2 class="text-2xl sm:text-3xl font-[family-name:var(--font-heading)] tracking-wide text-center mb-10">
+        CONNECT BETON TO {name.toUpperCase()}
+      </h2>
+      <div class="max-w-3xl mx-auto">
+        <!-- Steps -->
+        <div class="space-y-4 mb-8">
+          {mcpSetup.steps.map((step, i) => (
+            <div class="flex items-start gap-4">
+              <div class="inline-flex items-center justify-center w-8 h-8 shrink-0 border-2 border-[var(--color-text)] font-bold text-sm font-[family-name:var(--font-heading)]" style={`background: ${accentColor}; color: ${accentColor === '#F0E442' ? '#1a1a1a' : '#ffffff'};`}>
+                {i + 1}
+              </div>
+              <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed pt-1">{step}</p>
+            </div>
+          ))}
+        </div>
+
+        <!-- Config code block -->
+        <div class="border-2 border-[var(--color-text)] bg-[var(--color-surface)]">
+          <div class="flex items-center justify-between px-4 py-2 border-b-2 border-[var(--color-text)]" style={`background: ${accentColor};`}>
+            <span class="text-xs font-[family-name:var(--font-mono)] font-bold uppercase tracking-wider" style={`color: ${accentColor === '#F0E442' ? '#1a1a1a' : '#ffffff'};`}>
+              {mcpSetup.configFile}
+            </span>
+          </div>
+          <pre class="p-4 overflow-x-auto text-sm font-[family-name:var(--font-mono)] leading-relaxed text-[var(--color-text)]"><code>{mcpSetup.configSnippet}</code></pre>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- Workflows -->
+  <section class="py-10 lg:py-16">
+    <Container>
+      <h2 class="text-2xl sm:text-3xl font-[family-name:var(--font-heading)] tracking-wide text-center mb-10">
+        REVENUE OPS WORKFLOWS
+      </h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        {workflows.map((wf) => (
+          <div class="border-2 border-[var(--color-text)] p-6 shadow-[var(--shadow-card)]">
+            <h3 class="text-base font-bold mb-3">{wf.title}</h3>
+            <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed">{wf.description}</p>
+          </div>
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  <!-- FAQ -->
+  {faq.length > 0 && (
+    <section class="py-10 lg:py-16 bg-[var(--color-surface-raised)] border-y-2 border-[var(--color-border)]">
+      <Container>
+        <h2 class="text-2xl sm:text-3xl font-[family-name:var(--font-heading)] tracking-wide text-center mb-10">
+          FREQUENTLY ASKED QUESTIONS
+        </h2>
+        <div class="max-w-3xl mx-auto space-y-4">
+          {faq.map((item) => (
+            <details class="group border-2 border-[var(--color-text)]">
+              <summary class="flex items-center justify-between p-4 cursor-pointer font-bold text-sm hover:bg-[var(--color-surface-raised)]">
+                {item.question}
+                <svg class="w-5 h-5 shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                </svg>
+              </summary>
+              <div class="px-4 pb-4 text-sm text-[var(--color-text-secondary)] leading-relaxed border-t-2 border-[var(--color-border)] pt-4">
+                {item.answer}
+              </div>
+            </details>
+          ))}
+        </div>
+      </Container>
+    </section>
+  )}
+
+  <!-- CTA -->
+  <CTASection
+    headline={`Start using Beton with ${name}`}
+    description={`Connect Beton to ${name} via MCP and start detecting revenue signals in minutes. Free to self-host, no credit card required.`}
+    trackId={`agent-${slug}-cta`}
+  />
+</PageLayout>

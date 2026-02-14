@@ -1,0 +1,125 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '../../layouts/PageLayout.astro';
+import Container from '../../components/ui/Container.astro';
+import Button from '../../components/ui/Button.astro';
+import CTASection from '../../components/shared/CTASection.astro';
+import { SITE } from '../../utils/site';
+
+const agents = await getCollection('agents');
+
+const breadcrumbs = [
+  { name: 'Home', url: SITE.url },
+  { name: 'AI Agents', url: `${SITE.url}/for/` },
+];
+---
+
+<PageLayout
+  title="Beton + AI Agents: MCP Integrations"
+  description="Connect your coding agent to Beton via MCP. Score customers based on usage and reach out at the right time. Beton detects & tracks patterns that signal "customer is ready to expand. Connect to Claude Code, Cursor, Gemini, and more."
+  canonicalPath="/for/"
+  breadcrumbs={breadcrumbs}
+>
+  <!-- Hero -->
+  <section class="relative py-14 lg:py-20 overflow-hidden">
+    <div class="absolute inset-0 -z-10" aria-hidden="true">
+      <div class="absolute -top-24 -right-24 w-96 h-96 bg-[var(--color-primary-bg-emphasis)] opacity-30 blur-3xl"></div>
+      <div class="absolute -bottom-24 -left-24 w-72 h-72 bg-[var(--color-accent-bg-emphasis)] opacity-20 blur-3xl"></div>
+    </div>
+    <Container>
+      <div class="max-w-3xl mx-auto text-center">
+        <span class="inline-flex items-center px-3 py-1 text-xs font-bold uppercase tracking-wider border-2 border-[var(--color-text)] bg-[var(--color-surface-raised)] mb-6">
+          MCP Integrations
+        </span>
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-[family-name:var(--font-heading)] tracking-wide leading-[1.1] mb-4">
+          Beton + AI Agents
+        </h1>
+        <p class="text-lg sm:text-xl text-[var(--color-text-secondary)] leading-relaxed mb-8">
+          Connect Beton to your AI coding agent via MCP. Detect revenue signals, score leads, and route to your CRM — all from natural language.
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+          <Button href={SITE.external.app} size="lg" data-track-cta="agents-index-hero">
+            Get Started Free
+          </Button>
+          <Button href="/mcp.md" variant="outline" size="lg">
+            MCP Documentation
+          </Button>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- Agent Grid -->
+  <section class="py-10 lg:py-16">
+    <Container>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        {agents.map((entry) => (
+          <a
+            href={`/for/${entry.data.slug}/`}
+            class="border-2 border-[var(--color-text)] shadow-[var(--shadow-card)] hover:shadow-[6px_6px_0_var(--color-text)] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-150 flex flex-col"
+          >
+            <div class="h-2" style={`background: ${entry.data.accentColor};`}></div>
+            <div class="p-6 flex-1">
+              <span class="inline-flex items-center px-2 py-0.5 text-xs font-bold uppercase tracking-wider border border-[var(--color-border)] text-[var(--color-text-secondary)] mb-3">
+                {entry.data.category}
+              </span>
+              <h2 class="text-lg font-bold mb-1">Beton + {entry.data.name}</h2>
+              <p class="text-xs text-[var(--color-text-tertiary)] mb-3">{entry.data.vendor}</p>
+              <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed mb-4">
+                {entry.data.tagline}
+              </p>
+              <ul class="space-y-1.5">
+                {entry.data.capabilities.slice(0, 3).map((cap) => (
+                  <li class="flex items-start gap-2 text-xs text-[var(--color-text-secondary)]">
+                    <svg class="w-3.5 h-3.5 shrink-0 mt-0.5" style={`color: ${entry.data.accentColor};`} fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                    </svg>
+                    {cap}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div class="border-t-2 border-[var(--color-border)] p-4">
+              <span
+                class="inline-flex items-center justify-center w-full px-3 py-2 text-xs font-bold uppercase tracking-wider border-2 border-[var(--color-text)]"
+                style={`background: ${entry.data.accentColor}; color: ${entry.data.accentColor === '#F0E442' ? '#1a1a1a' : '#ffffff'};`}
+              >
+                View Integration
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  <!-- What is MCP? -->
+  <section class="py-10 lg:py-16 bg-[var(--color-surface-raised)] border-y-2 border-[var(--color-border)]">
+    <Container>
+      <h2 class="text-2xl sm:text-3xl font-[family-name:var(--font-heading)] tracking-wide text-center mb-10">
+        WHAT IS MCP?
+      </h2>
+      <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        <div class="border-2 border-[var(--color-text)] p-6 shadow-[var(--shadow-card)]">
+          <h3 class="text-lg font-bold mb-2">Tool Protocol</h3>
+          <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed">MCP (Model Context Protocol) lets AI agents call external tools. Beton exposes revenue ops as MCP tools that any compatible agent can use.</p>
+        </div>
+        <div class="border-2 border-[var(--color-text)] p-6 shadow-[var(--shadow-card)]">
+          <h3 class="text-lg font-bold mb-2">Natural Language</h3>
+          <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed">Instead of writing API calls, describe what you want in plain English. Your AI agent figures out which Beton tools to call and how to chain them.</p>
+        </div>
+        <div class="border-2 border-[var(--color-text)] p-6 shadow-[var(--shadow-card)]">
+          <h3 class="text-lg font-bold mb-2">Local & Secure</h3>
+          <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed">Beton's MCP server runs locally on your machine. Your revenue data flows directly between Beton and your agent — never through third-party infrastructure.</p>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- CTA -->
+  <CTASection
+    headline="Connect Beton to your AI agent"
+    description="Start detecting revenue signals through your favorite AI coding agent. Use cloud version or self-host with your own API keys."
+    trackId="agents-index-cta"
+  />
+</PageLayout>

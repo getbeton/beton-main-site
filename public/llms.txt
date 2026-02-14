@@ -58,6 +58,28 @@ Key differentiators:
 - [n8n](https://www.getbeton.ai/integrations/n8n/) (automation)
 - [Webhooks](https://www.getbeton.ai/integrations/webhook/) (universal)
 
+## MCP (Model Context Protocol)
+
+Beton exposes itself as an MCP tool server. AI coding agents can call Beton to handle revenue ops tasks — signal detection, CRM routing, lead scoring. Full MCP documentation: https://www.getbeton.ai/mcp.md
+
+Available MCP tools:
+- `beton_check_signals` — Detect new revenue signals from product usage
+- `beton_score_leads` — Score and qualify leads by account domain
+- `beton_route_signal` — Route signals to CRM, Slack, or webhooks
+- `beton_analyze_account` — Analyze account behavioral patterns
+- `beton_list_signals` — Query signal history with filters
+
+## AI Agent Companion Pages
+
+Beton works alongside AI coding agents via MCP:
+
+- [Beton + Claude Code](https://www.getbeton.ai/for/claude-code/) — Revenue ops from your terminal ([MCP guide](https://www.getbeton.ai/for/claude-code.md))
+- [Beton + Cursor](https://www.getbeton.ai/for/cursor/) — Revenue signals in your editor ([MCP guide](https://www.getbeton.ai/for/cursor.md))
+- [Beton + Gemini CLI](https://www.getbeton.ai/for/gemini/) — Google's AI agent + revenue intelligence ([MCP guide](https://www.getbeton.ai/for/gemini.md))
+- [Beton + OpenClaw](https://www.getbeton.ai/for/openclaw/) — Revenue ops in agent pipelines ([MCP guide](https://www.getbeton.ai/for/openclaw.md))
+- [Beton + Windsurf](https://www.getbeton.ai/for/windsurf/) — Revenue signals in the agentic IDE ([MCP guide](https://www.getbeton.ai/for/windsurf.md))
+- [Beton + Cline](https://www.getbeton.ai/for/cline/) — Autonomous revenue intelligence in VS Code ([MCP guide](https://www.getbeton.ai/for/cline.md))
+
 ## Alternatives to Competitors
 
 Beton is an open-source alternative to closed-source revenue intelligence platforms:

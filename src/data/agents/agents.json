@@ -1,0 +1,500 @@
+[
+  {
+    "id": "claude-code",
+    "name": "Claude Code",
+    "slug": "claude-code",
+    "tagline": "Let Claude Code handle your revenue ops while you ship product",
+    "description": "Claude Code is Anthropic's agentic coding tool that lives in your terminal. Connect it to Beton via MCP and it can check signals, score leads, and route revenue data — all from natural language prompts while you code.",
+    "vendor": "Anthropic",
+    "url": "https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview",
+    "category": "AI Coding Agent",
+    "icon": "claude",
+    "accentColor": "#E69F00",
+    "mcpSetup": {
+      "configFile": "~/.claude/claude_desktop_config.json",
+      "configSnippet": "{\n  \"mcpServers\": {\n    \"beton\": {\n      \"command\": \"npx\",\n      \"args\": [\"-y\", \"@getbeton/mcp-server\"],\n      \"env\": {\n        \"BETON_API_KEY\": \"your-api-key\"\n      }\n    }\n  }\n}",
+      "steps": [
+        "Install Claude Code: npm install -g @anthropic-ai/claude-code",
+        "Add Beton MCP config to ~/.claude/claude_desktop_config.json",
+        "Set your BETON_API_KEY in the config",
+        "Restart Claude Code — Beton tools are now available"
+      ]
+    },
+    "examplePrompts": [
+      {
+        "prompt": "Check if there are any new high-confidence signals today",
+        "description": "Lists recent signals detected by Beton, filtered by confidence score"
+      },
+      {
+        "prompt": "Score the leads from acme.com and route to HubSpot if qualified",
+        "description": "Runs lead scoring and conditionally routes the signal to your CRM"
+      },
+      {
+        "prompt": "Analyze the account activity for widget-corp.io this week",
+        "description": "Pulls account-level behavioral data and summarizes key patterns"
+      },
+      {
+        "prompt": "Route all PQL signals above 0.8 confidence to the sales team channel",
+        "description": "Batch-routes high-quality product-qualified leads to a destination"
+      }
+    ],
+    "capabilities": [
+      "Detect revenue signals from product usage data",
+      "Score and qualify leads in real time",
+      "Route signals to CRMs, Slack, or webhooks",
+      "Analyze account-level behavioral patterns",
+      "List and filter signals by type, confidence, or date"
+    ],
+    "workflows": [
+      {
+        "title": "Morning Signal Review",
+        "description": "Start your day by asking Claude Code to check overnight signals. It pulls the latest from Beton, summarizes the high-priority ones, and can route them before your first meeting."
+      },
+      {
+        "title": "Sprint-End Account Health",
+        "description": "At the end of a sprint, ask Claude Code to analyze account activity across your top accounts. Spot expansion opportunities or churn risks without leaving your terminal."
+      },
+      {
+        "title": "Automated Lead Routing",
+        "description": "Set up a workflow where Claude Code periodically checks for new PQLs and routes them to HubSpot or Attio with context — signal type, confidence score, and triggering events."
+      }
+    ],
+    "faq": [
+      {
+        "question": "Does Beton replace Claude Code?",
+        "answer": "No. Beton is a revenue intelligence tool, and Claude Code is a coding agent. They work together — Claude Code calls Beton's MCP tools to handle revenue ops tasks like signal detection and lead routing."
+      },
+      {
+        "question": "Do I need a paid Beton plan to use this?",
+        "answer": "You can self-host Beton for free and connect it via MCP. Cloud plans start at $0.50/tracked user/month for managed hosting."
+      },
+      {
+        "question": "What MCP tools does Beton expose?",
+        "answer": "Beton exposes five MCP tools: beton_check_signals (detect new signals), beton_score_leads (score and qualify), beton_route_signal (send to destinations), beton_analyze_account (behavioral analysis), and beton_list_signals (query signal history)."
+      },
+      {
+        "question": "Can Claude Code trigger actions in my CRM through Beton?",
+        "answer": "Yes. When Claude Code calls beton_route_signal, Beton delivers the signal to your configured destinations — HubSpot, Attio, Pipedrive, webhooks, or any connected integration."
+      }
+    ],
+    "seo": {
+      "metaTitle": "Beton + Claude Code: MCP Revenue Intelligence",
+      "metaDescription": "Connect Beton to Claude Code via MCP. Detect revenue signals, score leads, and route to your CRM — all from natural language prompts in your terminal."
+    }
+  },
+  {
+    "id": "cursor",
+    "name": "Cursor",
+    "slug": "cursor",
+    "tagline": "Revenue ops meets your AI-powered code editor",
+    "description": "Cursor is the AI-first code editor built on VS Code. With Beton connected via MCP, you can query revenue signals, check account health, and route leads — all without leaving your editor.",
+    "vendor": "Anysphere",
+    "url": "https://www.cursor.com",
+    "category": "AI Code Editor",
+    "icon": "cursor",
+    "accentColor": "#0072B2",
+    "mcpSetup": {
+      "configFile": "~/.cursor/mcp.json",
+      "configSnippet": "{\n  \"mcpServers\": {\n    \"beton\": {\n      \"command\": \"npx\",\n      \"args\": [\"-y\", \"@getbeton/mcp-server\"],\n      \"env\": {\n        \"BETON_API_KEY\": \"your-api-key\"\n      }\n    }\n  }\n}",
+      "steps": [
+        "Open Cursor Settings > MCP Servers",
+        "Add the Beton MCP server config to ~/.cursor/mcp.json",
+        "Set your BETON_API_KEY in the environment variables",
+        "Reload Cursor — Beton tools appear in the agent panel"
+      ]
+    },
+    "examplePrompts": [
+      {
+        "prompt": "What signals has Beton detected for our top 5 accounts?",
+        "description": "Queries Beton for recent signals across your most important accounts"
+      },
+      {
+        "prompt": "Score the lead from newcustomer.io and tell me if they're sales-ready",
+        "description": "Runs real-time lead scoring and returns a qualification summary"
+      },
+      {
+        "prompt": "Route this expansion signal to our Attio pipeline",
+        "description": "Sends a detected expansion opportunity directly to your CRM pipeline"
+      },
+      {
+        "prompt": "Show me all churn risk signals from the last 7 days",
+        "description": "Filters signal history for churn indicators within a time range"
+      }
+    ],
+    "capabilities": [
+      "Query signal history with natural language filters",
+      "Real-time lead scoring from product usage data",
+      "Route signals to CRM pipelines and sales tools",
+      "Account-level behavioral analysis",
+      "Churn risk and expansion opportunity detection"
+    ],
+    "workflows": [
+      {
+        "title": "In-Editor Signal Dashboard",
+        "description": "While coding, ask Cursor to pull your latest Beton signals. Review PQLs, churn risks, and expansion opportunities without switching to another tool."
+      },
+      {
+        "title": "Code + Route",
+        "description": "When you ship a feature that impacts user behavior, immediately check Beton for signal changes. Route new PQLs to your sales team right from the editor."
+      },
+      {
+        "title": "Account Deep Dive",
+        "description": "Before a customer call, ask Cursor to analyze the account's behavioral data through Beton. Get a summary of usage patterns, signal history, and engagement trends."
+      }
+    ],
+    "faq": [
+      {
+        "question": "Does Beton work with Cursor's Composer mode?",
+        "answer": "Yes. Beton's MCP tools are available in both Cursor's Chat and Composer modes. Ask questions or give instructions — Cursor will call the right Beton tools."
+      },
+      {
+        "question": "Is this different from using Beton's web dashboard?",
+        "answer": "The data is the same. The difference is workflow — instead of switching to a dashboard, you interact with Beton through natural language in your editor. Faster for developers who live in their IDE."
+      },
+      {
+        "question": "Can I use Beton with Cursor's free plan?",
+        "answer": "MCP support is available in Cursor Pro and above. Beton itself can be self-hosted for free."
+      },
+      {
+        "question": "What happens if my Beton instance is self-hosted?",
+        "answer": "The MCP server connects to whatever Beton instance you configure — cloud or self-hosted. Just point the BETON_API_KEY to your instance."
+      }
+    ],
+    "seo": {
+      "metaTitle": "Beton + Cursor: Revenue Signals in Your Editor",
+      "metaDescription": "Connect Beton to Cursor via MCP. Query revenue signals, score leads, and route to CRM — all from your AI-powered code editor."
+    }
+  },
+  {
+    "id": "gemini",
+    "name": "Gemini CLI",
+    "slug": "gemini",
+    "tagline": "Google's AI agent meets open-source revenue intelligence",
+    "description": "Gemini CLI is Google's open-source AI agent for the terminal. Connect Beton via MCP and use Gemini to detect signals, score leads, and manage your revenue pipeline with natural language.",
+    "vendor": "Google",
+    "url": "https://github.com/google-gemini/gemini-cli",
+    "category": "AI Coding Agent",
+    "icon": "gemini",
+    "accentColor": "#009E73",
+    "mcpSetup": {
+      "configFile": "~/.gemini/settings.json",
+      "configSnippet": "{\n  \"mcpServers\": {\n    \"beton\": {\n      \"command\": \"npx\",\n      \"args\": [\"-y\", \"@getbeton/mcp-server\"],\n      \"env\": {\n        \"BETON_API_KEY\": \"your-api-key\"\n      }\n    }\n  }\n}",
+      "steps": [
+        "Install Gemini CLI: npm install -g @anthropic-ai/gemini-cli or use npx",
+        "Create or edit ~/.gemini/settings.json with Beton MCP config",
+        "Set your BETON_API_KEY in the environment variables",
+        "Run gemini — Beton tools are automatically discovered"
+      ]
+    },
+    "examplePrompts": [
+      {
+        "prompt": "Use Beton to check for any PQL signals above 0.85 confidence",
+        "description": "Queries Beton for high-confidence product-qualified lead signals"
+      },
+      {
+        "prompt": "Analyze the account data for enterprise-co.com through Beton",
+        "description": "Runs account-level behavioral analysis and returns key insights"
+      },
+      {
+        "prompt": "List all expansion signals from the past month",
+        "description": "Retrieves signal history filtered by type and time range"
+      },
+      {
+        "prompt": "Score and route the latest trial conversion signals to Pipedrive",
+        "description": "Combines lead scoring with automatic CRM routing in one command"
+      }
+    ],
+    "capabilities": [
+      "Signal detection with configurable confidence thresholds",
+      "Lead scoring based on behavioral product data",
+      "Multi-destination signal routing",
+      "Account health and engagement analysis",
+      "Historical signal querying and trend detection"
+    ],
+    "workflows": [
+      {
+        "title": "Terminal-First Revenue Ops",
+        "description": "Use Gemini CLI as your revenue ops copilot. Check signals, score leads, and route opportunities — all from the same terminal where you run your builds."
+      },
+      {
+        "title": "Automated Signal Triage",
+        "description": "Ask Gemini to pull all new signals, categorize them by type (PQL, expansion, churn), and route each to the appropriate destination based on your rules."
+      },
+      {
+        "title": "Weekly Revenue Health Check",
+        "description": "Run a weekly review by asking Gemini to analyze account activity, identify trending signals, and flag accounts that need attention."
+      }
+    ],
+    "faq": [
+      {
+        "question": "Is Gemini CLI free to use with Beton?",
+        "answer": "Gemini CLI is open-source and free. Beton can be self-hosted for free as well. You only need API keys for both services."
+      },
+      {
+        "question": "Does this work with Google Cloud's Gemini API?",
+        "answer": "Gemini CLI uses Google's Gemini models. Beton connects as an MCP tool server — the AI model doesn't matter, only the MCP protocol support."
+      },
+      {
+        "question": "Can Gemini CLI access all of Beton's MCP tools?",
+        "answer": "Yes. All five Beton MCP tools (check_signals, score_leads, route_signal, analyze_account, list_signals) are available through Gemini CLI's MCP integration."
+      },
+      {
+        "question": "How is this different from using Beton's API directly?",
+        "answer": "MCP adds a natural language layer. Instead of writing API calls, you describe what you want in plain English and Gemini figures out which Beton tools to call and how to chain them."
+      }
+    ],
+    "seo": {
+      "metaTitle": "Beton + Gemini CLI: AI Revenue Ops in Terminal",
+      "metaDescription": "Connect Beton to Gemini CLI via MCP. Detect revenue signals, score leads, and route to your CRM using Google's open-source AI agent."
+    }
+  },
+  {
+    "id": "openclaw",
+    "name": "OpenClaw",
+    "slug": "openclaw",
+    "tagline": "The open agent framework, supercharged with revenue intelligence",
+    "description": "OpenClaw is an open-source agent framework for building custom AI workflows. Plug Beton in as an MCP tool server to add revenue signal detection, lead scoring, and CRM routing to any agent pipeline.",
+    "vendor": "OpenClaw",
+    "url": "https://github.com/openclaw",
+    "category": "Agent Framework",
+    "icon": "openclaw",
+    "accentColor": "#D55E00",
+    "mcpSetup": {
+      "configFile": "openclaw.config.json",
+      "configSnippet": "{\n  \"mcpServers\": {\n    \"beton\": {\n      \"command\": \"npx\",\n      \"args\": [\"-y\", \"@getbeton/mcp-server\"],\n      \"env\": {\n        \"BETON_API_KEY\": \"your-api-key\"\n      }\n    }\n  }\n}",
+      "steps": [
+        "Install OpenClaw following their setup guide",
+        "Add Beton as an MCP server in your openclaw.config.json",
+        "Set your BETON_API_KEY in the environment configuration",
+        "Beton tools are now available to all agents in your pipeline"
+      ]
+    },
+    "examplePrompts": [
+      {
+        "prompt": "Build an agent that checks Beton signals every hour and routes PQLs to Slack",
+        "description": "Creates an automated agent pipeline with scheduled signal checking"
+      },
+      {
+        "prompt": "Use Beton to score all leads and create a summary report",
+        "description": "Batch-scores leads and generates a formatted qualification report"
+      },
+      {
+        "prompt": "Chain Beton signal detection with our custom enrichment tools",
+        "description": "Demonstrates composing Beton tools with other MCP tools in a pipeline"
+      },
+      {
+        "prompt": "Analyze churn risk across all accounts and alert on critical ones",
+        "description": "Runs account analysis and triggers alerts for high-risk accounts"
+      }
+    ],
+    "capabilities": [
+      "Composable revenue ops in agent pipelines",
+      "Scheduled signal detection and routing",
+      "Multi-tool chaining with Beton + other MCP servers",
+      "Batch lead scoring across account portfolios",
+      "Custom agent workflows for revenue automation"
+    ],
+    "workflows": [
+      {
+        "title": "Revenue Ops Agent Pipeline",
+        "description": "Build an OpenClaw agent that runs on a schedule: detect signals via Beton, enrich with company data, score leads, and route qualified ones to your CRM — fully automated."
+      },
+      {
+        "title": "Multi-Source Signal Aggregation",
+        "description": "Combine Beton's product signals with other MCP tools (email, calendar, support) to build a comprehensive view of account health and buying intent."
+      },
+      {
+        "title": "Custom Alert System",
+        "description": "Create an agent that monitors Beton for specific signal patterns (e.g., churn risk + high ARR) and triggers custom alerts via Slack, email, or PagerDuty."
+      }
+    ],
+    "faq": [
+      {
+        "question": "Why use Beton with OpenClaw instead of building signal detection from scratch?",
+        "answer": "Beton provides a battle-tested signal detection engine with pre-built CRM integrations. OpenClaw provides the orchestration layer. Together, you get production-ready revenue ops without building the detection logic yourself."
+      },
+      {
+        "question": "Can I use Beton alongside other MCP tools in OpenClaw?",
+        "answer": "Yes, that's the main benefit. OpenClaw's agent pipelines can call multiple MCP servers. Chain Beton with enrichment tools, notification tools, or any other MCP-compatible service."
+      },
+      {
+        "question": "Does OpenClaw support Beton's self-hosted deployment?",
+        "answer": "Yes. The MCP server connects to any Beton instance. Point your config to your self-hosted URL and API key."
+      },
+      {
+        "question": "Is there a performance overhead from using MCP vs direct API calls?",
+        "answer": "MCP adds minimal overhead — it's a thin protocol layer over stdio. For revenue ops workflows that run on minute-level schedules, the difference is negligible."
+      }
+    ],
+    "seo": {
+      "metaTitle": "Beton + OpenClaw: Revenue Intelligence for Agents",
+      "metaDescription": "Add Beton's revenue signal detection to OpenClaw agent pipelines via MCP. Automate lead scoring, CRM routing, and account analysis."
+    }
+  },
+  {
+    "id": "windsurf",
+    "name": "Windsurf",
+    "slug": "windsurf",
+    "tagline": "Revenue intelligence inside the agentic IDE",
+    "description": "Windsurf is an agentic IDE that combines AI coding with deep codebase understanding. Connect Beton via MCP to access revenue signals, lead scoring, and CRM routing directly in your development environment.",
+    "vendor": "Codeium",
+    "url": "https://windsurf.com",
+    "category": "Agentic IDE",
+    "icon": "windsurf",
+    "accentColor": "#56B4E9",
+    "mcpSetup": {
+      "configFile": "~/.windsurf/mcp_config.json",
+      "configSnippet": "{\n  \"mcpServers\": {\n    \"beton\": {\n      \"command\": \"npx\",\n      \"args\": [\"-y\", \"@getbeton/mcp-server\"],\n      \"env\": {\n        \"BETON_API_KEY\": \"your-api-key\"\n      }\n    }\n  }\n}",
+      "steps": [
+        "Open Windsurf and go to Settings > MCP",
+        "Add Beton MCP server config to ~/.windsurf/mcp_config.json",
+        "Set your BETON_API_KEY in the environment variables",
+        "Restart Windsurf — Beton tools are available in Cascade"
+      ]
+    },
+    "examplePrompts": [
+      {
+        "prompt": "Check Beton for any new signals since yesterday",
+        "description": "Retrieves recent signals with a time-based filter"
+      },
+      {
+        "prompt": "Score the lead from startup.dev and summarize their product usage",
+        "description": "Combines lead scoring with account analysis for a complete picture"
+      },
+      {
+        "prompt": "Route all high-confidence expansion signals to our HubSpot pipeline",
+        "description": "Batch-routes expansion opportunities to your sales CRM"
+      },
+      {
+        "prompt": "What accounts show the strongest buying signals this week?",
+        "description": "Queries and ranks accounts by signal strength and frequency"
+      }
+    ],
+    "capabilities": [
+      "Natural language signal querying in Cascade",
+      "Real-time lead scoring and qualification",
+      "Automated signal routing to CRM destinations",
+      "Account behavioral analysis and health scoring",
+      "Signal trend detection and alerting"
+    ],
+    "workflows": [
+      {
+        "title": "Cascade Revenue Check",
+        "description": "Use Windsurf's Cascade feature to run multi-step revenue ops tasks: check signals, analyze accounts, score leads, and route — all in one conversational flow."
+      },
+      {
+        "title": "Feature Impact Analysis",
+        "description": "After deploying a feature, ask Windsurf to check Beton for signal changes. See if your changes drove new PQLs, improved engagement, or triggered expansion signals."
+      },
+      {
+        "title": "Pre-Standup Revenue Snapshot",
+        "description": "Before your daily standup, get a quick summary of overnight signals, new PQLs, and any churn risks that need attention — all from within your IDE."
+      }
+    ],
+    "faq": [
+      {
+        "question": "Does this work with Windsurf's free tier?",
+        "answer": "MCP support availability depends on your Windsurf plan. Beton itself can be self-hosted for free regardless of your Windsurf tier."
+      },
+      {
+        "question": "Can I use Beton tools in Windsurf's Cascade flows?",
+        "answer": "Yes. Cascade supports MCP tools natively. Beton's tools appear as available actions that Cascade can call as part of multi-step workflows."
+      },
+      {
+        "question": "How does Windsurf + Beton compare to a dedicated revenue dashboard?",
+        "answer": "It's complementary. The dashboard gives you visual analytics; Windsurf + Beton gives you conversational access to the same data. Use both depending on the context."
+      },
+      {
+        "question": "Is my revenue data sent to Codeium's servers?",
+        "answer": "No. Beton's MCP server runs locally and communicates directly with your Beton instance. Your revenue data never passes through Windsurf's or Codeium's infrastructure."
+      }
+    ],
+    "seo": {
+      "metaTitle": "Beton + Windsurf: Revenue Signals in Your IDE",
+      "metaDescription": "Connect Beton to Windsurf via MCP. Access revenue signals, score leads, and route to CRM from the agentic IDE with Cascade."
+    }
+  },
+  {
+    "id": "cline",
+    "name": "Cline",
+    "slug": "cline",
+    "tagline": "Autonomous coding agent with revenue intelligence superpowers",
+    "description": "Cline is an autonomous AI coding agent for VS Code. Connect Beton via MCP and Cline can detect revenue signals, score leads, and route data to your CRM as part of its autonomous workflows.",
+    "vendor": "Cline",
+    "url": "https://github.com/cline/cline",
+    "category": "AI Coding Agent",
+    "icon": "cline",
+    "accentColor": "#F0E442",
+    "mcpSetup": {
+      "configFile": "VS Code Settings > Cline > MCP Servers",
+      "configSnippet": "{\n  \"mcpServers\": {\n    \"beton\": {\n      \"command\": \"npx\",\n      \"args\": [\"-y\", \"@getbeton/mcp-server\"],\n      \"env\": {\n        \"BETON_API_KEY\": \"your-api-key\"\n      }\n    }\n  }\n}",
+      "steps": [
+        "Install the Cline extension in VS Code",
+        "Open Cline settings and navigate to MCP Servers",
+        "Add Beton MCP server configuration with your API key",
+        "Cline will discover Beton tools automatically on next activation"
+      ]
+    },
+    "examplePrompts": [
+      {
+        "prompt": "Check Beton for new product-qualified leads and list them",
+        "description": "Detects and lists PQL signals from your product usage data"
+      },
+      {
+        "prompt": "Analyze the top 10 accounts by signal volume this month",
+        "description": "Ranks accounts by behavioral signal activity and provides summaries"
+      },
+      {
+        "prompt": "Route expansion signals for accounts over $10k ARR to Attio",
+        "description": "Filters signals by account value and routes to your CRM"
+      },
+      {
+        "prompt": "Give me a churn risk report for the enterprise segment",
+        "description": "Generates a focused report on churn indicators for high-value accounts"
+      }
+    ],
+    "capabilities": [
+      "Autonomous signal detection and monitoring",
+      "Lead scoring with natural language reporting",
+      "CRM routing with configurable rules",
+      "Account portfolio analysis",
+      "Multi-step revenue ops task automation"
+    ],
+    "workflows": [
+      {
+        "title": "Autonomous Revenue Monitor",
+        "description": "Let Cline autonomously check Beton for signals at regular intervals. It can detect changes, score new leads, and route them — with human approval gates where you want them."
+      },
+      {
+        "title": "Dev-Ops to Rev-Ops Bridge",
+        "description": "After code deploys, Cline can automatically check Beton for signal impact. See how your code changes affect user behavior and revenue signals in real time."
+      },
+      {
+        "title": "Account Research Assistant",
+        "description": "Before customer calls or QBRs, ask Cline to compile an account brief using Beton's data — signal history, behavioral patterns, and usage trends."
+      }
+    ],
+    "faq": [
+      {
+        "question": "Does Cline need special permissions to use Beton's MCP tools?",
+        "answer": "Cline asks for your approval before running MCP tools, just like it does for file edits and terminal commands. You control what it can do."
+      },
+      {
+        "question": "Can Cline run Beton tasks autonomously?",
+        "answer": "Yes, with your approval. Cline can chain multiple Beton tool calls together — detect signals, analyze accounts, score leads, and route — as part of a single autonomous workflow."
+      },
+      {
+        "question": "Is Beton's MCP server compatible with Cline's tool format?",
+        "answer": "Yes. Cline supports the standard MCP protocol. Beton's MCP server works without any Cline-specific configuration."
+      },
+      {
+        "question": "Can I use both Beton and other MCP servers in Cline?",
+        "answer": "Absolutely. Cline supports multiple MCP servers simultaneously. Beton handles revenue intelligence while other servers handle different domains."
+      }
+    ],
+    "seo": {
+      "metaTitle": "Beton + Cline: Autonomous Revenue Intelligence",
+      "metaDescription": "Connect Beton to Cline via MCP. Let your autonomous coding agent detect revenue signals, score leads, and route to CRM in VS Code."
+    }
+  }
+]

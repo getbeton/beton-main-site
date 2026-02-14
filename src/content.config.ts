@@ -197,6 +197,40 @@ const competitors = defineCollection({
   }),
 });
 
+const agents = defineCollection({
+  loader: file('src/data/agents/agents.json'),
+  schema: z.object({
+    name: z.string(),
+    slug: z.string(),
+    tagline: z.string(),
+    description: z.string(),
+    vendor: z.string(),
+    url: z.string(),
+    category: z.string(),
+    icon: z.string(),
+    accentColor: z.string(),
+    mcpSetup: z.object({
+      configFile: z.string(),
+      configSnippet: z.string(),
+      steps: z.array(z.string()),
+    }),
+    examplePrompts: z.array(z.object({
+      prompt: z.string(),
+      description: z.string(),
+    })),
+    capabilities: z.array(z.string()),
+    workflows: z.array(z.object({
+      title: z.string(),
+      description: z.string(),
+    })),
+    faq: z.array(z.object({
+      question: z.string(),
+      answer: z.string(),
+    })),
+    seo: seoSchema.optional(),
+  }),
+});
+
 const socialProof = defineCollection({
   loader: file('src/data/social-proof/companies.json'),
   schema: z.object({
@@ -219,5 +253,6 @@ export const collections = {
   pages,
   integrations,
   competitors,
+  agents,
   'social-proof': socialProof,
 };

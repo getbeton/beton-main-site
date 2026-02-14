@@ -29,6 +29,8 @@ const PAGES = [
   '/industries/saas/',
   '/alternatives/pocus/',
   '/vs/pocus/',
+  '/for/',
+  '/for/claude-code/',
 ];
 
 let totalChecks = 0;
