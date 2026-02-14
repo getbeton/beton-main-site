@@ -74,7 +74,8 @@
       "Bash(chmod:*)",
       "Bash(bash /tmp/seo_audit.sh)",
       "Bash(perl:*)",
-      "Bash(# Check:*)"
+      "Bash(# Check:*)",
+      "Bash(git status:*)"
     ]
   },
   "enableAllProjectMcpServers": true,
