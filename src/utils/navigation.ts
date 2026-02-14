@@ -7,8 +7,6 @@ export interface NavLink {
 }
 
 export const mainNav: NavLink[] = [
-  { label: 'Use Cases', href: '/use-cases/' },
-  { label: 'Industries', href: '/industries/' },
   { label: 'Integrations', href: '/integrations/' },
   { label: 'Pricing', href: '/pricing/' },
   { label: 'About', href: '/about/' },
@@ -28,33 +26,8 @@ export const footerNav = {
     { label: 'Blog', href: SITE.external.blog, external: true },
   ] as NavLink[],
   resources: [
-    { label: 'AI Agents', href: '/for/' },
-    { label: 'Alternatives', href: '/alternatives/' },
     { label: 'GitHub', href: SITE.social.github, external: true },
     { label: 'App', href: SITE.external.app, external: true },
-  ] as NavLink[],
-  comparisons: [
-    { label: 'Beton vs Pocus', href: '/vs/pocus/' },
-    { label: 'Beton vs MadKudu', href: '/vs/madkudu/' },
-    { label: 'Beton vs Common Room', href: '/vs/common-room/' },
-    { label: 'Beton vs Breadcrumbs', href: '/vs/breadcrumbs/' },
-    { label: 'Beton vs Clay', href: '/vs/clay/' },
-    { label: 'Beton vs Excel/Sheets', href: '/vs/excel-google-sheets/' },
-    { label: 'Beton vs Claude Code', href: '/vs/claude-code/' },
-    { label: 'Beton vs OpenClaw', href: '/vs/openclaw/' },
-    { label: 'Beton vs Cursor', href: '/vs/cursor/' },
-    { label: 'Beton vs Claude Cowork', href: '/vs/claude-cowork/' },
-    { label: 'Pocus vs MadKudu', href: '/compare/pocus-vs-madkudu/' },
-    { label: 'Pocus vs Common Room', href: '/compare/pocus-vs-common-room/' },
-    { label: 'Clay vs MadKudu', href: '/compare/clay-vs-madkudu/' },
-  ] as NavLink[],
-  agents: [
-    { label: 'Beton + Claude Code', href: '/for/claude-code/' },
-    { label: 'Beton + Cursor', href: '/for/cursor/' },
-    { label: 'Beton + Gemini CLI', href: '/for/gemini/' },
-    { label: 'Beton + OpenClaw', href: '/for/openclaw/' },
-    { label: 'Beton + Windsurf', href: '/for/windsurf/' },
-    { label: 'Beton + Cline', href: '/for/cline/' },
   ] as NavLink[],
   legal: [
     { label: 'Terms and Conditions', href: '/terms/' },

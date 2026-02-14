@@ -5,12 +5,10 @@ import { SITE } from '../utils/site';
 import Hero from '../components/home/Hero.astro';
 import HowItWorks from '../components/home/HowItWorks.astro';
 import Features from '../components/home/Features.astro';
-import UseCasesPreview from '../components/home/UseCasesPreview.astro';
 import Integrations from '../components/home/Integrations.astro';
 import BlogPosts from '../components/home/BlogPosts.astro';
 // import Testimonials from '../components/home/Testimonials.astro';
 import PricingPreview from '../components/home/PricingPreview.astro';
-import AlternativesPreview from '../components/home/AlternativesPreview.astro';
 import SocialProof from '../components/home/SocialProof.astro';
 import CTABanner from '../components/home/CTABanner.astro';
 import CTASection from '../components/shared/CTASection.astro';
@@ -80,8 +78,6 @@ const reviewData = testimonials.map((t) => ({
     </Container>
   </Section>
 
-  <UseCasesPreview />
-
   <CTASection
     headline="Stop guessing which users will convert"
     description="Connect your product analytics and surface real buying signals — no code, no complex setup."
@@ -108,6 +104,4 @@ const reviewData = testimonials.map((t) => ({
   <BlogPosts />
 
   <CTABanner />
-
-  <AlternativesPreview />
 </PageLayout>
