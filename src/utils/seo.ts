@@ -11,6 +11,7 @@ export interface SEOProps {
 
 export function buildTitle(pageTitle?: string): string {
   if (!pageTitle) return SITE.title;
+  if (pageTitle.endsWith(`| ${SITE.name}`)) return pageTitle;
   return `${pageTitle} | ${SITE.name}`;
 }
 
