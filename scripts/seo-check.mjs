@@ -219,7 +219,9 @@ async function checkRedirects() {
   if (BASE.includes('localhost')) return;
 
   const redirectTests = [
+    { from: '/app', expect: 'inspector.getbeton.ai/login' },
     { from: '/app/', expect: 'inspector.getbeton.ai/login' },
+    { from: '/blog', expect: 'blog.getbeton.ai' },
     { from: '/blog/', expect: 'blog.getbeton.ai' },
   ];
 
