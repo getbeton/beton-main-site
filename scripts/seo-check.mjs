@@ -37,6 +37,7 @@ let totalChecks = 0;
 let passed = 0;
 let failed = 0;
 const failures = [];
+const externalLinksMap = new Map(); // href → [pages that link to it]
 
 function check(page, label, condition, detail) {
   totalChecks++;
@@ -180,6 +181,43 @@ async function checkPage(path) {
     const hasMailto = html.includes('mailto:');
     check(path, 'Emails wrapped in mailto: links', hasMailto, 'No mailto: links found');
   }
+
+  // Word count — strip HTML, count words in body
+  const bodyMatch = html.match(/<body[^>]*>([\s\S]*)<\/body>/i);
+  if (bodyMatch) {
+    const text = bodyMatch[1]
+      .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
+      .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '')
+      .replace(/<[^>]+>/g, ' ')
+      .replace(/&[a-z]+;/gi, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+    const wordCount = text ? text.split(/\s+/).length : 0;
+    check(path, 'Word count >= 100', wordCount >= 100, `Only ${wordCount} words on page (possible stub/empty page)`);
+  }
+
+  // Image alt text — warn if any <img> lacks alt attribute
+  const imgs = [...html.matchAll(/<img\b([^>]*)>/gi)];
+  const missingAlt = imgs.filter((m) => !/\balt\s*=/i.test(m[1]));
+  check(path, 'All images have alt attribute', missingAlt.length === 0, `${missingAlt.length} image(s) missing alt attribute`);
+
+  // Internal link count — warn if page has 0 internal <a href> links
+  const internalLinks = [...html.matchAll(/<a\b[^>]*href=["'](\/[^"']*|https?:\/\/(?:www\.)?getbeton\.ai[^"']*)["'][^>]*>/gi)];
+  check(path, 'Has internal links', internalLinks.length > 0, 'Page has zero internal links (broken page or orphan)');
+
+  // Self-redirect detection — links that use http:// or non-www domain
+  const allHrefs = [...html.matchAll(/<a\b[^>]*href=["']([^"']+)["']/gi)].map((m) => m[1]);
+  const httpLinks = allHrefs.filter((h) => h.startsWith('http://') && h.includes('getbeton.ai'));
+  check(path, 'No http:// links to own domain', httpLinks.length === 0, `${httpLinks.length} link(s) use http:// instead of https://: ${httpLinks.slice(0, 3).join(', ')}`);
+  const nonWwwLinks = allHrefs.filter((h) => /^https:\/\/getbeton\.ai/i.test(h));
+  check(path, 'No non-www links to own domain', nonWwwLinks.length === 0, `${nonWwwLinks.length} link(s) use getbeton.ai without www: ${nonWwwLinks.slice(0, 3).join(', ')}`);
+
+  // Collect external links for later dead-link check
+  for (const href of allHrefs) {
+    if (/^https?:\/\//i.test(href) && !href.includes('getbeton.ai')) {
+      externalLinksMap.set(href, (externalLinksMap.get(href) || []).concat(path));
+    }
+  }
 }
 
 async function checkRobotsTxt() {
@@ -241,6 +279,42 @@ async function checkRedirects() {
   }
 }
 
+async function checkExternalLinks() {
+  if (externalLinksMap.size === 0) return;
+
+  const TIMEOUT_MS = 10000;
+  const CONCURRENCY = 5;
+  const urls = [...externalLinksMap.keys()];
+  let idx = 0;
+
+  async function worker() {
+    while (idx < urls.length) {
+      const url = urls[idx++];
+      const pages = externalLinksMap.get(url);
+      try {
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
+        const res = await fetch(url, {
+          method: 'HEAD',
+          headers: { 'User-Agent': UA },
+          redirect: 'follow',
+          signal: controller.signal,
+        });
+        clearTimeout(timer);
+        if (res.status >= 400) {
+          check(pages[0], `External link OK: ${url}`, false, `HTTP ${res.status} (linked from ${pages.length} page(s))`);
+        }
+      } catch (e) {
+        const detail = e.name === 'AbortError' ? 'Timeout' : e.message;
+        check(pages[0], `External link OK: ${url}`, false, `${detail} (linked from ${pages.length} page(s))`);
+      }
+    }
+  }
+
+  const workers = Array.from({ length: Math.min(CONCURRENCY, urls.length) }, () => worker());
+  await Promise.all(workers);
+}
+
 // --- Run ---
 console.log(`\n🔍 SEO Check — ${BASE}\n${'─'.repeat(50)}\n`);
 
@@ -259,6 +333,9 @@ await checkSitemap();
 
 console.log('↩️  Checking redirects...\n');
 await checkRedirects();
+
+console.log('🔗 Checking external links...\n');
+await checkExternalLinks();
 
 // --- Report ---
 console.log(`${'─'.repeat(50)}`);

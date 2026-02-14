@@ -28,6 +28,7 @@ export const footerNav = {
     { label: 'Blog', href: SITE.external.blog, external: true },
   ] as NavLink[],
   resources: [
+    { label: 'AI Agents', href: '/for/' },
     { label: 'Alternatives', href: '/alternatives/' },
     { label: 'GitHub', href: SITE.social.github, external: true },
     { label: 'App', href: SITE.external.app, external: true },
