@@ -1,0 +1,38 @@
+name: SEO Check
+
+on:
+  pull_request:
+    branches: [master]
+  push:
+    branches: [master]
+
+jobs:
+  seo-check:
+    name: SEO Readiness
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build site
+        run: npx astro build
+        env:
+          PUBLIC_GTM_ID: ""
+
+      - name: Start preview server
+        run: |
+          npx astro preview --port 4321 &
+          # Wait for server to be ready
+          for i in $(seq 1 30); do
+            curl -sf http://localhost:4321/ > /dev/null 2>&1 && break
+            sleep 1
+          done
+
+      - name: Run SEO checks
+        run: node scripts/seo-check.mjs http://localhost:4321
