@@ -76,7 +76,13 @@
       "Bash(perl:*)",
       "Bash(# Check:*)",
       "Bash(git status:*)",
-      "mcp__claude_ai_Vercel__list_deployments"
+      "mcp__claude_ai_Vercel__list_deployments",
+      "WebFetch(domain:es.linkedin.com)",
+      "WebFetch(domain:www.zoominfo.com)",
+      "WebFetch(domain:www.instagram.com)",
+      "WebFetch(domain:www.forbes.ru)",
+      "WebFetch(domain:novayagazeta.ru)",
+      "WebFetch(domain:twitter.com)"
     ]
   },
   "enableAllProjectMcpServers": true,
