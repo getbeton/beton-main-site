@@ -18,6 +18,11 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { name, slug, description, category, pricing, keyFeatures, limitations, idealFor, comparison, faq, seo } = entry.data;
 
+const allCompetitors = await getCollection('competitors');
+const otherComparisons = allCompetitors
+  .filter((c) => c.data.slug !== slug)
+  .slice(0, 4);
+
 const categories = comparison.map((group) => ({
   name: group.category,
   rows: group.rows.map((row) => ({
@@ -211,6 +216,33 @@ const breadcrumbs = [
             </details>
           ))}
         </div>
+      </Container>
+    </section>
+  )}
+
+  <!-- Other Comparisons -->
+  {otherComparisons.length > 0 && (
+    <section class="py-10 lg:py-16">
+      <Container>
+        <h2 class="text-2xl sm:text-3xl font-[family-name:var(--font-heading)] tracking-wide text-center mb-10">
+          More Comparisons
+        </h2>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
+          {otherComparisons.map((c) => (
+            <a
+              href={`/vs/${c.data.slug}/`}
+              class="block p-5 border-2 border-[var(--color-text)] shadow-[var(--shadow-card)] hover:shadow-[6px_6px_0_var(--color-text)] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-150"
+            >
+              <h3 class="text-sm font-bold mb-1">Beton vs {c.data.name}</h3>
+              <p class="text-xs text-[var(--color-text-secondary)] leading-relaxed">{c.data.category}</p>
+            </a>
+          ))}
+        </div>
+        <p class="text-center mt-6">
+          <a href="/alternatives/" class="text-sm font-medium text-[var(--color-primary-600)] hover:underline">
+            View all comparisons &rarr;
+          </a>
+        </p>
       </Container>
     </section>
   )}

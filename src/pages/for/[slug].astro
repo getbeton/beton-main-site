@@ -17,6 +17,9 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { name, slug, tagline, description, vendor, category, accentColor, mcpSetup, examplePrompts, capabilities, workflows, faq, seo } = entry.data;
 
+const allAgents = await getCollection('agents');
+const otherAgents = allAgents.filter((a) => a.data.slug !== slug);
+
 const breadcrumbs = [
   { name: 'Home', url: SITE.url },
   { name: 'For AI Agents', url: `${SITE.url}/for/` },
@@ -240,6 +243,33 @@ const textColor = accentColor === '#F0E442' ? '#1a1a1a' : '#ffffff';
             </details>
           ))}
         </div>
+      </Container>
+    </section>
+  )}
+
+  <!-- Other Integrations -->
+  {otherAgents.length > 0 && (
+    <section class="py-10 lg:py-16">
+      <Container>
+        <h2 class="text-2xl sm:text-3xl font-[family-name:var(--font-heading)] tracking-wide text-center mb-10">
+          OTHER AI AGENT INTEGRATIONS
+        </h2>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
+          {otherAgents.map((agent) => (
+            <a
+              href={`/for/${agent.data.slug}/`}
+              class="block p-5 border-2 border-[var(--color-text)] shadow-[var(--shadow-card)] hover:shadow-[6px_6px_0_var(--color-text)] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all duration-150"
+            >
+              <h3 class="text-sm font-bold mb-1">Beton + {agent.data.name}</h3>
+              <p class="text-xs text-[var(--color-text-secondary)] leading-relaxed">{agent.data.tagline}</p>
+            </a>
+          ))}
+        </div>
+        <p class="text-center mt-6">
+          <a href="/for/" class="text-sm font-medium text-[var(--color-primary-600)] hover:underline">
+            View all integrations &rarr;
+          </a>
+        </p>
       </Container>
     </section>
   )}
