@@ -75,7 +75,8 @@
       "Bash(bash /tmp/seo_audit.sh)",
       "Bash(perl:*)",
       "Bash(# Check:*)",
-      "Bash(git status:*)"
+      "Bash(git status:*)",
+      "mcp__claude_ai_Vercel__list_deployments"
     ]
   },
   "enableAllProjectMcpServers": true,
