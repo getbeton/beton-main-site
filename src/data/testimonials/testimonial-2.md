@@ -2,7 +2,7 @@
 name: "Ivan K"
 role: "Founder"
 company: "Manuscript"
-quote: "Beton transformed how we identify expansion opportunities. We went from manually reviewing usage dashboards to getting automatic CRM updates when accounts show buying signals. Our expansion revenue is up significantly since implementing it."
+quote: "We used to spend hours every Monday pulling PostHog data into spreadsheets to find warm accounts. Beton replaced that entire workflow — signals show up in our CRM automatically, and the team actually trusts the data now."
 featured: true
 order: 1
 ---
