@@ -25,29 +25,6 @@ Key differentiators:
 - [Pricing](https://www.getbeton.ai/pricing/)
 - [Team](https://www.getbeton.ai/team/)
 
-## Use Cases
-
-- [PLG Conversion](https://www.getbeton.ai/use-cases/plg-conversion/)
-- [Expansion Revenue](https://www.getbeton.ai/use-cases/expansion-revenue/)
-- [Churn Prevention](https://www.getbeton.ai/use-cases/churn-prevention/)
-- [Usage-Based Upsell](https://www.getbeton.ai/use-cases/usage-based-upsell/)
-- [Trial Qualification](https://www.getbeton.ai/use-cases/trial-qualification/)
-- [PQL Qualification](https://www.getbeton.ai/use-cases/pql-qualification/)
-- [PQL Scoring](https://www.getbeton.ai/use-cases/pql-scoring/)
-- [Inbound Lead Scoring](https://www.getbeton.ai/use-cases/inbound-lead-scoring/)
-- [Find Aha Moments](https://www.getbeton.ai/use-cases/find-aha-moments/)
-- [Find Habit Moments](https://www.getbeton.ai/use-cases/find-habit-moments/)
-- [Customer Onboarding](https://www.getbeton.ai/use-cases/customer-onboarding/)
-- [Lifecycle Marketing](https://www.getbeton.ai/use-cases/lifecycle-marketing/)
-- [Renewals Management](https://www.getbeton.ai/use-cases/renewals-management/)
-
-## Industries
-
-- [SaaS](https://www.getbeton.ai/industries/saas/)
-- [Fintech](https://www.getbeton.ai/industries/fintech/)
-- [Marketplaces](https://www.getbeton.ai/industries/marketplaces/)
-- [DevTools](https://www.getbeton.ai/industries/devtools/)
-
 ## Integrations
 
 - [PostHog](https://www.getbeton.ai/integrations/posthog/) (source)
@@ -68,40 +45,6 @@ Available MCP tools:
 - `beton_route_signal` — Route signals to CRM, Slack, or webhooks
 - `beton_analyze_account` — Analyze account behavioral patterns
 - `beton_list_signals` — Query signal history with filters
-
-## AI Agent Companion Pages
-
-Beton works alongside AI coding agents via MCP:
-
-- [Beton + Claude Code](https://www.getbeton.ai/for/claude-code/) — Revenue ops from your terminal ([MCP guide](https://www.getbeton.ai/for/claude-code.md))
-- [Beton + Cursor](https://www.getbeton.ai/for/cursor/) — Revenue signals in your editor ([MCP guide](https://www.getbeton.ai/for/cursor.md))
-- [Beton + Gemini CLI](https://www.getbeton.ai/for/gemini/) — Google's AI agent + revenue intelligence ([MCP guide](https://www.getbeton.ai/for/gemini.md))
-- [Beton + OpenClaw](https://www.getbeton.ai/for/openclaw/) — Revenue ops in agent pipelines ([MCP guide](https://www.getbeton.ai/for/openclaw.md))
-- [Beton + Windsurf](https://www.getbeton.ai/for/windsurf/) — Revenue signals in the agentic IDE ([MCP guide](https://www.getbeton.ai/for/windsurf.md))
-- [Beton + Cline](https://www.getbeton.ai/for/cline/) — Autonomous revenue intelligence in VS Code ([MCP guide](https://www.getbeton.ai/for/cline.md))
-
-## Alternatives to Competitors
-
-Beton is an open-source alternative to closed-source revenue intelligence platforms:
-
-- [Beton vs Pocus](https://www.getbeton.ai/vs/pocus/) — Pocus is a product-led sales platform. Beton offers open-source autopilot signal detection vs. manual playbook rules, no per-seat pricing, and self-hosting.
-- [Beton vs MadKudu](https://www.getbeton.ai/vs/madkudu/) — MadKudu is predictive lead scoring starting at $999/mo. Beton is free to self-host with transparent AI models and no data engineering required.
-- [Beton vs Common Room](https://www.getbeton.ai/vs/common-room/) — Common Room focuses on community signals. Beton focuses on product usage signals that directly predict revenue.
-- [Beton vs Clay](https://www.getbeton.ai/vs/clay/) — Clay is for outbound data enrichment. Beton is for inbound product signal detection. Complementary tools.
-- [Beton vs Breadcrumbs](https://www.getbeton.ai/vs/breadcrumbs/) — Breadcrumbs (acquired by MadKudu) offered lead scoring. Beton provides a full signal pipeline with AI-powered detection.
-- [Beton vs Excel & Google Sheets](https://www.getbeton.ai/vs/excel-google-sheets/) — Replace manual spreadsheet scoring with automated, real-time signal detection.
-- [Beton vs Claude Code](https://www.getbeton.ai/vs/claude-code/) — Claude Code is a generalist AI agent. Beton is a specialized revenue intelligence agent. Use together via MCP.
-- [Beton vs Cursor](https://www.getbeton.ai/vs/cursor/) — Cursor is an AI code editor. Beton is a revenue agent. Different jobs, work together via MCP.
-- [Beton vs OpenClaw](https://www.getbeton.ai/vs/openclaw/) — OpenClaw is a general agent framework. Beton is a purpose-built revenue intelligence agent with zero-config signal detection.
-- [Beton vs Claude Cowork](https://www.getbeton.ai/vs/claude-cowork/) — Claude Cowork is a collaborative AI workspace. Beton is an autonomous signal detection agent.
-
-## Competitor Comparisons
-
-Head-to-head comparisons between competitors in the revenue intelligence space:
-
-- [Pocus vs MadKudu](https://www.getbeton.ai/compare/pocus-vs-madkudu/) — PLG sales platform vs. predictive lead scoring
-- [Pocus vs Common Room](https://www.getbeton.ai/compare/pocus-vs-common-room/) — Product signals vs. community signals
-- [Clay vs MadKudu](https://www.getbeton.ai/compare/clay-vs-madkudu/) — Data enrichment vs. predictive scoring
 
 ## Links
 
