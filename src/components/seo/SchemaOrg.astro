@@ -1,5 +1,6 @@
 ---
 import { SITE } from '../../utils/site';
+import { buildOgImageUrl } from '../../utils/seo';
 
 interface ReviewItem {
   name: string;
@@ -57,6 +58,17 @@ const webSiteSchema = {
   publisher: { '@id': `${SITE.url}/#organization` },
 };
 
+const ogImageUrl = buildOgImageUrl();
+
+const imageSchema = {
+  '@type': 'ImageObject',
+  '@id': `${url.replace(/\/$/, '')}/#primaryimage`,
+  url: ogImageUrl,
+  contentUrl: ogImageUrl,
+  width: 1200,
+  height: 630,
+};
+
 const webPageSchema = {
   '@type': 'WebPage',
   '@id': `${url.replace(/\/$/, '')}/#webpage`,
@@ -65,6 +77,7 @@ const webPageSchema = {
   url,
   isPartOf: { '@id': `${SITE.url}/#website` },
   publisher: { '@id': `${SITE.url}/#organization` },
+  primaryImageOfPage: { '@id': `${url.replace(/\/$/, '')}/#primaryimage` },
 };
 
 const softwareSchema =
@@ -185,7 +198,7 @@ const personSchemas =
       }))
     : null;
 
-const graph: Record<string, unknown>[] = [orgSchema, webSiteSchema, webPageSchema];
+const graph: Record<string, unknown>[] = [orgSchema, webSiteSchema, imageSchema, webPageSchema];
 if (softwareSchema) graph.push(softwareSchema);
 if (faqSchema) graph.push(faqSchema);
 if (breadcrumbSchema) graph.push(breadcrumbSchema);
