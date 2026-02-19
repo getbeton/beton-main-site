@@ -28,6 +28,7 @@ export const footerNav = {
   resources: [
     { label: 'GitHub', href: SITE.social.github, external: true },
     { label: 'App', href: SITE.external.app, external: true },
+    { label: 'llms.txt', href: '/llms.txt' },
   ] as NavLink[],
   legal: [
     { label: 'Terms and Conditions', href: '/terms/' },
