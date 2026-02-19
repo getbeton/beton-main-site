@@ -2,7 +2,7 @@
 title: "Beton - Open-Source Revenue Intelligence"
 subtitle: "Predict which customers will convert to enterprise deals"
 seo:
-  metaTitle: "Beton - Open-Source Revenue Intelligence"
+  metaTitle: "Open-Source Revenue Intelligence"
   metaDescription: "Predict which customers will convert to enterprise deals. Detect behavioral signals in product usage and route them to your CRM."
 hero:
   headline: "Match reps with the warmest leads"
