@@ -5,7 +5,7 @@ export const SITE = {
   description:
     'Predict which customers will convert to enterprise deals. Detect behavioral signals in product usage and route them to your CRM.',
   entity: 'PGS Scheben, Inc.',
-  license: 'GPL',
+  license: 'AGPLv3',
   social: {
     github: 'https://github.com/getbeton/inspector',
     linkedin: 'https://linkedin.com/company/getbeton',
@@ -13,6 +13,6 @@ export const SITE = {
   },
   external: {
     blog: 'https://blog.getbeton.ai',
-    app: 'https://inspector.getbeton.ai/login',
+    app: 'https://inspector.getbeton.ai',
   },
 } as const;
