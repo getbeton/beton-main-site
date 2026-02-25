@@ -9,7 +9,7 @@ hero:
   subheadline: "Predict which customers will convert to enterprise deals. Beton finds revenue drivers in product usage, deal history, billing and support tickets. Once patterns match, we create a deal your CRM."
   primaryCta:
     label: "Start Free"
-    href: "https://inspector.getbeton.ai/login"
+    href: "https://inspector.getbeton.ai/"
   secondaryCta:
     label: "View on GitHub"
     href: "https://github.com/getbeton/inspector"
