@@ -25,6 +25,10 @@ export const footerNav = {
     { label: 'Team', href: '/team/' },
     { label: 'Blog', href: SITE.external.blog, external: true },
   ] as NavLink[],
+  tools: [
+    { label: 'seqd', href: '/seqd/' },
+    { label: 'openclaw-gtm-skills', href: 'https://github.com/getbeton/openclaw-gtm-skills', external: true },
+  ] as NavLink[],
   resources: [
     { label: 'GitHub', href: SITE.social.github, external: true },
     { label: 'App', href: SITE.external.app, external: true },

@@ -1,0 +1,270 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import Container from '../components/ui/Container.astro';
+import Section from '../components/ui/Section.astro';
+import Heading from '../components/ui/Heading.astro';
+import Card from '../components/ui/Card.astro';
+import ZigzagDivider from '../components/ui/ZigzagDivider.astro';
+
+const features = [
+  {
+    icon: 'inbox',
+    title: 'Multi-mailbox Gmail OAuth',
+    description: 'Connect unlimited Gmail mailboxes. seqd rotates sending across them automatically to protect deliverability.',
+    accent: 'border-t-[var(--color-primary-500)]',
+  },
+  {
+    icon: 'user',
+    title: 'Per-contact sequences',
+    description: 'Every contact gets their own sequence with its own state. Pause one without affecting others. No enrollment mess.',
+    accent: 'border-t-[var(--color-accent-500)]',
+  },
+  {
+    icon: 'template',
+    title: 'Templates with {{vars}}',
+    description: 'Build reusable multi-step templates. Variables get resolved at sequence creation time — always consistent.',
+    accent: 'border-t-[var(--color-primary-400)]',
+  },
+  {
+    icon: 'reply',
+    title: 'Reply detection',
+    description: 'Gmail API polling stops sequences automatically when a contact replies. No chasing people who already responded.',
+    accent: 'border-t-[var(--color-accent-400)]',
+  },
+  {
+    icon: 'at',
+    title: 'CC/BCC for CRM passthrough',
+    description: 'Set CC/BCC per email step. Use it to BCC your Attio or HubSpot drop address — every sent email lands in your CRM.',
+    accent: 'border-t-[var(--color-primary-600)]',
+  },
+  {
+    icon: 'code',
+    title: 'REST API + CLI',
+    description: 'Full REST API and a seqd CLI for automation. Import contacts from CSV, run dry-runs, check capacity — all scriptable.',
+    accent: 'border-t-[var(--color-accent-600)]',
+  },
+];
+
+const steps = [
+  {
+    number: '01',
+    title: 'Connect your Gmail',
+    description: 'Authorize one or more Gmail mailboxes via Google OAuth. seqd never stores your email password — just an encrypted access token.',
+  },
+  {
+    number: '02',
+    title: 'Create a sequence',
+    description: 'Write your steps, set delays, add {{first_name}} variables. Use a template or start from scratch. Sequences are per-contact — each one independent.',
+  },
+  {
+    number: '03',
+    title: 'Let it run',
+    description: 'seqd schedules sends respecting your daily caps, watches for replies, and stops automatically when someone responds.',
+  },
+];
+
+const iconPaths: Record<string, string> = {
+  inbox: 'M2.25 13.5h3.86a2.25 2.25 0 012.012 1.244l.256.512a2.25 2.25 0 002.013 1.244h3.218a2.25 2.25 0 002.013-1.244l.256-.512a2.25 2.25 0 012.013-1.244h3.859m-19.5.338V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18v-4.162c0-.224-.034-.447-.1-.661L19.24 5.338a2.25 2.25 0 00-2.15-1.588H6.911a2.25 2.25 0 00-2.15 1.588L2.35 13.177a2.25 2.25 0 00-.1.661z',
+  user: 'M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z',
+  template: 'M3.375 19.5h17.25m-17.25 0a1.125 1.125 0 01-1.125-1.125M3.375 19.5h7.5c.621 0 1.125-.504 1.125-1.125m-9.75 0V5.625m0 12.75v-1.5c0-.621.504-1.125 1.125-1.125m18.375 2.625V5.625m0 12.75c0 .621-.504 1.125-1.125 1.125m1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125m0 3.75h-7.5A1.125 1.125 0 0112 18.375m9.75-12.75c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125m19.5 0v1.5c0 .621-.504 1.125-1.125 1.125M2.25 5.625v1.5c0 .621.504 1.125 1.125 1.125m0 0h17.25m-17.25 0h7.5c.621 0 1.125.504 1.125 1.125M3.375 8.25c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125h7.5c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125m-7.5 0h7.5',
+  reply: 'M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3',
+  at: 'M16.5 12a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 10-2.636 6.364M16.5 12V8.25',
+  code: 'M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5',
+};
+---
+
+<PageLayout
+  title="seqd — Self-hosted email sequencer | Beton"
+  description="Open-source, self-hosted email sequencer. Per-contact sequences, multi-mailbox Gmail OAuth, reply detection. No Instantly. No Apollo. AGPLv3."
+>
+  <!-- Hero -->
+  <section class="py-14 lg:py-24 border-b-2 border-[var(--color-border)]" data-track-section="seqd-hero">
+    <Container>
+      <div class="max-w-3xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 border-2 border-[var(--color-text)] text-xs font-bold uppercase tracking-wider mb-6">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+          </svg>
+          Open Source · AGPLv3
+        </div>
+
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-[family-name:var(--font-heading)] tracking-wide leading-tight mb-6">
+          seqd
+        </h1>
+        <p class="text-xl lg:text-2xl text-[var(--color-text-secondary)] mb-4 max-w-2xl">
+          Self-hosted email sequencer. No Instantly. No Apollo. Just your inbox and your leads.
+        </p>
+        <p class="text-base text-[var(--color-text-secondary)] mb-8 max-w-2xl leading-relaxed">
+          seqd is an open-source personal email sequencer built for founders and small sales teams doing outbound.
+          Per-contact sequences, multi-mailbox Gmail OAuth, reply detection, CC/BCC for CRM passthrough.
+          Self-host it for free — own your data, your deliverability, and your stack.
+        </p>
+
+        <div class="flex flex-wrap gap-3">
+          <a
+            href="https://github.com/getbeton/seqd"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-5 py-3 text-sm font-bold uppercase tracking-wider bg-[var(--color-text)] text-[var(--color-surface)] border-2 border-[var(--color-text)] hover:bg-transparent hover:text-[var(--color-text)]"
+            data-track-cta="seqd-hero-github"
+          >
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+            </svg>
+            View on GitHub
+          </a>
+          <a
+            href="https://seqd.getbeton.org"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-5 py-3 text-sm font-bold uppercase tracking-wider border-2 border-[var(--color-text)] text-[var(--color-text)] hover:bg-[var(--color-text)] hover:text-[var(--color-surface)]"
+            data-track-cta="seqd-hero-demo"
+          >
+            Live Demo
+            <svg class="w-3.5 h-3.5 opacity-60" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+            </svg>
+          </a>
+        </div>
+
+        <!-- Stack badges -->
+        <div class="flex flex-wrap gap-2 mt-8">
+          {['Next.js 15', 'Supabase', 'Redis', 'Drizzle ORM', 'Google OAuth', 'Docker'].map((tech) => (
+            <span class="px-2.5 py-1 text-xs font-medium border border-[var(--color-border)] text-[var(--color-text-secondary)] font-[family-name:'JetBrains_Mono']">
+              {tech}
+            </span>
+          ))}
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <ZigzagDivider />
+
+  <!-- Features -->
+  <Section class="bg-[var(--color-surface-accent-primary)] border-y-2 border-[var(--color-border)]">
+    <Container>
+      <div class="text-center mb-10 lg:mb-14">
+        <Heading as="h2">Everything you need for personal outbound</Heading>
+        <p class="mt-4 text-lg text-[var(--color-text-secondary)] max-w-2xl mx-auto">
+          No seat pricing. No sending limits based on your plan. Just a tool that does one thing well.
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {features.map((feature) => (
+          <Card class={`border-t-4 ${feature.accent}`}>
+            <div class="inline-flex items-center justify-center w-10 h-10 border-2 border-[var(--color-primary-600)] bg-[var(--color-primary-bg)] text-[var(--color-primary-600)] mb-4">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d={iconPaths[feature.icon]} />
+              </svg>
+            </div>
+            <h3 class="text-base font-semibold mb-2">{feature.title}</h3>
+            <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed">{feature.description}</p>
+          </Card>
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <!-- How it works -->
+  <Section>
+    <Container>
+      <div class="text-center mb-10 lg:mb-14">
+        <Heading as="h2">How it works</Heading>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+        {steps.map((step) => (
+          <div class="relative">
+            <div class="text-5xl font-[family-name:var(--font-heading)] text-[var(--color-primary-200)] mb-3 leading-none">
+              {step.number}
+            </div>
+            <h3 class="text-base font-semibold mb-2">{step.title}</h3>
+            <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed">{step.description}</p>
+          </div>
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <ZigzagDivider />
+
+  <!-- Self-host block -->
+  <Section class="border-y-2 border-[var(--color-border)]">
+    <Container>
+      <div class="grid lg:grid-cols-2 gap-12 items-start">
+        <div>
+          <Heading as="h2" class="mb-4">Self-host in minutes</Heading>
+          <p class="text-[var(--color-text-secondary)] mb-6 leading-relaxed">
+            seqd is designed to run on any VPS, a Raspberry Pi, or Vercel + Supabase.
+            One <code class="text-sm font-[family-name:'JetBrains_Mono'] px-1.5 py-0.5 bg-[var(--color-surface-raised)] border border-[var(--color-border)]">docker compose up</code> and you're live.
+          </p>
+          <a
+            href="https://github.com/getbeton/seqd#quick-start"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-5 py-3 text-sm font-bold uppercase tracking-wider bg-[var(--color-primary-600)] text-white border-2 border-[var(--color-primary-600)] hover:bg-white hover:text-[var(--color-primary-600)]"
+            data-track-cta="seqd-self-host"
+          >
+            Read the setup guide →
+          </a>
+        </div>
+
+        <div class="space-y-3">
+          {[
+            ['Database', 'PostgreSQL via Supabase'],
+            ['Queue', 'Redis'],
+            ['Auth', 'BetterAuth (email + Google)'],
+            ['Gmail access', 'OAuth 2.0 (no password stored)'],
+            ['Deploy', 'Vercel or Docker Compose'],
+            ['License', 'AGPLv3 — free forever'],
+          ].map(([label, value]) => (
+            <div class="flex items-center justify-between py-2.5 border-b border-[var(--color-border)]">
+              <span class="text-sm text-[var(--color-text-secondary)]">{label}</span>
+              <span class="text-sm font-medium font-[family-name:'JetBrains_Mono']">{value}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- CTA -->
+  <section class="py-12 lg:py-20 bg-[var(--color-primary-600)] border-y-4 border-[var(--color-text)] relative overflow-hidden">
+    <div class="absolute inset-0 opacity-[0.07]" aria-hidden="true" style="background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, white 10px, white 12px);"></div>
+    <Container>
+      <div class="text-center max-w-2xl mx-auto">
+        <h2 class="text-2xl sm:text-3xl font-[family-name:var(--font-heading)] tracking-wide text-white mb-4">
+          Own your outbound stack
+        </h2>
+        <p class="text-white/80 mb-8">
+          Free forever when self-hosted. No seat limits. No sending caps tied to your plan.
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+          <a
+            href="https://github.com/getbeton/seqd"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-6 py-3 text-base font-bold uppercase tracking-wider bg-white text-[var(--color-primary-700)] border-2 border-white hover:bg-[var(--color-primary-700)] hover:text-white"
+            data-track-cta="seqd-cta-github"
+          >
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+            </svg>
+            Star on GitHub
+          </a>
+          <a
+            href="https://seqd.getbeton.org"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-6 py-3 text-base font-bold uppercase tracking-wider text-white border-2 border-white hover:bg-white hover:text-[var(--color-primary-700)]"
+            data-track-cta="seqd-cta-demo"
+          >
+            Try the live demo ↗
+          </a>
+        </div>
+      </div>
+    </Container>
+  </section>
+</PageLayout>
