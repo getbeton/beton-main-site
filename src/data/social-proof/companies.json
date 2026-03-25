@@ -22,79 +22,23 @@
   },
   {
     "id": "predictivdata",
-    "name": "Predictiv Data",
+    "name": "Predictiv",
     "logo": "/images/logos/predictivdata.svg",
     "url": "https://predictivdata.com",
     "order": 4
-  },
-  {
-    "id": "significa",
-    "name": "Significa",
-    "logo": "/images/logos/significa.svg",
-    "url": "https://significa.sk",
-    "order": 5
-  },
-  {
-    "id": "fusegtm",
-    "name": "FuseGTM",
-    "logo": "/images/logos/fusegtm.png",
-    "url": "https://fusegtm.com",
-    "order": 6
-  },
-  {
-    "id": "goodtake",
-    "name": "Goodtake",
-    "logo": "/images/logos/goodtake.png",
-    "url": "https://goodtake.co",
-    "order": 7
   },
   {
     "id": "caeros",
     "name": "Caeros",
     "logo": "/images/logos/caeros.svg",
     "url": "https://caeros.co",
-    "order": 8
-  },
-  {
-    "id": "quotaengine",
-    "name": "QuotaEngine",
-    "logo": "/images/logos/quotaengine.png",
-    "url": "https://quotaengine.com",
-    "order": 9
-  },
-  {
-    "id": "groundley",
-    "name": "Groundley",
-    "logo": "/images/logos/groundley.svg",
-    "url": "https://groundley.com",
-    "order": 10
-  },
-  {
-    "id": "hono-ai",
-    "name": "Hono",
-    "logo": "/images/logos/hono-ai.png",
-    "url": "https://hono.ai",
-    "order": 11
+    "order": 5
   },
   {
     "id": "robo-tech",
     "name": "Robo",
     "logo": "/images/logos/robo-tech.svg",
     "url": "https://robo.tech",
-    "order": 12
-  },
-  {
-    "id": "wiseops",
-    "name": "WiseOps",
-    "logo": "/images/logos/wiseops.png",
-    "url": "https://wiseops.team",
-    "order": 13
-  },
-  {
-    "id": "5050growth",
-    "name": "50/50 Growth",
-    "logo": "/images/logos/5050growth.png",
-    "url": "https://5050growth.com",
-    "order": 14
+    "order": 6
   }
 ]
