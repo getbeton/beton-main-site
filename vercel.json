@@ -635,16 +635,6 @@
       "permanent": true
     },
     {
-      "source": "/integrations/:slug",
-      "destination": "/integrations/",
-      "permanent": true
-    },
-    {
-      "source": "/integrations/:slug/",
-      "destination": "/integrations/",
-      "permanent": true
-    },
-    {
       "source": "/use-cases/:slug",
       "destination": "/integrations/",
       "permanent": true
