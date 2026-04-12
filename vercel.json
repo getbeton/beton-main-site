@@ -640,7 +640,17 @@
       "permanent": true
     },
     {
+      "source": "/integrations/:slug/",
+      "destination": "/integrations/",
+      "permanent": true
+    },
+    {
       "source": "/use-cases/:slug",
+      "destination": "/integrations/",
+      "permanent": true
+    },
+    {
+      "source": "/use-cases/:slug/",
       "destination": "/integrations/",
       "permanent": true
     },
@@ -660,6 +670,11 @@
       "permanent": true
     },
     {
+      "source": "/industries/:slug/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
       "source": "/for",
       "destination": "/",
       "permanent": true
@@ -671,6 +686,11 @@
     },
     {
       "source": "/for/:slug",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/for/:slug/",
       "destination": "/",
       "permanent": true
     },
@@ -690,12 +710,27 @@
       "permanent": true
     },
     {
+      "source": "/alternatives/:slug/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
       "source": "/compare/:slug",
       "destination": "/",
       "permanent": true
     },
     {
+      "source": "/compare/:slug/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
       "source": "/vs/:slug",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/vs/:slug/",
       "destination": "/",
       "permanent": true
     }
