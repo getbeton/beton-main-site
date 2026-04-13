@@ -39,6 +39,17 @@
   ],
   "redirects": [
     {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "blog.getbeton.ai"
+        }
+      ],
+      "destination": "https://www.getbeton.ai/$1",
+      "permanent": true
+    },
+    {
       "source": "/use-cases",
       "destination": "/integrations/",
       "permanent": true
@@ -67,16 +78,6 @@
     {
       "source": "/all-enrichment-data-sources-and-destinations",
       "destination": "/integrations/",
-      "permanent": true
-    },
-    {
-      "source": "/blog",
-      "destination": "https://blog.getbeton.ai",
-      "permanent": true
-    },
-    {
-      "source": "/blog/",
-      "destination": "https://blog.getbeton.ai",
       "permanent": true
     },
     {
