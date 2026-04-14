@@ -8,18 +8,24 @@ import { readFileSync } from 'fs';
 import { resolve } from 'path';
 
 const SITE_URL = 'https://www.getbeton.ai';
-const INDEXNOW_KEY = 'a1b2c3d4e5f6g7h8i9j0';
+const INDEXNOW_KEY = '1301c50ed3d8186d4e6d44152327634c';
 const INDEXNOW_ENDPOINT = 'https://api.indexnow.org/indexnow';
 
 async function submitUrls() {
-  // Read the generated sitemap to get all URLs
-  const sitemapPath = resolve('dist/sitemap.xml');
+  // Read the generated sitemap — Astro 5 + Vercel adapter outputs to dist/client/
+  const candidates = [resolve('dist/client/sitemap.xml'), resolve('dist/sitemap.xml')];
   let sitemapXml;
 
-  try {
-    sitemapXml = readFileSync(sitemapPath, 'utf-8');
-  } catch {
-    console.log('[IndexNow] No sitemap found at dist/sitemap.xml, skipping.');
+  for (const path of candidates) {
+    try {
+      sitemapXml = readFileSync(path, 'utf-8');
+      console.log(`[IndexNow] Reading sitemap from ${path}`);
+      break;
+    } catch {}
+  }
+
+  if (!sitemapXml) {
+    console.log('[IndexNow] No sitemap found, skipping.');
     return;
   }
 

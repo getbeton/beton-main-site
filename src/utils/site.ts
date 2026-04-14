@@ -12,7 +12,7 @@ export const SITE = {
     twitter: 'https://x.com/getbeton',
   },
   external: {
-    blog: 'https://blog.getbeton.ai',
+    blog: '/blog/',
     app: 'https://inspector.getbeton.ai',
   },
 } as const;

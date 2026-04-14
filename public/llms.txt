@@ -49,5 +49,5 @@ Available MCP tools:
 ## Links
 
 - GitHub: https://github.com/getbeton/inspector
-- Blog: https://blog.getbeton.ai
+- Blog: https://www.getbeton.ai/blog/
 - App: https://inspector.getbeton.ai

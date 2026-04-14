@@ -1,0 +1,160 @@
+---
+import PageLayout from './PageLayout.astro';
+import Container from '../components/ui/Container.astro';
+import NewsletterSignup from '../components/blog/NewsletterSignup.astro';
+import { SITE } from '../utils/site';
+
+interface Props {
+  title: string;
+  description: string;
+  publishedAt: string;
+  updatedAt?: string;
+  author: string;
+  tags: string[];
+  coverImage?: string;
+  slug: string;
+  seo?: {
+    metaTitle?: string;
+    metaDescription?: string;
+    ogImage?: string;
+  };
+}
+
+const { title, description, publishedAt, updatedAt, author, tags, coverImage, slug, seo } = Astro.props;
+
+const formattedDate = new Date(publishedAt).toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+
+const updatedDate = updatedAt
+  ? new Date(updatedAt).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    })
+  : null;
+
+const readingTime = Math.ceil(
+  (Astro.slots.has('default') ? 1000 : 200) / 200
+);
+
+const breadcrumbs = [
+  { name: 'Home', url: SITE.url },
+  { name: 'Blog', url: `${SITE.url}/blog/` },
+  { name: title, url: `${SITE.url}/blog/${slug}/` },
+];
+
+const articleData = {
+  title,
+  description,
+  author,
+  publishedAt,
+  updatedAt,
+  tags,
+  coverImage,
+  url: `${SITE.url}/blog/${slug}/`,
+};
+---
+
+<PageLayout
+  title={seo?.metaTitle || title}
+  description={seo?.metaDescription || description}
+  ogImage={seo?.ogImage || coverImage}
+  canonicalPath={`/blog/${slug}`}
+  type="article"
+  breadcrumbs={breadcrumbs}
+>
+  <article class="py-14 lg:py-20">
+    <Container>
+      <div class="max-w-3xl mx-auto">
+        <!-- Header -->
+        <header class="mb-10">
+          <div class="flex flex-wrap items-center gap-2 mb-4">
+            {tags.map((tag) => (
+              <span class="inline-flex items-center px-2.5 py-0.5 text-xs font-medium tracking-wide uppercase border-2 border-[var(--color-border)] bg-[var(--color-surface-raised)]">
+                {tag}
+              </span>
+            ))}
+          </div>
+
+          <h1 class="text-3xl lg:text-4xl font-bold tracking-tight mb-4">
+            {title}
+          </h1>
+
+          <p class="text-lg text-[var(--color-text-secondary)] mb-6">
+            {description}
+          </p>
+
+          <div class="flex items-center gap-4 text-sm text-[var(--color-text-tertiary)] border-t-2 border-b-2 border-[var(--color-border)] py-3">
+            <span class="font-medium text-[var(--color-text-secondary)]">{author}</span>
+            <span aria-hidden="true">&middot;</span>
+            <time datetime={publishedAt}>{formattedDate}</time>
+            {updatedDate && (
+              <>
+                <span aria-hidden="true">&middot;</span>
+                <span>Updated {updatedDate}</span>
+              </>
+            )}
+          </div>
+        </header>
+
+        {coverImage && (
+          <div class="mb-10 -mx-4 lg:-mx-8 border-2 border-[var(--color-border)] overflow-hidden">
+            <img
+              src={coverImage}
+              alt={title}
+              width="896"
+              height="448"
+              class="w-full h-auto"
+            />
+          </div>
+        )}
+
+        <!-- Content -->
+        <div class="prose">
+          <slot />
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-14 pt-8 border-t-2 border-[var(--color-border)]">
+          <NewsletterSignup id="post-newsletter" />
+
+          <div class="mt-8 text-center">
+            <a
+              href="/blog/"
+              class="inline-flex items-center gap-2 text-sm font-medium text-[var(--color-primary-600)] hover:underline"
+            >
+              &larr; Back to all posts
+            </a>
+          </div>
+        </footer>
+      </div>
+    </Container>
+  </article>
+
+  <!-- Article JSON-LD -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: title,
+    description,
+    author: {
+      '@type': 'Person',
+      name: author,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: SITE.name,
+      url: SITE.url,
+      logo: `${SITE.url}/images/beton-logo.svg`,
+    },
+    datePublished: publishedAt,
+    ...(updatedAt && { dateModified: updatedAt }),
+    mainEntityOfPage: articleData.url,
+    ...(coverImage && { image: coverImage.startsWith('http') ? coverImage : `${SITE.url}${coverImage}` }),
+    keywords: tags.join(', '),
+  })} />
+
+</PageLayout>

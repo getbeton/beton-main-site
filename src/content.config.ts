@@ -122,6 +122,22 @@ const pricingFaq = defineCollection({
   }),
 });
 
+const blog = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: 'src/data/blog' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    publishedAt: z.string(),
+    updatedAt: z.string().optional(),
+    author: z.string().default('Vlad Nadymov'),
+    tags: z.array(z.string()).default([]),
+    featured: z.boolean().default(false),
+    draft: z.boolean().default(false),
+    coverImage: z.string().optional(),
+    seo: seoSchema.optional(),
+  }),
+});
+
 const pages = defineCollection({
   loader: glob({ pattern: '**/*.md', base: 'src/data/pages' }),
   schema: z.object({
@@ -251,6 +267,7 @@ export const collections = {
   'pricing-addons': pricingAddons,
   'pricing-faq': pricingFaq,
   pages,
+  blog,
   integrations,
   competitors,
   agents,

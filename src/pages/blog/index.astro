@@ -1,0 +1,68 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '../../layouts/PageLayout.astro';
+import Container from '../../components/ui/Container.astro';
+import Heading from '../../components/ui/Heading.astro';
+import BlogPostCard from '../../components/content/BlogPostCard.astro';
+import NewsletterSignup from '../../components/blog/NewsletterSignup.astro';
+import { SITE } from '../../utils/site';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => new Date(b.data.publishedAt).getTime() - new Date(a.data.publishedAt).getTime());
+
+const breadcrumbs = [
+  { name: 'Home', url: SITE.url },
+  { name: 'Blog', url: `${SITE.url}/blog/` },
+];
+---
+
+<PageLayout
+  title="Blog"
+  description="Thoughts on revenue intelligence, behavioral signals, churn prediction, and product-led growth."
+  canonicalPath="/blog"
+  breadcrumbs={breadcrumbs}
+>
+  <section class="py-14 lg:py-20">
+    <Container>
+      <div class="text-center mb-10 lg:mb-14">
+        <Heading as="h1">Blog</Heading>
+        <p class="mt-4 text-lg text-[var(--color-text-secondary)] max-w-2xl mx-auto">
+          Revenue intelligence, behavioral signals, and product-led growth.
+        </p>
+      </div>
+
+      {posts.length > 0 ? (
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {posts.map((post) => (
+            <BlogPostCard post={{
+              id: post.id,
+              title: post.data.title,
+              link: `/blog/${post.id}/`,
+              pubDate: post.data.publishedAt,
+              description: post.data.description,
+              thumbnail: post.data.coverImage,
+              author: post.data.author,
+              tags: post.data.tags,
+            }} />
+          ))}
+        </div>
+      ) : (
+        <p class="text-center text-[var(--color-text-tertiary)]">No posts yet. Check back soon.</p>
+      )}
+    </Container>
+  </section>
+
+  <!-- Newsletter signup -->
+  <section class="py-14 bg-[var(--color-surface-raised)] border-t-2 border-[var(--color-border)]">
+    <Container>
+      <div class="max-w-xl mx-auto">
+        <NewsletterSignup
+          id="blog-index-newsletter"
+          heading="Stay in the loop"
+          description="Get new posts on revenue intelligence and behavioral signals. No spam."
+        />
+      </div>
+    </Container>
+  </section>
+
+</PageLayout>

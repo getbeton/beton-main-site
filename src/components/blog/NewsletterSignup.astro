@@ -1,0 +1,98 @@
+---
+interface Props {
+  id?: string;
+  heading?: string;
+  description?: string;
+}
+
+const {
+  id = 'newsletter',
+  heading = 'Get posts like this in your inbox',
+  description = 'Revenue intelligence, behavioral signals, and product-led growth. No spam.',
+} = Astro.props;
+
+const formId = `${id}-form`;
+const successId = `${id}-success`;
+const errorId = `${id}-error`;
+---
+
+<div class="p-6 lg:p-8 border-2 border-[var(--color-border)] bg-[var(--color-surface-raised)]">
+  <h3 class="text-lg font-bold mb-2">{heading}</h3>
+  <p class="text-sm text-[var(--color-text-secondary)] mb-4">{description}</p>
+  <form id={formId} class="flex gap-3">
+    <input
+      type="email"
+      name="email"
+      required
+      placeholder="you@company.com"
+      class="flex-1 px-4 py-2.5 text-sm border-2 border-[var(--color-border)] bg-[var(--color-surface)] focus:border-[var(--color-primary-600)] focus:outline-none"
+    />
+    <button
+      type="submit"
+      class="px-5 py-2.5 text-sm font-bold bg-[var(--color-text)] text-[var(--color-surface)] hover:opacity-90 transition-opacity disabled:opacity-50"
+    >
+      Subscribe
+    </button>
+  </form>
+  <p id={successId} class="hidden mt-3 text-sm text-green-600 font-medium">
+    Check your inbox — we sent you a confirmation link
+  </p>
+  <p id={errorId} class="hidden mt-3 text-sm text-red-600 font-medium">
+    Something went wrong. Please try again.
+  </p>
+</div>
+
+<script is:inline define:vars={{ formId, successId, errorId }}>
+  document.getElementById(formId)?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const email = form.email.value;
+    const btn = form.querySelector('button');
+    const successEl = document.getElementById(successId);
+    const errorEl = document.getElementById(errorId);
+
+    btn.disabled = true;
+    btn.textContent = 'Subscribing...';
+    successEl.classList.add('hidden');
+    errorEl.classList.add('hidden');
+
+    try {
+      // 1. Create Supabase user via OTP (sends magic link email)
+      const { createClient } = await import('https://esm.sh/@supabase/supabase-js@2');
+      const supabase = createClient(
+        document.querySelector('meta[name="x-supabase-url"]')?.content,
+        document.querySelector('meta[name="x-supabase-key"]')?.content,
+      );
+
+      const { error: sbError } = await supabase.auth.signInWithOtp({
+        email,
+        options: {
+          emailRedirectTo: window.location.origin + '/blog/',
+          data: {
+            source: 'blog_newsletter',
+            newsletter: true,
+            signup_url: window.location.href,
+          },
+        },
+      });
+
+      if (sbError) throw sbError;
+
+      // 2. Add to Resend audience (server-side, non-blocking)
+      fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      }).catch(() => {});
+
+      successEl.classList.remove('hidden');
+      form.reset();
+    } catch (err) {
+      console.error('Subscribe error:', err);
+      errorEl.classList.remove('hidden');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Subscribe';
+    }
+  });
+</script>

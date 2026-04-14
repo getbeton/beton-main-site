@@ -7,6 +7,7 @@ export interface NavLink {
 }
 
 export const mainNav: NavLink[] = [
+  { label: 'Blog', href: '/blog/' },
   { label: 'Integrations', href: '/integrations/' },
   { label: 'Pricing', href: '/pricing/' },
   { label: 'About', href: '/about/' },
@@ -14,7 +15,6 @@ export const mainNav: NavLink[] = [
 ];
 
 export const externalNav: NavLink[] = [
-  { label: 'Blog', href: SITE.external.blog, external: true },
   { label: 'GitHub', href: SITE.social.github, external: true },
 ];
 
@@ -23,7 +23,7 @@ export const footerNav = {
     { label: 'Pricing', href: '/pricing/' },
     { label: 'About', href: '/about/' },
     { label: 'Team', href: '/team/' },
-    { label: 'Blog', href: SITE.external.blog, external: true },
+    { label: 'Blog', href: '/blog/' },
   ] as NavLink[],
   tools: [
     { label: 'seqd', href: '/seqd/' },
@@ -33,6 +33,8 @@ export const footerNav = {
     { label: 'GitHub', href: SITE.social.github, external: true },
     { label: 'App', href: SITE.external.app, external: true },
     { label: 'llms.txt', href: '/llms.txt' },
+    { label: 'Sell to Scientists', href: 'https://www.selltoscientists.com', external: true },
+    { label: 'Sell to State', href: 'https://www.selltostate.com', external: true },
   ] as NavLink[],
   legal: [
     { label: 'Terms and Conditions', href: '/terms/' },

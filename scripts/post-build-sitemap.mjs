@@ -7,9 +7,13 @@ import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';
 import { resolve } from 'path';
 
 const DIST = resolve('dist');
+const DIST_CLIENT = resolve(DIST, 'client');
 const VERCEL_STATIC = resolve('.vercel/output/static');
 
-const source = resolve(DIST, 'sitemap-0.xml');
+// Astro 5 + Vercel adapter outputs static files to dist/client/
+const source = existsSync(resolve(DIST_CLIENT, 'sitemap-0.xml'))
+  ? resolve(DIST_CLIENT, 'sitemap-0.xml')
+  : resolve(DIST, 'sitemap-0.xml');
 
 if (!existsSync(source)) {
   console.log('[sitemap] No sitemap-0.xml found — skipping.');
@@ -18,7 +22,13 @@ if (!existsSync(source)) {
 
 const xml = readFileSync(source, 'utf-8');
 
-// Write to dist/
+// Write to dist/client/ (where Astro 5 + Vercel adapter puts static files)
+if (existsSync(DIST_CLIENT)) {
+  writeFileSync(resolve(DIST_CLIENT, 'sitemap.xml'), xml);
+  console.log('[sitemap] Created dist/client/sitemap.xml');
+}
+
+// Write to dist/ as fallback
 writeFileSync(resolve(DIST, 'sitemap.xml'), xml);
 console.log('[sitemap] Created dist/sitemap.xml');
 
