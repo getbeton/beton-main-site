@@ -8,7 +8,7 @@ featured: true
 draft: false
 coverImage: "/images/blog/lobster-newsletter-apr26.jpg"
 seo:
-  metaTitle: "Beton April 2026 Update — Slack, MCP OAuth, Open Source Agent"
+  metaTitle: "Beton April 2026 — Slack, MCP OAuth, Open Source"
   metaDescription: "Slack integration, MCP server with OAuth, 32 vulnerabilities fixed, blog moved off Substack, and open-sourcing the Beton agent."
 ---
 
