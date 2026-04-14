@@ -12,8 +12,7 @@ export const GET: APIRoute = async ({ url }) => {
   const campaign = url.searchParams.get('c') || 'unknown';
   const email = url.searchParams.get('e') || 'anonymous';
 
-  // Fire PostHog event non-blocking
-  fetch(`${POSTHOG_HOST}/capture/`, {
+  await fetch(`${POSTHOG_HOST}/capture/`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
