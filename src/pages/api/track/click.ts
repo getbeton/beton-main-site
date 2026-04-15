@@ -35,6 +35,8 @@ export const GET: APIRoute = async ({ url }) => {
         link_label: label,
         target_url: target,
         source: 'email',
+        $set: { email, newsletter_subscriber: true, last_newsletter_campaign: campaign },
+        $set_once: { first_newsletter_campaign: campaign, first_seen_source: 'newsletter' },
       },
     }),
   }).catch(() => {});

@@ -23,6 +23,8 @@ export const GET: APIRoute = async ({ url }) => {
         campaign,
         source: 'email',
         $current_url: `https://www.getbeton.ai/blog/${campaign}`,
+        $set: { email, newsletter_subscriber: true, last_newsletter_campaign: campaign },
+        $set_once: { first_newsletter_campaign: campaign, first_seen_source: 'newsletter' },
       },
     }),
   }).catch(() => {});
