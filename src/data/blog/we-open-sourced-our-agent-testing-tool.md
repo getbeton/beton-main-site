@@ -6,6 +6,7 @@ author: "Vlad Nadymov"
 tags: ["open source", "beton", "agents"]
 featured: true
 draft: false
+coverImage: "/images/blog/dryfit-hero.jpg"
 seo:
   metaTitle: "We Open-Sourced Our Agent Testing Tool — Dryfit"
   metaDescription: "Dryfit generates synthetic analytics databases with hidden ground truth so you can benchmark AI agents on product-signal discovery. MIT licensed."
@@ -33,6 +34,7 @@ If you're building any of the following, Dryfit solves the "what do I test again
 - **Customer health scoring systems** where you're assigning risk or readiness scores based on behavioral patterns. Without ground truth, you're guessing whether your scores are meaningful.
 - **AI agents that analyze product analytics** — the new wave of tools that connect to PostHog, Amplitude, or a data warehouse and surface insights. Your demo works, but does it work on messy, realistic data at scale?
 - **Data teams evaluating vendor claims.** If someone tells you their AI "finds signals in your data," hand them a Dryfit database and ask for their precision and recall.
+- **SQL practice on product data.** If you want to practice writing analytical queries against realistic product databases — or run a Kaggle-style signal discovery competition within your team — Dryfit gives you a ready-made dataset with verifiable ground truth.
 
 The common thread: you need a realistic dataset where you know the right answers ahead of time.
 
@@ -62,5 +64,7 @@ docker compose up -d
 We think the agentic AI space has a benchmarking gap. Everyone is building agents that "analyze data" or "find insights," but there's no standardized way to measure whether they actually find anything real. Dryfit is our contribution to closing that gap.
 
 MIT licensed. Use it, fork it, extend it.
+
+Built by [Aleksandr Markelov](https://github.com/Sashmark97).
 
 **GitHub:** [github.com/getbeton/dryfit](https://github.com/getbeton/dryfit)
