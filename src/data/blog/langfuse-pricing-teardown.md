@@ -1,11 +1,12 @@
 ---
 title: "Langfuse Pricing Teardown"
 description: "Langfuse open sourced almost everything under MIT. The cloud pricing is usage-based with a $170 cliff between Core and Pro — here's what you're actually paying for."
-publishedAt: "2026-04-06"
+publishedAt: "2026-04-20"
 author: "Vlad Nadymov"
 tags: ["pricing teardown", "open source", "LLM observability"]
 featured: false
-draft: true
+draft: false
+coverImage: "/images/blog/langfuse-pricing-cover.jpeg"
 seo:
   metaTitle: "Langfuse Pricing Teardown — MIT Core, Usage Billing"
   metaDescription: "Langfuse is MIT-licensed LLM observability with 24k+ GitHub stars. Cloud starts at $29/month with usage-based billing at $8/100k units."
@@ -132,4 +133,4 @@ The honest take: Langfuse's pricing is reasonable for what it is, but the real s
 
 ---
 
-*I build [Beton](https://getbeton.com) — open source revenue intelligence for B2B SaaS.*
+*I build [Beton](https://getbeton.ai) — open source revenue intelligence for B2B SaaS.*
