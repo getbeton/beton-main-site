@@ -14,7 +14,7 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-const { name, slug, logo, url, category, description, tagline, howItWorks, features, useCases, seo } = entry.data;
+const { name, slug, logo, url, category, description, tagline, howItWorks, features, useCases, faq, seo } = entry.data;
 
 const allIntegrations = (await getCollection('integrations')).filter(
   (i) => i.data.slug !== slug
@@ -25,13 +25,19 @@ const breadcrumbs = [
   { name: 'Integrations', url: `${SITE.url}/integrations/` },
   { name: `${name} Integration`, url: `${SITE.url}/integrations/${slug}/` },
 ];
+
+const faqData = (faq || []).map((item) => ({
+  question: item.question,
+  answer: item.answer,
+}));
 ---
 
 <PageLayout
   title={seo?.metaTitle || `${name} Integration`}
   description={seo?.metaDescription || description}
-  canonicalPath={`/integrations/${slug}`}
+  canonicalPath={`/integrations/${slug}/`}
   breadcrumbs={breadcrumbs}
+  faqData={faqData.length > 0 ? faqData : undefined}
 >
   <!-- Hero -->
   <section class="relative py-14 lg:py-20 overflow-hidden">
@@ -179,6 +185,34 @@ const breadcrumbs = [
       </div>
     </Container>
   </section>
+
+  <!-- FAQ -->
+  {faq && faq.length > 0 && (
+    <section class="py-10 lg:py-16 bg-[var(--color-surface-raised)] border-y-2 border-[var(--color-border)]">
+      <Container>
+        <div class="max-w-3xl mx-auto">
+          <h2 class="text-2xl sm:text-3xl font-[family-name:var(--font-heading)] tracking-wide text-center mb-10">
+            Frequently Asked Questions
+          </h2>
+          <div class="space-y-6">
+            {faq.map((item) => (
+              <details class="group border-2 border-[var(--color-border)] bg-[var(--color-surface)]">
+                <summary class="flex items-center justify-between gap-4 cursor-pointer list-none p-5 font-semibold text-[var(--color-text)] hover:bg-[var(--color-surface-raised)]">
+                  <span>{item.question}</span>
+                  <svg class="w-5 h-5 shrink-0 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path>
+                  </svg>
+                </summary>
+                <div class="px-5 pb-5 pt-0 text-[var(--color-text-secondary)] leading-relaxed">
+                  {item.answer}
+                </div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </Container>
+    </section>
+  )}
 
   <!-- CTA -->
   <section class="py-10 lg:py-16 bg-[var(--color-primary-600)] border-y-4 border-[var(--color-text)]">
