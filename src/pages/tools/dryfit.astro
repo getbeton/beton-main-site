@@ -1,0 +1,298 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import Container from '../../components/ui/Container.astro';
+import Section from '../../components/ui/Section.astro';
+import Heading from '../../components/ui/Heading.astro';
+import Card from '../../components/ui/Card.astro';
+import ZigzagDivider from '../../components/ui/ZigzagDivider.astro';
+import { SITE } from '../../utils/site';
+
+const features = [
+  {
+    icon: 'beaker',
+    title: 'Test before you integrate',
+    description: 'Upload a data export — PostHog events, Stripe charges, a Postgres dump. DryFit runs signal detection against it without touching your production systems.',
+    accent: 'border-t-[var(--color-primary-500)]',
+  },
+  {
+    icon: 'chart',
+    title: 'Statistical validation',
+    description: 'Every hypothesis gets a proper statistical test. Sample sizes, confidence intervals, effect sizes. No vibes-based scoring — just numbers that hold up.',
+    accent: 'border-t-[var(--color-accent-500)]',
+  },
+  {
+    icon: 'signal',
+    title: 'Signal map output',
+    description: 'Get back a ranked list of PQL signals hiding in your data — which behaviors predict conversion, expansion, or churn, and how strongly.',
+    accent: 'border-t-[var(--color-primary-400)]',
+  },
+  {
+    icon: 'clock',
+    title: '15 minutes, zero risk',
+    description: 'No API keys. No OAuth. No production credentials. Export a CSV or JSON file, point DryFit at it, get results. That simple.',
+    accent: 'border-t-[var(--color-accent-400)]',
+  },
+  {
+    icon: 'layers',
+    title: 'Multiple data sources',
+    description: 'Works with PostHog events, Stripe billing data, raw Postgres tables, or any structured dataset. Cross-reference sources to find signals neither reveals alone.',
+    accent: 'border-t-[var(--color-primary-600)]',
+  },
+  {
+    icon: 'code',
+    title: 'Open source',
+    description: 'MIT licensed. Run it locally, in CI, or as part of your data pipeline. Extend the hypothesis library with your own signal definitions.',
+    accent: 'border-t-[var(--color-accent-600)]',
+  },
+];
+
+const steps = [
+  {
+    number: '01',
+    title: 'Export your data',
+    description: 'Pull a CSV or JSON export from PostHog, Stripe, or your database. No production access needed — a sample of recent events is enough.',
+  },
+  {
+    number: '02',
+    title: 'Run DryFit',
+    description: 'Point DryFit at your file. It generates hypotheses about what behavioral signals exist and runs statistical tests against each one.',
+  },
+  {
+    number: '03',
+    title: 'Read the signal map',
+    description: 'Get a ranked report: which signals are real, how strong they are, and which accounts are showing them right now. Then decide what to act on.',
+  },
+];
+
+const useCases = [
+  {
+    title: 'Free-to-paid conversion',
+    description: 'Which free users are showing buying intent? Message volume, feature adoption, API usage — find the PQL signals hiding in your product data.',
+  },
+  {
+    title: 'Expansion triggers',
+    description: 'Paid accounts hitting usage ceilings, enabling new channels, adding team members. Detect expansion signals before the customer outgrows their plan.',
+  },
+  {
+    title: 'Churn prediction',
+    description: 'Usage drops, feature abandonment, support ticket spikes. Catch at-risk accounts before they cancel — proactive retention beats reactive win-back.',
+  },
+];
+
+const iconPaths: Record<string, string> = {
+  beaker: 'M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5m14.8.8l1.402 5.474A1.5 1.5 0 0119.756 22.5H4.244a1.5 1.5 0 01-1.447-1.726L4.2 15.3',
+  chart: 'M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z',
+  signal: 'M9.348 14.652a3.75 3.75 0 010-5.304m5.304 0a3.75 3.75 0 010 5.304m-7.425 2.121a6.75 6.75 0 010-9.546m9.546 0a6.75 6.75 0 010 9.546M5.106 18.894c-3.808-3.807-3.808-9.98 0-13.788m13.788 0c3.808 3.807 3.808 9.98 0 13.788M12 12h.008v.008H12V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z',
+  clock: 'M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z',
+  layers: 'M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0l4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0l-5.571 3-5.571-3',
+  code: 'M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5',
+};
+
+const breadcrumbs = [
+  { name: 'Home', url: SITE.url },
+  { name: 'Tools', url: `${SITE.url}/tools/` },
+  { name: 'DryFit', url: `${SITE.url}/tools/dryfit/` },
+];
+---
+
+<PageLayout
+  title="DryFit — Test signal hypotheses before you integrate | Beton"
+  description="Open-source statistical validation tool for PQL signals. Point it at a data export, get back a signal map. No production access needed. MIT license."
+  breadcrumbs={breadcrumbs}
+>
+  <!-- Hero -->
+  <section class="py-14 lg:py-24 border-b-2 border-[var(--color-border)]" data-track-section="dryfit-hero">
+    <Container>
+      <div class="max-w-3xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 border-2 border-[var(--color-text)] text-xs font-bold uppercase tracking-wider mb-6">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+          </svg>
+          Open Source · MIT
+        </div>
+
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-[family-name:var(--font-heading)] tracking-wide leading-tight mb-6">
+          DryFit
+        </h1>
+        <p class="text-xl lg:text-2xl text-[var(--color-text-secondary)] mb-4 max-w-2xl">
+          Test signal hypotheses against your data before you commit to anything.
+        </p>
+        <p class="text-base text-[var(--color-text-secondary)] mb-8 max-w-2xl leading-relaxed">
+          DryFit is an open-source statistical validation tool for product-qualified lead signals.
+          Point it at a data export — PostHog events, Stripe charges, a Postgres dump — and it tells you which
+          behavioral signals actually exist in your data, how strong they are, and which accounts are showing them right now.
+          No production credentials. No integration. Just answers.
+        </p>
+
+        <div class="flex flex-wrap gap-3">
+          <a
+            href="https://github.com/getbeton/dryfit"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-5 py-3 text-sm font-bold uppercase tracking-wider bg-[var(--color-text)] text-[var(--color-surface)] border-2 border-[var(--color-text)] hover:bg-transparent hover:text-[var(--color-text)]"
+            data-track-cta="dryfit-hero-github"
+          >
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+            </svg>
+            View on GitHub
+          </a>
+        </div>
+
+        <!-- Stack badges -->
+        <div class="flex flex-wrap gap-2 mt-8">
+          {['Python', 'Pandas', 'SciPy', 'PostHog', 'Stripe', 'PostgreSQL', 'MIT License'].map((tech) => (
+            <span class="px-2.5 py-1 text-xs font-medium border border-[var(--color-border)] text-[var(--color-text-secondary)] font-[family-name:'JetBrains_Mono']">
+              {tech}
+            </span>
+          ))}
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <ZigzagDivider />
+
+  <!-- Features -->
+  <Section class="bg-[var(--color-surface-accent-primary)] border-y-2 border-[var(--color-border)]">
+    <Container>
+      <div class="text-center mb-10 lg:mb-14">
+        <Heading as="h2">Validate signals before you build pipelines</Heading>
+        <p class="mt-4 text-lg text-[var(--color-text-secondary)] max-w-2xl mx-auto">
+          Most teams wire up integrations first and discover the signals aren't there later. DryFit inverts that.
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {features.map((feature) => (
+          <Card class={`border-t-4 ${feature.accent}`}>
+            <div class="inline-flex items-center justify-center w-10 h-10 border-2 border-[var(--color-primary-600)] bg-[var(--color-primary-bg)] text-[var(--color-primary-600)] mb-4">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d={iconPaths[feature.icon]} />
+              </svg>
+            </div>
+            <h3 class="text-base font-semibold mb-2">{feature.title}</h3>
+            <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed">{feature.description}</p>
+          </Card>
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <!-- How it works -->
+  <Section>
+    <Container>
+      <div class="text-center mb-10 lg:mb-14">
+        <Heading as="h2">How it works</Heading>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+        {steps.map((step) => (
+          <div class="relative">
+            <div class="text-5xl font-[family-name:var(--font-heading)] text-[var(--color-primary-200)] mb-3 leading-none">
+              {step.number}
+            </div>
+            <h3 class="text-base font-semibold mb-2">{step.title}</h3>
+            <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed">{step.description}</p>
+          </div>
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <ZigzagDivider />
+
+  <!-- Use cases -->
+  <Section class="bg-[var(--color-surface-accent-primary)] border-y-2 border-[var(--color-border)]">
+    <Container>
+      <div class="text-center mb-10 lg:mb-14">
+        <Heading as="h2">What signals can DryFit find?</Heading>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        {useCases.map((uc) => (
+          <Card>
+            <h3 class="text-base font-semibold mb-2">{uc.title}</h3>
+            <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed">{uc.description}</p>
+          </Card>
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Quick start -->
+  <Section>
+    <Container>
+      <div class="grid lg:grid-cols-2 gap-12 items-start">
+        <div>
+          <Heading as="h2" class="mb-4">Get started in minutes</Heading>
+          <p class="text-[var(--color-text-secondary)] mb-6 leading-relaxed">
+            DryFit is a Python CLI tool. Install it, point it at a data file, and get your signal map.
+            No accounts. No API keys. No cloud dependency.
+          </p>
+          <a
+            href="https://github.com/getbeton/dryfit#quick-start"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-5 py-3 text-sm font-bold uppercase tracking-wider bg-[var(--color-primary-600)] text-white border-2 border-[var(--color-primary-600)] hover:bg-white hover:text-[var(--color-primary-600)]"
+            data-track-cta="dryfit-quickstart"
+          >
+            Read the docs →
+          </a>
+        </div>
+
+        <div class="space-y-3">
+          {[
+            ['Input', 'CSV, JSON, or Postgres connection'],
+            ['Output', 'Ranked signal map with confidence scores'],
+            ['Stats', 'Chi-squared, Mann-Whitney, effect sizes'],
+            ['Runtime', 'Python 3.10+'],
+            ['Dependencies', 'Pandas, SciPy'],
+            ['License', 'MIT — use it however you want'],
+          ].map(([label, value]) => (
+            <div class="flex items-center justify-between py-2.5 border-b border-[var(--color-border)]">
+              <span class="text-sm text-[var(--color-text-secondary)]">{label}</span>
+              <span class="text-sm font-medium font-[family-name:'JetBrains_Mono']">{value}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- CTA -->
+  <section class="py-12 lg:py-20 bg-[var(--color-primary-600)] border-y-4 border-[var(--color-text)] relative overflow-hidden">
+    <div class="absolute inset-0 opacity-[0.07]" aria-hidden="true" style="background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, white 10px, white 12px);"></div>
+    <Container>
+      <div class="text-center max-w-2xl mx-auto">
+        <h2 class="text-2xl sm:text-3xl font-[family-name:var(--font-heading)] tracking-wide text-white mb-4">
+          Stop guessing which signals matter
+        </h2>
+        <p class="text-white/80 mb-8">
+          Test your hypotheses against real data in 15 minutes. Open source, free forever.
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+          <a
+            href="https://github.com/getbeton/dryfit"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-6 py-3 text-base font-bold uppercase tracking-wider bg-white text-[var(--color-primary-700)] border-2 border-white hover:bg-[var(--color-primary-700)] hover:text-white"
+            data-track-cta="dryfit-cta-github"
+          >
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+            </svg>
+            Star on GitHub
+          </a>
+          <a
+            href="/blog/beton-april-2026-update/"
+            class="inline-flex items-center gap-2 px-6 py-3 text-base font-bold uppercase tracking-wider text-white border-2 border-white hover:bg-white hover:text-[var(--color-primary-700)]"
+            data-track-cta="dryfit-cta-blog"
+          >
+            Read the announcement
+          </a>
+        </div>
+      </div>
+    </Container>
+  </section>
+</PageLayout>
