@@ -173,6 +173,10 @@ const integrations = defineCollection({
     })).optional(),
     features: z.array(z.string()).optional(),
     useCases: z.array(z.string()).optional(),
+    faq: z.array(z.object({
+      question: z.string(),
+      answer: z.string(),
+    })).optional(),
     seo: seoSchema.optional(),
   }),
 });

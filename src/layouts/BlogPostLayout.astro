@@ -4,6 +4,15 @@ import Container from '../components/ui/Container.astro';
 import NewsletterSignup from '../components/blog/NewsletterSignup.astro';
 import { SITE } from '../utils/site';
 
+interface RelatedPost {
+  slug: string;
+  title: string;
+  description: string;
+  publishedAt: string;
+  coverImage?: string;
+  tags: string[];
+}
+
 interface Props {
   title: string;
   description: string;
@@ -18,9 +27,10 @@ interface Props {
     metaDescription?: string;
     ogImage?: string;
   };
+  relatedPosts?: RelatedPost[];
 }
 
-const { title, description, publishedAt, updatedAt, author, tags, coverImage, slug, seo } = Astro.props;
+const { title, description, publishedAt, updatedAt, author, tags, coverImage, slug, seo, relatedPosts = [] } = Astro.props;
 
 const formattedDate = new Date(publishedAt).toLocaleDateString('en-US', {
   year: 'numeric',
@@ -117,8 +127,33 @@ const articleData = {
           <slot />
         </div>
 
+        <!-- Explore Beton -->
+        <aside class="mt-14 pt-8 border-t-2 border-[var(--color-border)]" aria-label="Explore Beton">
+          <h2 class="text-lg font-bold mb-3">Explore Beton</h2>
+          <p class="text-sm text-[var(--color-text-secondary)] mb-4">
+            Beton is open-source revenue intelligence — we detect behavioural signals in product usage data and route them to your CRM.
+          </p>
+          <ul class="flex flex-wrap gap-x-4 gap-y-2 text-sm">
+            <li>
+              <a href="/pricing/" class="text-[var(--color-primary-600)] font-medium hover:underline">Pricing &amp; plans</a>
+            </li>
+            <li>
+              <a href="/integrations/posthog/" class="text-[var(--color-primary-600)] font-medium hover:underline">PostHog integration</a>
+            </li>
+            <li>
+              <a href="/integrations/attio/" class="text-[var(--color-primary-600)] font-medium hover:underline">Attio integration</a>
+            </li>
+            <li>
+              <a href="/integrations/" class="text-[var(--color-primary-600)] font-medium hover:underline">All integrations</a>
+            </li>
+            <li>
+              <a href="https://github.com/getbeton/inspector" class="text-[var(--color-primary-600)] font-medium hover:underline" rel="noopener">Self-host on GitHub</a>
+            </li>
+          </ul>
+        </aside>
+
         <!-- Footer -->
-        <footer class="mt-14 pt-8 border-t-2 border-[var(--color-border)]">
+        <footer class="mt-10 pt-8 border-t-2 border-[var(--color-border)]">
           <NewsletterSignup id="post-newsletter" />
 
           <div class="mt-8 text-center">
@@ -133,6 +168,50 @@ const articleData = {
       </div>
     </Container>
   </article>
+
+  {relatedPosts.length > 0 && (
+    <section class="py-14 lg:py-20 bg-[var(--color-surface-raised)] border-t-2 border-[var(--color-border)]" aria-label="Related posts">
+      <Container>
+        <div class="max-w-5xl mx-auto">
+          <h2 class="text-2xl lg:text-3xl font-[family-name:var(--font-heading)] tracking-wide mb-8 text-center">
+            Keep reading
+          </h2>
+          <div class="grid md:grid-cols-3 gap-6">
+            {relatedPosts.map((post) => (
+              <a
+                href={`/blog/${post.slug}/`}
+                class="group flex flex-col border-2 border-[var(--color-border)] bg-[var(--color-surface)] shadow-[var(--shadow-card)] hover:shadow-[6px_6px_0_var(--color-text)] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
+              >
+                {post.coverImage && (
+                  <div class="aspect-[16/9] border-b-2 border-[var(--color-border)] overflow-hidden">
+                    <img
+                      src={post.coverImage}
+                      alt={post.title}
+                      width="640"
+                      height="360"
+                      loading="lazy"
+                      class="w-full h-full object-cover"
+                    />
+                  </div>
+                )}
+                <div class="p-5 flex-1 flex flex-col">
+                  <time datetime={post.publishedAt} class="text-xs text-[var(--color-text-tertiary)] uppercase tracking-wider mb-2">
+                    {new Date(post.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+                  </time>
+                  <h3 class="text-base font-semibold mb-2 group-hover:text-[var(--color-primary-600)]">
+                    {post.title}
+                  </h3>
+                  <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed line-clamp-3">
+                    {post.description}
+                  </p>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </Container>
+    </section>
+  )}
 
   <!-- Article JSON-LD -->
   <script type="application/ld+json" set:html={JSON.stringify({
