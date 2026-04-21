@@ -261,6 +261,42 @@ const socialProof = defineCollection({
   }),
 });
 
+const dryfitScenarios = defineCollection({
+  loader: file('src/data/dryfit-scenarios/scenarios.json'),
+  schema: z.object({
+    slug: z.string(),
+    name: z.string(),
+    configFile: z.string(),
+    datasetId: z.string(),
+    scenarioKind: z.string(),
+    valueMetric: z.string(),
+    description: z.string(),
+    useCaseKind: z.string(),
+    researchMetrics: z.array(z.string()),
+    scale: z.object({
+      accounts: z.number(),
+      usersPerAccountMean: z.number(),
+      sessionsPerUserMean: z.number(),
+      durationDays: z.number(),
+    }),
+    successEvent: z.string(),
+    successEntityType: z.string(),
+    positiveSignals: z.array(z.object({
+      id: z.string(),
+      path: z.array(z.string()),
+      count: z.number(),
+      cohortFilters: z.array(z.string()),
+    })),
+    negativeSignals: z.array(z.object({
+      id: z.string(),
+      path: z.array(z.string()),
+      count: z.number(),
+      cohortFilters: z.array(z.string()),
+    })),
+    noise: z.record(z.string(), z.number()),
+  }),
+});
+
 export const collections = {
   'use-cases': useCases,
   industries,
@@ -276,4 +312,5 @@ export const collections = {
   competitors,
   agents,
   'social-proof': socialProof,
+  'dryfit-scenarios': dryfitScenarios,
 };

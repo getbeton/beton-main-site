@@ -1,0 +1,1318 @@
+[
+  {
+    "id": "posthog_business_models_combined_mvp",
+    "slug": "posthog-combined-coverage",
+    "name": "Combined coverage (all models)",
+    "configFile": "configs/posthog_business_models_combined_mvp.yaml",
+    "datasetId": "posthog_business_models_combined_mvp_v1",
+    "scenarioKind": "posthog_business_models_combined",
+    "valueMetric": "Union of event types across all business models",
+    "description": "A single dataset exercising the union of all supported event names across every business-model variant. Use this when you want one dataset that covers every signal type for Grafana-wide inspection or multi-agent testing.",
+    "useCaseKind": "combined",
+    "researchMetrics": [
+      "Coverage across all business models"
+    ],
+    "scale": {
+      "accounts": 360,
+      "usersPerAccountMean": 5,
+      "sessionsPerUserMean": 10,
+      "durationDays": 30
+    },
+    "successEvent": "upgrade_clicked",
+    "successEntityType": "account",
+    "positiveSignals": [
+      {
+        "id": "limit_modal_upgrade",
+        "path": [
+          "limit_reached",
+          "upgrade_modal_shown",
+          "upgrade_clicked"
+        ],
+        "count": 50,
+        "cohortFilters": [
+          "high_intent",
+          "medium_intent",
+          "power_user"
+        ]
+      },
+      {
+        "id": "gate_usage_upgrade",
+        "path": [
+          "feature_gate_shown",
+          "api_request",
+          "compute_hours_used",
+          "upgrade_clicked"
+        ],
+        "count": 30,
+        "cohortFilters": [
+          "high_intent",
+          "power_user"
+        ]
+      }
+    ],
+    "negativeSignals": [
+      {
+        "id": "instrumentation_without_upgrade",
+        "path": [
+          "source_connected",
+          "$pageview",
+          "custom_event_tracked"
+        ],
+        "count": 35,
+        "cohortFilters": [
+          "medium_intent",
+          "low_intent",
+          "lurker"
+        ]
+      },
+      {
+        "id": "credit_warning_without_upgrade",
+        "path": [
+          "credits_used",
+          "low_balance_warning"
+        ],
+        "count": 30,
+        "cohortFilters": [
+          "low_intent",
+          "lurker",
+          "noisy_bot_like"
+        ]
+      }
+    ],
+    "noise": {
+      "missing_event_probability": 0.05,
+      "duplicate_event_probability": 0.02,
+      "out_of_order_probability": 0.03,
+      "null_property_probability": 0.03,
+      "anonymous_actor_probability": 0.01,
+      "weird_property_probability": 0.02
+    }
+  },
+  {
+    "id": "posthog_contact_record_mvp",
+    "slug": "posthog-contact-record",
+    "name": "Contact / record-based SaaS",
+    "configFile": "configs/posthog_contact_record_mvp.yaml",
+    "datasetId": "posthog_contact_record_mvp_v1",
+    "scenarioKind": "posthog_contact_record",
+    "valueMetric": "Contacts, leads, subscribers, accounts managed",
+    "description": "CRM- or marketing-style SaaS priced by record count. Imports and enrichment drive positive signals; segmentation without growth is a negative pattern.",
+    "useCaseKind": "record-count",
+    "researchMetrics": [
+      "Contact growth rate",
+      "% of contact limit used",
+      "Import frequency"
+    ],
+    "scale": {
+      "accounts": 300,
+      "usersPerAccountMean": 4,
+      "sessionsPerUserMean": 7,
+      "durationDays": 30
+    },
+    "successEvent": "contact_created",
+    "successEntityType": "account",
+    "positiveSignals": [
+      {
+        "id": "import_to_contact_growth",
+        "path": [
+          "list_imported",
+          "contact_created"
+        ],
+        "count": 85,
+        "cohortFilters": [
+          "high_intent",
+          "medium_intent",
+          "power_user"
+        ]
+      },
+      {
+        "id": "enriched_contact_creation",
+        "path": [
+          "contact_created",
+          "enrichment_completed",
+          "contact_created"
+        ],
+        "count": 45,
+        "cohortFilters": [
+          "high_intent",
+          "medium_intent"
+        ]
+      }
+    ],
+    "negativeSignals": [
+      {
+        "id": "import_segment_stall",
+        "path": [
+          "list_imported",
+          "segment_created"
+        ],
+        "count": 60,
+        "cohortFilters": [
+          "medium_intent",
+          "low_intent",
+          "lurker"
+        ]
+      },
+      {
+        "id": "contact_segment_without_growth",
+        "path": [
+          "contact_created",
+          "segment_created"
+        ],
+        "count": 45,
+        "cohortFilters": [
+          "low_intent",
+          "lurker",
+          "noisy_bot_like"
+        ]
+      }
+    ],
+    "noise": {
+      "missing_event_probability": 0.04,
+      "duplicate_event_probability": 0.02,
+      "out_of_order_probability": 0.03,
+      "null_property_probability": 0.03,
+      "anonymous_actor_probability": 0.01,
+      "weird_property_probability": 0.01
+    }
+  },
+  {
+    "id": "posthog_credits_token_mvp",
+    "slug": "posthog-credits-token",
+    "name": "Credits / token-based",
+    "configFile": "configs/posthog_credits_token_mvp.yaml",
+    "datasetId": "posthog_credits_token_mvp_v1",
+    "scenarioKind": "posthog_credits_token",
+    "valueMetric": "Credits consumed, tokens used, compute units",
+    "description": "Prepaid credit or token systems where burn and top-up patterns matter more than traditional funnels. Low-balance warnings into purchases are the key positive signal.",
+    "useCaseKind": "credit",
+    "researchMetrics": [
+      "Burn rate",
+      "Days-to-zero",
+      "Top-up frequency",
+      "Auto-refill adoption"
+    ],
+    "scale": {
+      "accounts": 3000,
+      "usersPerAccountMean": 8,
+      "sessionsPerUserMean": 16,
+      "durationDays": 300
+    },
+    "successEvent": "credits_purchased",
+    "successEntityType": "account",
+    "positiveSignals": [
+      {
+        "id": "warning_to_purchase",
+        "path": [
+          "low_balance_warning",
+          "credits_purchased"
+        ],
+        "count": 850,
+        "cohortFilters": [
+          "high_intent",
+          "medium_intent",
+          "power_user"
+        ]
+      },
+      {
+        "id": "auto_refill_conversion",
+        "path": [
+          "low_balance_warning",
+          "auto_refill_triggered",
+          "credits_purchased"
+        ],
+        "count": 450,
+        "cohortFilters": [
+          "high_intent",
+          "power_user"
+        ]
+      }
+    ],
+    "negativeSignals": [
+      {
+        "id": "burn_to_warning_only",
+        "path": [
+          "credits_used",
+          "low_balance_warning"
+        ],
+        "count": 650,
+        "cohortFilters": [
+          "medium_intent",
+          "low_intent",
+          "lurker"
+        ]
+      },
+      {
+        "id": "repeated_warning_decline",
+        "path": [
+          "low_balance_warning",
+          "low_balance_warning"
+        ],
+        "count": 350,
+        "cohortFilters": [
+          "low_intent",
+          "noisy_bot_like"
+        ]
+      }
+    ],
+    "noise": {
+      "missing_event_probability": 0.05,
+      "duplicate_event_probability": 0.02,
+      "out_of_order_probability": 0.03,
+      "null_property_probability": 0.03,
+      "anonymous_actor_probability": 0.01,
+      "weird_property_probability": 0.02
+    }
+  },
+  {
+    "id": "posthog_event_volume_mvp",
+    "slug": "posthog-event-volume",
+    "name": "Event-volume SaaS",
+    "configFile": "configs/posthog_event_volume_mvp.yaml",
+    "datasetId": "posthog_event_volume_mvp_v1",
+    "scenarioKind": "posthog_event_volume",
+    "valueMetric": "Events tracked, data points ingested, log lines",
+    "description": "Analytics or observability SaaS priced by ingested volume. Source connections and custom events drive positive signals; stale sources are negatives.",
+    "useCaseKind": "ingest",
+    "researchMetrics": [
+      "Ingestion volume trend",
+      "Event-type diversity",
+      "New-source activation rate"
+    ],
+    "scale": {
+      "accounts": 320,
+      "usersPerAccountMean": 4,
+      "sessionsPerUserMean": 10,
+      "durationDays": 30
+    },
+    "successEvent": "custom_event_tracked",
+    "successEntityType": "account",
+    "positiveSignals": [
+      {
+        "id": "source_to_custom_event",
+        "path": [
+          "source_connected",
+          "$pageview",
+          "custom_event_tracked"
+        ],
+        "count": 75,
+        "cohortFilters": [
+          "high_intent",
+          "medium_intent",
+          "power_user"
+        ]
+      },
+      {
+        "id": "schema_then_custom_event",
+        "path": [
+          "schema_changed",
+          "custom_event_tracked"
+        ],
+        "count": 40,
+        "cohortFilters": [
+          "high_intent",
+          "medium_intent"
+        ]
+      }
+    ],
+    "negativeSignals": [
+      {
+        "id": "source_pageview_only",
+        "path": [
+          "source_connected",
+          "$pageview"
+        ],
+        "count": 65,
+        "cohortFilters": [
+          "medium_intent",
+          "low_intent",
+          "lurker"
+        ]
+      },
+      {
+        "id": "repeated_schema_changes",
+        "path": [
+          "schema_changed",
+          "schema_changed"
+        ],
+        "count": 30,
+        "cohortFilters": [
+          "low_intent",
+          "noisy_bot_like"
+        ]
+      }
+    ],
+    "noise": {
+      "missing_event_probability": 0.05,
+      "duplicate_event_probability": 0.02,
+      "out_of_order_probability": 0.03,
+      "null_property_probability": 0.03,
+      "anonymous_actor_probability": 0.01,
+      "weird_property_probability": 0.02
+    }
+  },
+  {
+    "id": "posthog_feature_gated_mvp",
+    "slug": "posthog-feature-gated",
+    "name": "Feature-gated (tiered) SaaS",
+    "configFile": "configs/posthog_feature_gated_mvp.yaml",
+    "datasetId": "posthog_feature_gated_mvp_v1",
+    "scenarioKind": "posthog_feature_gated",
+    "valueMetric": "Plan tier / feature access level",
+    "description": "Tiered SaaS where paywalls drive upgrades. Feature-gate hits followed by upgrade clicks are positive; downgrades and gate-only hits are negative.",
+    "useCaseKind": "tiered",
+    "researchMetrics": [
+      "Gate-hit frequency",
+      "Advanced-feature attempt rate",
+      "Time between gate hits"
+    ],
+    "scale": {
+      "accounts": 260,
+      "usersPerAccountMean": 4,
+      "sessionsPerUserMean": 8,
+      "durationDays": 30
+    },
+    "successEvent": "upgrade_clicked",
+    "successEntityType": "account",
+    "positiveSignals": [
+      {
+        "id": "gate_to_upgrade",
+        "path": [
+          "feature_gate_shown",
+          "upgrade_clicked"
+        ],
+        "count": 75,
+        "cohortFilters": [
+          "high_intent",
+          "medium_intent",
+          "power_user"
+        ]
+      },
+      {
+        "id": "advanced_feature_gate_upgrade",
+        "path": [
+          "advanced_feature_attempted",
+          "feature_gate_shown",
+          "upgrade_clicked"
+        ],
+        "count": 40,
+        "cohortFilters": [
+          "high_intent",
+          "power_user"
+        ]
+      }
+    ],
+    "negativeSignals": [
+      {
+        "id": "advanced_feature_denied",
+        "path": [
+          "advanced_feature_attempted",
+          "feature_gate_shown"
+        ],
+        "count": 65,
+        "cohortFilters": [
+          "medium_intent",
+          "low_intent",
+          "lurker"
+        ]
+      },
+      {
+        "id": "upgrade_then_downgrade",
+        "path": [
+          "upgrade_clicked",
+          "downgrade"
+        ],
+        "count": 25,
+        "cohortFilters": [
+          "low_intent",
+          "noisy_bot_like"
+        ]
+      }
+    ],
+    "noise": {
+      "missing_event_probability": 0.05,
+      "duplicate_event_probability": 0.02,
+      "out_of_order_probability": 0.03,
+      "null_property_probability": 0.03,
+      "anonymous_actor_probability": 0.02,
+      "weird_property_probability": 0.01
+    }
+  },
+  {
+    "id": "posthog_freemium_to_paid_mvp",
+    "slug": "posthog-freemium-to-paid",
+    "name": "Freemium-to-paid",
+    "configFile": "configs/posthog_freemium_to_paid_mvp.yaml",
+    "datasetId": "posthog_freemium_to_paid_mvp_v1",
+    "scenarioKind": "posthog_freemium_to_paid",
+    "valueMetric": "Free-tier limit hits that drive paid conversion",
+    "description": "Freemium SaaS where the wedge into paid is running up against free-tier limits. Limit-reached events feeding modals and trial starts are the signal chain.",
+    "useCaseKind": "freemium",
+    "researchMetrics": [
+      "Time-to-limit",
+      "Limit-hit frequency",
+      "Conversion funnel drop-off"
+    ],
+    "scale": {
+      "accounts": 280,
+      "usersPerAccountMean": 4,
+      "sessionsPerUserMean": 8,
+      "durationDays": 30
+    },
+    "successEvent": "trial_started",
+    "successEntityType": "account",
+    "positiveSignals": [
+      {
+        "id": "limit_modal_trial",
+        "path": [
+          "limit_reached",
+          "upgrade_modal_shown",
+          "trial_started"
+        ],
+        "count": 80,
+        "cohortFilters": [
+          "high_intent",
+          "medium_intent",
+          "power_user"
+        ]
+      },
+      {
+        "id": "blocked_feature_trial",
+        "path": [
+          "feature_blocked",
+          "upgrade_modal_shown",
+          "trial_started"
+        ],
+        "count": 45,
+        "cohortFilters": [
+          "high_intent",
+          "medium_intent"
+        ]
+      }
+    ],
+    "negativeSignals": [
+      {
+        "id": "limit_modal_dropoff",
+        "path": [
+          "limit_reached",
+          "upgrade_modal_shown"
+        ],
+        "count": 60,
+        "cohortFilters": [
+          "medium_intent",
+          "low_intent",
+          "lurker"
+        ]
+      },
+      {
+        "id": "repeated_feature_blocks",
+        "path": [
+          "feature_blocked",
+          "feature_blocked"
+        ],
+        "count": 40,
+        "cohortFilters": [
+          "low_intent",
+          "noisy_bot_like"
+        ]
+      }
+    ],
+    "noise": {
+      "missing_event_probability": 0.05,
+      "duplicate_event_probability": 0.02,
+      "out_of_order_probability": 0.03,
+      "null_property_probability": 0.03,
+      "anonymous_actor_probability": 0.02,
+      "weird_property_probability": 0.01
+    }
+  },
+  {
+    "id": "posthog_hybrid_seat_usage_mvp",
+    "slug": "posthog-hybrid-seat-usage",
+    "name": "Hybrid (seat + usage)",
+    "configFile": "configs/posthog_hybrid_seat_usage_mvp.yaml",
+    "datasetId": "posthog_hybrid_seat_usage_mvp_v1",
+    "scenarioKind": "posthog_hybrid_seat_usage",
+    "valueMetric": "Seats plus usage overage",
+    "description": "Hybrid pricing that combines per-seat licensing with metered overage. Positive signals chain through invite, signup, activation, and compute usage \u2014 exercising the longest legitimate path in any scenario.",
+    "useCaseKind": "hybrid",
+    "researchMetrics": [
+      "Seat growth plus usage acceleration",
+      "Overage frequency"
+    ],
+    "scale": {
+      "accounts": 320,
+      "usersPerAccountMean": 5,
+      "sessionsPerUserMean": 9,
+      "durationDays": 30
+    },
+    "successEvent": "compute_hours_used",
+    "successEntityType": "account",
+    "positiveSignals": [
+      {
+        "id": "seat_growth_then_usage_growth",
+        "path": [
+          "invite_sent",
+          "user_signed_up",
+          "seat_activated",
+          "api_request",
+          "compute_hours_used"
+        ],
+        "count": 70,
+        "cohortFilters": [
+          "high_intent",
+          "medium_intent",
+          "power_user"
+        ]
+      },
+      {
+        "id": "activated_usage_completion",
+        "path": [
+          "seat_activated",
+          "api_request",
+          "job_completed",
+          "compute_hours_used"
+        ],
+        "count": 45,
+        "cohortFilters": [
+          "high_intent",
+          "power_user"
+        ]
+      }
+    ],
+    "negativeSignals": [
+      {
+        "id": "seats_without_usage",
+        "path": [
+          "invite_sent",
+          "user_signed_up",
+          "seat_activated"
+        ],
+        "count": 60,
+        "cohortFilters": [
+          "medium_intent",
+          "low_intent",
+          "lurker"
+        ]
+      },
+      {
+        "id": "request_job_no_overage",
+        "path": [
+          "api_request",
+          "job_completed"
+        ],
+        "count": 55,
+        "cohortFilters": [
+          "low_intent",
+          "lurker",
+          "noisy_bot_like"
+        ]
+      }
+    ],
+    "noise": {
+      "missing_event_probability": 0.05,
+      "duplicate_event_probability": 0.02,
+      "out_of_order_probability": 0.03,
+      "null_property_probability": 0.03,
+      "anonymous_actor_probability": 0.01,
+      "weird_property_probability": 0.02
+    }
+  },
+  {
+    "id": "posthog_marketplace_mvp",
+    "slug": "posthog-marketplace",
+    "name": "Platform / marketplace",
+    "configFile": "configs/posthog_marketplace_mvp.yaml",
+    "datasetId": "posthog_marketplace_mvp_v1",
+    "scenarioKind": "posthog_marketplace",
+    "valueMetric": "Listings, storefronts, connected accounts, integrations",
+    "description": "Two-sided marketplace where active listings are the key metric. Positive signals chain from account connection through storefront activation to listing publication.",
+    "useCaseKind": "marketplace",
+    "researchMetrics": [
+      "Active listing growth",
+      "Seller/buyer activation rate",
+      "Marketplace liquidity ratio"
+    ],
+    "scale": {
+      "accounts": 240,
+      "usersPerAccountMean": 5,
+      "sessionsPerUserMean": 8,
+      "durationDays": 30
+    },
+    "successEvent": "listing_published",
+    "successEntityType": "account",
+    "positiveSignals": [
+      {
+        "id": "connected_storefront_listing",
+        "path": [
+          "account_connected",
+          "storefront_activated",
+          "listing_published"
+        ],
+        "count": 70,
+        "cohortFilters": [
+          "high_intent",
+          "medium_intent",
+          "power_user"
+        ]
+      },
+      {
+        "id": "integration_listing_publish",
+        "path": [
+          "integration_enabled",
+          "listing_published"
+        ],
+        "count": 45,
+        "cohortFilters": [
+          "high_intent",
+          "medium_intent"
+        ]
+      }
+    ],
+    "negativeSignals": [
+      {
+        "id": "connected_storefront_stall",
+        "path": [
+          "account_connected",
+          "storefront_activated"
+        ],
+        "count": 55,
+        "cohortFilters": [
+          "medium_intent",
+          "low_intent",
+          "lurker"
+        ]
+      },
+      {
+        "id": "integration_backtracking",
+        "path": [
+          "integration_enabled",
+          "account_connected"
+        ],
+        "count": 35,
+        "cohortFilters": [
+          "low_intent",
+          "noisy_bot_like"
+        ]
+      }
+    ],
+    "noise": {
+      "missing_event_probability": 0.05,
+      "duplicate_event_probability": 0.02,
+      "out_of_order_probability": 0.03,
+      "null_property_probability": 0.03,
+      "anonymous_actor_probability": 0.01,
+      "weird_property_probability": 0.01
+    }
+  },
+  {
+    "id": "posthog_mvp",
+    "slug": "posthog-web",
+    "name": "PostHog Web (baseline)",
+    "configFile": "configs/posthog_mvp.yaml",
+    "datasetId": "posthog_mvp_v1",
+    "scenarioKind": "posthog_web",
+    "valueMetric": "Generic SaaS activation (baseline)",
+    "description": "The minimum-viable PostHog scenario. A generic event stream with a two-step conversion funnel and corresponding negative path. Good starting point for signal-detection benchmarking before moving to business-model-specific variants.",
+    "useCaseKind": "baseline",
+    "researchMetrics": [
+      "Baseline conversion rate",
+      "Funnel drop-off"
+    ],
+    "scale": {
+      "accounts": 500,
+      "usersPerAccountMean": 4,
+      "sessionsPerUserMean": 10,
+      "durationDays": 30
+    },
+    "successEvent": "purchase",
+    "successEntityType": "account",
+    "positiveSignals": [
+      {
+        "id": "billing_then_purchase",
+        "path": [
+          "page_billing",
+          "purchase"
+        ],
+        "count": 80,
+        "cohortFilters": [
+          "high_intent",
+          "medium_intent",
+          "power_user"
+        ]
+      },
+      {
+        "id": "invite_then_api_key_then_purchase",
+        "path": [
+          "invite_teammate",
+          "api_key_created",
+          "purchase"
+        ],
+        "count": 35,
+        "cohortFilters": [
+          "high_intent",
+          "power_user"
+        ]
+      }
+    ],
+    "negativeSignals": [
+      {
+        "id": "billing_dropout",
+        "path": [
+          "page_billing",
+          "page_pricing"
+        ],
+        "count": 70,
+        "cohortFilters": [
+          "low_intent",
+          "lurker",
+          "medium_intent"
+        ]
+      },
+      {
+        "id": "pricing_only_stall",
+        "path": [
+          "page_pricing",
+          "page_pricing"
+        ],
+        "count": 110,
+        "cohortFilters": [
+          "low_intent",
+          "lurker",
+          "noisy_bot_like"
+        ]
+      }
+    ],
+    "noise": {
+      "missing_event_probability": 0.06,
+      "duplicate_event_probability": 0.02,
+      "out_of_order_probability": 0.03,
+      "null_property_probability": 0.05,
+      "anonymous_actor_probability": 0.02,
+      "weird_property_probability": 0.01
+    }
+  },
+  {
+    "id": "posthog_revenue_share_mvp",
+    "slug": "posthog-revenue-share",
+    "name": "Revenue-share / take-rate",
+    "configFile": "configs/posthog_revenue_share_mvp.yaml",
+    "datasetId": "posthog_revenue_share_mvp_v1",
+    "scenarioKind": "posthog_revenue_share",
+    "valueMetric": "Revenue processed, bookings, GMV through platform",
+    "description": "Take-rate platforms earning a cut of processed bookings. Commission calculation closes the positive funnel; uncalculated payouts are negatives.",
+    "useCaseKind": "take-rate",
+    "researchMetrics": [
+      "GMV growth trend",
+      "Take-rate stability",
+      "Payout frequency"
+    ],
+    "scale": {
+      "accounts": 240,
+      "usersPerAccountMean": 4,
+      "sessionsPerUserMean": 7,
+      "durationDays": 30
+    },
+    "successEvent": "commission_calculated",
+    "successEntityType": "account",
+    "positiveSignals": [
+      {
+        "id": "booking_to_commission",
+        "path": [
+          "booking_completed",
+          "commission_calculated"
+        ],
+        "count": 75,
+        "cohortFilters": [
+          "high_intent",
+          "medium_intent",
+          "power_user"
+        ]
+      },
+      {
+        "id": "booking_payout_commission",
+        "path": [
+          "booking_completed",
+          "payout_processed",
+          "commission_calculated"
+        ],
+        "count": 40,
+        "cohortFilters": [
+          "high_intent",
+          "medium_intent"
+        ]
+      }
+    ],
+    "negativeSignals": [
+      {
+        "id": "booking_payout_only",
+        "path": [
+          "booking_completed",
+          "payout_processed"
+        ],
+        "count": 45,
+        "cohortFilters": [
+          "medium_intent",
+          "low_intent",
+          "lurker"
+        ]
+      },
+      {
+        "id": "repeated_payout_without_commission",
+        "path": [
+          "payout_processed",
+          "payout_processed"
+        ],
+        "count": 20,
+        "cohortFilters": [
+          "low_intent",
+          "noisy_bot_like"
+        ]
+      }
+    ],
+    "noise": {
+      "missing_event_probability": 0.04,
+      "duplicate_event_probability": 0.02,
+      "out_of_order_probability": 0.02,
+      "null_property_probability": 0.03,
+      "anonymous_actor_probability": 0.01,
+      "weird_property_probability": 0.01
+    }
+  },
+  {
+    "id": "posthog_seat_based_mvp",
+    "slug": "posthog-seat-based",
+    "name": "Seat-based SaaS",
+    "configFile": "configs/posthog_seat_based_mvp.yaml",
+    "datasetId": "posthog_seat_based_mvp_v1",
+    "scenarioKind": "posthog_seat_based",
+    "valueMetric": "Active seats / users",
+    "description": "Per-seat licensing SaaS where growth is measured in active seats. The funnel runs from invite to signup to seat activation, with deactivation as a churn signal.",
+    "useCaseKind": "per-seat",
+    "researchMetrics": [
+      "Seat growth %",
+      "Active/total seat ratio",
+      "Invite-to-activation rate"
+    ],
+    "scale": {
+      "accounts": 3000,
+      "usersPerAccountMean": 5,
+      "sessionsPerUserMean": 8,
+      "durationDays": 364
+    },
+    "successEvent": "seat_activated",
+    "successEntityType": "account",
+    "positiveSignals": [
+      {
+        "id": "invite_signup_activation",
+        "path": [
+          "invite_sent",
+          "user_signed_up",
+          "seat_activated"
+        ],
+        "count": 80,
+        "cohortFilters": [
+          "high_intent",
+          "medium_intent",
+          "power_user"
+        ]
+      },
+      {
+        "id": "role_assignment_activation",
+        "path": [
+          "role_assigned",
+          "seat_activated"
+        ],
+        "count": 55,
+        "cohortFilters": [
+          "high_intent",
+          "power_user"
+        ]
+      }
+    ],
+    "negativeSignals": [
+      {
+        "id": "invite_signup_stall",
+        "path": [
+          "invite_sent",
+          "user_signed_up"
+        ],
+        "count": 60,
+        "cohortFilters": [
+          "medium_intent",
+          "low_intent",
+          "lurker"
+        ]
+      },
+      {
+        "id": "activation_then_deactivation",
+        "path": [
+          "seat_activated",
+          "seat_deactivated"
+        ],
+        "count": 35,
+        "cohortFilters": [
+          "low_intent",
+          "noisy_bot_like"
+        ]
+      }
+    ],
+    "noise": {
+      "missing_event_probability": 0.04,
+      "duplicate_event_probability": 0.02,
+      "out_of_order_probability": 0.02,
+      "null_property_probability": 0.03,
+      "anonymous_actor_probability": 0.02,
+      "weird_property_probability": 0.01
+    }
+  },
+  {
+    "id": "posthog_storage_based_mvp",
+    "slug": "posthog-storage-based",
+    "name": "Storage-based SaaS",
+    "configFile": "configs/posthog_storage_based_mvp.yaml",
+    "datasetId": "posthog_storage_based_mvp_v1",
+    "scenarioKind": "posthog_storage_based",
+    "valueMetric": "GB stored, records managed, files hosted",
+    "description": "Storage-tier SaaS where the expansion signal is growth toward tier limits. Storage warnings serve as quota-risk signals.",
+    "useCaseKind": "capacity",
+    "researchMetrics": [
+      "Storage growth rate",
+      "Days-to-tier-limit",
+      "Upload frequency trend"
+    ],
+    "scale": {
+      "accounts": 260,
+      "usersPerAccountMean": 4,
+      "sessionsPerUserMean": 7,
+      "durationDays": 30
+    },
+    "successEvent": "file_uploaded",
+    "successEntityType": "account",
+    "positiveSignals": [
+      {
+        "id": "record_then_upload",
+        "path": [
+          "record_created",
+          "file_uploaded"
+        ],
+        "count": 80,
+        "cohortFilters": [
+          "high_intent",
+          "medium_intent",
+          "power_user"
+        ]
+      },
+      {
+        "id": "repeated_upload_growth",
+        "path": [
+          "file_uploaded",
+          "file_uploaded"
+        ],
+        "count": 55,
+        "cohortFilters": [
+          "medium_intent",
+          "power_user"
+        ]
+      }
+    ],
+    "negativeSignals": [
+      {
+        "id": "upload_hits_storage_warning",
+        "path": [
+          "file_uploaded",
+          "storage_warning_shown"
+        ],
+        "count": 45,
+        "cohortFilters": [
+          "low_intent",
+          "medium_intent",
+          "lurker"
+        ]
+      },
+      {
+        "id": "repeated_storage_warning",
+        "path": [
+          "storage_warning_shown",
+          "storage_warning_shown"
+        ],
+        "count": 25,
+        "cohortFilters": [
+          "low_intent",
+          "noisy_bot_like"
+        ]
+      }
+    ],
+    "noise": {
+      "missing_event_probability": 0.05,
+      "duplicate_event_probability": 0.02,
+      "out_of_order_probability": 0.03,
+      "null_property_probability": 0.03,
+      "anonymous_actor_probability": 0.01,
+      "weird_property_probability": 0.01
+    }
+  },
+  {
+    "id": "posthog_transaction_volume_mvp",
+    "slug": "posthog-transaction-volume",
+    "name": "Transaction / volume-based SaaS",
+    "configFile": "configs/posthog_transaction_volume_mvp.yaml",
+    "datasetId": "posthog_transaction_volume_mvp_v1",
+    "scenarioKind": "posthog_transaction_volume",
+    "valueMetric": "Transactions processed, GMV, payments",
+    "description": "Payment and transaction platforms where value tracks with successful throughput. Positive signals end in payment completion; negative signals include refunds and invoice stall.",
+    "useCaseKind": "volume",
+    "researchMetrics": [
+      "Transaction volume trend",
+      "Avg transaction value growth",
+      "Transaction frequency per account"
+    ],
+    "scale": {
+      "accounts": 280,
+      "usersPerAccountMean": 4,
+      "sessionsPerUserMean": 7,
+      "durationDays": 30
+    },
+    "successEvent": "payment_completed",
+    "successEntityType": "account",
+    "positiveSignals": [
+      {
+        "id": "order_to_payment",
+        "path": [
+          "order_created",
+          "payment_completed"
+        ],
+        "count": 90,
+        "cohortFilters": [
+          "high_intent",
+          "medium_intent",
+          "power_user"
+        ]
+      },
+      {
+        "id": "invoice_to_payment",
+        "path": [
+          "order_created",
+          "invoice_generated",
+          "payment_completed"
+        ],
+        "count": 50,
+        "cohortFilters": [
+          "high_intent",
+          "medium_intent"
+        ]
+      }
+    ],
+    "negativeSignals": [
+      {
+        "id": "invoiced_not_paid",
+        "path": [
+          "order_created",
+          "invoice_generated"
+        ],
+        "count": 55,
+        "cohortFilters": [
+          "medium_intent",
+          "low_intent",
+          "lurker"
+        ]
+      },
+      {
+        "id": "refunded_volume",
+        "path": [
+          "payment_completed",
+          "refund_issued"
+        ],
+        "count": 30,
+        "cohortFilters": [
+          "low_intent",
+          "noisy_bot_like"
+        ]
+      }
+    ],
+    "noise": {
+      "missing_event_probability": 0.04,
+      "duplicate_event_probability": 0.02,
+      "out_of_order_probability": 0.02,
+      "null_property_probability": 0.04,
+      "anonymous_actor_probability": 0.01,
+      "weird_property_probability": 0.01
+    }
+  },
+  {
+    "id": "posthog_usage_based_mvp",
+    "slug": "posthog-usage-based",
+    "name": "Usage-based (metered) SaaS",
+    "configFile": "configs/posthog_usage_based_mvp.yaml",
+    "datasetId": "posthog_usage_based_mvp_v1",
+    "scenarioKind": "posthog_usage_based",
+    "valueMetric": "API calls, compute hours, messages, requests",
+    "description": "Metered SaaS where revenue scales with consumption. Positive signals are completed jobs and compute cycles; negative signals are stalled usage.",
+    "useCaseKind": "metered",
+    "researchMetrics": [
+      "Usage velocity",
+      "Quota consumption",
+      "Usage acceleration"
+    ],
+    "scale": {
+      "accounts": 320,
+      "usersPerAccountMean": 4,
+      "sessionsPerUserMean": 9,
+      "durationDays": 30
+    },
+    "successEvent": "job_completed",
+    "successEntityType": "account",
+    "positiveSignals": [
+      {
+        "id": "request_to_job_completion",
+        "path": [
+          "api_request",
+          "job_completed"
+        ],
+        "count": 95,
+        "cohortFilters": [
+          "high_intent",
+          "medium_intent",
+          "power_user"
+        ]
+      },
+      {
+        "id": "message_compute_job",
+        "path": [
+          "message_sent",
+          "compute_hours_used",
+          "job_completed"
+        ],
+        "count": 45,
+        "cohortFilters": [
+          "high_intent",
+          "power_user"
+        ]
+      }
+    ],
+    "negativeSignals": [
+      {
+        "id": "request_compute_stall",
+        "path": [
+          "api_request",
+          "compute_hours_used"
+        ],
+        "count": 70,
+        "cohortFilters": [
+          "medium_intent",
+          "low_intent",
+          "lurker"
+        ]
+      },
+      {
+        "id": "message_only_repeat",
+        "path": [
+          "message_sent",
+          "message_sent"
+        ],
+        "count": 65,
+        "cohortFilters": [
+          "low_intent",
+          "lurker",
+          "noisy_bot_like"
+        ]
+      }
+    ],
+    "noise": {
+      "missing_event_probability": 0.05,
+      "duplicate_event_probability": 0.02,
+      "out_of_order_probability": 0.03,
+      "null_property_probability": 0.03,
+      "anonymous_actor_probability": 0.01,
+      "weird_property_probability": 0.01
+    }
+  },
+  {
+    "id": "telegram_mvp",
+    "slug": "telegram-chat",
+    "name": "Telegram Chat",
+    "configFile": "configs/telegram_mvp.yaml",
+    "datasetId": "telegram_mvp_v1",
+    "scenarioKind": "telegram_chat",
+    "valueMetric": "Chat engagement / retention",
+    "description": "Simulates a Telegram-like chat environment with user interactions. Different event shape from the PostHog web scenarios \u2014 useful for testing agent portability across data sources.",
+    "useCaseKind": "communication",
+    "researchMetrics": [
+      "Active conversation rate",
+      "Response rate",
+      "Retention"
+    ],
+    "scale": {
+      "accounts": 0,
+      "usersPerAccountMean": 0,
+      "sessionsPerUserMean": 0,
+      "durationDays": 30
+    },
+    "successEvent": "event_signup",
+    "successEntityType": "user",
+    "positiveSignals": [
+      {
+        "id": "message_reply_signup",
+        "path": [
+          "message_sent",
+          "reply_received",
+          "event_signup"
+        ],
+        "count": 90,
+        "cohortFilters": [
+          "high_intent",
+          "medium_intent",
+          "power_user"
+        ]
+      },
+      {
+        "id": "reaction_chain_signup",
+        "path": [
+          "message_sent",
+          "reaction_received",
+          "event_signup"
+        ],
+        "count": 40,
+        "cohortFilters": [
+          "high_intent",
+          "power_user"
+        ]
+      }
+    ],
+    "negativeSignals": [
+      {
+        "id": "message_then_silence",
+        "path": [
+          "message_sent",
+          "reaction_received"
+        ],
+        "count": 80,
+        "cohortFilters": [
+          "low_intent",
+          "lurker"
+        ]
+      },
+      {
+        "id": "leave_after_reply",
+        "path": [
+          "message_sent",
+          "reply_sent",
+          "leave_group"
+        ],
+        "count": 55,
+        "cohortFilters": [
+          "low_intent",
+          "noisy_bot_like"
+        ]
+      }
+    ],
+    "noise": {
+      "missing_event_probability": 0.05,
+      "duplicate_event_probability": 0.02,
+      "out_of_order_probability": 0.04,
+      "null_property_probability": 0.03,
+      "anonymous_actor_probability": 0.01,
+      "weird_property_probability": 0.02
+    }
+  }
+]
