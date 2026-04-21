@@ -31,8 +31,7 @@ export default defineConfig({
         if (blogMatch && blogDates[blogMatch[1]]) {
           item.lastmod = blogDates[blogMatch[1]];
         } else {
-          // Non-blog pages: omit lastmod rather than lying with build date
-          delete item.lastmod;
+          item.lastmod = new Date().toISOString();
         }
         return item;
       },
