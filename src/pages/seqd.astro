@@ -1,4 +1,8 @@
 ---
+// /seqd/ is deprecated (Apr 2026) — kept for backlink + history but no longer
+// promoted. Marked noindex,follow so Google drops it from the indexable surface
+// while still following any outbound links from the page. See:
+// /Users/nadyyym/repo-of-repos/vn-openclaw-personal/beton-gtm/CLAUDE.md
 import PageLayout from '../layouts/PageLayout.astro';
 import Container from '../components/ui/Container.astro';
 import Section from '../components/ui/Section.astro';
@@ -76,6 +80,8 @@ const iconPaths: Record<string, string> = {
 <PageLayout
   title="seqd — Self-hosted email sequencer | Beton"
   description="Open-source, self-hosted email sequencer. Per-contact sequences, multi-mailbox Gmail OAuth, reply detection. No Instantly. No Apollo. AGPLv3."
+  noIndex={true}
+  canonicalPath="/seqd/"
 >
   <!-- Hero -->
   <section class="py-14 lg:py-24 border-b-2 border-[var(--color-border)]" data-track-section="seqd-hero">

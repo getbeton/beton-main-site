@@ -358,6 +358,35 @@ Same format as above
 
 ---
 
+## GSC Data — VM First, Always
+
+Pull live Google Search Console data via the VM helper before relying on live-site checks alone. The VM has `google_work_token.json` with `webmasters.readonly` and `siteOwner` access on every Beton property:
+- `sc-domain:getbeton.ai`
+- `sc-domain:blog.getbeton.ai`
+- `sc-domain:inspector.getbeton.ai`
+- `sc-domain:selltoscientists.com`
+- `sc-domain:selltostate.com`
+
+The token auto-refreshes — no interactive re-auth needed.
+
+```bash
+# Submitted vs indexed (sitemap level)
+ssh mishka-vps "python3 ~/scripts/gsc_fetch.py sitemaps --site sc-domain:getbeton.ai"
+
+# Top pages by clicks/impressions (last 28d default)
+ssh mishka-vps "python3 ~/scripts/gsc_fetch.py search --site sc-domain:getbeton.ai --dimensions page --row-limit 25"
+
+# Top queries
+ssh mishka-vps "python3 ~/scripts/gsc_fetch.py search --site sc-domain:getbeton.ai --dimensions query --row-limit 25"
+
+# Per-URL index/coverage/canonical/lastCrawl for every URL in the sitemap
+ssh mishka-vps "python3 ~/scripts/gsc_fetch.py bulk-inspect --site sc-domain:getbeton.ai --limit 50"
+```
+
+**Local fallback:** If `ssh mishka-vps` is unreachable, use `gcloud auth application-default login --scopes=openid,https://www.googleapis.com/auth/userinfo.email,https://www.googleapis.com/auth/cloud-platform,https://www.googleapis.com/auth/webmasters.readonly` from the Mac. The VM is preferred because Mac `gcloud` ADC tokens expire frequently.
+
+---
+
 ## Tools Referenced
 
 **Free Tools**
