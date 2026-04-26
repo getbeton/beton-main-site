@@ -246,6 +246,52 @@ const faqData = (faq || []).map((item) => ({
     </Container>
   </section>
 
+  {/* PostHog → DryFit cross-link: surfaces the scenarios library to the
+      one integration page that maps 1:1 to it. Also gives the orphan
+      /tools/dryfit/scenarios/* URLs an inbound link from a more-crawled page. */}
+  {slug === 'posthog' && (
+    <section class="py-10 lg:py-16 bg-[var(--color-surface-raised)] border-y-2 border-[var(--color-border)]">
+      <Container>
+        <div class="max-w-4xl mx-auto">
+          <h2 class="text-xl sm:text-2xl font-[family-name:var(--font-heading)] tracking-wide text-center mb-3">
+            Benchmark Beton on Your PostHog Schema
+          </h2>
+          <p class="text-base text-[var(--color-text-secondary)] text-center max-w-2xl mx-auto mb-8">
+            DryFit ships fifteen ground-truth-annotated PostHog datasets covering every major SaaS billing model. Drop one into your test harness and benchmark the agent deterministically.
+          </p>
+          <div class="grid sm:grid-cols-2 gap-4">
+            <a
+              href="/tools/dryfit/scenarios/posthog-web/"
+              class="block p-5 border-2 border-[var(--color-text)] bg-[var(--color-surface)] shadow-[var(--shadow-card)] hover:shadow-[6px_6px_0_var(--color-text)] hover:-translate-x-0.5 hover:-translate-y-0.5"
+            >
+              <h3 class="font-semibold text-[var(--color-text)] mb-1">PostHog Web (baseline)</h3>
+              <p class="text-sm text-[var(--color-text-secondary)]">
+                Standard B2B SaaS web-app event stream — sessions, funnel steps, feature usage. The default dataset.
+              </p>
+            </a>
+            <a
+              href="/tools/dryfit/scenarios/posthog-seat-based/"
+              class="block p-5 border-2 border-[var(--color-text)] bg-[var(--color-surface)] shadow-[var(--shadow-card)] hover:shadow-[6px_6px_0_var(--color-text)] hover:-translate-x-0.5 hover:-translate-y-0.5"
+            >
+              <h3 class="font-semibold text-[var(--color-text)] mb-1">PostHog Seat-Based</h3>
+              <p class="text-sm text-[var(--color-text-secondary)]">
+                Per-seat billing pattern — invitation events, dormant seats, expansion signals. The Manychat / Acronis pattern.
+              </p>
+            </a>
+          </div>
+          <div class="text-center mt-6">
+            <a
+              href="/tools/dryfit/scenarios/"
+              class="inline-flex items-center text-sm font-semibold text-[var(--color-primary-600)] hover:underline"
+            >
+              Browse all 15 scenarios →
+            </a>
+          </div>
+        </div>
+      </Container>
+    </section>
+  )}
+
   <!-- Other integrations -->
   {allIntegrations.length > 0 && (
     <section class="py-10 lg:py-16">

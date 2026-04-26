@@ -9,6 +9,7 @@ export interface NavLink {
 export const mainNav: NavLink[] = [
   { label: 'Blog', href: '/blog/' },
   { label: 'Integrations', href: '/integrations/' },
+  { label: 'Tools', href: '/tools/dryfit/' },
   { label: 'Pricing', href: '/pricing/' },
   { label: 'About', href: '/about/' },
   { label: 'Team', href: '/team/' },
@@ -26,6 +27,8 @@ export const footerNav = {
     { label: 'Blog', href: '/blog/' },
   ] as NavLink[],
   tools: [
+    { label: 'DryFit (signal benchmarking)', href: '/tools/dryfit/' },
+    { label: 'Scenarios library', href: '/tools/dryfit/scenarios/' },
     { label: 'seqd', href: '/seqd/' },
     { label: 'openclaw-gtm-skills', href: 'https://github.com/getbeton/openclaw-gtm-skills', external: true },
   ] as NavLink[],
