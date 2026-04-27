@@ -26,6 +26,7 @@ export const footerNav = {
     { label: 'Blog', href: '/blog/' },
   ] as NavLink[],
   tools: [
+    { label: 'DryFit', href: '/tools/dryfit/' },
     { label: 'seqd', href: '/seqd/' },
     { label: 'openclaw-gtm-skills', href: 'https://github.com/getbeton/openclaw-gtm-skills', external: true },
   ] as NavLink[],
