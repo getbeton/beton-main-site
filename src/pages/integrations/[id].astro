@@ -14,7 +14,7 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-const { name, slug, logo, url, category, description, tagline, howItWorks, features, useCases, faq, seo } = entry.data;
+const { name, slug, logo, url, category, description, tagline, howItWorks, features, useCases, blogPost, faq, seo } = entry.data;
 
 const allIntegrations = (await getCollection('integrations')).filter(
   (i) => i.data.slug !== slug
@@ -185,6 +185,20 @@ const faqData = (faq || []).map((item) => ({
       </div>
     </Container>
   </section>
+
+  <!-- Related blog post -->
+  {blogPost && (
+    <section class="py-8 lg:py-10 border-y-2 border-[var(--color-border)]">
+      <Container>
+        <div class="max-w-3xl mx-auto text-center">
+          <p class="text-sm uppercase tracking-wider text-[var(--color-text-secondary)] mb-2 font-bold">Related update</p>
+          <a href={`/blog/${blogPost}/`} class="text-lg sm:text-xl font-[family-name:var(--font-heading)] tracking-wide text-[var(--color-primary-600)] hover:underline">
+            Read about how the {name} integration fits into the latest Beton release →
+          </a>
+        </div>
+      </Container>
+    </section>
+  )}
 
   <!-- FAQ -->
   {faq && faq.length > 0 && (
