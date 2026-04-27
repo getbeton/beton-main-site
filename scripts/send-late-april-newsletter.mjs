@@ -98,7 +98,7 @@ function buildHtml(email) {
 
 <h1 style="font-size:24px;font-weight:700;line-height:1.3;margin:0 0 20px 0;color:#111">beton late april 2026 update</h1>
 
-${p("hey, it's Vlad, founder of Beton.")}
+${p("hey, it&apos;s <a href=\"https://www.linkedin.com/in/vlad-nadymov/\" style=\"color:#2563eb;text-decoration:underline\">Vlad</a>, founder of Beton.")}
 
 ${p("ten days since the last update. a big release went out to main, more is staged for later this week, and the GTM side has had a lot of motion — both with customers in the pipeline and on our own outbound learning.")}
 
@@ -230,37 +230,17 @@ ${li([
 
 ${p('different verticals, but the underlying ask is the same: a company has behavioral data in a warehouse, knows there&apos;s signal in there, doesn&apos;t have the team-time to hunt for it manually. Beton is the agent that does the hunting.')}
 
+${p("you&apos;re an hour away from new retention drivers – just sign up, set up your account and wait for the agent to go through your data.")}
+
 <div style="margin:32px 0;text-align:center">
   ${ctaPrimary(APP_URL, 'cta-try-beton', 'try Beton free →')}
 </div>
 
-${h3('what we learned auditing our own outbound')}
+${h2('ask')}
 
-${p('same week, we ran a full audit on our own cold-outbound program — eighteen days of data across seven sequences. reply rate: roughly 0.3%.')}
+${p("forward this to a CMO/Head of Sales friends of yours. happy to pay a finder&apos;s fee if we do a deal with them")}
 
-${p('three lessons we&apos;re applying this week:')}
-
-${li([
-  '<b>open rates are not engagement.</b> some of our sequences had 60–80% unfiltered open rates and zero replies. the opens are mostly bots and corporate gateway scanners. we were optimizing the wrong metric.',
-  '<b>sender capacity left idle is wasted volume.</b> we had a fourth mailbox with 60 sends/day capacity sitting completely unused for two weeks. that&apos;s 800+ untouched contacts.',
-  '<b>positioning sharpness moves more replies than list size.</b> generic "we help with churn" reads as noise. "we help retention-tooling vendors detect churn in their own product before renewal" gets a reply.',
-])}
-
-${p('three sharper campaigns are relaunching today. different mailbox per campaign for clean deliverability reads, different angle per campaign with a specific named ICP filter, and the idle mailbox is finally being put to work.')}
-
-${h2('what this all adds up to')}
-
-${p('the product is converging on a tight loop — read the warehouse, discover signals statistically, route them visually into the CRM. field mapping closes the last manual step. the agent rewrite makes discovery faster and easier to debug. the pilot validates that the loop works against real customer data. the outbound audit makes sure we&apos;re talking to the right companies in the right way.')}
-
-${p('if you&apos;re running a behavioral analytics warehouse and don&apos;t have the team-time to hunt signals manually, we&apos;d love to talk. reply to this email, or sign up directly at getbeton.ai.')}
-
-<div style="margin:32px 0;line-height:1.4">
-  ${ctaPrimary(BLOG_URL, 'cta-read-on-blog', 'read on the blog')}
-  &nbsp;&nbsp;
-  ${ctaSecondary(APP_URL, 'cta-sign-up', 'sign up free')}
-</div>
-
-${p('— Vlad')}
+${p('— <a href="https://www.linkedin.com/in/vlad-nadymov/" style="color:#2563eb;text-decoration:underline">Vlad</a>')}
 
 <p style="border-top:1px solid #e5e5e5;padding-top:16px;margin-top:32px;color:#666;font-size:13px">
 <b style="color:#1a1a1a">get posts like this in your inbox</b><br>
