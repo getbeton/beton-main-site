@@ -1,5 +1,72 @@
 [
   {
+    "id": "postgres",
+    "name": "Postgres",
+    "slug": "postgres",
+    "logo": "/images/logos/postgres.svg",
+    "url": "https://www.postgresql.org/",
+    "category": "source",
+    "description": "Connect any Postgres warehouse as a behavioral data source. Replicas, Supabase, self-hosted — Beton reads schema and discovers signals directly.",
+    "featured": true,
+    "tagline": "Behavioral signal discovery on top of your raw warehouse",
+    "howItWorks": [
+      { "step": "Connect your Postgres", "description": "Provide a read-only connection string. Beton reads your schema and identifies behavioral fact tables (events, actions, transactions)." },
+      { "step": "Beton proposes hypotheses", "description": "The agent generates testable behavioral hypotheses based on your schema and the context it has about your business." },
+      { "step": "Statistical validation", "description": "Each hypothesis is validated with the same statistical methodology used on the PostHog flow before promotion to a production signal." }
+    ],
+    "features": [
+      "Read-only connection — zero impact on production",
+      "Works with managed Postgres (RDS, Cloud SQL), Supabase, and self-hosted",
+      "Automatic schema introspection",
+      "Compatible with warehouse loaders like Fivetran, Segment, RudderStack",
+      "Same hypothesis-and-validation flow as PostHog",
+      "No data export or migration required"
+    ],
+    "useCases": [
+      "Run signal discovery on a production replica",
+      "Use Beton on warehouse data piped from Segment / Fivetran / RudderStack",
+      "Cross-reference event data with internal product tables",
+      "Run signal hunts on Supabase-backed apps"
+    ],
+    "blogPost": "beton-late-april-2026-update",
+    "seo": {
+      "metaTitle": "Postgres Integration — Signal Discovery on Your Warehouse",
+      "metaDescription": "Connect any Postgres warehouse to Beton — replicas, Supabase, self-hosted. Read schema, discover signals, validate statistically. No data export needed."
+    }
+  },
+  {
+    "id": "firecrawl",
+    "name": "Firecrawl",
+    "slug": "firecrawl",
+    "logo": "/images/logos/firecrawl.svg",
+    "url": "https://www.firecrawl.dev/",
+    "category": "source",
+    "description": "Give Beton's agent business context by letting it crawl your own site (and soon your customers') — pricing, features, integrations, blog. Better context, sharper signals.",
+    "featured": false,
+    "tagline": "Web context for the agent — your product, the way Google sees it",
+    "howItWorks": [
+      { "step": "Add your Firecrawl API key", "description": "Drop your Firecrawl key into Beton settings. Beton uses it to crawl your own site." },
+      { "step": "Agent reads context", "description": "The agent ingests pricing pages, feature docs, blog posts, integration directories — building a working model of what your product does and how it monetizes." },
+      { "step": "Sharper hypotheses", "description": "When the agent looks at warehouse events, it interprets them in the context of your actual product, not in isolation." }
+    ],
+    "features": [
+      "Bring your own Firecrawl API key",
+      "Crawl pricing, features, blog, integrations, and other public pages",
+      "Context fed directly into hypothesis generation",
+      "Coming soon: per-customer crawl during analysis (B2B context awareness)"
+    ],
+    "useCases": [
+      "Help the agent understand what your product does without you writing a brief",
+      "Disambiguate event names by reading what the corresponding feature actually is",
+      "Coming soon: contextualize a customer's industry or stack during analysis"
+    ],
+    "blogPost": "beton-late-april-2026-update",
+    "seo": {
+      "metaTitle": "Firecrawl Integration — Web Context for the Beton Agent",
+      "metaDescription": "Connect Firecrawl to Beton so the agent crawls your site for product context. Pricing, features, blog — fed directly into signal hypothesis generation."
+    }
+  },
+  {
     "id": "posthog",
     "name": "PostHog",
     "slug": "posthog",
