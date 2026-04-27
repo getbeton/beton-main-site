@@ -3,14 +3,40 @@ import { getCollection, render } from 'astro:content';
 import BlogPostLayout from '../../layouts/BlogPostLayout.astro';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog', ({ data }) => !data.draft);
-  return posts.map((post) => ({
-    params: { id: post.id },
-    props: { entry: post },
-  }));
+  const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+
+  return allPosts.map((post) => {
+    const others = allPosts.filter((p) => p.id !== post.id);
+    const postTags = new Set(post.data.tags || []);
+
+    const relatedPosts = others
+      .map((p) => ({
+        post: p,
+        overlap: (p.data.tags || []).filter((t) => postTags.has(t)).length,
+      }))
+      .filter((r) => r.overlap > 0)
+      .sort((a, b) => {
+        if (b.overlap !== a.overlap) return b.overlap - a.overlap;
+        return new Date(b.post.data.publishedAt).getTime() - new Date(a.post.data.publishedAt).getTime();
+      })
+      .slice(0, 3)
+      .map(({ post: p }) => ({
+        slug: p.id,
+        title: p.data.title,
+        description: p.data.description,
+        publishedAt: p.data.publishedAt,
+        coverImage: p.data.coverImage,
+        tags: p.data.tags,
+      }));
+
+    return {
+      params: { id: post.id },
+      props: { entry: post, relatedPosts },
+    };
+  });
 }
 
-const { entry } = Astro.props;
+const { entry, relatedPosts } = Astro.props;
 const { Content } = await render(entry);
 ---
 
@@ -24,6 +50,7 @@ const { Content } = await render(entry);
   coverImage={entry.data.coverImage}
   slug={entry.id}
   seo={entry.data.seo}
+  relatedPosts={relatedPosts}
 >
   <Content />
 </BlogPostLayout>

@@ -1,0 +1,343 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '../../layouts/PageLayout.astro';
+import Container from '../../components/ui/Container.astro';
+import Section from '../../components/ui/Section.astro';
+import Heading from '../../components/ui/Heading.astro';
+import Card from '../../components/ui/Card.astro';
+import ZigzagDivider from '../../components/ui/ZigzagDivider.astro';
+import { SITE } from '../../utils/site';
+
+const scenarios = (await getCollection('dryfit-scenarios')).sort((a, b) => {
+  const order = (s: typeof a) => {
+    if (s.data.slug === 'posthog-web') return '00';
+    if (s.data.slug === 'telegram-chat') return '01';
+    if (s.data.slug === 'posthog-combined-coverage') return 'zz';
+    return '10' + s.data.name.toLowerCase();
+  };
+  return order(a).localeCompare(order(b));
+});
+
+const features = [
+  {
+    title: 'Hidden ground truth',
+    description: 'Every dataset ships with a ground_truth.json that maps each positive and negative signal back to the exact event_ids that produced it. Grade any detector output deterministically.',
+  },
+  {
+    title: '14 PostHog business-model scenarios',
+    description: 'Seat-based, usage-based, transaction, storage, contact, feature-gated, marketplace, revenue-share, credits, hybrid, freemium, event-volume — plus a combined-coverage dataset exercising every event type.',
+  },
+  {
+    title: 'Realistic noise, controlled',
+    description: 'Missing events, duplicates, out-of-order arrivals, null properties, anonymous actors. Configurable probabilities per scenario — and noise never touches rows referenced by ground truth.',
+  },
+  {
+    title: 'PostgreSQL native output',
+    description: 'Writes an events table into PostgreSQL (local Unix-socket or dockerized). Reproducible with the same seed. No proprietary format — any SQL client works.',
+  },
+  {
+    title: 'Grafana inspection built-in',
+    description: 'docker compose up brings up Postgres, Grafana, a provisioned datasource, and a "Generated Event Inspection" dashboard. See the data you just generated in a browser.',
+  },
+  {
+    title: 'MIT licensed',
+    description: 'Python 3.12 with uv, typer, pydantic, psycopg. Fork it, extend it, wire it into CI. No license fees, no cloud dependency.',
+  },
+];
+
+const faq = [
+  {
+    question: 'Does dryfit read from my production database?',
+    answer: 'No. Dryfit generates synthetic data — it does not consume or read from any production system. You give it a YAML config, it writes synthetic events into a PostgreSQL database you control (local or dockerized).',
+  },
+  {
+    question: 'Is this a signal-detection tool?',
+    answer: 'No. Dryfit produces the synthetic datasets you run signal-detection tools against. Its value is the ground_truth.json shipped with every dataset — run any agent or detector against the events table, and score its output deterministically against the known positive and negative paths.',
+  },
+  {
+    question: 'Who uses this?',
+    answer: "Teams building agentic or LLM-powered analytics pipelines that need reproducible benchmarks. Beton's own signal-discovery agents are tested on dryfit datasets in CI. External researchers, integration-test authors, and data-engineering teams testing pipeline correctness also use it.",
+  },
+  {
+    question: 'What data layout does it produce?',
+    answer: 'A PostgreSQL events table with entity_id, event_id, event_name, event_timestamp, event_props and related columns — PostHog-like shape. Plus a ground_truth.json referencing actual generated event_ids and a manifest.json describing the run. Artifacts default to artifacts/<dataset_id>/.',
+  },
+  {
+    question: 'How is this different from Faker or other synthetic-data libraries?',
+    answer: "Generic libraries give you random rows. Dryfit generates event sequences that match real SaaS business models, with explicit positive and negative signal paths, and emits machine-checkable ground truth so you can grade detectors. Faker is used internally for human-like metadata — it doesn't drive signal logic.",
+  },
+  {
+    question: 'Is it deterministic?',
+    answer: 'Yes. Each config has a seed (default 42). Re-running with the same config, seed, and scale yields the same event_ids and ground truth. Change the seed to produce a different sample without changing the generator.',
+  },
+];
+
+const breadcrumbs = [
+  { name: 'Home', url: SITE.url },
+  { name: 'Tools', url: `${SITE.url}/tools/` },
+  { name: 'DryFit', url: `${SITE.url}/tools/dryfit/` },
+];
+
+const faqData = faq.map(({ question, answer }) => ({ question, answer }));
+
+const categoryLabel: Record<string, string> = {
+  baseline: 'Baseline',
+  communication: 'Chat / messaging',
+  'per-seat': 'Per-seat',
+  metered: 'Usage-based',
+  volume: 'Transaction',
+  capacity: 'Storage',
+  'record-count': 'Record-based',
+  tiered: 'Feature-gated',
+  marketplace: 'Marketplace',
+  'take-rate': 'Revenue-share',
+  credit: 'Credits',
+  hybrid: 'Hybrid',
+  freemium: 'Freemium',
+  ingest: 'Event-volume',
+  combined: 'All-models',
+  generic: 'Other',
+};
+---
+
+<PageLayout
+  title="DryFit — synthetic analytics datasets for signal-discovery benchmarks"
+  description="Open-source Python tool that generates synthetic PostHog-shape event data with hidden ground truth. 14 SaaS business-model scenarios. MIT."
+  canonicalPath="/tools/dryfit/"
+  breadcrumbs={breadcrumbs}
+  faqData={faqData}
+>
+  <!-- Hero -->
+  <section class="py-14 lg:py-24 border-b-2 border-[var(--color-border)]" data-track-section="dryfit-hero">
+    <Container>
+      <div class="max-w-3xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 border-2 border-[var(--color-text)] text-xs font-bold uppercase tracking-wider mb-6">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+          </svg>
+          Open Source · MIT
+        </div>
+
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-[family-name:var(--font-heading)] tracking-wide leading-tight mb-6">
+          DryFit
+        </h1>
+        <p class="text-xl lg:text-2xl text-[var(--color-text-secondary)] mb-4 max-w-2xl">
+          Synthetic analytics datasets with hidden ground truth — so you can benchmark signal-discovery agents deterministically.
+        </p>
+        <p class="text-base text-[var(--color-text-secondary)] mb-8 max-w-2xl leading-relaxed">
+          DryFit is an open-source Python tool that generates PostHog-shape event data from a YAML config,
+          along with a <code class="font-[family-name:var(--font-mono)] text-sm px-1 py-0.5 bg-[var(--color-surface-raised)] border border-[var(--color-border)]">ground_truth.json</code>
+          listing the exact <code class="font-[family-name:var(--font-mono)] text-sm px-1 py-0.5 bg-[var(--color-surface-raised)] border border-[var(--color-border)]">event_id</code>s that make up each positive and negative signal path.
+          Point an agent at it, grade the output against the truth. Ships with 14 SaaS business-model scenarios and a Grafana inspection stack.
+        </p>
+
+        <div class="flex flex-wrap gap-3">
+          <a
+            href="https://github.com/getbeton/dryfit"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-5 py-3 text-sm font-bold uppercase tracking-wider bg-[var(--color-text)] text-[var(--color-surface)] border-2 border-[var(--color-text)] hover:bg-transparent hover:text-[var(--color-text)]"
+            data-track-cta="dryfit-hero-github"
+          >
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+            </svg>
+            View on GitHub
+          </a>
+          <a
+            href="#scenarios"
+            class="inline-flex items-center gap-2 px-5 py-3 text-sm font-bold uppercase tracking-wider border-2 border-[var(--color-text)] hover:bg-[var(--color-text)] hover:text-[var(--color-surface)]"
+          >
+            Browse scenarios
+          </a>
+        </div>
+
+        <div class="flex flex-wrap gap-2 mt-8">
+          {['Python 3.12', 'uv', 'Typer', 'Pydantic', 'PostgreSQL', 'Faker', 'Docker Compose', 'Grafana', 'MIT License'].map((tech) => (
+            <span class="px-2.5 py-1 text-xs font-medium border border-[var(--color-border)] text-[var(--color-text-secondary)] font-[family-name:'JetBrains_Mono']">
+              {tech}
+            </span>
+          ))}
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <ZigzagDivider />
+
+  <!-- Features -->
+  <Section class="bg-[var(--color-surface-accent-primary)] border-y-2 border-[var(--color-border)]">
+    <Container>
+      <div class="text-center mb-10 lg:mb-14">
+        <Heading as="h2">What's in the box</Heading>
+        <p class="mt-4 text-lg text-[var(--color-text-secondary)] max-w-2xl mx-auto">
+          A generator, a truth file, and enough scenario diversity to stress-test any signal-detection pipeline.
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {features.map((f) => (
+          <Card>
+            <h3 class="text-base font-semibold mb-2">{f.title}</h3>
+            <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed">{f.description}</p>
+          </Card>
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <!-- How it works -->
+  <Section>
+    <Container>
+      <div class="text-center mb-10 lg:mb-14">
+        <Heading as="h2">How it works</Heading>
+        <p class="mt-4 text-lg text-[var(--color-text-secondary)] max-w-2xl mx-auto">
+          YAML in, events and ground truth out.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div>
+          <div class="text-5xl font-[family-name:var(--font-heading)] text-[var(--color-primary-200)] mb-3 leading-none">01</div>
+          <h3 class="text-base font-semibold mb-2">Pick a scenario config</h3>
+          <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed">
+            Choose one of the 14 bundled scenarios or author your own YAML. Each declares the success event, positive and negative signal paths, scale, and noise parameters.
+          </p>
+        </div>
+        <div>
+          <div class="text-5xl font-[family-name:var(--font-heading)] text-[var(--color-primary-200)] mb-3 leading-none">02</div>
+          <h3 class="text-base font-semibold mb-2">Run the generator</h3>
+          <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed">
+            <code class="font-[family-name:var(--font-mono)] text-xs">uv run dryfit -c configs/...yaml</code> writes events to your Postgres instance and dumps ground_truth.json plus manifest.json.
+          </p>
+        </div>
+        <div>
+          <div class="text-5xl font-[family-name:var(--font-heading)] text-[var(--color-primary-200)] mb-3 leading-none">03</div>
+          <h3 class="text-base font-semibold mb-2">Benchmark your detector</h3>
+          <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed">
+            Run your agent, SQL query, or ML model against the events table. Score its output against ground_truth.json. Inspect the raw data in the provisioned Grafana dashboard while you iterate.
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-12 max-w-3xl mx-auto">
+        <div class="border-2 border-[var(--color-text)] bg-[var(--color-surface)]">
+          <div class="flex items-center gap-2 px-4 py-2 border-b-2 border-[var(--color-text)] bg-[var(--color-primary-600)]">
+            <span class="text-xs font-[family-name:var(--font-mono)] font-bold text-white uppercase tracking-wider">Docker quickstart</span>
+          </div>
+          <pre class="p-4 overflow-x-auto text-sm font-[family-name:var(--font-mono)] leading-relaxed text-[var(--color-text)]"><code>{`# Clone + bring up Postgres and Grafana
+git clone https://github.com/getbeton/dryfit.git && cd dryfit
+docker compose up -d
+
+# Generate a dataset into the dockerized Postgres
+uv run dryfit \\
+  -c configs/posthog_seat_based_mvp.yaml \\
+  --dsn postgresql://dryfit_writer:dryfit_writer@127.0.0.1:54329/dryfit \\
+  --print-summary
+
+# Inspect in Grafana at http://127.0.0.1:3000 (admin/admin)`}</code></pre>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <ZigzagDivider />
+
+  <!-- Scenarios -->
+  <Section id="scenarios" class="bg-[var(--color-surface-accent-primary)] border-y-2 border-[var(--color-border)]">
+    <Container>
+      <div class="text-center mb-10 lg:mb-14">
+        <Heading as="h2">Bundled scenarios</Heading>
+        <p class="mt-4 text-lg text-[var(--color-text-secondary)] max-w-2xl mx-auto">
+          Each scenario models a specific SaaS business motion — value metric, positive funnel, negative paths, and realistic noise. Click through for the full config breakdown.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-6xl mx-auto">
+        {scenarios.map((s) => (
+          <a
+            href={`/tools/dryfit/scenarios/${s.data.slug}/`}
+            class="group flex flex-col border-2 border-[var(--color-text)] bg-[var(--color-surface)] shadow-[var(--shadow-card)] hover:shadow-[6px_6px_0_var(--color-text)] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all p-5"
+          >
+            <div class="flex items-center justify-between mb-3">
+              <span class="inline-flex items-center px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider border border-[var(--color-border)] bg-[var(--color-surface-raised)]">
+                {categoryLabel[s.data.useCaseKind] || s.data.useCaseKind}
+              </span>
+              <span class="text-[10px] font-[family-name:var(--font-mono)] text-[var(--color-text-tertiary)]">
+                {s.data.scale.accounts.toLocaleString()} accounts
+              </span>
+            </div>
+            <h3 class="text-base font-semibold mb-1 group-hover:text-[var(--color-primary-600)]">
+              {s.data.name}
+            </h3>
+            <p class="text-xs text-[var(--color-text-tertiary)] mb-3 font-[family-name:var(--font-mono)]">
+              → {s.data.successEvent}
+            </p>
+            <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed line-clamp-3">
+              {s.data.valueMetric}
+            </p>
+          </a>
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <!-- FAQ -->
+  <section class="py-10 lg:py-16 bg-[var(--color-surface-raised)] border-y-2 border-[var(--color-border)]">
+    <Container>
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-2xl sm:text-3xl font-[family-name:var(--font-heading)] tracking-wide text-center mb-10">
+          Frequently Asked Questions
+        </h2>
+        <div class="space-y-4">
+          {faq.map((item) => (
+            <details class="group border-2 border-[var(--color-border)] bg-[var(--color-surface)]">
+              <summary class="flex items-center justify-between gap-4 cursor-pointer list-none p-5 font-semibold text-[var(--color-text)] hover:bg-[var(--color-surface-raised)]">
+                <span>{item.question}</span>
+                <svg class="w-5 h-5 shrink-0 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path>
+                </svg>
+              </summary>
+              <div class="px-5 pb-5 pt-0 text-[var(--color-text-secondary)] leading-relaxed">
+                {item.answer}
+              </div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-12 lg:py-20 bg-[var(--color-primary-600)] border-y-4 border-[var(--color-text)] relative overflow-hidden">
+    <div class="absolute inset-0 opacity-[0.07]" aria-hidden="true" style="background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, white 10px, white 12px);"></div>
+    <Container>
+      <div class="text-center max-w-2xl mx-auto">
+        <h2 class="text-2xl sm:text-3xl font-[family-name:var(--font-heading)] tracking-wide text-white mb-4">
+          Give your agents a benchmark to beat
+        </h2>
+        <p class="text-white/80 mb-8">
+          Deterministic event data with machine-checkable ground truth. Open source, free forever.
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+          <a
+            href="https://github.com/getbeton/dryfit"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-6 py-3 text-base font-bold uppercase tracking-wider bg-white text-[var(--color-primary-700)] border-2 border-white hover:bg-[var(--color-primary-700)] hover:text-white"
+            data-track-cta="dryfit-cta-github"
+          >
+            Star on GitHub
+          </a>
+          <a
+            href="/blog/we-open-sourced-our-agent-testing-tool/"
+            class="inline-flex items-center gap-2 px-6 py-3 text-base font-bold uppercase tracking-wider text-white border-2 border-white hover:bg-white hover:text-[var(--color-primary-700)]"
+            data-track-cta="dryfit-cta-blog"
+          >
+            Read the announcement
+          </a>
+        </div>
+      </div>
+    </Container>
+  </section>
+</PageLayout>

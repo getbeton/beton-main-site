@@ -95,6 +95,24 @@
       "Spot churn signals before users downgrade or leave",
       "Route product-qualified leads to your sales team automatically"
     ],
+    "faq": [
+      {
+        "question": "Do I need to export my PostHog data to use Beton?",
+        "answer": "No. Beton reads events directly from your PostHog instance via the API — PostHog Cloud or self-hosted both work. Nothing is copied or migrated. You provide connection credentials and can revoke access at any time."
+      },
+      {
+        "question": "Does Beton slow down my PostHog instance?",
+        "answer": "No. Beton queries event batches on a schedule (typically every few minutes) rather than streaming every event, and respects PostHog's rate limits. In practice the read load is a few queries per sync interval."
+      },
+      {
+        "question": "Which PostHog event types does Beton analyze?",
+        "answer": "Beton reads standard event types (pageviews, custom events, group events, identify calls) plus person and group properties. Heuristic detection surfaces behavioral patterns automatically — you don't need to pre-define which events matter."
+      },
+      {
+        "question": "Does Beton store the raw PostHog events?",
+        "answer": "No. Beton reads events, computes signals, and stores only the signal output (type, confidence, events referenced). Granular product analytics data stays in PostHog."
+      }
+    ],
     "seo": {
       "metaTitle": "PostHog Integration - Product Signal Detection",
       "metaDescription": "Connect PostHog to Beton for behavioral signal detection. Turn product analytics events into revenue signals automatically."
@@ -128,6 +146,24 @@
       "Enrich contact records with product usage context",
       "Update deal stages based on behavioral signals",
       "Alert sales reps in Attio when accounts show expansion intent"
+    ],
+    "faq": [
+      {
+        "question": "What does Beton create in Attio?",
+        "answer": "Beton upserts Companies and People, writes custom attributes for signals (type, confidence, event list, detected timestamp), and can add entries to a list of your choice. You configure which list and which attributes in Attio's workspace settings."
+      },
+      {
+        "question": "Can I map Beton signals to Attio deals or tasks?",
+        "answer": "Yes. Beton supports creating tasks, updating deal-stage attributes, and posting to Attio Activities via Attio's native objects. Configuration lives in each signal's destination settings."
+      },
+      {
+        "question": "Does Beton overwrite existing Attio records?",
+        "answer": "Beton never overwrites user-entered data. It uses Attio's upsert APIs with domain or email as the matching key, appending new signal attributes without touching fields you've set manually."
+      },
+      {
+        "question": "Do I need an Attio paid plan?",
+        "answer": "Any Attio plan that exposes the API works, including the Free plan for light usage. Heavier signal volumes may require Plus or Pro due to Attio's API call limits."
+      }
     ],
     "seo": {
       "metaTitle": "Attio CRM Integration - Signal Routing",
@@ -163,6 +199,24 @@
       "Score leads based on real product engagement data",
       "Keep your HubSpot pipeline synced with actual product usage"
     ],
+    "faq": [
+      {
+        "question": "Does Beton work with HubSpot Free?",
+        "answer": "HubSpot Free supports contact creation and basic property updates, which Beton uses. Deal stage updates and workflow triggers require Starter or higher. Beton gracefully falls back when a feature is unavailable on your plan."
+      },
+      {
+        "question": "Can I route Beton signals to a specific HubSpot pipeline?",
+        "answer": "Yes. Pipeline and deal-stage routing are configured per signal type. You can also trigger HubSpot workflows directly using custom properties that Beton writes to contacts or companies."
+      },
+      {
+        "question": "What data does Beton send to HubSpot?",
+        "answer": "Company name, domain, and signal metadata (type, confidence, events referenced, detected timestamp) — written to custom properties on Contact or Company records. Beton does not sync raw product events, only detected signals."
+      },
+      {
+        "question": "Does Beton use HubSpot's OAuth or API keys?",
+        "answer": "OAuth. You authorize Beton in HubSpot's connected-app settings — no private API keys to manage. Revoke access at any time from HubSpot's integrations panel."
+      }
+    ],
     "seo": {
       "metaTitle": "HubSpot Integration - Revenue Signal Routing",
       "metaDescription": "Route product signals to HubSpot CRM. Update contacts, create deals, and trigger workflows from behavioral data automatically."
@@ -196,6 +250,24 @@
       "Trigger Zoho Blueprints based on product behavior signals",
       "Enrich lead records with real usage data",
       "Prioritize pipeline based on product engagement scores"
+    ],
+    "faq": [
+      {
+        "question": "Which Zoho editions does Beton support?",
+        "answer": "Beton works with all paid Zoho CRM editions that expose the REST API (Standard and above). Accounts, Contacts, Leads, and Deals modules are all supported. API limits follow Zoho's per-edition quotas."
+      },
+      {
+        "question": "Can I route signals to different Zoho layouts?",
+        "answer": "Yes. Each Zoho layout can receive different signal types — useful for separating PLG signals from enterprise sales leads. Layout mapping is per signal type in Beton's destination settings."
+      },
+      {
+        "question": "How does Beton handle Zoho's API rate limits?",
+        "answer": "Beton queues writes and respects Zoho's per-user and per-org limits. If a limit is hit, writes retry automatically on the next sync cycle — nothing is dropped."
+      },
+      {
+        "question": "Does Beton support Zoho Blueprints?",
+        "answer": "Yes. Beton can trigger Zoho Blueprint transitions by writing to trigger fields you configure, letting signal detection kick off your existing Zoho automation workflows."
+      }
     ],
     "seo": {
       "metaTitle": "Zoho CRM Integration - Behavioral Signal Sync",
@@ -231,6 +303,24 @@
       "Add activities for sales follow-up on expansion signals",
       "Flag at-risk deals when churn signals are detected"
     ],
+    "faq": [
+      {
+        "question": "What Pipedrive objects does Beton create?",
+        "answer": "Beton creates Deals on qualification signals, updates Person and Organization records with signal properties, and adds Activities to notify sales reps. Each signal type maps to a specific Pipedrive action."
+      },
+      {
+        "question": "Can I use Pipedrive webhooks alongside Beton signals?",
+        "answer": "Yes. Pipedrive's native webhooks fire after Beton writes a record, so any downstream automation you have in Pipedrive works unchanged. You can also use Beton's Webhooks integration to hit Pipedrive's API directly for custom flows."
+      },
+      {
+        "question": "Does Beton support Pipedrive custom fields?",
+        "answer": "Yes. Beton will auto-create custom fields for signal metadata (confidence, events, detected_at) the first time it writes a record, or use existing fields if you've pre-created them in Pipedrive."
+      },
+      {
+        "question": "Can I route signals to a specific Pipedrive pipeline?",
+        "answer": "Yes. Pipeline and stage selection are per signal type. You can isolate product-led signals in one pipeline while keeping outbound-sourced leads in another."
+      }
+    ],
     "seo": {
       "metaTitle": "Pipedrive Integration - Pipeline Signal Automation",
       "metaDescription": "Connect Pipedrive to Beton for automated pipeline updates. Create activities and update deals when revenue signals are detected."
@@ -265,6 +355,24 @@
       "Feed signals into data warehouses or analytics tools",
       "Build custom integrations with internal tools"
     ],
+    "faq": [
+      {
+        "question": "What's the difference between Webhooks and the n8n integration?",
+        "answer": "The n8n integration is a pre-built connector with a fixed payload shape. Webhooks is the generic version — point it at any HTTPS endpoint, including your own API, Zapier, Make, Slack workflows, or a custom service."
+      },
+      {
+        "question": "How are webhook payloads authenticated?",
+        "answer": "Beton signs every request with HMAC-SHA256 using a shared secret you configure. The signature is in the X-Beton-Signature header. Basic auth and custom headers are also supported for legacy systems."
+      },
+      {
+        "question": "Can I retry failed webhook deliveries?",
+        "answer": "Yes. Beton retries failed deliveries with exponential backoff up to 10 attempts over 24 hours. Delivery logs are visible in the Signals dashboard so you can debug endpoint issues."
+      },
+      {
+        "question": "What does the webhook payload contain?",
+        "answer": "A JSON object with signal_type, confidence, source, destination, account (name, domain), events, enrichment, and detected_at. A sample payload is shown on this page."
+      }
+    ],
     "seo": {
       "metaTitle": "Webhooks Integration - Custom Signal Delivery",
       "metaDescription": "Send revenue signals anywhere via HTTP webhooks. Build custom integrations with your existing stack using Beton's webhook support."
@@ -298,6 +406,24 @@
       "Combine signals with data from other sources before routing",
       "Create complex approval workflows for high-value signals",
       "Route signals to tools that don't have native Beton integration"
+    ],
+    "faq": [
+      {
+        "question": "How do I trigger n8n workflows from Beton signals?",
+        "answer": "Beton sends each signal as an HTTP POST to an n8n webhook URL you configure. Your n8n workflow then routes the payload to any destination — Slack, Salesforce, Notion, custom APIs — with full workflow logic."
+      },
+      {
+        "question": "What does the n8n signal payload look like?",
+        "answer": "A JSON object with signal_type, confidence, account (name, domain), events, enrichment, and detected_at. You can see a sample on this page."
+      },
+      {
+        "question": "Can I use Beton with self-hosted n8n?",
+        "answer": "Yes. As long as your n8n instance accepts HTTPS webhooks, Beton can route signals to it. The webhook URL is configured in Beton's destination settings — same flow as n8n Cloud."
+      },
+      {
+        "question": "Does Beton count against my n8n execution quota?",
+        "answer": "Each signal received triggers one workflow execution. On n8n Cloud this counts against your monthly quota; on self-hosted there is no quota. Filter signal types at the Beton side to avoid unused executions."
+      }
     ],
     "seo": {
       "metaTitle": "n8n Integration - Workflow Automation",

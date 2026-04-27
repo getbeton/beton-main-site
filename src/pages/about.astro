@@ -15,7 +15,7 @@ const breadcrumbs = [
 ---
 
 <PageLayout
-  title={page!.data.title}
+  title={page!.data.seo?.metaTitle || page!.data.title}
   description={page!.data.seo?.metaDescription}
   breadcrumbs={breadcrumbs}
 >
