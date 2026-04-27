@@ -1,6 +1,6 @@
 ---
 title: "Beton late April 2026 update"
-description: "Postgres support, multi-user workspaces, Firecrawl context, and a refreshed design just shipped. Editable field mapping, multi-action signal routing, and a multi-subagent rewrite of discovery are queued for this week. Plus pipeline color from a late-stage pilot and what we learned auditing our own outbound."
+description: "Postgres support, multi-user workspaces, Firecrawl context, and a refreshed design just shipped. Editable field mapping, multi-action signal routing, and a multi-subagent rewrite of discovery are queued for this week. Plus pipeline color from a late-stage pilot."
 publishedAt: "2026-04-27"
 author: "Vlad Nadymov"
 tags: ["product update", "beton"]
