@@ -12,7 +12,7 @@ seo:
   metaDescription: "Postgres source, multi-user workspaces, Firecrawl, design refresh just shipped. Editable field mapping and multi-subagent agent rewrite are next."
 ---
 
-hey, it's Vlad, founder of Beton.
+hey, it's [Vlad](https://www.linkedin.com/in/vlad-nadymov/), founder of Beton.
 
 ten days since the last update. a big release went out to main, more is staged for later this week, and the GTM side has had a lot of motion — both with customers in the pipeline and on our own outbound learning.
 
@@ -103,7 +103,7 @@ the discovery agent now runs as a sequence of four subagents instead of one mono
 
 cleaner trace logs at every step, so you can inspect what each subagent did and why. we were running everything as one prompt before, which meant a failure anywhere blew up the whole run and made debugging painful. splitting it into named subagents makes failures localized and traces useful.
 
-the agent itself is open source. <a href="https://github.com/getbeton/inspector-ml-backend" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 mt-2 px-4 py-2 border-2 border-[var(--color-text)] bg-[var(--color-surface-raised)] text-[var(--color-text)] font-bold uppercase tracking-wider text-sm no-underline hover:bg-[var(--color-text)] hover:text-[var(--color-surface)] hover:shadow-[4px_4px_0_var(--color-text)] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all">→ inspector-ml-backend on GitHub</a>
+the agent itself is open source. <a href="https://github.com/getbeton/inspector-ml-backend" target="_blank" rel="noopener noreferrer" style="display:inline-block;margin-top:8px;padding:10px 18px;border:2px solid currentColor;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:0.05em;text-decoration:none;color:inherit;">→ inspector-ml-backend on GitHub</a>
 
 after this release, we're wiring in our open-source statistical-methods toolkit as agent tools — Fisher exact, two-proportion z, Newcombe intervals, multiple-comparison correction. validation will run as a first-class step inside the loop instead of through a separate post-processing pass. that work is in flight; expect it in the next release.
 
@@ -141,12 +141,12 @@ different verticals, but the underlying ask is the same: a company has behaviora
 
 you're an hour away from new retention drivers – just sign up, set up your account and wait for the agent to go through your data.
 
-<div class="my-8 text-center">
-  <a href="https://inspector.getbeton.ai" class="inline-flex items-center gap-2 px-8 py-4 border-2 border-[var(--color-text)] bg-[var(--color-primary-600)] text-white font-bold uppercase tracking-wider no-underline hover:bg-white hover:text-[var(--color-primary-600)] hover:shadow-[4px_4px_0_var(--color-text)] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all">try Beton free →</a>
+<div style="margin:32px 0;text-align:center">
+  <a href="https://inspector.getbeton.ai" style="display:inline-block;padding:14px 28px;border:2px solid #111;background:#2563eb;color:#ffffff;font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:0.05em;text-decoration:none;">try Beton free →</a>
 </div>
 
 ## ask
 
 forward this to a CMO/Head of Sales friends of yours. happy to pay a finder's fee if we do a deal with them
 
-— Vlad
+— [Vlad](https://www.linkedin.com/in/vlad-nadymov/)
