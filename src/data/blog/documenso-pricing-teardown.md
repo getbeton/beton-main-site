@@ -12,11 +12,11 @@ seo:
   metaDescription: "Documenso is a 12.7k-star DocuSign alternative. Free, $25 Individual, $40 Teams, $250 Platform — and AGPL-3.0 does all the heavy lifting."
 ---
 
-Hey, it's Vlad, founder of Beton.
+Hey, it's [Vlad](https://www.linkedin.com/in/vlad-nadymov/), founder of Beton.
 
 Documenso bills itself as "the open source DocuSign alternative." 12.7k stars on GitHub, AGPL-3.0 licensed, hosted product from $0 to $250/month across four tiers. The most interesting thing about it isn't the prices — it's what AGPL-3.0 does to the buying decision.
 
-*This post is a part of series on commercial open source software pricing.*
+*This post is a part of [series on commercial open source software pricing](https://learninglate.substack.com/p/pricing-the-commercial-open-source-software).*
 
 ## What is Documenso
 
