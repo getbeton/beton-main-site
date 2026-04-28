@@ -9,7 +9,7 @@ draft: false
 coverImage: "/images/blog/documenso-pricing-cover.png"
 seo:
   metaTitle: "Documenso Pricing Teardown — AGPL-3.0 DocuSign Alternative"
-  metaDescription: "Documenso is a 12.7k-star DocuSign alternative. Free for 5 docs/month, $25 Individual, $40 Teams, $250 Platform — with AGPL-3.0 doing all the strategic heavy lifting."
+  metaDescription: "Documenso is a 12.7k-star DocuSign alternative. Free, $25 Individual, $40 Teams, $250 Platform — and AGPL-3.0 does all the heavy lifting."
 ---
 
 Hey, it's Vlad, founder of Beton.
