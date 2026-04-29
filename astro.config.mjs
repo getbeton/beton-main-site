@@ -51,6 +51,12 @@ function urlToSourceFile(url) {
   const indexCandidate = `src/pages${p}/index.astro`;
   if (fs.existsSync(indexCandidate)) return indexCandidate;
 
+  // /tools/dryfit/ maps to src/pages/tools/dryfit.astro (no index/ subdir).
+  // Without this the sitemap falls back to build-time and ships a fake
+  // freshness signal.
+  const flatCandidate = `src/pages${p}.astro`;
+  if (fs.existsSync(flatCandidate)) return flatCandidate;
+
   // Integrations live in a single shared JSON file — every detail page
   // gets the same lastmod, which is accurate (they're all built from one source).
   if (/^\/integrations\/[^/]+$/.test(p)) {

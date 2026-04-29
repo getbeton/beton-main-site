@@ -21,6 +21,52 @@ const allIntegrations = (await getCollection('integrations')).filter(
   (i) => i.data.slug !== slug
 );
 
+// "Pairs well with" — curate 3 complementary integrations.
+// Sources pair with destinations and vice-versa. Skip coming-soon
+// (they're noindex'd and linking from a real page drags quality).
+const liveComplements = allIntegrations.filter(
+  (i) =>
+    !i.data.comingSoon &&
+    i.data.category &&
+    i.data.category !== entry.data.category,
+);
+const pairsWith = liveComplements.slice(0, 3);
+
+// Per-pair copy: gives Google + readers a real "why these go together" sentence
+// instead of a logo grid. Beats the generic "see also" pattern for both
+// internal-link signal and on-page content.
+const pairCopy: Record<string, string> = {
+  'postgres+attio': 'Run signal discovery on your warehouse, route the high-intent accounts straight into Attio with full context.',
+  'postgres+apollo': 'Score warehouse-derived buying signals, then enrich and sequence them via Apollo without a CSV in sight.',
+  'postgres+webhook': 'Pipe raw warehouse-derived signals to any HTTPS endpoint — Slack, Pipedrive, Customer.io, your own service.',
+  'posthog+attio': 'Convert PostHog product behaviour into Attio deals and account fields the moment a signal fires.',
+  'posthog+apollo': 'Turn PostHog buying signals into Apollo sequences targeting only the accounts likely to convert.',
+  'posthog+webhook': 'Stream every fired signal as JSON to wherever you already orchestrate revenue work.',
+  'stripe+attio': 'Tie billing events to Attio accounts so RevOps sees expansion and downgrade risk in the same pane.',
+  'stripe+apollo': 'Use revenue-side signals (upsell ready, churn risk) to prioritise Apollo outbound and renewals.',
+  'stripe+webhook': 'Forward billing-derived signals to your billing analytics, finance ops, or alerting stack.',
+  'firecrawl+attio': 'Auto-enrich Attio accounts with website-derived firmographic signals as soon as they show buying intent.',
+  'firecrawl+apollo': 'Combine website-extracted context with Apollo personas so outbound copy actually lands.',
+  'firecrawl+webhook': 'Route website-derived account context to anywhere your team already lives.',
+  // destination-side fallbacks
+  'attio+postgres': 'Bring warehouse-grade signals into Attio without a custom ETL.',
+  'attio+posthog': 'Turn product usage into Attio account fields automatically.',
+  'attio+stripe': 'Layer billing context onto Attio so renewals and expansions surface at the right moment.',
+  'apollo+posthog': 'Sequence the accounts that PostHog says are ready to buy — not your full TAM.',
+  'apollo+postgres': 'Run outbound on warehouse-derived buying signals instead of stale title lists.',
+  'apollo+stripe': 'Align Apollo sequences to billing milestones (trial-to-paid, downgrade risk, renewal due).',
+  'webhook+posthog': 'Push fired PostHog signals to any HTTPS endpoint your stack speaks.',
+  'webhook+postgres': 'Forward warehouse-derived signals to any service your team already uses.',
+  'webhook+firecrawl': 'Pipe website-extracted context into your existing GTM workflows.',
+};
+
+function pairBlurb(otherSlug: string) {
+  return (
+    pairCopy[`${slug}+${otherSlug}`] ||
+    `Combine ${name} with ${otherSlug} — Beton routes signals between them automatically.`
+  );
+}
+
 const breadcrumbs = [
   { name: 'Home', url: SITE.url },
   { name: 'Integrations', url: `${SITE.url}/integrations/` },
@@ -324,30 +370,55 @@ const faqData = (faq || []).map((item) => ({
     </section>
   )}
 
-  <!-- Other integrations -->
-  {allIntegrations.length > 0 && (
+  {/* Pairs well with — curated complement integrations with per-pair copy.
+      Replaces the old logo-grid "Other Integrations" pattern, which was
+      thin signal for both Google and readers. */}
+  {pairsWith.length > 0 && (
     <section class="py-10 lg:py-16">
       <Container>
-        <h2 class="text-xl sm:text-2xl font-[family-name:var(--font-heading)] tracking-wide text-center mb-8">
-          Other Integrations
-        </h2>
-        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 max-w-3xl mx-auto">
-          {allIntegrations.map((integration) => (
+        <div class="max-w-5xl mx-auto">
+          <h2 class="text-xl sm:text-2xl font-[family-name:var(--font-heading)] tracking-wide text-center mb-3">
+            Pairs well with
+          </h2>
+          <p class="text-base text-[var(--color-text-secondary)] text-center max-w-2xl mx-auto mb-10">
+            {category === 'source'
+              ? `${name} is the data source — pair it with a destination to actually route the signals Beton finds.`
+              : `${name} is the destination — pair it with a data source so Beton has signals worth routing in the first place.`}
+          </p>
+          <div class="grid md:grid-cols-3 gap-6">
+            {pairsWith.map((other) => (
+              <a
+                href={`/integrations/${other.data.slug}/`}
+                class="flex flex-col p-5 border-2 border-[var(--color-text)] bg-[var(--color-surface-raised)] shadow-[var(--shadow-card)] hover:shadow-[6px_6px_0_var(--color-text)] hover:-translate-x-0.5 hover:-translate-y-0.5"
+              >
+                <div class="flex items-center gap-3 mb-3">
+                  <img
+                    src={other.data.logo}
+                    alt={other.data.name}
+                    width="32"
+                    height="32"
+                    loading="lazy"
+                    class="w-8 h-8 object-contain logo-adaptive"
+                  />
+                  <h3 class="font-semibold text-[var(--color-text)]">{name} + {other.data.name}</h3>
+                </div>
+                <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed">
+                  {pairBlurb(other.data.slug)}
+                </p>
+                <span class="mt-4 text-sm font-semibold text-[var(--color-primary-600)]">
+                  {other.data.name} integration →
+                </span>
+              </a>
+            ))}
+          </div>
+          <div class="text-center mt-8">
             <a
-              href={`/integrations/${integration.data.slug}/`}
-              class="flex flex-col items-center gap-2 p-4 border-2 border-[var(--color-text)] shadow-[var(--shadow-card)] hover:shadow-[6px_6px_0_var(--color-text)] hover:-translate-x-0.5 hover:-translate-y-0.5"
+              href="/integrations/"
+              class="inline-flex items-center text-sm font-semibold text-[var(--color-primary-600)] hover:underline"
             >
-              <img
-                src={integration.data.logo}
-                alt={integration.data.name}
-                width="32"
-                height="32"
-                loading="lazy"
-                class="w-8 h-8 object-contain logo-adaptive"
-              />
-              <span class="text-xs font-medium text-[var(--color-text)]">{integration.data.name}</span>
+              Browse all integrations →
             </a>
-          ))}
+          </div>
         </div>
       </Container>
     </section>

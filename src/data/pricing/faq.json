@@ -20,13 +20,13 @@
   {
     "id": "crm-integrations",
     "question": "Which CRMs are supported?",
-    "answer": "Beton currently integrates with Attio, HubSpot, Zoho, and Pipedrive. For other CRMs, you can use webhooks or n8n to route signals to any tool with an API.",
+    "answer": "Attio is the natively supported destination today. HubSpot is on the immediate roadmap. For everything else (Pipedrive, Zoho, Salesforce, Close, custom CRMs), the Webhooks integration routes any signal to any HTTPS endpoint — and because Beton is open source, you can drop in a destination adapter yourself.",
     "order": 4
   },
   {
     "id": "posthog-requirement",
     "question": "Do I need PostHog to use Beton?",
-    "answer": "Yes, PostHog is currently the primary data source. Beton connects to your PostHog instance to monitor product analytics events. Additional data source integrations are on the roadmap.",
+    "answer": "PostHog is the primary product-analytics source, but you can also connect a Postgres warehouse (RDS, Cloud SQL, Supabase, self-hosted) or Stripe directly — Beton reads schema and runs signal discovery against any of them. Vertica and Trino are on the roadmap.",
     "order": 5
   },
   {

@@ -113,40 +113,13 @@ const softwareSchema =
           },
         ],
         featureList: [
-          'Behavioral signal detection',
-          'CRM integration (Attio, HubSpot, Zoho, Pipedrive)',
-          'PostHog analytics integration',
-          'Churn prediction',
-          'Expansion revenue detection',
-          'PLG conversion tracking',
+          'Automated behavioral signal discovery',
+          'Statistical backtest before each signal goes live',
+          'CRM routing to Attio (HubSpot on roadmap)',
+          'PostHog, Postgres, and Stripe data sources',
+          'Apollo, Firecrawl, and Webhook destinations',
+          'Self-hostable under AGPLv3',
         ],
-        ...(reviewData && reviewData.length > 0
-          ? {
-              aggregateRating: {
-                '@type': 'AggregateRating',
-                ratingValue: '5',
-                bestRating: '5',
-                ratingCount: String(reviewData.length),
-              },
-              review: reviewData.map((r) => ({
-                '@type': 'Review',
-                author: {
-                  '@type': 'Person',
-                  name: r.name,
-                  ...(r.role && { jobTitle: r.role }),
-                },
-                reviewBody: r.quote,
-                reviewRating: {
-                  '@type': 'Rating',
-                  ratingValue: '5',
-                  bestRating: '5',
-                },
-                ...(r.company && {
-                  publisher: { '@type': 'Organization', name: r.company },
-                }),
-              })),
-            }
-          : {}),
       }
     : null;
 
