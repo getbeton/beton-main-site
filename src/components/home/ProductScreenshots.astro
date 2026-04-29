@@ -9,18 +9,6 @@ import Heading from '../ui/Heading.astro';
 // image) shows through via image onerror display:none — no innerHTML.
 const shots = [
   {
-    src: '/images/product/dashboard.jpg',
-    alt: 'Beton dashboard showing total signals, active signals, account count, and connected integrations',
-    title: 'Workspace overview',
-    body: 'Total signals firing, accounts under analysis, and which integrations are healthy. The first thing you see every morning.',
-  },
-  {
-    src: '/images/product/hypotheses-inbox.jpg',
-    alt: 'Beton signals page with auto-discovered hypotheses and per-signal lift, confidence, and ARR estimates',
-    title: 'Signals & backtest',
-    body: 'Each auto-discovered signal shows conversion with vs. without, lift over baseline, statistical confidence, and estimated ARR — backtested before it ever fires.',
-  },
-  {
     src: '/images/product/business-model.jpg',
     alt: 'Business Model DB page showing the agent-inferred business type, growth model, ICP, and product assumptions',
     title: 'What the agent learned about you',
@@ -32,6 +20,12 @@ const shots = [
     title: 'Schema, joins, and lineage — figured out',
     body: 'Beton walks your warehouse, infers join keys across events, persons, sessions, and revenue tables, and shows you the schema it learned. No semantic layer to maintain.',
   },
+  {
+    src: '/images/product/hypotheses-inbox.jpg',
+    alt: 'Beton signals page with auto-discovered hypotheses and per-signal lift, confidence, and ARR estimates',
+    title: 'Signals & backtest',
+    body: 'Each auto-discovered signal shows conversion with vs. without, lift over baseline, statistical confidence, and estimated ARR — backtested before it ever fires.',
+  },
 ];
 ---
 
@@ -40,11 +34,11 @@ const shots = [
     <div class="text-center mb-10 lg:mb-14">
       <Heading as="h2">See what the agent does</Heading>
       <p class="mt-4 text-lg text-[var(--color-text-secondary)] max-w-2xl mx-auto">
-        From hypothesis to backtest to fired signal — the four screens you spend time in.
+        Three steps the agent walks every workspace: learn the business, learn the warehouse, surface the signals.
       </p>
     </div>
 
-    <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+    <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
       {shots.map((shot) => (
         <figure class="border-2 border-[var(--color-text)] bg-[var(--color-surface)] shadow-[var(--shadow-card)] overflow-hidden">
           <div class="relative aspect-[16/10] bg-[var(--color-surface-accent-primary)] border-b-2 border-[var(--color-text)] overflow-hidden">
