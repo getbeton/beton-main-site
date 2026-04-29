@@ -1,10 +1,10 @@
 ---
 title: "CRM Sync"
-description: "Automatically create and update deals in Attio, HubSpot, Zoho, and Pipedrive when behavioral signals are detected. No manual data entry."
+description: "Upsert Companies, People, and deal records in Attio when buying signals fire. Append-only on existing fields — never overwrites user-entered data."
 icon: "arrow-path"
 category: "routing"
 order: 4
 featured: true
 ---
 
-When Beton detects a revenue signal, it automatically creates or updates records in your CRM. Sales reps see signal context directly in their workflow — no tab switching or manual lookups required.
+When Beton detects a revenue signal, it upserts the matching record in Attio by domain or email and appends the signal context as custom attributes. Sales reps see what triggered the signal directly on the record — no tab switching, no manual lookups, no overwritten fields.

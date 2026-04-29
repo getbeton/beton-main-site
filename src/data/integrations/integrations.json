@@ -10,60 +10,33 @@
     "featured": true,
     "tagline": "Behavioral signal discovery on top of your raw warehouse",
     "howItWorks": [
-      { "step": "Connect your Postgres", "description": "Provide a read-only connection string. Beton reads your schema and identifies behavioral fact tables (events, actions, transactions)." },
-      { "step": "Beton proposes hypotheses", "description": "The agent generates testable behavioral hypotheses based on your schema and the context it has about your business." },
-      { "step": "Statistical validation", "description": "Each hypothesis is validated with the same statistical methodology used on the PostHog flow before promotion to a production signal." }
+      { "step": "Connect a read-only role", "description": "Provide a connection string. Beton uses a single read-only role and never writes back. Your Postgres takes no extra load — Beton schedules its own scans on a quiet replica or off-peak window." },
+      { "step": "Beton proposes hypotheses", "description": "The agent reads schema (tables, columns, foreign keys) and proposes testable behavioral hypotheses tailored to YOUR table layout — no generic templates." },
+      { "step": "Backtest before promotion", "description": "Each hypothesis is validated against historical rows: precision, recall, lift over baseline. Promote only the ones that beat your bar." }
     ],
     "features": [
       "Read-only connection — zero impact on production",
       "Works with managed Postgres (RDS, Cloud SQL), Supabase, and self-hosted",
-      "Automatic schema introspection",
+      "Automatic schema introspection — no manual table mapping",
       "Compatible with warehouse loaders like Fivetran, Segment, RudderStack",
-      "Same hypothesis-and-validation flow as PostHog",
+      "Same hypothesis-and-backtest flow as PostHog",
       "No data export or migration required"
     ],
     "useCases": [
       "Run signal discovery on a production replica",
       "Use Beton on warehouse data piped from Segment / Fivetran / RudderStack",
-      "Cross-reference event data with internal product tables",
+      "Cross-reference event data with internal product tables (subscriptions, deals, support tickets)",
       "Run signal hunts on Supabase-backed apps"
     ],
+    "codeSnippet": {
+      "language": "bash",
+      "caption": "Provision a read-only role for Beton (run in psql)",
+      "content": "CREATE ROLE beton_readonly LOGIN PASSWORD '<random>';\nGRANT CONNECT ON DATABASE your_db TO beton_readonly;\nGRANT USAGE ON SCHEMA public TO beton_readonly;\nGRANT SELECT ON ALL TABLES IN SCHEMA public TO beton_readonly;\nALTER DEFAULT PRIVILEGES IN SCHEMA public\n  GRANT SELECT ON TABLES TO beton_readonly;"
+    },
     "blogPost": "beton-late-april-2026-update",
     "seo": {
       "metaTitle": "Postgres Integration — Signal Discovery on Your Warehouse",
       "metaDescription": "Connect any Postgres warehouse to Beton — replicas, Supabase, self-hosted. Read schema, discover signals, validate statistically. No data export needed."
-    }
-  },
-  {
-    "id": "firecrawl",
-    "name": "Firecrawl",
-    "slug": "firecrawl",
-    "logo": "/images/logos/firecrawl.svg",
-    "url": "https://www.firecrawl.dev/",
-    "category": "source",
-    "description": "Give Beton's agent business context by letting it crawl your own site (and soon your customers') — pricing, features, integrations, blog. Better context, sharper signals.",
-    "featured": false,
-    "tagline": "Web context for the agent — your product, the way Google sees it",
-    "howItWorks": [
-      { "step": "Add your Firecrawl API key", "description": "Drop your Firecrawl key into Beton settings. Beton uses it to crawl your own site." },
-      { "step": "Agent reads context", "description": "The agent ingests pricing pages, feature docs, blog posts, integration directories — building a working model of what your product does and how it monetizes." },
-      { "step": "Sharper hypotheses", "description": "When the agent looks at warehouse events, it interprets them in the context of your actual product, not in isolation." }
-    ],
-    "features": [
-      "Bring your own Firecrawl API key",
-      "Crawl pricing, features, blog, integrations, and other public pages",
-      "Context fed directly into hypothesis generation",
-      "Coming soon: per-customer crawl during analysis (B2B context awareness)"
-    ],
-    "useCases": [
-      "Help the agent understand what your product does without you writing a brief",
-      "Disambiguate event names by reading what the corresponding feature actually is",
-      "Coming soon: contextualize a customer's industry or stack during analysis"
-    ],
-    "blogPost": "beton-late-april-2026-update",
-    "seo": {
-      "metaTitle": "Firecrawl Integration — Web Context for the Beton Agent",
-      "metaDescription": "Connect Firecrawl to Beton so the agent crawls your site for product context. Pricing, features, blog — fed directly into signal hypothesis generation."
     }
   },
   {
@@ -73,20 +46,20 @@
     "logo": "/images/logos/posthog.svg",
     "url": "https://posthog.com",
     "category": "source",
-    "description": "Connect your PostHog instance as the primary data source for behavioral signal detection.",
+    "description": "Connect your PostHog instance as the primary data source for behavioral signal detection. Backtest hypotheses on your event history before any signal goes live.",
     "featured": true,
     "tagline": "Your product analytics, powering revenue intelligence",
     "howItWorks": [
-      { "step": "Connect your PostHog instance", "description": "Provide your PostHog API credentials. Beton connects directly to your instance — no data export or migration needed." },
-      { "step": "Beton reads your events in real-time", "description": "Product analytics events flow through Beton's signal detection engine, analyzing user behavior patterns automatically." },
-      { "step": "Behavioral signals are detected", "description": "Beton identifies buying intent, expansion opportunities, and churn risk from your PostHog event data." }
+      { "step": "Connect your PostHog instance", "description": "Provide your PostHog project API key. Beton connects directly to your instance — Cloud or self-hosted. No data export, no migration." },
+      { "step": "Agent proposes signal hypotheses", "description": "The agent reads your event taxonomy and person/group properties, then proposes hypotheses (e.g. \"users who hit 5+ workspace events in their first session convert at 4× baseline\")." },
+      { "step": "Backtest before promotion", "description": "Each hypothesis is scored on your last 90 days of events: precision, recall, lift. Approve a hypothesis once it clears your bar — only then does it route signals." }
     ],
     "features": [
       "Direct API connection — no data export needed",
-      "Real-time event processing",
+      "Real-time event processing on a sync schedule (every few minutes)",
       "Supports all PostHog event types and properties",
-      "Historical data analysis for signal calibration",
-      "Zero impact on your PostHog performance",
+      "Historical backtesting on the last 90 days of events",
+      "Zero impact on your PostHog performance — read-only, batched, rate-limit-aware",
       "Works with PostHog Cloud and self-hosted"
     ],
     "useCases": [
@@ -95,6 +68,7 @@
       "Spot churn signals before users downgrade or leave",
       "Route product-qualified leads to your sales team automatically"
     ],
+    "samplePayload": "{\n  \"hypothesis_id\": \"hyp_8g2k\",\n  \"hypothesis\": \"Users who invite a teammate within 7 days of signup\",\n  \"backtest\": {\n    \"window_days\": 90,\n    \"precision\": 0.71,\n    \"recall\": 0.42,\n    \"lift_vs_baseline\": 4.3,\n    \"sample_size\": 1284\n  },\n  \"status\": \"approved\"\n}",
     "faq": [
       {
         "question": "Do I need to export my PostHog data to use Beton?",
@@ -106,16 +80,85 @@
       },
       {
         "question": "Which PostHog event types does Beton analyze?",
-        "answer": "Beton reads standard event types (pageviews, custom events, group events, identify calls) plus person and group properties. Heuristic detection surfaces behavioral patterns automatically — you don't need to pre-define which events matter."
+        "answer": "Beton reads standard event types (pageviews, custom events, group events, identify calls) plus person and group properties. The agent proposes hypotheses automatically — you don't need to pre-define which events matter."
       },
       {
         "question": "Does Beton store the raw PostHog events?",
         "answer": "No. Beton reads events, computes signals, and stores only the signal output (type, confidence, events referenced). Granular product analytics data stays in PostHog."
       }
     ],
+    "blogPost": "we-rebuilt-beton-automated-signal",
     "seo": {
-      "metaTitle": "PostHog Integration - Product Signal Detection",
-      "metaDescription": "Connect PostHog to Beton for behavioral signal detection. Turn product analytics events into revenue signals automatically."
+      "metaTitle": "PostHog Integration — Backtested Signals from Product Events",
+      "metaDescription": "Connect PostHog to Beton. The agent proposes signal hypotheses, backtests them on 90 days of your events, and promotes only the ones that beat your bar."
+    }
+  },
+  {
+    "id": "stripe",
+    "name": "Stripe",
+    "slug": "stripe",
+    "logo": "/images/logos/stripe.svg",
+    "url": "https://stripe.com",
+    "category": "source",
+    "description": "Stripe billing events as a signal source. Trial-to-paid conversions, plan upgrades, payment failures, churn — joined with product behavior for sharper signals.",
+    "featured": true,
+    "tagline": "Revenue events as first-class signals",
+    "howItWorks": [
+      { "step": "Add a Stripe restricted key", "description": "Generate a restricted API key (read-only on customers, subscriptions, invoices, charges, events). Paste it into Beton — no webhook setup required." },
+      { "step": "Beton joins billing with product behavior", "description": "Subscription state changes, plan switches, failed charges, and trial conversions are joined with PostHog/Postgres events on email or domain. Signals carry both contexts." },
+      { "step": "Backtest revenue-grade hypotheses", "description": "Hypotheses like \"trialists who hit feature X within 3 days convert at Y%\" are validated against actual paid conversions in your Stripe history." }
+    ],
+    "features": [
+      "Restricted-key OAuth — read-only, scoped, revocable",
+      "Subscription, invoice, charge, and customer events ingested",
+      "Auto-joined with product analytics on email and domain",
+      "Trial-conversion and expansion hypotheses validated on real revenue outcomes",
+      "Failed-payment and downgrade signals route to CRM as churn-risk",
+      "Works with Stripe test mode for staging environments"
+    ],
+    "useCases": [
+      "Detect trial users likely to convert before the trial ends",
+      "Spot accounts about to upgrade based on usage + billing trajectory",
+      "Catch payment-failure churn signals and route to CS",
+      "Validate \"feature X drives expansion\" claims against actual MRR data"
+    ],
+    "samplePayload": "{\n  \"signal_type\": \"trial_about_to_convert\",\n  \"confidence\": 0.88,\n  \"sources\": [\"stripe\", \"posthog\"],\n  \"account\": { \"email\": \"jane@acme.com\", \"domain\": \"acme.com\" },\n  \"stripe\": {\n    \"subscription_status\": \"trialing\",\n    \"trial_end\": \"2026-05-04\",\n    \"plan_amount\": 4900\n  },\n  \"product_events\": [\"workspace_invited_teammate\", \"api_key_created\", \"workflow_published\"]\n}",
+    "blogPost": "billing-live-agent-wiring",
+    "seo": {
+      "metaTitle": "Stripe Integration — Billing Events as Revenue Signals",
+      "metaDescription": "Join Stripe billing events with product behavior. Backtest trial-conversion, expansion, and churn hypotheses against actual MRR. Read-only restricted key."
+    }
+  },
+  {
+    "id": "firecrawl",
+    "name": "Firecrawl",
+    "slug": "firecrawl",
+    "logo": "/images/logos/firecrawl.svg",
+    "url": "https://www.firecrawl.dev/",
+    "category": "source",
+    "description": "Give Beton's agent business context by letting it crawl your own site (and soon your customers') — pricing, features, integrations, blog. Better context, sharper signals.",
+    "featured": true,
+    "tagline": "Web context for the agent — your product, the way Google sees it",
+    "howItWorks": [
+      { "step": "Add your Firecrawl API key", "description": "Drop your Firecrawl key into Beton settings. Beton uses it to crawl your own site." },
+      { "step": "Agent reads context", "description": "The agent ingests pricing pages, feature docs, blog posts, integration directories — building a working model of what your product does and how it monetizes." },
+      { "step": "Sharper hypotheses", "description": "When the agent looks at warehouse events, it interprets them in the context of your actual product, not in isolation." }
+    ],
+    "features": [
+      "Bring your own Firecrawl API key (Cloud or self-hosted)",
+      "Crawl pricing, features, blog, integrations, and other public pages",
+      "Context fed directly into hypothesis generation",
+      "Coming soon: per-customer crawl during analysis (B2B context awareness)"
+    ],
+    "useCases": [
+      "Help the agent understand what your product does without you writing a brief",
+      "Disambiguate event names by reading what the corresponding feature actually is",
+      "Coming soon: contextualize a customer's industry or stack during analysis"
+    ],
+    "blogPost": "firecrawl-pricing-teardown",
+    "seo": {
+      "metaTitle": "Firecrawl Integration — Web Context for the Beton Agent",
+      "metaDescription": "Connect Firecrawl to Beton so the agent crawls your site for product context. Pricing, features, blog — fed directly into signal hypothesis generation."
     }
   },
   {
@@ -125,21 +168,21 @@
     "logo": "/images/logos/attio.svg",
     "url": "https://attio.com",
     "category": "destination",
-    "description": "Route signals to Attio CRM. Automatically create and update records when buying signals are detected.",
+    "description": "Route signals to Attio CRM. Automatically create and update records when buying signals are detected. Field-level mapping; never overwrites user-entered data.",
     "featured": true,
     "tagline": "Turn product signals into Attio records automatically",
     "howItWorks": [
-      { "step": "Connect your Attio workspace", "description": "Authenticate Beton with your Attio API key. Map signal types to Attio record types and attributes." },
-      { "step": "Configure signal routing rules", "description": "Define which signals create new records, update existing ones, or trigger specific workflows in Attio." },
-      { "step": "Signals flow to Attio in real-time", "description": "When Beton detects a revenue signal, it automatically creates or updates the corresponding record in Attio." }
+      { "step": "Connect your Attio workspace", "description": "Authenticate with an Attio API key. Beton auto-discovers your objects, lists, and custom attributes — no manual schema setup." },
+      { "step": "Configure signal-to-attribute mapping", "description": "Map each signal type to specific Attio attributes (signal_type, confidence, events, detected_at). Optionally append entries to a list per signal." },
+      { "step": "Signals flow to Attio in real-time", "description": "When Beton detects a revenue signal, it upserts the matching Company/Person record by domain or email, appending signal context without touching fields you set manually." }
     ],
     "features": [
-      "Automatic record creation and updates",
-      "Custom field mapping for signal context",
-      "Support for companies, contacts, and deals",
-      "Bi-directional sync capabilities",
+      "Automatic Company and Person upsert by domain/email",
+      "Custom attribute mapping for signal context",
+      "Optional list-entry creation per signal type",
+      "Bi-directional ID linking — find the matching record in Attio from Beton",
       "Configurable routing rules per signal type",
-      "Full signal context attached to records"
+      "Never overwrites user-entered data — append-only on existing fields"
     ],
     "useCases": [
       "Auto-create deals when buying signals are detected",
@@ -166,164 +209,44 @@
       }
     ],
     "seo": {
-      "metaTitle": "Attio CRM Integration - Signal Routing",
-      "metaDescription": "Route revenue signals from Beton to Attio CRM. Automatically create and update records when buying signals are detected."
+      "metaTitle": "Attio CRM Integration — Signal Routing",
+      "metaDescription": "Route revenue signals from Beton to Attio CRM. Automatically upsert Companies and People with signal context — never overwrites user-entered data."
     }
   },
   {
-    "id": "hubspot",
-    "name": "HubSpot",
-    "slug": "hubspot",
-    "logo": "/images/logos/hubspot.svg",
-    "url": "https://www.hubspot.com",
+    "id": "apollo",
+    "name": "Apollo",
+    "slug": "apollo",
+    "logo": "/images/logos/apollo.svg",
+    "url": "https://www.apollo.io",
     "category": "destination",
-    "description": "Route signals to HubSpot CRM. Update contacts, create deals, and trigger workflows automatically.",
+    "description": "Enrich detected signals with Apollo contact and company data, then push the enriched record into your CRM or sequence. Fewer manual lookups; faster outbound.",
     "featured": true,
-    "tagline": "Bridge the gap between product usage and your HubSpot pipeline",
+    "tagline": "Enrich the signal before it routes",
     "howItWorks": [
-      { "step": "Connect your HubSpot account", "description": "Authenticate via OAuth. Beton automatically discovers your HubSpot properties and pipeline stages." },
-      { "step": "Map signals to HubSpot actions", "description": "Configure which signals create contacts, update deals, set lifecycle stages, or trigger HubSpot workflows." },
-      { "step": "Revenue signals appear in HubSpot", "description": "Your sales team sees product usage signals directly in HubSpot — no context switching required." }
+      { "step": "Add your Apollo API key", "description": "Drop in your Apollo key. Beton uses it for organization-enrich, people-search, and people-match." },
+      { "step": "Auto-enrich detected signals", "description": "When a signal fires for an account, Beton hits Apollo's organization-enrich and finds the matching ICP contacts (title filters, location filters, seniority). Reveal optional." },
+      { "step": "Route enriched records onward", "description": "Push the signal + enriched contact into your CRM (Attio), kick off an Apollo sequence, or webhook the full payload anywhere." }
     ],
     "features": [
-      "OAuth-based authentication",
-      "Contact and company record updates",
-      "Automatic deal creation and stage updates",
-      "Custom property mapping",
-      "HubSpot workflow triggers",
-      "Timeline event logging for full context"
+      "Organization enrichment by domain — firmographic context per signal",
+      "People search with ICP filters (title, seniority, location)",
+      "People match (reveal) — full contact data, 1 credit per reveal",
+      "Apollo-side sequence enrollment (paused or live)",
+      "Cost-aware: respects your Apollo credit balance, with per-signal caps",
+      "Works with both Apollo workspaces and Apollo individual plans"
     ],
     "useCases": [
-      "Trigger outreach workflows when users hit product milestones",
-      "Create deals automatically when buying intent is detected",
-      "Score leads based on real product engagement data",
-      "Keep your HubSpot pipeline synced with actual product usage"
+      "Auto-find the buyer when a PQL signal fires (no rep research)",
+      "Enrich churn-risk signals with the relevant exec contact for retention",
+      "Trigger an Apollo sequence the moment a buying signal lands",
+      "Feed enriched signals into outbound systems beyond Apollo"
     ],
-    "faq": [
-      {
-        "question": "Does Beton work with HubSpot Free?",
-        "answer": "HubSpot Free supports contact creation and basic property updates, which Beton uses. Deal stage updates and workflow triggers require Starter or higher. Beton gracefully falls back when a feature is unavailable on your plan."
-      },
-      {
-        "question": "Can I route Beton signals to a specific HubSpot pipeline?",
-        "answer": "Yes. Pipeline and deal-stage routing are configured per signal type. You can also trigger HubSpot workflows directly using custom properties that Beton writes to contacts or companies."
-      },
-      {
-        "question": "What data does Beton send to HubSpot?",
-        "answer": "Company name, domain, and signal metadata (type, confidence, events referenced, detected timestamp) — written to custom properties on Contact or Company records. Beton does not sync raw product events, only detected signals."
-      },
-      {
-        "question": "Does Beton use HubSpot's OAuth or API keys?",
-        "answer": "OAuth. You authorize Beton in HubSpot's connected-app settings — no private API keys to manage. Revoke access at any time from HubSpot's integrations panel."
-      }
-    ],
+    "samplePayload": "{\n  \"signal_type\": \"product_qualified_lead\",\n  \"account\": {\n    \"domain\": \"acme.com\",\n    \"name\": \"Acme Corp\"\n  },\n  \"apollo_enrichment\": {\n    \"industry\": \"SaaS\",\n    \"employee_count\": 142,\n    \"funding_stage\": \"Series B\",\n    \"primary_contact\": {\n      \"name\": \"Jane Doe\",\n      \"title\": \"VP of Revenue Ops\",\n      \"email\": \"jane@acme.com\",\n      \"linkedin\": \"https://linkedin.com/in/janedoe\"\n    }\n  },\n  \"sequence_enrolled\": \"plg-pql-q2\"\n}",
+    "blogPost": "new-apollo-integration-faster-enrichment",
     "seo": {
-      "metaTitle": "HubSpot Integration - Revenue Signal Routing",
-      "metaDescription": "Route product signals to HubSpot CRM. Update contacts, create deals, and trigger workflows from behavioral data automatically."
-    }
-  },
-  {
-    "id": "zoho",
-    "name": "Zoho CRM",
-    "slug": "zoho",
-    "logo": "/images/logos/zoho.svg",
-    "url": "https://www.zoho.com/crm",
-    "category": "destination",
-    "description": "Route signals to Zoho CRM. Sync behavioral signals with your Zoho sales pipeline.",
-    "featured": true,
-    "tagline": "Behavioral signals, delivered straight to your Zoho pipeline",
-    "howItWorks": [
-      { "step": "Connect your Zoho CRM account", "description": "Authenticate with Zoho OAuth. Beton maps your modules, fields, and pipeline stages automatically." },
-      { "step": "Configure signal-to-action mapping", "description": "Define how each signal type translates into Zoho records, field updates, or workflow triggers." },
-      { "step": "Signals sync to Zoho in real-time", "description": "Revenue signals from your product appear as records, notes, and updates in your Zoho CRM pipeline." }
-    ],
-    "features": [
-      "Full Zoho CRM module support",
-      "Lead and deal record creation",
-      "Custom field and layout mapping",
-      "Blueprint workflow triggers",
-      "Activity logging with signal context",
-      "Support for Zoho CRM Plus features"
-    ],
-    "useCases": [
-      "Convert product-qualified leads into Zoho deals automatically",
-      "Trigger Zoho Blueprints based on product behavior signals",
-      "Enrich lead records with real usage data",
-      "Prioritize pipeline based on product engagement scores"
-    ],
-    "faq": [
-      {
-        "question": "Which Zoho editions does Beton support?",
-        "answer": "Beton works with all paid Zoho CRM editions that expose the REST API (Standard and above). Accounts, Contacts, Leads, and Deals modules are all supported. API limits follow Zoho's per-edition quotas."
-      },
-      {
-        "question": "Can I route signals to different Zoho layouts?",
-        "answer": "Yes. Each Zoho layout can receive different signal types — useful for separating PLG signals from enterprise sales leads. Layout mapping is per signal type in Beton's destination settings."
-      },
-      {
-        "question": "How does Beton handle Zoho's API rate limits?",
-        "answer": "Beton queues writes and respects Zoho's per-user and per-org limits. If a limit is hit, writes retry automatically on the next sync cycle — nothing is dropped."
-      },
-      {
-        "question": "Does Beton support Zoho Blueprints?",
-        "answer": "Yes. Beton can trigger Zoho Blueprint transitions by writing to trigger fields you configure, letting signal detection kick off your existing Zoho automation workflows."
-      }
-    ],
-    "seo": {
-      "metaTitle": "Zoho CRM Integration - Behavioral Signal Sync",
-      "metaDescription": "Sync behavioral signals from Beton to Zoho CRM. Route product usage data to your Zoho sales pipeline in real-time."
-    }
-  },
-  {
-    "id": "pipedrive",
-    "name": "Pipedrive",
-    "slug": "pipedrive",
-    "logo": "/images/logos/pipedrive.svg",
-    "url": "https://www.pipedrive.com",
-    "category": "destination",
-    "description": "Route signals to Pipedrive. Create activities and update deals when revenue signals are detected.",
-    "featured": true,
-    "tagline": "Let product signals drive your Pipedrive pipeline",
-    "howItWorks": [
-      { "step": "Connect your Pipedrive account", "description": "Provide your Pipedrive API token. Beton discovers your pipelines, stages, and custom fields." },
-      { "step": "Map signals to Pipedrive actions", "description": "Choose which signals create deals, update stages, add activities, or create notes in Pipedrive." },
-      { "step": "Your pipeline stays in sync", "description": "Deals move through your pipeline automatically as product signals indicate progression or risk." }
-    ],
-    "features": [
-      "Deal creation and stage progression",
-      "Activity and note creation",
-      "Custom field mapping",
-      "Organization and person record updates",
-      "Pipeline-specific routing rules",
-      "Full signal context in deal details"
-    ],
-    "useCases": [
-      "Auto-create deals when free users show buying intent",
-      "Move deals through stages based on product milestones",
-      "Add activities for sales follow-up on expansion signals",
-      "Flag at-risk deals when churn signals are detected"
-    ],
-    "faq": [
-      {
-        "question": "What Pipedrive objects does Beton create?",
-        "answer": "Beton creates Deals on qualification signals, updates Person and Organization records with signal properties, and adds Activities to notify sales reps. Each signal type maps to a specific Pipedrive action."
-      },
-      {
-        "question": "Can I use Pipedrive webhooks alongside Beton signals?",
-        "answer": "Yes. Pipedrive's native webhooks fire after Beton writes a record, so any downstream automation you have in Pipedrive works unchanged. You can also use Beton's Webhooks integration to hit Pipedrive's API directly for custom flows."
-      },
-      {
-        "question": "Does Beton support Pipedrive custom fields?",
-        "answer": "Yes. Beton will auto-create custom fields for signal metadata (confidence, events, detected_at) the first time it writes a record, or use existing fields if you've pre-created them in Pipedrive."
-      },
-      {
-        "question": "Can I route signals to a specific Pipedrive pipeline?",
-        "answer": "Yes. Pipeline and stage selection are per signal type. You can isolate product-led signals in one pipeline while keeping outbound-sourced leads in another."
-      }
-    ],
-    "seo": {
-      "metaTitle": "Pipedrive Integration - Pipeline Signal Automation",
-      "metaDescription": "Connect Pipedrive to Beton for automated pipeline updates. Create activities and update deals when revenue signals are detected."
+      "metaTitle": "Apollo Integration — Auto-Enrich Detected Signals",
+      "metaDescription": "Apollo enrichment on every Beton signal. Find the buyer, hit them with the right context, kick off a sequence — without manual research."
     }
   },
   {
@@ -333,33 +256,31 @@
     "logo": "/images/logos/webhook.svg",
     "url": "#",
     "category": "destination",
-    "description": "Send signals to any tool via webhooks. Build custom integrations with your existing stack.",
+    "description": "Send signals to any tool via webhooks. HMAC-signed JSON payloads, retries with backoff, delivery logs. The escape hatch for everything Beton doesn't natively integrate with.",
     "featured": true,
-    "tagline": "Send revenue signals anywhere with HTTP webhooks",
+    "tagline": "Send revenue signals anywhere with HTTPS webhooks",
     "howItWorks": [
-      { "step": "Configure your webhook endpoint", "description": "Provide any HTTP endpoint URL. Beton sends structured JSON payloads for each detected signal." },
-      { "step": "Filter and transform signals", "description": "Choose which signal types to forward and customize the payload format to match your system's expectations." },
-      { "step": "Receive signals in real-time", "description": "Your endpoint receives a POST request with full signal context every time a matching signal is detected." }
+      { "step": "Configure your webhook endpoint", "description": "Provide an HTTPS URL plus an HMAC shared secret. Add custom headers for auth, tagging, or routing on your end." },
+      { "step": "Filter and shape the payload", "description": "Choose which signal types to forward and (optionally) transform the payload to match your system's expected shape." },
+      { "step": "Receive signals in real-time", "description": "Your endpoint receives a POST with full signal context every time a matching signal is detected. Failed deliveries retry with exponential backoff (10× / 24h)." }
     ],
     "features": [
       "Standard HTTP POST with JSON payloads",
-      "Configurable headers and authentication",
+      "HMAC-SHA256 signed (X-Beton-Signature header)",
+      "Configurable custom headers and basic auth",
       "Signal type filtering",
-      "Payload transformation and mapping",
-      "Retry logic with exponential backoff",
-      "Delivery logging and debugging tools"
+      "Payload transformation and field mapping",
+      "Retry logic — exponential backoff, 10 attempts over 24 hours",
+      "Delivery logs visible in the Signals dashboard"
     ],
     "useCases": [
       "Send signals to Slack channels for team visibility",
-      "Trigger custom scripts or serverless functions",
+      "Trigger custom scripts, n8n workflows, or serverless functions",
       "Feed signals into data warehouses or analytics tools",
-      "Build custom integrations with internal tools"
+      "Build custom integrations with internal tools or homegrown CRMs"
     ],
+    "samplePayload": "{\n  \"signal_type\": \"product_qualified_lead\",\n  \"confidence\": 0.92,\n  \"source\": \"posthog\",\n  \"hypothesis_id\": \"hyp_8g2k\",\n  \"account\": { \"name\": \"Acme Corp\", \"domain\": \"acme.com\" },\n  \"events\": [\"visited_pricing_page\", \"invited_team_member\", \"api_key_created\"],\n  \"enrichment\": { \"company_size\": \"50-200\", \"industry\": \"SaaS\" },\n  \"detected_at\": \"2026-04-29T14:31:08Z\"\n}",
     "faq": [
-      {
-        "question": "What's the difference between Webhooks and the n8n integration?",
-        "answer": "The n8n integration is a pre-built connector with a fixed payload shape. Webhooks is the generic version — point it at any HTTPS endpoint, including your own API, Zapier, Make, Slack workflows, or a custom service."
-      },
       {
         "question": "How are webhook payloads authenticated?",
         "answer": "Beton signs every request with HMAC-SHA256 using a shared secret you configure. The signature is in the X-Beton-Signature header. Basic auth and custom headers are also supported for legacy systems."
@@ -369,13 +290,68 @@
         "answer": "Yes. Beton retries failed deliveries with exponential backoff up to 10 attempts over 24 hours. Delivery logs are visible in the Signals dashboard so you can debug endpoint issues."
       },
       {
+        "question": "Can I use webhooks to talk to n8n, Zapier, or Make?",
+        "answer": "Yes — point the webhook URL at any of those services' webhook trigger endpoints. The standard JSON shape works out of the box for n8n trigger nodes, Zapier catch hooks, and Make scenarios."
+      },
+      {
         "question": "What does the webhook payload contain?",
-        "answer": "A JSON object with signal_type, confidence, source, destination, account (name, domain), events, enrichment, and detected_at. A sample payload is shown on this page."
+        "answer": "A JSON object with signal_type, confidence, source, hypothesis_id, account (name, domain), events, enrichment, and detected_at. A sample payload is shown on this page."
       }
     ],
     "seo": {
-      "metaTitle": "Webhooks Integration - Custom Signal Delivery",
-      "metaDescription": "Send revenue signals anywhere via HTTP webhooks. Build custom integrations with your existing stack using Beton's webhook support."
+      "metaTitle": "Webhooks — Custom Signal Delivery (HMAC-Signed JSON)",
+      "metaDescription": "Send Beton revenue signals anywhere over HTTPS. HMAC-signed payloads, retries, delivery logs. Connect to n8n, Zapier, Make, or your own service."
+    }
+  },
+  {
+    "id": "hubspot",
+    "name": "HubSpot",
+    "slug": "hubspot",
+    "logo": "/images/logos/hubspot.svg",
+    "url": "https://www.hubspot.com",
+    "category": "destination",
+    "description": "Route signals to HubSpot CRM. Update contacts, create deals, and trigger workflows automatically. Ships next.",
+    "featured": false,
+    "comingSoon": true,
+    "tagline": "HubSpot routing — shipping next release",
+    "seo": {
+      "noIndex": true,
+      "metaTitle": "HubSpot Integration (Coming Soon) — Beton",
+      "metaDescription": "HubSpot CRM routing for Beton signals — shipping in the next release. Join the waitlist for early access."
+    }
+  },
+  {
+    "id": "zoho",
+    "name": "Zoho CRM",
+    "slug": "zoho",
+    "logo": "/images/logos/zoho.svg",
+    "url": "https://www.zoho.com/crm",
+    "category": "destination",
+    "description": "Zoho CRM routing is on our roadmap. Today, route signals to Zoho via the generic Webhooks integration.",
+    "featured": false,
+    "comingSoon": true,
+    "tagline": "Zoho routing — on the roadmap (use Webhooks today)",
+    "seo": {
+      "noIndex": true,
+      "metaTitle": "Zoho CRM Integration (On Roadmap) — Beton",
+      "metaDescription": "Native Zoho CRM routing is on Beton's roadmap. Today, route signals to Zoho via the generic Webhooks integration."
+    }
+  },
+  {
+    "id": "pipedrive",
+    "name": "Pipedrive",
+    "slug": "pipedrive",
+    "logo": "/images/logos/pipedrive.svg",
+    "url": "https://www.pipedrive.com",
+    "category": "destination",
+    "description": "Pipedrive routing is on our roadmap. Today, route signals to Pipedrive via the generic Webhooks integration.",
+    "featured": false,
+    "comingSoon": true,
+    "tagline": "Pipedrive routing — on the roadmap (use Webhooks today)",
+    "seo": {
+      "noIndex": true,
+      "metaTitle": "Pipedrive Integration (On Roadmap) — Beton",
+      "metaDescription": "Native Pipedrive routing is on Beton's roadmap. Today, route signals to Pipedrive via the generic Webhooks integration."
     }
   },
   {
@@ -385,49 +361,14 @@
     "logo": "/images/logos/n8n.svg",
     "url": "https://n8n.io",
     "category": "destination",
-    "description": "Connect to n8n for unlimited automation. Route signals through complex multi-step workflows.",
+    "description": "Trigger n8n workflows from Beton signals using the generic Webhooks integration. A native n8n trigger node is on the roadmap.",
     "featured": false,
-    "tagline": "Unlimited automation possibilities with n8n workflows",
-    "howItWorks": [
-      { "step": "Set up a Beton trigger in n8n", "description": "Add the Beton webhook trigger node to any n8n workflow. Configure which signal types should activate the workflow." },
-      { "step": "Build your automation workflow", "description": "Use n8n's visual workflow builder to process signals — enrich data, apply logic, route to multiple destinations." },
-      { "step": "Signals trigger your workflows", "description": "Every matching signal automatically kicks off your n8n workflow, executing your custom automation logic." }
-    ],
-    "features": [
-      "Native n8n webhook trigger support",
-      "Compatible with all n8n nodes and integrations",
-      "Multi-step workflow automation",
-      "Conditional logic and branching",
-      "Works with n8n Cloud and self-hosted",
-      "Full signal context in workflow data"
-    ],
-    "useCases": [
-      "Build multi-step enrichment and routing workflows",
-      "Combine signals with data from other sources before routing",
-      "Create complex approval workflows for high-value signals",
-      "Route signals to tools that don't have native Beton integration"
-    ],
-    "faq": [
-      {
-        "question": "How do I trigger n8n workflows from Beton signals?",
-        "answer": "Beton sends each signal as an HTTP POST to an n8n webhook URL you configure. Your n8n workflow then routes the payload to any destination — Slack, Salesforce, Notion, custom APIs — with full workflow logic."
-      },
-      {
-        "question": "What does the n8n signal payload look like?",
-        "answer": "A JSON object with signal_type, confidence, account (name, domain), events, enrichment, and detected_at. You can see a sample on this page."
-      },
-      {
-        "question": "Can I use Beton with self-hosted n8n?",
-        "answer": "Yes. As long as your n8n instance accepts HTTPS webhooks, Beton can route signals to it. The webhook URL is configured in Beton's destination settings — same flow as n8n Cloud."
-      },
-      {
-        "question": "Does Beton count against my n8n execution quota?",
-        "answer": "Each signal received triggers one workflow execution. On n8n Cloud this counts against your monthly quota; on self-hosted there is no quota. Filter signal types at the Beton side to avoid unused executions."
-      }
-    ],
+    "comingSoon": true,
+    "tagline": "n8n via Webhooks today; native node on the roadmap",
     "seo": {
-      "metaTitle": "n8n Integration - Workflow Automation",
-      "metaDescription": "Connect Beton to n8n for unlimited workflow automation. Route revenue signals through complex multi-step workflows."
+      "noIndex": true,
+      "metaTitle": "n8n Integration — Use Webhooks Today",
+      "metaDescription": "Trigger n8n workflows from Beton signals via the Webhooks integration. A native n8n trigger node is planned."
     }
   }
 ]

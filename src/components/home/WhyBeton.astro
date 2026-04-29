@@ -1,0 +1,51 @@
+---
+import Container from '../ui/Container.astro';
+import Section from '../ui/Section.astro';
+import Heading from '../ui/Heading.astro';
+import Card from '../ui/Card.astro';
+
+const reasons = [
+  {
+    title: 'Automated discovery',
+    body: "Beton's agent reads your schema and proposes signal hypotheses tailored to your product. You don't write rules, run SQL, or pre-list which events matter.",
+    accent: 'border-t-[var(--color-primary-500)]',
+  },
+  {
+    title: 'Backtested before live',
+    body: "Every hypothesis is validated against your own history before it routes anything. You see precision, recall, and lift over baseline — not vendor-trained black-box scores.",
+    accent: 'border-t-[var(--color-accent-500)]',
+  },
+  {
+    title: 'Tailored to your schema',
+    body: "Hypotheses are scoped to YOUR tables, your event taxonomy, your billing setup. No generic playbooks dropped in from another company.",
+    accent: 'border-t-[var(--color-primary-400)]',
+  },
+  {
+    title: 'Yes, a scoring vendor — but self-hostable',
+    body: "AGPLv3 source on GitHub. Run it on your own VM with no data egress, or use our cloud — same code. Security review for free.",
+    accent: 'border-t-[var(--color-accent-400)]',
+  },
+];
+---
+
+<Section id="why-beton">
+  <Container>
+    <div class="text-center mb-10 lg:mb-14">
+      <Heading as="h2">Why teams pick Beton</Heading>
+      <p class="mt-4 text-lg text-[var(--color-text-secondary)] max-w-2xl mx-auto">
+        Four things that aren't true of any other revenue intelligence vendor on the market today.
+      </p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {reasons.map((reason) => (
+        <Card class={`border-t-4 ${reason.accent}`}>
+          <h3 class="text-base font-semibold mb-3">{reason.title}</h3>
+          <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed">
+            {reason.body}
+          </p>
+        </Card>
+      ))}
+    </div>
+  </Container>
+</Section>

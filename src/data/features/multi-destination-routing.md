@@ -1,10 +1,10 @@
 ---
 title: "Multi-Destination Routing"
-description: "Route one signal to many CRMs and tools simultaneously. Attio, HubSpot, Zoho, Pipedrive, webhooks, and n8n — all from a single detection."
+description: "One detected signal fans out to Attio, Apollo, and any HTTPS endpoint via Webhooks. HMAC-signed, retried, and logged."
 icon: "arrows-pointing-out"
 category: "routing"
 order: 2
 featured: true
 ---
 
-A single behavioral signal can trigger updates across all your connected tools. Beton routes signals to multiple destinations simultaneously, keeping your entire revenue stack in sync.
+A single behavioral signal triggers updates across every connected destination — Attio for CRM context, Apollo for contact enrichment and sequence enrolment, plus any HTTPS endpoint (n8n, Zapier, Make, your own API) via the Webhooks integration. HMAC-signed payloads, retries with backoff, full delivery logs.

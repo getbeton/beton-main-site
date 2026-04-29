@@ -11,7 +11,7 @@ const { headline, primaryCta, secondaryCta } = Astro.props;
 const isSecondaryGitHub = secondaryCta?.href?.includes('github.com');
 ---
 
-<Badge variant="primary" class="mb-6">Open Source &middot; AGPLv3 licence</Badge>
+<Badge variant="primary" class="mb-6">Open Source &middot; AGPLv3 &middot; Self-host or Cloud</Badge>
 <h1 class="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-[family-name:var(--font-heading)] sm:tracking-wide leading-[1.1] border-b-4 border-[var(--color-primary-600)] pb-4">
   {headline}
 </h1>
@@ -34,5 +34,5 @@ const isSecondaryGitHub = secondaryCta?.href?.includes('github.com');
 )}
 <!-- Trust line -->
 <p class="mt-4 text-sm font-[family-name:var(--font-mono)] text-[var(--color-text-tertiary)]">
-  30-day money back guarantee for cloud. Free forever for self-hosted.
+  Connect your data warehouse in 5 minutes. First backtest in 10. Free forever for self-hosted; 30-day money-back on Cloud.
 </p>

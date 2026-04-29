@@ -1,7 +1,7 @@
 ---
 name: "Vlad Nadymov"
 role: "Founder & CEO"
-bio: "Building open-source revenue intelligence to help product-led companies convert more customers. Previously built data infrastructure at scale. Passionate about the intersection of product analytics and sales."
+bio: "Co-founded Beton after watching every PLG team rebuild the same hypothesis-and-backtest flow from scratch. Previously: data and product roles at Handl.ai (YC), inDrive, Borzo Delivery, and Rainbow AI."
 order: 1
 social:
   twitter: "https://x.com/stochasticmacaw"

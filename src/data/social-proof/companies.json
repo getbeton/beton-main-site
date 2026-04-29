@@ -1,37 +1,65 @@
 [
   {
+    "id": "posthog",
+    "name": "PostHog",
+    "logo": "/images/logos/posthog.svg",
+    "url": "https://posthog.com",
+    "order": 1
+  },
+  {
+    "id": "plentylabs",
+    "name": "Plenty Labs",
+    "logo": "/images/logos/plentylabs.png",
+    "url": "https://plentylabs.com",
+    "order": 2
+  },
+  {
+    "id": "wiseops",
+    "name": "WiseOps",
+    "logo": "/images/logos/wiseops.png",
+    "url": "https://wiseops.team",
+    "order": 3
+  },
+  {
+    "id": "robo",
+    "name": "Robo",
+    "logo": "/images/logos/robo.png",
+    "url": "https://robo.tech",
+    "order": 4
+  },
+  {
     "id": "maaaps",
     "name": "Maaaps",
     "logo": "/images/logos/maaaps.png",
     "url": "https://maaaps.io",
-    "order": 1
+    "order": 5
   },
   {
     "id": "botimize",
     "name": "Botimize",
     "logo": "/images/logos/botimize.png",
     "url": "https://botimize.me",
-    "order": 2
+    "order": 6
   },
   {
     "id": "manuscript-ai",
     "name": "Manuscript AI",
     "logo": "/images/logos/manuscript-ai.svg",
     "url": "https://manuscript-ai.carrd.co",
-    "order": 3
+    "order": 7
   },
   {
     "id": "immcore",
     "name": "ImmCore",
     "logo": "/images/logos/immcore.png",
     "url": "https://immcore.ai",
-    "order": 4
+    "order": 8
   },
   {
     "id": "ostrio",
     "name": "ostr.io",
     "logo": "/images/logos/ostrio.png",
     "url": "https://ostr.io",
-    "order": 5
+    "order": 9
   }
 ]

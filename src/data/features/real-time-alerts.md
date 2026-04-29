@@ -1,10 +1,10 @@
 ---
-title: "Real-Time Alerts"
-description: "Get instant notifications when high-value signals are detected. Never miss a buying intent moment — alerts go straight to Slack, email, or your CRM."
-icon: "bell-alert"
+title: "Self-Hosted, Open Source"
+description: "AGPLv3 source on GitHub. Self-host on your own infra — no data leaves your stack — or run on our cloud. Same code either way."
+icon: "bolt"
 category: "platform"
 order: 6
 featured: true
 ---
 
-Beton monitors your product analytics continuously and sends real-time alerts when revenue signals are detected. Configure thresholds and channels to match your team's workflow.
+Yes, Beton is a scoring vendor — but a self-hostable one. Run the whole agent on your own VM under AGPLv3, with no data egress, no vendor lock-in, and the same code as our managed cloud. Security review comes free.

@@ -6,8 +6,9 @@ import { SITE } from '../../utils/site';
 const year = new Date().getFullYear();
 
 const integrations = await getCollection('integrations');
-const sources = integrations.filter(i => i.data.category === 'source');
-const destinations = integrations.filter(i => i.data.category === 'destination');
+const live = integrations.filter(i => !i.data.comingSoon);
+const sources = live.filter(i => i.data.category === 'source');
+const destinations = live.filter(i => i.data.category === 'destination');
 ---
 
 <footer class="border-t-2 border-[var(--color-text)] bg-[var(--color-surface)]">
@@ -24,7 +25,7 @@ const destinations = integrations.filter(i => i.data.category === 'destination')
           Beton
         </a>
         <p class="mt-3 text-sm text-[var(--color-text-secondary)] max-w-xs">
-          Open-source revenue intelligence. Detect behavioral signals in product usage and route them to your CRM.
+          Open-source revenue intelligence. The agent proposes signal hypotheses from your PostHog or Postgres data, backtests them, and routes winners to your CRM.
         </p>
         <!-- Social links -->
         <div class="flex items-center gap-3 mt-4">

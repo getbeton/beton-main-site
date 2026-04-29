@@ -1,0 +1,73 @@
+---
+import Container from '../ui/Container.astro';
+import Section from '../ui/Section.astro';
+import Heading from '../ui/Heading.astro';
+
+// Real product screenshots captured from the staging Beton workspace
+// (no real customer data). Files live in /public/images/product/.
+// If a screenshot is missing, the placeholder span (rendered behind the
+// image) shows through via image onerror display:none — no innerHTML.
+const shots = [
+  {
+    src: '/images/product/dashboard.jpg',
+    alt: 'Beton dashboard showing total signals, active signals, account count, and connected integrations',
+    title: 'Workspace overview',
+    body: 'Total signals firing, accounts under analysis, and which integrations are healthy. The first thing you see every morning.',
+  },
+  {
+    src: '/images/product/hypotheses-inbox.jpg',
+    alt: 'Beton signals page with auto-discovered hypotheses and per-signal lift, confidence, and ARR estimates',
+    title: 'Signals & backtest',
+    body: 'Each auto-discovered signal shows conversion with vs. without, lift over baseline, statistical confidence, and estimated ARR — backtested before it ever fires.',
+  },
+  {
+    src: '/images/product/business-model.jpg',
+    alt: 'Business Model DB page showing the agent-inferred business type, growth model, ICP, and product assumptions',
+    title: 'What the agent learned about you',
+    body: 'Beton infers your business type, growth model, ICP, and product assumptions from your data and website — then uses that context to propose signal hypotheses tailored to your product.',
+  },
+  {
+    src: '/images/product/attio-routing.jpg',
+    alt: 'Beton Settings page with PostHog, Attio, and Stripe integrations marked as required',
+    title: 'Integrations & routing',
+    body: 'Connect a data source (PostHog, Postgres) and a destination (Attio, Apollo, Webhooks). Beton pumps signals through automatically — no glue code on your side.',
+  },
+];
+---
+
+<Section id="screenshots" class="bg-[var(--color-surface-raised)] border-y-2 border-[var(--color-border)]">
+  <Container>
+    <div class="text-center mb-10 lg:mb-14">
+      <Heading as="h2">See what the agent does</Heading>
+      <p class="mt-4 text-lg text-[var(--color-text-secondary)] max-w-2xl mx-auto">
+        From hypothesis to backtest to fired signal — the four screens you spend time in.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+      {shots.map((shot) => (
+        <figure class="border-2 border-[var(--color-text)] bg-[var(--color-surface)] shadow-[var(--shadow-card)] overflow-hidden">
+          <div class="relative aspect-[16/10] bg-[var(--color-surface-accent-primary)] border-b-2 border-[var(--color-text)] overflow-hidden">
+            {/* Placeholder caption sits behind the image. If the image fails to
+                load, the onerror handler hides the <img>, revealing the label
+                — no innerHTML needed. */}
+            <span class="absolute inset-0 flex items-center justify-center text-sm font-mono text-[var(--color-text-tertiary)] uppercase tracking-wider">
+              screenshot pending
+            </span>
+            <img
+              src={shot.src}
+              alt={shot.alt}
+              loading="lazy"
+              class="relative w-full h-full object-cover object-top"
+              onerror="this.style.display='none';"
+            />
+          </div>
+          <figcaption class="p-5">
+            <h3 class="font-semibold text-base mb-1">{shot.title}</h3>
+            <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed">{shot.body}</p>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  </Container>
+</Section>

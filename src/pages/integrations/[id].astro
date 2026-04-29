@@ -14,7 +14,8 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-const { name, slug, logo, url, category, description, tagline, howItWorks, features, useCases, blogPost, faq, seo } = entry.data;
+const { name, slug, logo, url, category, description, tagline, howItWorks, features, useCases, codeSnippet, samplePayload, blogPost, faq, seo, comingSoon } = entry.data;
+const noIndex = seo?.noIndex || comingSoon;
 
 const allIntegrations = (await getCollection('integrations')).filter(
   (i) => i.data.slug !== slug
@@ -36,6 +37,7 @@ const faqData = (faq || []).map((item) => ({
   title={seo?.metaTitle || `${name} Integration`}
   description={seo?.metaDescription || description}
   canonicalPath={`/integrations/${slug}/`}
+  noIndex={noIndex}
   breadcrumbs={breadcrumbs}
   faqData={faqData.length > 0 ? faqData : undefined}
 >
@@ -59,6 +61,12 @@ const faqData = (faq || []).map((item) => ({
         <h1 class="text-3xl sm:text-4xl lg:text-5xl font-[family-name:var(--font-heading)] tracking-wide leading-[1.1] mb-4">
           Beton + {name}
         </h1>
+
+        {comingSoon && (
+          <div class="inline-flex items-center px-3 py-1 mb-4 text-xs font-bold uppercase tracking-wider border-2 border-[var(--color-accent-500)] bg-[var(--color-accent-bg)] text-[var(--color-accent-700)]">
+            Coming soon — use Webhooks today
+          </div>
+        )}
 
         {tagline && (
           <p class="text-lg sm:text-xl text-[var(--color-text-secondary)] leading-relaxed mb-4">
@@ -106,40 +114,48 @@ const faqData = (faq || []).map((item) => ({
     </section>
   )}
 
-  <!-- Sample Signal Payload -->
-  <section class="py-10 lg:py-16 bg-[var(--color-surface-raised)] border-y-2 border-[var(--color-border)]">
-    <Container>
-      <div class="max-w-3xl mx-auto">
-        <h2 class="text-xl sm:text-2xl font-[family-name:var(--font-heading)] tracking-wide text-center mb-6">
-          Sample Signal Payload
-        </h2>
-        <div class="border-2 border-[var(--color-text)] bg-[var(--color-surface)]">
-          <div class="flex items-center gap-2 px-4 py-2 border-b-2 border-[var(--color-text)] bg-[var(--color-primary-600)]">
-            <span class="text-xs font-[family-name:var(--font-mono)] font-bold text-white uppercase tracking-wider">JSON</span>
+  {/* Setup snippet — only when the integration has a real shell/SQL/code step */}
+  {codeSnippet && (
+    <section class="py-10 lg:py-16 bg-[var(--color-surface-raised)] border-y-2 border-[var(--color-border)]">
+      <Container>
+        <div class="max-w-3xl mx-auto">
+          <h2 class="text-xl sm:text-2xl font-[family-name:var(--font-heading)] tracking-wide text-center mb-3">
+            Setup
+          </h2>
+          {codeSnippet.caption && (
+            <p class="text-sm text-[var(--color-text-secondary)] text-center mb-6">
+              {codeSnippet.caption}
+            </p>
+          )}
+          <div class="border-2 border-[var(--color-text)] bg-[var(--color-surface)]">
+            <div class="flex items-center gap-2 px-4 py-2 border-b-2 border-[var(--color-text)] bg-[var(--color-primary-600)]">
+              <span class="text-xs font-[family-name:var(--font-mono)] font-bold text-white uppercase tracking-wider">{codeSnippet.language}</span>
+            </div>
+            <pre class="p-4 overflow-x-auto text-sm font-[family-name:var(--font-mono)] leading-relaxed text-[var(--color-text)]"><code>{codeSnippet.content}</code></pre>
           </div>
-          <pre class="p-4 overflow-x-auto text-sm font-[family-name:var(--font-mono)] leading-relaxed text-[var(--color-text)]"><code>{JSON.stringify({
-  signal_type: "product_qualified_lead",
-  confidence: 0.92,
-  source: "posthog",
-  destination: slug,
-  account: {
-    name: "Acme Corp",
-    domain: "acme.com",
-  },
-  events: [
-    "visited_pricing_page",
-    "invited_team_member",
-    "api_key_created",
-  ],
-  enrichment: {
-    company_size: "50-200",
-    industry: "SaaS",
-  },
-}, null, 2)}</code></pre>
         </div>
-      </div>
-    </Container>
-  </section>
+      </Container>
+    </section>
+  )}
+
+  {/* Per-integration JSON payload — only rendered when real, integration-specific. */}
+  {samplePayload && (
+    <section class="py-10 lg:py-16 bg-[var(--color-surface-raised)] border-y-2 border-[var(--color-border)]">
+      <Container>
+        <div class="max-w-3xl mx-auto">
+          <h2 class="text-xl sm:text-2xl font-[family-name:var(--font-heading)] tracking-wide text-center mb-6">
+            What {name} sees
+          </h2>
+          <div class="border-2 border-[var(--color-text)] bg-[var(--color-surface)]">
+            <div class="flex items-center gap-2 px-4 py-2 border-b-2 border-[var(--color-text)] bg-[var(--color-primary-600)]">
+              <span class="text-xs font-[family-name:var(--font-mono)] font-bold text-white uppercase tracking-wider">JSON</span>
+            </div>
+            <pre class="p-4 overflow-x-auto text-sm font-[family-name:var(--font-mono)] leading-relaxed text-[var(--color-text)]"><code>{samplePayload}</code></pre>
+          </div>
+        </div>
+      </Container>
+    </section>
+  )}
 
   <!-- Features & Use Cases -->
   <section class="py-10 lg:py-16">
@@ -233,10 +249,12 @@ const faqData = (faq || []).map((item) => ({
     <Container>
       <div class="text-center max-w-2xl mx-auto">
         <h2 class="text-2xl sm:text-3xl font-[family-name:var(--font-heading)] tracking-wide text-white mb-4">
-          Ready to connect {name}?
+          {comingSoon ? `${name} is on the roadmap` : `Ready to connect ${name}?`}
         </h2>
         <p class="text-lg text-white/80 mb-8">
-          Start detecting revenue signals and routing them to {name} in minutes.
+          {comingSoon
+            ? `Native ${name} support is shipping next. In the meantime, route signals to ${name} via the generic Webhooks integration.`
+            : `Start detecting revenue signals and routing them to ${name} in minutes.`}
         </p>
         <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
           <a

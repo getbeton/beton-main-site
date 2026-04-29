@@ -1,10 +1,10 @@
 ---
-title: "PostHog Integration"
-description: "Connect your PostHog instance and Beton monitors your product analytics events. No data download — Beton reads your events in real-time."
+title: "Bring Your Data Warehouse"
+description: "Connect PostHog directly, or any Postgres warehouse with a read-only role. Same hypothesis-and-backtest flow on either source."
 icon: "link"
 category: "integration"
 order: 3
 featured: true
 ---
 
-Beton connects directly to your PostHog instance to monitor product analytics events. There's no data export or batch download — Beton reads your events to detect behavioral signals as they happen.
+Beton reads from PostHog (Cloud or self-hosted) via API, or from any Postgres database (replicas, Supabase, RDS, Cloud SQL) via a read-only role. Same agent, same flow on both — no data export, no migration, no extra warehouse load.

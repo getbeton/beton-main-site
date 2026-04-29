@@ -1,10 +1,10 @@
 ---
-title: "Webhooks & n8n"
-description: "Send signals to any tool via webhooks or connect to n8n for unlimited automation possibilities. Build custom workflows for your unique revenue process."
+title: "Backtested Hypotheses"
+description: "Every signal hypothesis is scored on your last 90 days of events — precision, recall, lift over baseline — before it routes anything to sales."
 icon: "bolt"
-category: "integration"
+category: "detection"
 order: 5
-featured: false
+featured: true
 ---
 
-Beyond built-in CRM integrations, Beton supports webhooks and n8n connections for unlimited automation. Route signals to Slack, email, custom APIs, or complex multi-step workflows.
+The agent proposes hypotheses, then validates each one against your own historical data. You see precision, recall, and lift over baseline before promotion. Hypotheses that don't clear your bar never become signals — and the ones that do come with the math attached.

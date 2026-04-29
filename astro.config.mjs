@@ -18,6 +18,16 @@ for (const file of fs.readdirSync(blogDir)) {
   blogDates[slug] = (updated?.[1] || published?.[1] || '').trim();
 }
 
+// Integrations that are flagged comingSoon get noindex'd at build time and
+// excluded from the sitemap so we don't dilute the property's quality signal
+// with placeholder pages for un-shipped integrations.
+const integrationsJson = JSON.parse(
+  fs.readFileSync('src/data/integrations/integrations.json', 'utf-8')
+);
+const comingSoonSlugs = new Set(
+  integrationsJson.filter((i) => i.comingSoon).map((i) => `/integrations/${i.slug}/`)
+);
+
 // Map a sitemap URL pathname to the source file whose git mtime should drive
 // its <lastmod>. Returns null when no obvious source file maps cleanly.
 const STATIC_PAGES = new Set([
@@ -83,7 +93,14 @@ export default defineConfig({
     sitemap({
       // /404 is non-content; /seqd/ is deprecated (noindex,follow) — drop
       // both from the sitemap so we don't dilute the property's quality signal.
-      filter: (page) => !page.includes('/404') && !page.includes('/seqd/'),
+      // comingSoon integrations are placeholder pages — also drop.
+      filter: (page) => {
+        if (page.includes('/404') || page.includes('/seqd/')) return false;
+        for (const slug of comingSoonSlugs) {
+          if (page.endsWith(slug)) return false;
+        }
+        return true;
+      },
       serialize(item) {
         const blogMatch = item.url.match(/\/blog\/([^/]+)\/?$/);
         if (blogMatch && blogDates[blogMatch[1]]) {

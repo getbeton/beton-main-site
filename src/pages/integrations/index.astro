@@ -6,8 +6,10 @@ import CTASection from '../../components/shared/CTASection.astro';
 import { SITE } from '../../utils/site';
 
 const integrations = await getCollection('integrations');
-const sources = integrations.filter((i) => i.data.category === 'source');
-const destinations = integrations.filter((i) => i.data.category === 'destination');
+const live = integrations.filter((i) => !i.data.comingSoon);
+const sources = live.filter((i) => i.data.category === 'source');
+const destinations = live.filter((i) => i.data.category === 'destination');
+const comingSoon = integrations.filter((i) => i.data.comingSoon);
 
 const breadcrumbs = [
   { name: 'Home', url: SITE.url },
@@ -17,7 +19,7 @@ const breadcrumbs = [
 
 <PageLayout
   title="Integrations"
-  description="Browse Beton's integrations — connect PostHog, Amplitude, and other data sources, then route revenue signals to HubSpot, Attio, Slack, and more."
+  description="Connect PostHog, Postgres, or Stripe as a data source. Route signals to Attio, Apollo, or any HTTPS endpoint via Webhooks. HubSpot ships next."
   canonicalPath="/integrations/"
   breadcrumbs={breadcrumbs}
 >
@@ -60,7 +62,7 @@ const breadcrumbs = [
       </div>
 
       <!-- Destinations -->
-      <div>
+      <div class="mb-12">
         <h2 class="text-lg font-[family-name:var(--font-heading)] tracking-wide mb-6 text-center">
           Destinations
         </h2>
@@ -85,6 +87,37 @@ const breadcrumbs = [
           ))}
         </div>
       </div>
+
+      {/* Coming-soon row — explicit so visitors see the roadmap and we don't
+          ship a marketing claim of "supports X" for an unbuilt integration. */}
+      {comingSoon.length > 0 && (
+        <div>
+          <h2 class="text-lg font-[family-name:var(--font-heading)] tracking-wide mb-6 text-center">
+            Coming Soon
+          </h2>
+          <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
+            {comingSoon.map((integration) => (
+              <a
+                href={`/integrations/${integration.data.slug}/`}
+                class="flex flex-col items-center gap-2 p-4 border-2 border-dashed border-[var(--color-text-secondary)] bg-[var(--color-surface)] opacity-80 hover:opacity-100"
+              >
+                <img
+                  src={integration.data.logo}
+                  alt={integration.data.name}
+                  width="32"
+                  height="32"
+                  class="w-8 h-8 object-contain logo-adaptive"
+                />
+                <span class="text-sm font-medium text-[var(--color-text)]">{integration.data.name}</span>
+                <span class="text-[10px] uppercase tracking-wider text-[var(--color-text-secondary)] font-bold">Roadmap</span>
+              </a>
+            ))}
+          </div>
+          <p class="text-center text-sm text-[var(--color-text-secondary)] mt-4 max-w-xl mx-auto">
+            Native support is on the roadmap. Today, route signals to any of these via the <a href="/integrations/webhook/" class="underline">Webhooks integration</a>.
+          </p>
+        </div>
+      )}
     </Container>
   </section>
 

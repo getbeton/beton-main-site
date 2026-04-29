@@ -1,12 +1,12 @@
 ---
-title: "Beton - Open-Source Revenue Intelligence"
-subtitle: "Predict which customers will convert to enterprise deals"
+title: "Beton - Revenue Intelligence on Your Own Data"
+subtitle: "Find buying signals in your own data. Backtested."
 seo:
-  metaTitle: "Open-Source Revenue Intelligence"
-  metaDescription: "Predict which customers will convert to enterprise deals. Detect behavioral signals in product usage and route them to your CRM."
+  metaTitle: "Revenue Intelligence — Buying Signals in Your Own Data"
+  metaDescription: "Beton's agent finds buying signals in your data warehouse, backtests them, and routes the revenue-driving ones to your CRM. Open source under AGPLv3."
 hero:
-  headline: "Match reps with the warmest leads"
-  subheadline: "Predict which customers will convert to enterprise deals. Beton finds revenue drivers in product usage, deal history, billing and support tickets. Once patterns match, we create a deal your CRM."
+  headline: "Find the buying signals already in your data"
+  subheadline: "Beton's agent reads your data warehouse, finds patterns that predict revenue, and routes the revenue-driving ones to your CRM. Open source under AGPLv3 — self-host or Cloud."
   primaryCta:
     label: "Start Free"
     href: "https://inspector.getbeton.ai/"

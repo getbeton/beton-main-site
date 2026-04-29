@@ -1,0 +1,46 @@
+---
+import Container from '../ui/Container.astro';
+import Section from '../ui/Section.astro';
+import Heading from '../ui/Heading.astro';
+
+// Tools we have real, shipped integrations for. Each is a deep link to its
+// integration page, which doubles as internal-linking for SEO.
+const tools = [
+  { name: 'PostHog', logo: '/images/logos/posthog.svg', href: '/integrations/posthog/' },
+  { name: 'Postgres', logo: '/images/logos/postgres.svg', href: '/integrations/postgres/' },
+  { name: 'Stripe', logo: '/images/logos/stripe.svg', href: '/integrations/stripe/' },
+  { name: 'Attio', logo: '/images/logos/attio.svg', href: '/integrations/attio/' },
+  { name: 'Apollo', logo: '/images/logos/apollo.svg', href: '/integrations/apollo/' },
+  { name: 'Firecrawl', logo: '/images/logos/firecrawl.svg', href: '/integrations/firecrawl/' },
+];
+---
+
+<Section id="built-for" class="bg-[var(--color-surface-raised)] border-y-2 border-[var(--color-border)]">
+  <Container>
+    <div class="text-center mb-8">
+      <Heading as="h2">Built for teams using these tools</Heading>
+      <p class="mt-3 text-base text-[var(--color-text-secondary)] max-w-2xl mx-auto">
+        Connect once. Beton reads, discovers, and routes — without you writing any glue code.
+      </p>
+    </div>
+
+    <div class="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
+      {tools.map((tool) => (
+        <a
+          href={tool.href}
+          class="group flex flex-col items-center gap-2 px-5 py-3 border-2 border-[var(--color-text)] bg-[var(--color-surface)] shadow-[var(--shadow-card)] hover:shadow-[6px_6px_0_var(--color-text)] hover:-translate-x-0.5 hover:-translate-y-0.5"
+        >
+          <img
+            src={tool.logo}
+            alt={tool.name}
+            width="32"
+            height="32"
+            loading="lazy"
+            class="w-8 h-8 object-contain logo-adaptive"
+          />
+          <span class="text-xs font-semibold uppercase tracking-wider text-[var(--color-text)]">{tool.name}</span>
+        </a>
+      ))}
+    </div>
+  </Container>
+</Section>

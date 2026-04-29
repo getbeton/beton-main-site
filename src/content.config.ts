@@ -166,6 +166,7 @@ const integrations = defineCollection({
     category: z.string(),
     description: z.string(),
     featured: z.boolean().default(false),
+    comingSoon: z.boolean().default(false),
     tagline: z.string().optional(),
     howItWorks: z.array(z.object({
       step: z.string(),
@@ -173,6 +174,12 @@ const integrations = defineCollection({
     })).optional(),
     features: z.array(z.string()).optional(),
     useCases: z.array(z.string()).optional(),
+    codeSnippet: z.object({
+      language: z.string(),
+      content: z.string(),
+      caption: z.string().optional(),
+    }).optional(),
+    samplePayload: z.string().optional(),
     blogPost: z.string().optional(),
     faq: z.array(z.object({
       question: z.string(),
