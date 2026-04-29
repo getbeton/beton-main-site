@@ -16,16 +16,9 @@
   {
     "id": "wiseops",
     "name": "WiseOps",
-    "logo": "/images/logos/wiseops.png",
+    "logo": "/images/logos/wiseops.jpeg",
     "url": "https://wiseops.team",
     "order": 3
-  },
-  {
-    "id": "robo",
-    "name": "Robo",
-    "logo": "/images/logos/robo.png",
-    "url": "https://robo.tech",
-    "order": 4
   },
   {
     "id": "maaaps",

@@ -2,7 +2,6 @@
 import Container from '../ui/Container.astro';
 import Section from '../ui/Section.astro';
 import Heading from '../ui/Heading.astro';
-import Card from '../ui/Card.astro';
 
 const tools = [
   {
@@ -57,9 +56,13 @@ const iconPaths: Record<string, string> = {
       </p>
     </div>
 
+    {/* Plain divs (NOT Card-as-anchor) so the nested GitHub <a> doesn't
+        force the browser to auto-close the outer wrapper and break the
+        grid layout. Each card owns two visible links: "Learn more" and
+        "GitHub" — both inside the div, both valid. */}
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
       {tools.map((tool) => (
-        <Card href={tool.external ? undefined : tool.href} class={`border-t-4 ${tool.accentClass}`}>
+        <div class={`flex flex-col bg-[var(--color-surface-raised)] border-2 border-[var(--color-text)] p-6 shadow-[var(--shadow-card)] border-t-4 ${tool.accentClass}`}>
           <div class="inline-flex items-center justify-center w-10 h-10 border-2 border-[var(--color-primary-600)] bg-[var(--color-primary-bg)] text-[var(--color-primary-600)] mb-4">
             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" d={iconPaths[tool.icon]} />
@@ -72,18 +75,18 @@ const iconPaths: Record<string, string> = {
             </span>
           </div>
           <p class="text-xs text-[var(--color-text-tertiary)] mb-3">{tool.tagline}</p>
-          <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed mb-5">
+          <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed mb-5 flex-1">
             {tool.description}
           </p>
-          <div class="flex items-center gap-3 mt-auto">
-            {!tool.external && (
-              <a
-                href={tool.href}
-                class="text-sm font-semibold text-[var(--color-primary-600)] hover:underline"
-              >
-                Learn more →
-              </a>
-            )}
+          <div class="flex items-center gap-4 mt-auto">
+            <a
+              href={tool.href}
+              target={tool.external ? '_blank' : undefined}
+              rel={tool.external ? 'noopener noreferrer' : undefined}
+              class="text-sm font-semibold text-[var(--color-primary-600)] hover:underline"
+            >
+              Learn more →
+            </a>
             <a
               href={tool.github}
               target="_blank"
@@ -96,7 +99,7 @@ const iconPaths: Record<string, string> = {
               GitHub
             </a>
           </div>
-        </Card>
+        </div>
       ))}
     </div>
   </Container>
