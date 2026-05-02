@@ -36,6 +36,14 @@ const {
 const pageTitle = buildTitle(title);
 const canonicalUrl = buildCanonicalUrl(canonicalPath);
 const ogImageUrl = buildOgImageUrl(ogImage);
+
+// Markdown alternate URL for AI agents and LLM scrapers. Mirrors PostHog's
+// pattern: append `.md` to any URL to get a clean Markdown rendering.
+// `buildCanonicalUrl` force-appends a trailing slash, which breaks `.md`
+// extensions, so we build this one manually.
+const markdownPath =
+  canonicalPath === '/' ? '/index.md' : canonicalPath.replace(/\/$/, '.md');
+const markdownUrl = `${SITE.url.replace(/\/$/, '')}${markdownPath}`;
 ---
 
 <meta charset="utf-8" />
@@ -55,6 +63,9 @@ const ogImageUrl = buildOgImageUrl(ogImage);
 <link rel="sitemap" href="/sitemap-index.xml" />
 <link rel="alternate" hreflang="en" href={canonicalUrl} />
 <link rel="alternate" hreflang="x-default" href={canonicalUrl} />
+{!noIndex && (
+  <link rel="alternate" type="text/markdown" href={markdownUrl} title="Markdown version" />
+)}
 
 <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
 <link rel="dns-prefetch" href="https://blog.getbeton.ai" />
