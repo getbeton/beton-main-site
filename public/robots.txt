@@ -7,5 +7,10 @@ Disallow: /404
 # Sitemaps
 Sitemap: https://www.getbeton.ai/sitemap-index.xml
 
+# LLM-readable index (every page available as raw Markdown by appending .md)
+# https://llmstxt.org/
+# Index: https://www.getbeton.ai/llms.txt
+# Full bundle: https://www.getbeton.ai/llms-full.txt
+
 # Preferred domain
 Host: https://www.getbeton.ai
