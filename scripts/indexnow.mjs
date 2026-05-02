@@ -31,14 +31,28 @@ async function submitUrls() {
 
   // Extract URLs from sitemap XML
   const urlMatches = sitemapXml.matchAll(/<loc>([^<]+)<\/loc>/g);
-  const urls = [...urlMatches].map((m) => m[1]);
+  const htmlUrls = [...urlMatches].map((m) => m[1]);
 
-  if (urls.length === 0) {
+  if (htmlUrls.length === 0) {
     console.log('[IndexNow] No URLs found in sitemap.');
     return;
   }
 
-  console.log(`[IndexNow] Submitting ${urls.length} URLs...`);
+  // Mirror every HTML URL to its `.md` companion so AI crawlers and
+  // search engines that follow IndexNow pings discover the markdown
+  // versions on the same cadence as the HTML.
+  const mdUrls = htmlUrls.map((u) => {
+    if (u === `${SITE_URL}/`) return `${SITE_URL}/index.md`;
+    return u.replace(/\/$/, '.md');
+  });
+  const auxUrls = [`${SITE_URL}/llms.txt`, `${SITE_URL}/llms-full.txt`];
+
+  // Dedupe just in case
+  const urls = Array.from(new Set([...htmlUrls, ...mdUrls, ...auxUrls]));
+
+  console.log(
+    `[IndexNow] Submitting ${urls.length} URLs (${htmlUrls.length} HTML + ${mdUrls.length} markdown + ${auxUrls.length} llms)...`
+  );
 
   const payload = {
     host: 'www.getbeton.ai',
