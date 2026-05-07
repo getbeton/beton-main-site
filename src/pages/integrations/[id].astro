@@ -21,6 +21,29 @@ const allIntegrations = (await getCollection('integrations')).filter(
   (i) => i.data.slug !== slug
 );
 
+// Blog cluster: posts that mention this integration in their slug, title,
+// or tags (case-insensitive). Builds the integration ↔ blog mesh so each
+// integration page collects anchor weight from every teardown / update
+// that mentions it. The single hand-picked blogPost field still drives
+// the "Related update" callout above.
+const slugLower = slug.toLowerCase();
+const nameLower = name.toLowerCase();
+const relatedBlogPosts = (await getCollection('blog', ({ data }) => !data.draft))
+  .filter((p) => {
+    const idLower = p.id.toLowerCase();
+    const titleLower = p.data.title.toLowerCase();
+    const tagsLower = (p.data.tags || []).map((t) => t.toLowerCase());
+    return (
+      idLower.includes(slugLower) ||
+      idLower.includes(nameLower) ||
+      titleLower.includes(nameLower) ||
+      tagsLower.includes(slugLower) ||
+      tagsLower.includes(nameLower)
+    );
+  })
+  .sort((a, b) => new Date(b.data.publishedAt).getTime() - new Date(a.data.publishedAt).getTime())
+  .slice(0, 3);
+
 // "Pairs well with" — curate 3 complementary integrations.
 // Sources pair with destinations and vice-versa. Skip coming-soon
 // (they're noindex'd and linking from a real page drags quality).
@@ -248,7 +271,7 @@ const faqData = (faq || []).map((item) => ({
     </Container>
   </section>
 
-  <!-- Related blog post -->
+  <!-- Related blog post (single hand-picked update) -->
   {blogPost && (
     <section class="py-8 lg:py-10 border-y-2 border-[var(--color-border)]">
       <Container>
@@ -257,6 +280,64 @@ const faqData = (faq || []).map((item) => ({
           <a href={`/blog/${blogPost}/`} class="text-lg sm:text-xl font-[family-name:var(--font-heading)] tracking-wide text-[var(--color-primary-600)] hover:underline">
             Read about how the {name} integration fits into the latest Beton release →
           </a>
+        </div>
+      </Container>
+    </section>
+  )}
+
+  {/* Blog cluster: every post tagged with this integration. Builds the
+      integration ↔ blog internal-link mesh that the SEO audit flagged
+      as missing — each teardown/update gives this page anchor weight. */}
+  {relatedBlogPosts.length > 0 && (
+    <section class="py-10 lg:py-16 bg-[var(--color-surface-raised)] border-y-2 border-[var(--color-border)]">
+      <Container>
+        <div class="max-w-5xl mx-auto">
+          <h2 class="text-xl sm:text-2xl font-[family-name:var(--font-heading)] tracking-wide text-center mb-3">
+            From the blog
+          </h2>
+          <p class="text-base text-[var(--color-text-secondary)] text-center max-w-2xl mx-auto mb-10">
+            Posts where {name} comes up — teardowns, integration deep-dives, release notes.
+          </p>
+          <div class="grid md:grid-cols-3 gap-6">
+            {relatedBlogPosts.map((post) => (
+              <a
+                href={`/blog/${post.id}/`}
+                class="group flex flex-col border-2 border-[var(--color-text)] bg-[var(--color-surface)] shadow-[var(--shadow-card)] hover:shadow-[6px_6px_0_var(--color-text)] hover:-translate-x-0.5 hover:-translate-y-0.5"
+              >
+                {post.data.coverImage && (
+                  <div class="aspect-[16/9] border-b-2 border-[var(--color-text)] overflow-hidden">
+                    <img
+                      src={post.data.coverImage}
+                      alt={post.data.title}
+                      width="640"
+                      height="360"
+                      loading="lazy"
+                      class="w-full h-full object-cover"
+                    />
+                  </div>
+                )}
+                <div class="p-5 flex-1 flex flex-col">
+                  <time datetime={post.data.publishedAt} class="text-xs text-[var(--color-text-tertiary)] uppercase tracking-wider mb-2">
+                    {new Date(post.data.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+                  </time>
+                  <h3 class="text-base font-semibold mb-2 group-hover:text-[var(--color-primary-600)]">
+                    {post.data.title}
+                  </h3>
+                  <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed line-clamp-3">
+                    {post.data.description}
+                  </p>
+                </div>
+              </a>
+            ))}
+          </div>
+          <div class="text-center mt-8">
+            <a
+              href="/blog/"
+              class="inline-flex items-center text-sm font-semibold text-[var(--color-primary-600)] hover:underline"
+            >
+              Read all Beton posts &rarr;
+            </a>
+          </div>
         </div>
       </Container>
     </section>
