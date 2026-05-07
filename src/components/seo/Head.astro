@@ -17,6 +17,7 @@ interface Props {
   breadcrumbs?: { name: string; url: string }[];
   reviewData?: { name: string; role?: string; company?: string; quote: string }[];
   personData?: { name: string; role: string; bio?: string; social?: { twitter?: string; linkedin?: string; github?: string } }[];
+  itemList?: { name: string; items: { name: string; url: string; description?: string }[] };
 }
 
 const {
@@ -31,6 +32,7 @@ const {
   breadcrumbs,
   reviewData,
   personData,
+  itemList,
 } = Astro.props;
 
 const pageTitle = buildTitle(title);
@@ -95,6 +97,7 @@ const markdownUrl = `${SITE.url.replace(/\/$/, '')}${markdownPath}`;
   breadcrumbs={breadcrumbs}
   reviewData={reviewData}
   personData={personData}
+  itemList={itemList}
 />
 
 <GTM />

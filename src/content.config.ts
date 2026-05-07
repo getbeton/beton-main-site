@@ -130,10 +130,13 @@ const blog = defineCollection({
     publishedAt: z.string(),
     updatedAt: z.string().optional(),
     author: z.string().default('Vlad Nadymov'),
+    reviewedBy: z.string().optional(),
     tags: z.array(z.string()).default([]),
     featured: z.boolean().default(false),
     draft: z.boolean().default(false),
     coverImage: z.string().optional(),
+    tldr: z.string().optional(),
+    faq: z.array(z.object({ question: z.string(), answer: z.string() })).optional(),
     seo: seoSchema.optional(),
   }),
 });

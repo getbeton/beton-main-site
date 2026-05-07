@@ -46,9 +46,12 @@ const { Content } = await render(entry);
   publishedAt={entry.data.publishedAt}
   updatedAt={entry.data.updatedAt}
   author={entry.data.author}
+  reviewedBy={entry.data.reviewedBy}
   tags={entry.data.tags}
   coverImage={entry.data.coverImage}
   slug={entry.id}
+  tldr={entry.data.tldr}
+  faq={entry.data.faq}
   seo={entry.data.seo}
   relatedPosts={relatedPosts}
 >

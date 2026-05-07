@@ -11,7 +11,7 @@ export const GET: APIRoute = async () => {
       title: 'Dryfit — Synthetic PostHog Data with Ground Truth',
       subtitle:
         'Open-source benchmarking tool for signal-detection and analytics agents',
-      canonical: '/tools/dryfit/',
+      canonical: '/oss-tools/dryfit/',
       description:
         'Dryfit generates synthetic PostHog event datasets with hidden ground truth so you can deterministically grade any signal-detection agent. MIT licensed, Python.',
     })
@@ -35,7 +35,7 @@ export const GET: APIRoute = async () => {
   parts.push('');
   scenarios.forEach((s) => {
     parts.push(
-      `- [${s.data.name}](https://www.getbeton.ai/tools/dryfit/scenarios/${s.data.slug}/) — ${s.data.description}`
+      `- [${s.data.name}](https://www.getbeton.ai/oss-tools/dryfit/scenarios/${s.data.slug}/) — ${s.data.description}`
     );
   });
   parts.push('');

@@ -75,7 +75,7 @@ const faq = [
 const breadcrumbs = [
   { name: 'Home', url: SITE.url },
   { name: 'Tools', url: `${SITE.url}/tools/` },
-  { name: 'DryFit', url: `${SITE.url}/tools/dryfit/` },
+  { name: 'DryFit', url: `${SITE.url}/oss-tools/dryfit/` },
 ];
 
 const faqData = faq.map(({ question, answer }) => ({ question, answer }));
@@ -103,7 +103,7 @@ const categoryLabel: Record<string, string> = {
 <PageLayout
   title="DryFit — synthetic analytics datasets for signal-discovery benchmarks"
   description="Open-source Python tool that generates synthetic PostHog-shape event data with hidden ground truth. 14 SaaS business-model scenarios. MIT."
-  canonicalPath="/tools/dryfit/"
+  canonicalPath="/oss-tools/dryfit/"
   breadcrumbs={breadcrumbs}
   faqData={faqData}
 >
@@ -256,7 +256,7 @@ uv run dryfit \\
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-6xl mx-auto">
         {scenarios.map((s) => (
           <a
-            href={`/tools/dryfit/scenarios/${s.data.slug}/`}
+            href={`/oss-tools/dryfit/scenarios/${s.data.slug}/`}
             class="group flex flex-col border-2 border-[var(--color-text)] bg-[var(--color-surface)] shadow-[var(--shadow-card)] hover:shadow-[6px_6px_0_var(--color-text)] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all p-5"
           >
             <div class="flex items-center justify-between mb-3">

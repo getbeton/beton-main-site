@@ -18,7 +18,7 @@ export const GET: APIRoute = async () => {
     pageHeader({
       title: 'Dryfit Scenarios',
       subtitle: 'Synthetic PostHog datasets for benchmarking signal-detection agents',
-      canonical: '/tools/dryfit/scenarios/',
+      canonical: '/oss-tools/dryfit/scenarios/',
       description:
         'Every dryfit scenario ships with hidden ground truth — deterministic grading for any signal-detection agent or analytics pipeline.',
     })
@@ -26,7 +26,7 @@ export const GET: APIRoute = async () => {
 
   scenarios.forEach((s) => {
     parts.push(
-      `- [${s.data.name}](https://www.getbeton.ai/tools/dryfit/scenarios/${s.data.slug}/) ([markdown](https://www.getbeton.ai/tools/dryfit/scenarios/${s.data.slug}.md)) — ${s.data.description}`
+      `- [${s.data.name}](https://www.getbeton.ai/oss-tools/dryfit/scenarios/${s.data.slug}/) ([markdown](https://www.getbeton.ai/oss-tools/dryfit/scenarios/${s.data.slug}.md)) — ${s.data.description}`
     );
   });
 
