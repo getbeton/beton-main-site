@@ -1,6 +1,7 @@
 ---
 interface Props {
   member: {
+    id: string;
     data: {
       name: string;
       role: string;
@@ -18,6 +19,8 @@ interface Props {
 
 const { member } = Astro.props;
 const { name, role, bio, photo, social } = member.data;
+const slug = member.id.replace(/\.md$/, '');
+const detailUrl = `/team/${slug}/`;
 ---
 
 <div class="bg-[var(--color-surface-raised)] border-2 border-[var(--color-border)] p-6 shadow-[var(--shadow-card)]">
@@ -37,12 +40,18 @@ const { name, role, bio, photo, social } = member.data;
       </div>
     )}
     <div>
-      <h3 class="text-base font-semibold">{name}</h3>
+      <h3 class="text-base font-semibold">
+        <a href={detailUrl} class="hover:text-[var(--color-primary-600)]">{name}</a>
+      </h3>
       <p class="text-sm text-[var(--color-text-secondary)]">{role}</p>
     </div>
   </div>
 
   <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed mb-4">{bio}</p>
+
+  <a href={detailUrl} class="text-sm font-semibold text-[var(--color-primary-600)] hover:underline mb-4 inline-block">
+    Read more →
+  </a>
 
   {social && (
     <div class="flex items-center gap-3">
