@@ -1,0 +1,134 @@
+---
+import { getCollection, render } from 'astro:content';
+import PageLayout from '../../layouts/PageLayout.astro';
+import Container from '../../components/ui/Container.astro';
+import { SITE } from '../../utils/site';
+
+export async function getStaticPaths() {
+  const members = await getCollection('team');
+  const posts = (await getCollection('blog', ({ data }) => !data.draft));
+
+  return members.map((member) => {
+    const authored = posts
+      .filter((p) => p.data.author === member.data.name)
+      .sort((a, b) => new Date(b.data.publishedAt).getTime() - new Date(a.data.publishedAt).getTime());
+    const reviewed = posts
+      .filter((p) => p.data.reviewedBy === member.data.name)
+      .sort((a, b) => new Date(b.data.publishedAt).getTime() - new Date(a.data.publishedAt).getTime());
+    return {
+      params: { id: member.id.replace(/\.md$/, '') },
+      props: { entry: member, authored, reviewed },
+    };
+  });
+}
+
+const { entry, authored, reviewed } = Astro.props;
+const { Content } = await render(entry);
+const { name, role, bio, photo, social } = entry.data;
+
+const breadcrumbs = [
+  { name: 'Home', url: SITE.url },
+  { name: 'Team', url: `${SITE.url}/team/` },
+  { name: name, url: `${SITE.url}/team/${entry.id.replace(/\.md$/, '')}/` },
+];
+
+const personData = [{
+  name,
+  role,
+  bio,
+  social: social || {},
+}];
+
+function fmtDate(iso: string) {
+  return new Date(iso).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+}
+---
+
+<PageLayout
+  title={`${name} — ${role} at Beton`}
+  description={bio}
+  canonicalPath={`/team/${entry.id.replace(/\.md$/, '')}/`}
+  breadcrumbs={breadcrumbs}
+  personData={personData}
+>
+  <section class="py-14 lg:py-20">
+    <Container>
+      <div class="max-w-3xl mx-auto">
+        <a href="/team/" class="text-sm text-[var(--color-primary-600)] hover:underline">← Back to team</a>
+
+        <div class="mt-6 flex flex-col sm:flex-row gap-6 sm:items-start">
+          {photo && (
+            <img
+              src={photo}
+              alt={name}
+              width="160"
+              height="160"
+              class="w-32 h-32 sm:w-40 sm:h-40 object-cover border-2 border-[var(--color-text)] shrink-0"
+            />
+          )}
+          <div class="flex-1 min-w-0">
+            <h1 class="text-3xl sm:text-4xl font-[family-name:var(--font-heading)] tracking-wide mb-2">{name}</h1>
+            <p class="text-base sm:text-lg text-[var(--color-text-secondary)] mb-4">{role}</p>
+            {social && (
+              <div class="flex items-center gap-3">
+                {social.linkedin && (
+                  <a href={social.linkedin} target="_blank" rel="noopener noreferrer" class="text-sm text-[var(--color-primary-600)] hover:underline">LinkedIn ↗</a>
+                )}
+                {social.twitter && (
+                  <a href={social.twitter} target="_blank" rel="noopener noreferrer" class="text-sm text-[var(--color-primary-600)] hover:underline">X ↗</a>
+                )}
+                {social.github && (
+                  <a href={social.github} target="_blank" rel="noopener noreferrer" class="text-sm text-[var(--color-primary-600)] hover:underline">GitHub ↗</a>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div class="mt-10 prose prose-lg max-w-none">
+          <p class="text-lg text-[var(--color-text-secondary)] leading-relaxed">{bio}</p>
+          <Content />
+        </div>
+
+        {(authored.length > 0 || reviewed.length > 0) && (
+          <div class="mt-14 pt-10 border-t-2 border-[var(--color-border)] grid sm:grid-cols-2 gap-10">
+            {authored.length > 0 && (
+              <div>
+                <h2 class="text-lg font-bold mb-4">Posts authored</h2>
+                <ul class="space-y-3">
+                  {authored.map((post) => (
+                    <li>
+                      <a href={`/blog/${post.id}/`} class="text-[var(--color-primary-600)] hover:underline font-medium">
+                        {post.data.title}
+                      </a>
+                      <p class="text-xs text-[var(--color-text-tertiary)] mt-1">
+                        {fmtDate(post.data.publishedAt)}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {reviewed.length > 0 && (
+              <div>
+                <h2 class="text-lg font-bold mb-4">Posts reviewed</h2>
+                <ul class="space-y-3">
+                  {reviewed.map((post) => (
+                    <li>
+                      <a href={`/blog/${post.id}/`} class="text-[var(--color-primary-600)] hover:underline font-medium">
+                        {post.data.title}
+                      </a>
+                      <p class="text-xs text-[var(--color-text-tertiary)] mt-1">
+                        {fmtDate(post.data.publishedAt)}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    </Container>
+  </section>
+</PageLayout>
