@@ -31,7 +31,11 @@ const comingSoonSlugs = new Set(
 // Map a sitemap URL pathname to the source file whose git mtime should drive
 // its <lastmod>. Returns null when no obvious source file maps cleanly.
 const STATIC_PAGES = new Set([
-  'about', 'team', 'pricing', 'privacy', 'terms', 'seqd',
+  'about', 'team', 'pricing', 'privacy', 'terms',
+]);
+
+const FLAT_OSS_TOOL_PAGES = new Set([
+  '/oss-tools', '/oss-tools/dryfit', '/oss-tools/seqd', '/oss-tools/openclaw-gtm-skills',
 ]);
 
 function urlToSourceFile(url) {
@@ -51,7 +55,7 @@ function urlToSourceFile(url) {
   const indexCandidate = `src/pages${p}/index.astro`;
   if (fs.existsSync(indexCandidate)) return indexCandidate;
 
-  // /tools/dryfit/ maps to src/pages/tools/dryfit.astro (no index/ subdir).
+  // /oss-tools/dryfit/ maps to src/pages/oss-tools/dryfit.astro (no index/ subdir).
   // Without this the sitemap falls back to build-time and ships a fake
   // freshness signal.
   const flatCandidate = `src/pages${p}.astro`;
@@ -64,10 +68,10 @@ function urlToSourceFile(url) {
     if (fs.existsSync(json)) return json;
   }
 
-  if (p.startsWith('/tools/dryfit/scenarios/')) {
+  if (p.startsWith('/oss-tools/dryfit/scenarios/')) {
     const json = 'src/data/dryfit-scenarios/scenarios.json';
     if (fs.existsSync(json)) return json;
-    return 'src/pages/tools/dryfit/scenarios/[slug].astro';
+    return 'src/pages/oss-tools/dryfit/scenarios/[slug].astro';
   }
 
   return null;
@@ -97,11 +101,11 @@ export default defineConfig({
   vite: { plugins: [tailwindcss()] },
   integrations: [
     sitemap({
-      // /404 is non-content; /seqd/ is deprecated (noindex,follow) — drop
+      // /404 is non-content; /oss-tools/seqd/ is deprecated (noindex,follow) — drop
       // both from the sitemap so we don't dilute the property's quality signal.
       // comingSoon integrations are placeholder pages — also drop.
       filter: (page) => {
-        if (page.includes('/404') || page.includes('/seqd/')) return false;
+        if (page.includes('/404') || page.includes('/oss-tools/seqd/')) return false;
         for (const slug of comingSoonSlugs) {
           if (page.endsWith(slug)) return false;
         }

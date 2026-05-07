@@ -1,0 +1,162 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import Container from '../../components/ui/Container.astro';
+import Section from '../../components/ui/Section.astro';
+import Heading from '../../components/ui/Heading.astro';
+import { SITE } from '../../utils/site';
+
+const standaloneSkills = [
+  { name: 'context-building', desc: 'Build/update a GTM context file (ICP, voice, proof, campaigns, DNC list).' },
+  { name: 'hypothesis-building', desc: 'Generate testable pain hypotheses from ICP + win cases.' },
+  { name: 'email-prompt-building', desc: 'Craft self-contained email-prompt templates for campaigns.' },
+  { name: 'email-generation', desc: 'Run prompts per-contact from CSV → personalized emails.' },
+  { name: 'list-segmentation', desc: 'Segment + tier companies by hypothesis fit + data richness.' },
+  { name: 'gtm-hypothesis-scorer', desc: 'RICE scoring across all GTM hypotheses in your DB.' },
+];
+
+const pipelineStages = [
+  'gtm-intake',
+  'gtm-prefilter',
+  'gtm-research',
+  'gtm-sales-org',
+  'gtm-signals',
+  'gtm-segment',
+  'gtm-outreach',
+  'gtm-deck',
+];
+
+const requirements = [
+  { label: 'OpenClaw', href: 'https://openclaw.ai', note: 'installed and running' },
+  { label: 'Supabase', href: 'https://supabase.com', note: 'project for the pipeline database' },
+  { label: 'Firecrawl', href: 'https://firecrawl.dev', note: 'self-hosted or cloud — required for company research' },
+  { label: 'Attio', href: 'https://attio.com', note: 'optional — only for CRM sync in gtm-segment' },
+  { label: 'seqd', href: '/oss-tools/seqd/', note: 'optional — for outreach enrollment in gtm-outreach' },
+];
+
+const breadcrumbs = [
+  { name: 'Home', url: SITE.url },
+  { name: 'OSS Tools', url: `${SITE.url}/oss-tools/` },
+  { name: 'openclaw-gtm-skills', url: `${SITE.url}/oss-tools/openclaw-gtm-skills/` },
+];
+---
+
+<PageLayout
+  title="openclaw-gtm-skills — Self-Host a Clay.com Alternative"
+  description="Nine AI skills + a full plugin pipeline for B2B outbound GTM. Take a list of domains, research them, score fit, segment, and generate outreach emails. Open-source, self-hosted, AGPLv3."
+  canonicalPath="/oss-tools/openclaw-gtm-skills/"
+  breadcrumbs={breadcrumbs}
+>
+  <Section>
+    <Container>
+      <div class="max-w-3xl mx-auto">
+        <p class="text-sm uppercase tracking-wider text-[var(--color-text-secondary)] mb-3 font-bold">
+          OpenClaw plugin · AGPLv3 · 5 ★
+        </p>
+        <Heading as="h1">openclaw-gtm-skills</Heading>
+        <p class="mt-4 text-lg text-[var(--color-text-secondary)] leading-relaxed">
+          A Clay.com alternative you run yourself. Turn a list of domains into researched, scored, segmented, outreach-ready prospects — using <a href="https://openclaw.ai" class="text-[var(--color-primary-600)] hover:underline" target="_blank" rel="noopener">OpenClaw</a>, Supabase, and Firecrawl.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-3 mt-8">
+          <a
+            href="https://github.com/getbeton/openclaw-gtm-skills"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center px-5 py-3 text-sm font-bold uppercase tracking-wider bg-[var(--color-text)] text-[var(--color-surface)] border-2 border-[var(--color-text)] hover:bg-[var(--color-surface)] hover:text-[var(--color-text)]"
+          >
+            View on GitHub ↗
+          </a>
+          <a
+            href="/oss-tools/"
+            class="inline-flex items-center px-5 py-3 text-sm font-bold uppercase tracking-wider border-2 border-[var(--color-text)] text-[var(--color-text)] hover:bg-[var(--color-text)] hover:text-[var(--color-surface)]"
+          >
+            ← All OSS tools
+          </a>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <Section class="bg-[var(--color-surface-raised)] border-y-2 border-[var(--color-border)]">
+    <Container>
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-2xl sm:text-3xl font-[family-name:var(--font-heading)] tracking-wide mb-3">Standalone skills</h2>
+        <p class="text-base text-[var(--color-text-secondary)] mb-8">
+          Each skill works independently. Drop one into your <code>~/.openclaw/workspace/skills/</code> directory and use it from any OpenClaw agent — no pipeline required.
+        </p>
+        <ul class="space-y-4">
+          {standaloneSkills.map((s) => (
+            <li class="border-l-4 border-[var(--color-primary-600)] pl-4">
+              <code class="text-base font-[family-name:var(--font-mono)] font-bold">{s.name}</code>
+              <p class="text-sm text-[var(--color-text-secondary)] mt-1">{s.desc}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </Container>
+  </Section>
+
+  <Section>
+    <Container>
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-2xl sm:text-3xl font-[family-name:var(--font-heading)] tracking-wide mb-3">End-to-end pipeline</h2>
+        <p class="text-base text-[var(--color-text-secondary)] mb-8">
+          The plugin chains the skills into a domain-list-to-sales-deck pipeline. Each stage is independently runnable and stores results in Supabase, so you can pause, resume, or branch off mid-flow.
+        </p>
+        <div class="flex flex-wrap gap-2">
+          {pipelineStages.map((stage, i) => (
+            <>
+              <code class="inline-flex items-center px-3 py-1.5 text-sm font-[family-name:var(--font-mono)] font-bold border-2 border-[var(--color-text)] bg-[var(--color-surface-raised)]">{stage}</code>
+              {i < pipelineStages.length - 1 && (
+                <span class="self-center text-[var(--color-text-tertiary)]">→</span>
+              )}
+            </>
+          ))}
+        </div>
+        <p class="mt-6 text-sm text-[var(--color-text-secondary)]">
+          Inspired by and partially based on <a href="https://github.com/extruct-ai/gtm-skills" class="text-[var(--color-primary-600)] hover:underline" target="_blank" rel="noopener">extruct-ai/gtm-skills</a> — see ATTRIBUTION.md in the repo.
+        </p>
+      </div>
+    </Container>
+  </Section>
+
+  <Section class="bg-[var(--color-surface-raised)] border-y-2 border-[var(--color-border)]">
+    <Container>
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-2xl sm:text-3xl font-[family-name:var(--font-heading)] tracking-wide mb-6">Requirements</h2>
+        <ul class="space-y-3">
+          {requirements.map((r) => (
+            <li class="flex items-start gap-3">
+              <span class="text-[var(--color-accent-600)] mt-1">▸</span>
+              <span>
+                <a href={r.href} class="font-semibold text-[var(--color-primary-600)] hover:underline" target={r.href.startsWith('http') ? '_blank' : undefined} rel={r.href.startsWith('http') ? 'noopener noreferrer' : undefined}>
+                  {r.label}
+                </a>
+                <span class="text-[var(--color-text-secondary)]"> — {r.note}</span>
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </Container>
+  </Section>
+
+  <Section>
+    <Container>
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-2xl sm:text-3xl font-[family-name:var(--font-heading)] tracking-wide mb-4">Self-host today</h2>
+        <p class="text-base text-[var(--color-text-secondary)] leading-relaxed mb-8">
+          Clone the repo, point it at your Supabase + Firecrawl, and run the pipeline. Full setup in the GitHub README.
+        </p>
+        <a
+          href="https://github.com/getbeton/openclaw-gtm-skills"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center px-6 py-3 text-base font-bold uppercase tracking-wider bg-[var(--color-primary-600)] text-white border-2 border-[var(--color-primary-600)] hover:bg-white hover:text-[var(--color-primary-600)]"
+        >
+          Read the docs on GitHub ↗
+        </a>
+      </div>
+    </Container>
+  </Section>
+</PageLayout>

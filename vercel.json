@@ -50,6 +50,46 @@
       "permanent": true
     },
     {
+      "source": "/tools/dryfit",
+      "destination": "/oss-tools/dryfit/",
+      "permanent": true
+    },
+    {
+      "source": "/tools/dryfit/",
+      "destination": "/oss-tools/dryfit/",
+      "permanent": true
+    },
+    {
+      "source": "/tools/dryfit/scenarios",
+      "destination": "/oss-tools/dryfit/scenarios/",
+      "permanent": true
+    },
+    {
+      "source": "/tools/dryfit/scenarios/",
+      "destination": "/oss-tools/dryfit/scenarios/",
+      "permanent": true
+    },
+    {
+      "source": "/tools/dryfit/scenarios/:slug",
+      "destination": "/oss-tools/dryfit/scenarios/:slug/",
+      "permanent": true
+    },
+    {
+      "source": "/tools/dryfit/scenarios/:slug/",
+      "destination": "/oss-tools/dryfit/scenarios/:slug/",
+      "permanent": true
+    },
+    {
+      "source": "/seqd",
+      "destination": "/oss-tools/seqd/",
+      "permanent": true
+    },
+    {
+      "source": "/seqd/",
+      "destination": "/oss-tools/seqd/",
+      "permanent": true
+    },
+    {
       "source": "/use-cases",
       "destination": "/integrations/",
       "permanent": true
