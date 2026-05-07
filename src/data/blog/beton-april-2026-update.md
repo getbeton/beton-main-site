@@ -7,6 +7,14 @@ tags: ["product update", "beton"]
 featured: true
 draft: false
 coverImage: "/images/blog/lobster-newsletter-apr26.jpg"
+tldr: |
+  April release: Slack integration, MCP server with OAuth, security-audit cleanup, blog migration off Substack, and the agent goes open source.
+
+  - **Slack signals** — Block Kit notifications with account, signal type, confidence, and a link back to Inspector. Full OAuth V2.
+  - **MCP OAuth** — upgraded the embedded MCP server from API key auth to interactive OAuth login per RFC 9728.
+  - **Security audit** — penetration test + remediation of 32 vulnerabilities (cross-tenant leaks, XSS, SSRF, error sanitization).
+  - **Blog moved to getbeton.ai** — every post now compounds SEO value on our domain, not Substack's.
+  - **Coming up**: Postgres source (this week), HubSpot integration, multi-user workspaces, open-sourcing the agent + statistical-methods library.
 seo:
   metaTitle: "Beton April 2026 — Slack, MCP OAuth, Open Source"
   metaDescription: "Slack integration, MCP server with OAuth, 32 vulnerabilities fixed, blog moved off Substack, and open-sourcing the Beton agent."

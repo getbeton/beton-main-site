@@ -7,6 +7,28 @@ tags: ["pricing teardown", "open source", "LLM observability"]
 featured: false
 draft: false
 coverImage: "/images/blog/langfuse-pricing-cover.jpeg"
+tldr: |
+  Langfuse is open-source LLM observability — 24k+ stars, MIT-licensed core. In June 2025 they moved every product feature (tracing, prompts, evals, playground, annotation queues) to MIT. Only thin enterprise compliance features (SCIM, audit logs, project-RBAC, UI customization) remain commercial.
+
+  - Self-hosting on the MIT version is unusually viable — full product, no seat caps, no retention limits, no usage caps.
+  - Cloud Core at $29/month is the easy upgrade once you have production LLM traffic.
+  - The Core → Pro jump is $29 → $199 for the same usage — you're paying for 3-year retention + SOC2/ISO27001 reports + higher rate limits, i.e. the compliance wrapper.
+  - Teams add-on (+$300) gates SSO behind a $499/mo total. Enterprise at $2,499/mo for SCIM + audit logs + SLAs.
+  - The catch when self-hosting is ClickHouse — operating it at production scale is real ops work.
+faq:
+  - question: "Is Langfuse open source?"
+    answer: "Yes — MIT-licensed for the entire core platform: tracing, prompts, evals, datasets, playground, annotation queues. Only SCIM, audit logs, project-RBAC, and UI customization are commercial."
+  - question: "What's the cheapest Langfuse Cloud plan?"
+    answer: "$29/month for Core (100k units/month, unlimited users, 90-day retention). Hobby at $0 covers 50k units/month for prototypes."
+  - question: "Why does Langfuse Cloud Pro cost $199/month?"
+    answer: "Compliance — SOC2 + ISO27001 reports, 3-year data access, data retention management, plus higher rate limits. Same included usage as Core; you're paying for the compliance wrapper, not more capacity."
+  - question: "Should I self-host Langfuse?"
+    answer: "Yes if you have ClickHouse ops capacity. The MIT license means no seat caps, no retention limits, no usage caps — only your infra costs. The catch is operating ClickHouse at production scale."
+pricingTable:
+  license: "MIT (core)"
+  freeTier: "50k units/mo"
+  cheapestPaid: "$29/mo (Core)"
+  verdict: "Self-host if you can; Pro for SOC2"
 seo:
   metaTitle: "Langfuse Pricing Teardown — MIT Core, Usage Billing"
   metaDescription: "Langfuse is MIT-licensed LLM observability with 24k+ GitHub stars. Cloud starts at $29/month with usage-based billing at $8/100k units."

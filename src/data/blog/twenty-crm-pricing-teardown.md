@@ -7,6 +7,28 @@ tags: ["pricing teardown", "open source", "CRM"]
 featured: false
 draft: false
 coverImage: /images/blog/twenty-crm-hero.png
+tldr: |
+  Twenty CRM at $9/user/month is a different pricing universe from Salesforce ($25–$165/seat) and HubSpot ($90/seat Pro). The contrast exposes how much of incumbent CRM pricing is brand tax + ecosystem lock-in, not actual software value.
+
+  - Self-hosted Community Edition is AGPL-3.0, full-featured, no limits — you own the data.
+  - Pro at $9/seat/month: unlimited records, custom objects, full API, email integration, standard support.
+  - Organization at $19/seat/month: adds SAML/OIDC SSO + priority support.
+  - Delta vs. HubSpot Pro for a 10-person team is $810/month — close to $10k/year for essentially the same feature set.
+  - AGPL means: free for self-use, but if you build a product on top of Twenty you need a commercial license.
+faq:
+  - question: "Is Twenty CRM open source?"
+    answer: "Yes — AGPL-3.0. The self-hosted Community Edition is the same product as the cloud, no feature gating."
+  - question: "How does Twenty pricing compare to Salesforce and HubSpot?"
+    answer: "Twenty Pro is $9/seat. Salesforce Starter is $25/seat (with less functionality). Salesforce Enterprise is $165/seat. HubSpot Sales Hub Professional is $90/seat. For a 10-person team that's $810/month less than HubSpot Pro for essentially the same features."
+  - question: "Should I self-host Twenty CRM?"
+    answer: "If you have a DevOps engineer comfortable with database backups, upgrades, and uptime — yes. If you're a sales-led team with no infra experience, $9/user/month for managed cloud is a bargain to skip the ops burden."
+  - question: "Does AGPL block commercial use of Twenty?"
+    answer: "Internal company use is fine. AGPL only kicks in if you build a product on top of Twenty (e.g., an industry-specific CRM) and offer it to others — then you need to open-source your product or buy a commercial license."
+pricingTable:
+  license: "AGPL-3.0"
+  freeTier: "Self-hosted (unlimited)"
+  cheapestPaid: "$9/seat (Pro)"
+  verdict: "Switch from HubSpot/Salesforce when inertia is the only reason to stay"
 seo:
   metaTitle: "Twenty CRM Pricing Teardown: Open Source CRM"
   metaDescription: "Twenty CRM at $9/user/month exposes how much of Salesforce and HubSpot pricing is brand tax."
