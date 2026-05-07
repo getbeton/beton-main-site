@@ -7,6 +7,21 @@ tags: ["product update", "beton"]
 featured: true
 draft: false
 coverImage: "/images/blog/late-april-2026-hero.png"
+tldr: |
+  Big release went out — Postgres support, multi-user workspaces, Firecrawl context, refreshed Inspector design. Editable field mapping, multi-action signal routing, and a multi-subagent rewrite of discovery are queued for this week.
+
+  - **Postgres as a data source** — Beton now reads any Postgres warehouse, not just PostHog. Same pattern: schema analysis, hypothesis generation, statistical testing.
+  - **Multi-user workspaces** — invite teammates with roles (owner/admin/member), per-workspace credentials, shared signal pipelines.
+  - **Firecrawl integration** — agent ingests your site as context for hypothesis generation. Customer-side context scraping coming next.
+  - **Refreshed UI** — moved from stark black-and-white to a blue-accent design system; clearer signal table, semantic state badges.
+  - **GTM update** — late-stage pilot live with a marketplace platform; three more conversations in flight (delivery LTV, PLG activation, security-vendor stagnation).
+faq:
+  - question: "Is Beton's agent open source?"
+    answer: "Yes — the inspector-ml-backend repo on GitHub ships under AGPLv3. After this release we're also wiring the open-source statistical-methods toolkit (Fisher exact, two-proportion z, Newcombe intervals, multiple-comparison correction) in as agent tools."
+  - question: "Can Beton work with Postgres warehouses?"
+    answer: "As of this release, yes. Connect any Postgres warehouse (production replica, Supabase, self-hosted, dedicated analytics warehouse) on the /integrations/postgres/ page. Beton reads the schema, surfaces behavioral fact tables, and proposes hypotheses for statistical testing."
+  - question: "What's the difference between field mapping and entity linking?"
+    answer: "Field mapping sets attribute values on a CRM record. Entity linking is the harder part — when a signal fires, who is this about and what records need to exist. Beton handles both: people resolved by email, companies by domain, account owner by workspace member, plus search-picker for specific records."
 seo:
   metaTitle: "Beton late April 2026 — Postgres, workspaces, agent rewire"
   metaDescription: "Postgres source, multi-user workspaces, Firecrawl, design refresh just shipped. Editable field mapping and multi-subagent agent rewrite are next."

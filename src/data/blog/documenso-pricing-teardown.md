@@ -7,6 +7,28 @@ tags: ["pricing teardown", "open source", "e-signature"]
 featured: false
 draft: false
 coverImage: "/images/blog/documenso-pricing-cover.png"
+tldr: |
+  Documenso is the open-source DocuSign alternative — 12.7k stars, AGPL-3.0 licensed, hosted from $0 to $250/month. The actual product you're paying for at the $250 Platform tier is permission to embed under a non-AGPL license, not features.
+
+  - Free forever for low-volume users (5 docs/month, no watermark, no card required)
+  - Teams at $40/month is the SMB sweet spot — a 20-person company at $160/mo lands well under DocuSign's equivalent
+  - Platform at $250/month flat is the AGPL escape hatch for embedded or white-labeled use
+  - Vs. DocuSign per-envelope billing, Documenso wins big at scale (e.g., $250 vs. $25,000+/mo at 50k signs)
+  - Self-host for internal use only — AGPL still applies if you embed Documenso into a SaaS you sell
+faq:
+  - question: "Is Documenso open source?"
+    answer: "Yes, AGPL-3.0. The full product — UI, API, document workflow, audit trail — ships under AGPL on GitHub. Self-hosting is supported via Docker compose and a Helm chart."
+  - question: "What's the cheapest paid Documenso plan?"
+    answer: "$25/month effective on Individual ($300/year prepay), or $40/month effective on Teams ($480/year, 5 users included plus $8/user beyond)."
+  - question: "Does AGPL allow embedding Documenso into a commercial product?"
+    answer: "No. AGPL requires you to release any product that links to Documenso under AGPL too. Embedded or white-labeled use requires the $250/month Platform plan or a self-hosted Enterprise commercial license."
+  - question: "When does Documenso beat DocuSign on price?"
+    answer: "Documenso Platform is $250/month flat for unlimited envelopes; DocuSign charges roughly $0.50–$2 per envelope. The break-even is around 250–500 signatures/month — beyond that Documenso wins, and the gap widens fast at scale."
+pricingTable:
+  license: "AGPL-3.0"
+  freeTier: "5 docs/mo"
+  cheapestPaid: "$25/mo (Individual)"
+  verdict: "Teams for SMB, Platform for embedders"
 seo:
   metaTitle: "Documenso Pricing Teardown — AGPL-3.0 DocuSign Alternative"
   metaDescription: "Documenso is a 12.7k-star DocuSign alternative. Free, $25 Individual, $40 Teams, $250 Platform — and AGPL-3.0 does all the heavy lifting."

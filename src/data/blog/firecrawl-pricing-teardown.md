@@ -7,6 +7,28 @@ tags: ["pricing teardown", "open source", "web scraping"]
 featured: true
 draft: false
 coverImage: "/images/blog/firecrawl-pricing-cover.png"
+tldr: |
+  Firecrawl runs one of the smartest GTM setups in OSS web scraping. The core engine is AGPL-3.0 (so competitors can't fork-and-host as a service). Fire Enrich and other extensions are MIT-licensed (so the funnel runs free).
+
+  - Self-hosting is technically possible but operationally painful — proxies, headless browser pools, anti-bot detection at scale.
+  - Credit-based pricing: 1 page = 1 credit. Free 500 credits, Hobby $16/mo (3k credits), Standard ~$83–99/mo (100k), Growth $333/mo (500k).
+  - AI Extract is a separate subscription starting at $89/mo — easy to miss when budgeting.
+  - Lower tiers cap crawls at 50 pages, which gets painful fast on docs, catalogs, archives.
+  - The bet: freshness beats cheapness. Worth paying if you're building AI agents that need real-time web data.
+faq:
+  - question: "Is Firecrawl open source?"
+    answer: "Yes — the scraping core is AGPL-3.0. Fire Enrich and several Firecrawl-based extension tools are MIT-licensed."
+  - question: "Can I self-host Firecrawl for free?"
+    answer: "Technically yes — the AGPL repo is public. In practice you take on proxy rotation, headless browser pools, retry logic, and anti-bot detection at scale. The managed cloud is what you're really paying for."
+  - question: "How much does Firecrawl cost for 100k pages/month?"
+    answer: "Around $83–$99/month on the Standard plan, plus separate AI Extract pricing if you use that feature (starts at $89/mo)."
+  - question: "Does AGPL prevent commercial use of Firecrawl?"
+    answer: "No — internal company use is fine. AGPL only bites if you build a public product that wraps Firecrawl, in which case you need the cloud subscription or a commercial license."
+pricingTable:
+  license: "AGPL-3.0 (core), MIT (extensions)"
+  freeTier: "500 credits"
+  cheapestPaid: "$16/mo (Hobby)"
+  verdict: "Pay for the cloud — self-host is too operationally hard"
 seo:
   metaTitle: "Firecrawl Pricing Teardown — AGPL Core, MIT Funnel"
   metaDescription: "Firecrawl uses AGPL-3.0 for the core engine and MIT for Fire Enrich. Credit-based pricing at $0.005/page, plus a separate AI extract subscription."

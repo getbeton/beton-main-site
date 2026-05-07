@@ -7,6 +7,28 @@ tags: ["pricing teardown", "open source", "automation"]
 featured: true
 draft: false
 coverImage: "/images/blog/n8n-pricing-cover.jpeg"
+tldr: |
+  n8n is the most-starred workflow-automation OSS project (180k+ stars). Distinctive feature: **execution-based pricing** — one workflow run costs the same whether it has 2 steps or 40. That's a structural advantage over Zapier-style per-step billing for AI chains and multi-API enrichment.
+
+  - Starter EUR 20/mo (2,500 executions); Pro EUR 50/mo (custom quota + 20 concurrent + workflow history); Business EUR 667/mo (40k executions, SSO, SAML, Git, multi-environment, self-hosted only).
+  - The Pro → Business cliff is 13× — you cross it for SSO + multi-environment + Git versioning, not capacity.
+  - Sustainable Use License (not OSI-approved). Self-host for your team is fine; running it as a managed service for customers is not.
+  - Community Edition (self-hosted, free) is genuinely full-featured. Move to cloud Pro when you need parallel executions or workflow history.
+  - AI Workflow Builder credits are the next monetization lever as agentic workflows dominate.
+faq:
+  - question: "Is n8n open source?"
+    answer: "Community Edition ships under n8n's Sustainable Use License — not OSI-approved. You can self-host for your own team; you can't operate it as a managed service for external customers without a commercial agreement."
+  - question: "How does n8n pricing differ from Zapier?"
+    answer: "Zapier charges per task (each step). n8n charges per workflow execution — one run from trigger to finish, regardless of step count. For complex AI chains and multi-step enrichment pipelines, n8n is structurally cheaper."
+  - question: "When should I move from Community Edition to cloud?"
+    answer: "When you need parallel executions, workflow history, or admin features. Self-hosted Community is fully featured for individuals and small teams. Pro at EUR 50/mo unlocks 20 concurrent executions and audit-friendly tooling."
+  - question: "Why is the Pro to Business jump so big?"
+    answer: "13× ($50 → $667) because Business is the SSO/SAML/Git/multi-environment tier, self-hosted only. It's positioned for orgs that already have DevOps capacity and need a license — not capacity."
+pricingTable:
+  license: "Sustainable Use (n8n)"
+  freeTier: "Community Edition (self-hosted)"
+  cheapestPaid: "EUR 20/mo (Starter)"
+  verdict: "Community for solo, Pro for teams, Business for SSO"
 seo:
   metaTitle: "n8n Pricing Teardown — Execution-Based Pricing"
   metaDescription: "n8n charges per workflow execution, not per step. Analysis of pricing tiers, licensing, and the 13x cliff between Pro and Business."
