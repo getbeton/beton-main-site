@@ -219,6 +219,11 @@ const articleData = {
             Beton is open-source revenue intelligence — we detect behavioural signals in product usage data and route them to your CRM.
           </p>
           <ul class="flex flex-wrap gap-x-4 gap-y-2 text-sm">
+            {tags.includes('pricing teardown') && (
+              <li>
+                <a href="/blog/teardowns/" class="text-[var(--color-primary-600)] font-medium hover:underline">All pricing teardowns</a>
+              </li>
+            )}
             <li>
               <a href="/pricing/" class="text-[var(--color-primary-600)] font-medium hover:underline">Pricing &amp; plans</a>
             </li>

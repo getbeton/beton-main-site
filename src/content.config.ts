@@ -137,6 +137,15 @@ const blog = defineCollection({
     coverImage: z.string().optional(),
     tldr: z.string().optional(),
     faq: z.array(z.object({ question: z.string(), answer: z.string() })).optional(),
+    pricingTable: z
+      .object({
+        license: z.string().optional(),
+        stars: z.string().optional(),
+        freeTier: z.string().optional(),
+        cheapestPaid: z.string().optional(),
+        verdict: z.string().optional(),
+      })
+      .optional(),
     seo: seoSchema.optional(),
   }),
 });
