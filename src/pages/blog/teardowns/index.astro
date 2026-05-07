@@ -1,0 +1,114 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '../../../layouts/PageLayout.astro';
+import Container from '../../../components/ui/Container.astro';
+import Heading from '../../../components/ui/Heading.astro';
+import { SITE } from '../../../utils/site';
+
+// Every published post tagged "pricing teardown" — newest first.
+const teardowns = (await getCollection('blog', ({ data }) =>
+  !data.draft && (data.tags || []).includes('pricing teardown')
+)).sort((a, b) =>
+  new Date(b.data.publishedAt).getTime() - new Date(a.data.publishedAt).getTime()
+);
+
+const breadcrumbs = [
+  { name: 'Home', url: SITE.url },
+  { name: 'Blog', url: `${SITE.url}/blog/` },
+  { name: 'Teardowns', url: `${SITE.url}/blog/teardowns/` },
+];
+
+const itemList = {
+  name: 'Open-Source Pricing Teardowns',
+  items: teardowns.map((p) => ({
+    name: p.data.title,
+    url: `${SITE.url}/blog/${p.id}/`,
+    description: p.data.description,
+  })),
+};
+
+function fmtDate(iso: string) {
+  return new Date(iso).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
+}
+---
+
+<PageLayout
+  title="Open-Source Pricing Teardowns — Beton"
+  description="Pricing analyses of every major open-source SaaS tool we use. Free tiers, paid cliffs, license footguns — everything that actually matters for the buying decision."
+  canonicalPath="/blog/teardowns/"
+  breadcrumbs={breadcrumbs}
+  itemList={itemList}
+>
+  <section class="py-14 lg:py-20">
+    <Container>
+      <div class="text-center mb-12 lg:mb-16 max-w-3xl mx-auto">
+        <Heading as="h1">Open-Source Pricing Teardowns</Heading>
+        <p class="mt-4 text-lg text-[var(--color-text-secondary)]">
+          We pick an open-source SaaS tool, read its pricing page, run the math, and tell you what's actually worth paying for. New teardown most weeks.
+        </p>
+        <p class="mt-3 text-sm text-[var(--color-text-tertiary)]">
+          Re-verified weekly via an automated Firecrawl check on each tool's pricing page — see <code class="text-xs">Last verified</code> on each post.
+        </p>
+      </div>
+
+      {teardowns.length > 0 ? (
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          {teardowns.map((post) => {
+            const pt = post.data.pricingTable;
+            return (
+              <article class="flex flex-col border-2 border-[var(--color-text)] bg-[var(--color-surface)] shadow-[var(--shadow-card)] hover:shadow-[6px_6px_0_var(--color-text)] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all">
+                {post.data.coverImage && (
+                  <a href={`/blog/${post.id}/`} class="block aspect-[16/9] border-b-2 border-[var(--color-text)] overflow-hidden">
+                    <img
+                      src={post.data.coverImage}
+                      alt={post.data.title}
+                      width="640"
+                      height="360"
+                      loading="lazy"
+                      class="w-full h-full object-cover"
+                    />
+                  </a>
+                )}
+                <div class="p-5 flex-1 flex flex-col">
+                  <time datetime={post.data.publishedAt} class="text-xs text-[var(--color-text-tertiary)] uppercase tracking-wider mb-2">
+                    {fmtDate(post.data.updatedAt || post.data.publishedAt)}
+                    {post.data.updatedAt && <span class="ml-1">(updated)</span>}
+                  </time>
+                  <h2 class="text-lg font-semibold mb-2">
+                    <a href={`/blog/${post.id}/`} class="hover:text-[var(--color-primary-600)]">{post.data.title}</a>
+                  </h2>
+                  <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed mb-4 flex-1">
+                    {post.data.description}
+                  </p>
+                  {pt && (pt.license || pt.freeTier || pt.cheapestPaid || pt.verdict) && (
+                    <dl class="grid grid-cols-2 gap-x-3 gap-y-1.5 text-xs border-t-2 border-[var(--color-border)] pt-3 mt-auto">
+                      {pt.license && (<><dt class="text-[var(--color-text-tertiary)]">License</dt><dd class="font-medium">{pt.license}</dd></>)}
+                      {pt.freeTier && (<><dt class="text-[var(--color-text-tertiary)]">Free tier</dt><dd class="font-medium">{pt.freeTier}</dd></>)}
+                      {pt.cheapestPaid && (<><dt class="text-[var(--color-text-tertiary)]">From</dt><dd class="font-medium">{pt.cheapestPaid}</dd></>)}
+                      {pt.verdict && (<><dt class="text-[var(--color-text-tertiary)]">Verdict</dt><dd class="font-medium">{pt.verdict}</dd></>)}
+                    </dl>
+                  )}
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      ) : (
+        <p class="text-center text-[var(--color-text-secondary)]">No teardowns yet.</p>
+      )}
+
+      <div class="text-center mt-14 pt-10 border-t-2 border-[var(--color-border)] max-w-2xl mx-auto">
+        <p class="text-base text-[var(--color-text-secondary)] mb-4">
+          Want a teardown of a specific tool? Reply on the newsletter or open an issue at <a href="https://github.com/getbeton/beton-main-site" class="text-[var(--color-primary-600)] hover:underline" target="_blank" rel="noopener">getbeton/beton-main-site</a>.
+        </p>
+        <a href="/blog/" class="inline-flex items-center text-sm font-semibold text-[var(--color-primary-600)] hover:underline">
+          ← All blog posts
+        </a>
+      </div>
+    </Container>
+  </section>
+</PageLayout>

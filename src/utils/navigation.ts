@@ -25,6 +25,7 @@ export const footerNav = {
     { label: 'About', href: '/about/' },
     { label: 'Team', href: '/team/' },
     { label: 'Blog', href: '/blog/' },
+    { label: 'Pricing teardowns', href: '/blog/teardowns/' },
   ] as NavLink[],
   tools: [
     { label: 'All OSS tools', href: '/oss-tools/' },
@@ -34,6 +35,7 @@ export const footerNav = {
     { label: 'seqd', href: '/oss-tools/seqd/' },
   ] as NavLink[],
   resources: [
+    { label: 'Pricing teardowns', href: '/blog/teardowns/' },
     { label: 'GitHub', href: SITE.social.github, external: true },
     { label: 'App', href: SITE.external.app, external: true },
     { label: 'llms.txt', href: '/llms.txt' },
