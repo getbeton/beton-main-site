@@ -1,0 +1,116 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import Container from '../../components/ui/Container.astro';
+import Section from '../../components/ui/Section.astro';
+import Heading from '../../components/ui/Heading.astro';
+import { SITE } from '../../utils/site';
+
+const tools = [
+  {
+    name: 'Inspector',
+    tagline: 'Open-source revenue intelligence',
+    description:
+      'The flagship Beton agent. Detects buying signals in your PostHog or Postgres data, backtests them, and routes the winners to your CRM. Self-host under AGPLv3.',
+    href: '/',
+    github: 'https://github.com/getbeton/inspector',
+    license: 'AGPLv3',
+    indexable: true,
+  },
+  {
+    name: 'DryFit',
+    tagline: 'Synthetic analytics datasets for agent benchmarking',
+    description:
+      'Fifteen ground-truth-annotated PostHog datasets covering every major SaaS billing model — seat-based, usage-based, marketplace, credits, freemium, and more. Drop into your agent test harness and benchmark deterministically.',
+    href: '/oss-tools/dryfit/',
+    github: 'https://github.com/getbeton/dryfit',
+    license: 'AGPLv3',
+    indexable: true,
+  },
+  {
+    name: 'openclaw-gtm-skills',
+    tagline: 'Company research pipeline for OpenClaw',
+    description:
+      'Nine AI skills that turn a list of domains into researched, scored, segmented, and outreach-ready B2B prospects. A Clay.com alternative you self-host on top of OpenClaw + Supabase + Firecrawl.',
+    href: '/oss-tools/openclaw-gtm-skills/',
+    github: 'https://github.com/getbeton/openclaw-gtm-skills',
+    license: 'AGPLv3',
+    indexable: true,
+  },
+  {
+    name: 'seqd',
+    tagline: 'Self-hosted email sequencer',
+    description:
+      'Per-contact email sequences over your own Gmail OAuth, reply detection, CC/BCC passthrough to your CRM. Deprecated in favour of Apollo for Beton-internal use, but still works.',
+    href: '/oss-tools/seqd/',
+    github: 'https://github.com/getbeton/seqd',
+    license: 'AGPLv3',
+    indexable: false,
+  },
+];
+
+const breadcrumbs = [
+  { name: 'Home', url: SITE.url },
+  { name: 'OSS Tools', url: `${SITE.url}/oss-tools/` },
+];
+---
+
+<PageLayout
+  title="Open-Source Tools by Beton"
+  description="The open-source tooling we built for ourselves and shipped under AGPLv3 — Inspector, DryFit, openclaw-gtm-skills, and seqd. Self-host, fork, contribute."
+  canonicalPath="/oss-tools/"
+  breadcrumbs={breadcrumbs}
+>
+  <Section>
+    <Container>
+      <div class="text-center mb-12 lg:mb-16 max-w-3xl mx-auto">
+        <Heading as="h1">Open-Source Tools by Beton</Heading>
+        <p class="mt-4 text-lg text-[var(--color-text-secondary)]">
+          We open-source the tooling we use ourselves. All AGPLv3, all on GitHub, all built to scratch the same itches you probably have.
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-6 max-w-5xl mx-auto">
+        {tools.map((tool) => (
+          <div class="flex flex-col bg-[var(--color-surface-raised)] border-2 border-[var(--color-text)] p-6 shadow-[var(--shadow-card)]">
+            <div class="flex items-start justify-between gap-2 mb-1">
+              <h2 class="text-lg font-bold font-[family-name:'JetBrains_Mono']">{tool.name}</h2>
+              <span class="text-xs font-medium px-2 py-0.5 border border-[var(--color-border)] text-[var(--color-text-secondary)] whitespace-nowrap">
+                {tool.license}
+              </span>
+            </div>
+            <p class="text-sm text-[var(--color-text-tertiary)] mb-3">{tool.tagline}</p>
+            <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed mb-5 flex-1">
+              {tool.description}
+            </p>
+            <div class="flex items-center gap-2">
+              <a
+                href={tool.href}
+                class="inline-flex items-center px-3 py-2 text-xs font-bold uppercase tracking-wider bg-[var(--color-text)] text-[var(--color-surface)] border-2 border-[var(--color-text)] hover:bg-[var(--color-surface)] hover:text-[var(--color-text)]"
+              >
+                Learn more →
+              </a>
+              <a
+                href={tool.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center px-3 py-2 text-xs font-bold uppercase tracking-wider border-2 border-[var(--color-text)] text-[var(--color-text)] hover:bg-[var(--color-text)] hover:text-[var(--color-surface)]"
+              >
+                GitHub ↗
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-16 lg:mt-20 max-w-3xl mx-auto border-t-2 border-[var(--color-border)] pt-12">
+        <h2 class="text-xl sm:text-2xl font-[family-name:var(--font-heading)] tracking-wide mb-4">Why we open-source</h2>
+        <p class="text-base text-[var(--color-text-secondary)] leading-relaxed mb-3">
+          Every Beton tool started as something we needed for our own GTM and product work. Every one ships under AGPLv3 because we want the community to fork, run, and improve it — and because we'd rather compete on hosted convenience than on lock-in.
+        </p>
+        <p class="text-base text-[var(--color-text-secondary)] leading-relaxed">
+          See the <a href="/about/" class="text-[var(--color-primary-600)] hover:underline">About page</a> for more on how Beton is built, or read the <a href="/blog/" class="text-[var(--color-primary-600)] hover:underline">blog</a> for teardowns and product updates.
+        </p>
+      </div>
+    </Container>
+  </Section>
+</PageLayout>

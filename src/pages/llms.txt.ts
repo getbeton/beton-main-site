@@ -70,11 +70,11 @@ export const GET: APIRoute = async () => {
   parts.push('## Tools');
   parts.push('');
   parts.push(
-    `- [Dryfit](${SITE}/tools/dryfit.md): Open-source synthetic PostHog data generator with ground truth for benchmarking signal-detection agents`
+    `- [Dryfit](${SITE}/oss-tools/dryfit.md): Open-source synthetic PostHog data generator with ground truth for benchmarking signal-detection agents`
   );
   scenarios.forEach((s) => {
     parts.push(
-      `  - [${s.data.name}](${SITE}/tools/dryfit/scenarios/${s.data.slug}.md): ${s.data.description}`
+      `  - [${s.data.name}](${SITE}/oss-tools/dryfit/scenarios/${s.data.slug}.md): ${s.data.description}`
     );
   });
   parts.push('');

@@ -264,7 +264,7 @@ export function scenarioToMarkdown(
   parts.push(
     pageHeader({
       title: `Dryfit Scenario: ${d.name}`,
-      canonical: `/tools/dryfit/scenarios/${d.slug}/`,
+      canonical: `/oss-tools/dryfit/scenarios/${d.slug}/`,
       description: d.description,
     })
   );

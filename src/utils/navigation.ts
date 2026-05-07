@@ -9,7 +9,7 @@ export interface NavLink {
 export const mainNav: NavLink[] = [
   { label: 'Blog', href: '/blog/' },
   { label: 'Integrations', href: '/integrations/' },
-  { label: 'Tools', href: '/tools/dryfit/' },
+  { label: 'OSS Tools', href: '/oss-tools/' },
   { label: 'Pricing', href: '/pricing/' },
   { label: 'About', href: '/about/' },
   { label: 'Team', href: '/team/' },
@@ -27,10 +27,11 @@ export const footerNav = {
     { label: 'Blog', href: '/blog/' },
   ] as NavLink[],
   tools: [
-    { label: 'DryFit (signal benchmarking)', href: '/tools/dryfit/' },
-    { label: 'Scenarios library', href: '/tools/dryfit/scenarios/' },
-    { label: 'seqd', href: '/seqd/' },
-    { label: 'openclaw-gtm-skills', href: 'https://github.com/getbeton/openclaw-gtm-skills', external: true },
+    { label: 'All OSS tools', href: '/oss-tools/' },
+    { label: 'DryFit (signal benchmarking)', href: '/oss-tools/dryfit/' },
+    { label: 'Scenarios library', href: '/oss-tools/dryfit/scenarios/' },
+    { label: 'openclaw-gtm-skills', href: '/oss-tools/openclaw-gtm-skills/' },
+    { label: 'seqd', href: '/oss-tools/seqd/' },
   ] as NavLink[],
   resources: [
     { label: 'GitHub', href: SITE.social.github, external: true },
