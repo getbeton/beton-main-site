@@ -19,9 +19,12 @@ interface Props {
   publishedAt: string;
   updatedAt?: string;
   author: string;
+  reviewedBy?: string;
   tags: string[];
   coverImage?: string;
   slug: string;
+  tldr?: string;
+  faq?: { question: string; answer: string }[];
   seo?: {
     metaTitle?: string;
     metaDescription?: string;
@@ -30,7 +33,32 @@ interface Props {
   relatedPosts?: RelatedPost[];
 }
 
-const { title, description, publishedAt, updatedAt, author, tags, coverImage, slug, seo, relatedPosts = [] } = Astro.props;
+const { title, description, publishedAt, updatedAt, author, reviewedBy, tags, coverImage, slug, tldr, faq, seo, relatedPosts = [] } = Astro.props;
+
+// Best-effort slug for reviewer link (matches /team/<slug>/ when team detail
+// pages exist; harmless if not yet — Markelov's bio page lands in Batch F).
+const reviewerSlug = reviewedBy
+  ? reviewedBy.toLowerCase().replace(/\s+/g, '-')
+  : null;
+
+// Render TL;DR as paragraphs + simple bulleted lists. Authors write tldr in
+// frontmatter as plain text with `\n\n` paragraph breaks; lines starting with
+// "- " become a <ul>. Keeps the markdown-parser dependency tree empty.
+type TldrBlock = { kind: 'p'; text: string } | { kind: 'ul'; items: string[] };
+function parseTldr(input: string): TldrBlock[] {
+  const blocks: TldrBlock[] = [];
+  const paragraphs = input.trim().split(/\n\s*\n/);
+  for (const para of paragraphs) {
+    const lines = para.split('\n').map((l) => l.trim()).filter(Boolean);
+    if (lines.every((l) => l.startsWith('- '))) {
+      blocks.push({ kind: 'ul', items: lines.map((l) => l.slice(2)) });
+    } else {
+      blocks.push({ kind: 'p', text: lines.join(' ') });
+    }
+  }
+  return blocks;
+}
+const tldrBlocks = tldr ? parseTldr(tldr) : [];
 
 const formattedDate = new Date(publishedAt).toLocaleDateString('en-US', {
   year: 'numeric',
@@ -75,6 +103,7 @@ const articleData = {
   canonicalPath={`/blog/${slug}`}
   type="article"
   breadcrumbs={breadcrumbs}
+  faqData={faq}
 >
   <article class="py-14 lg:py-20">
     <Container>
@@ -97,8 +126,19 @@ const articleData = {
             {description}
           </p>
 
-          <div class="flex items-center gap-4 text-sm text-[var(--color-text-tertiary)] border-t-2 border-b-2 border-[var(--color-border)] py-3">
+          <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-[var(--color-text-tertiary)] border-t-2 border-b-2 border-[var(--color-border)] py-3">
             <span class="font-medium text-[var(--color-text-secondary)]">{author}</span>
+            {reviewedBy && (
+              <>
+                <span aria-hidden="true">&middot;</span>
+                <span>
+                  Reviewed by{' '}
+                  <a href={`/team/${reviewerSlug}/`} class="font-medium text-[var(--color-text-secondary)] hover:underline">
+                    {reviewedBy}
+                  </a>
+                </span>
+              </>
+            )}
             <span aria-hidden="true">&middot;</span>
             <time datetime={publishedAt}>{formattedDate}</time>
             {updatedDate && (
@@ -109,6 +149,28 @@ const articleData = {
             )}
           </div>
         </header>
+
+        {tldrBlocks.length > 0 && (
+          <aside
+            class="mb-10 border-2 border-[var(--color-text)] bg-[var(--color-surface-raised)] shadow-[var(--shadow-card)] p-5 sm:p-6"
+            aria-label="Quick answer"
+          >
+            <p class="text-xs font-bold uppercase tracking-wider text-[var(--color-primary-600)] mb-3">
+              TL;DR
+            </p>
+            <div class="space-y-3 text-base text-[var(--color-text)] leading-relaxed">
+              {tldrBlocks.map((block) =>
+                block.kind === 'p' ? (
+                  <p>{block.text}</p>
+                ) : (
+                  <ul class="list-disc pl-5 space-y-1.5">
+                    {block.items.map((item) => <li>{item}</li>)}
+                  </ul>
+                )
+              )}
+            </div>
+          </aside>
+        )}
 
         {coverImage && (
           <div class="mb-10 -mx-4 lg:-mx-8 border-2 border-[var(--color-border)] overflow-hidden">
@@ -126,6 +188,29 @@ const articleData = {
         <div class="prose">
           <slot />
         </div>
+
+        {faq && faq.length > 0 && (
+          <section class="mt-14 pt-8 border-t-2 border-[var(--color-border)]" aria-label="Frequently asked questions">
+            <h2 class="text-xl sm:text-2xl font-[family-name:var(--font-heading)] tracking-wide mb-6">
+              Frequently asked questions
+            </h2>
+            <div class="space-y-3">
+              {faq.map((item) => (
+                <details class="group border-2 border-[var(--color-border)] bg-[var(--color-surface-raised)]">
+                  <summary class="flex items-center justify-between gap-4 cursor-pointer list-none p-4 font-semibold text-[var(--color-text)] hover:bg-[var(--color-surface)]">
+                    <span>{item.question}</span>
+                    <svg class="w-5 h-5 shrink-0 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path>
+                    </svg>
+                  </summary>
+                  <div class="px-4 pb-4 pt-0 text-[var(--color-text-secondary)] leading-relaxed">
+                    {item.answer}
+                  </div>
+                </details>
+              ))}
+            </div>
+          </section>
+        )}
 
         <!-- Explore Beton -->
         <aside class="mt-14 pt-8 border-t-2 border-[var(--color-border)]" aria-label="Explore Beton">
@@ -223,6 +308,13 @@ const articleData = {
       '@type': 'Person',
       name: author,
     },
+    ...(reviewedBy && {
+      reviewedBy: {
+        '@type': 'Person',
+        name: reviewedBy,
+        ...(reviewerSlug && { url: `${SITE.url}/team/${reviewerSlug}/` }),
+      },
+    }),
     publisher: {
       '@type': 'Organization',
       name: SITE.name,

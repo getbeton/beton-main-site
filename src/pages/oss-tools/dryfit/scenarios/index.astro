@@ -17,10 +17,19 @@ const scenarios = (await getCollection('dryfit-scenarios')).sort((a, b) => {
 
 const breadcrumbs = [
   { name: 'Home', url: SITE.url },
-  { name: 'Tools', url: `${SITE.url}/tools/` },
-  { name: 'DryFit', url: `${SITE.url}/tools/dryfit/` },
-  { name: 'Scenarios', url: `${SITE.url}/tools/dryfit/scenarios/` },
+  { name: 'OSS Tools', url: `${SITE.url}/oss-tools/` },
+  { name: 'DryFit', url: `${SITE.url}/oss-tools/dryfit/` },
+  { name: 'Scenarios', url: `${SITE.url}/oss-tools/dryfit/scenarios/` },
 ];
+
+const itemList = {
+  name: 'DryFit Scenarios',
+  items: scenarios.map((s) => ({
+    name: s.data.name,
+    url: `${SITE.url}/oss-tools/dryfit/scenarios/${s.data.slug}/`,
+    description: s.data.description,
+  })),
+};
 
 const categoryLabel: Record<string, string> = {
   baseline: 'Baseline',
@@ -45,14 +54,15 @@ const categoryLabel: Record<string, string> = {
 <PageLayout
   title="DryFit Scenarios — 15 synthetic analytics datasets for agent benchmarking"
   description="Browse the 15 bundled dryfit scenarios covering every major SaaS business model: seat-based, usage-based, marketplace, credits, freemium, and more. Each ships with ground-truth annotations for deterministic agent benchmarking."
-  canonicalPath="/tools/dryfit/scenarios/"
+  canonicalPath="/oss-tools/dryfit/scenarios/"
   breadcrumbs={breadcrumbs}
+  itemList={itemList}
 >
   <section class="py-12 lg:py-16 border-b-2 border-[var(--color-border)]">
     <Container>
       <div class="max-w-3xl">
         <nav class="text-xs text-[var(--color-text-tertiary)] mb-6 flex flex-wrap gap-1">
-          <a href="/tools/dryfit/" class="hover:text-[var(--color-primary-600)] hover:underline">DryFit</a>
+          <a href="/oss-tools/dryfit/" class="hover:text-[var(--color-primary-600)] hover:underline">DryFit</a>
           <span aria-hidden="true">/</span>
           <span class="text-[var(--color-text-secondary)]">Scenarios</span>
         </nav>
@@ -75,7 +85,7 @@ const categoryLabel: Record<string, string> = {
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-6xl mx-auto">
         {scenarios.map((s) => (
           <a
-            href={`/tools/dryfit/scenarios/${s.data.slug}/`}
+            href={`/oss-tools/dryfit/scenarios/${s.data.slug}/`}
             class="group flex flex-col border-2 border-[var(--color-text)] bg-[var(--color-surface)] shadow-[var(--shadow-card)] hover:shadow-[6px_6px_0_var(--color-text)] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all p-5"
           >
             <div class="flex items-center justify-between mb-3">
@@ -116,7 +126,7 @@ const categoryLabel: Record<string, string> = {
         <p class="text-[var(--color-text-secondary)] mb-6">
           The PostHog Web baseline is the simplest. The combined-coverage scenario exercises every event type across every business model — good for stress-testing agents that need to generalize.
         </p>
-        <a href="/tools/dryfit/" class="inline-flex items-center gap-2 px-5 py-3 text-sm font-bold uppercase tracking-wider border-2 border-[var(--color-text)] hover:bg-[var(--color-text)] hover:text-[var(--color-surface)]">
+        <a href="/oss-tools/dryfit/" class="inline-flex items-center gap-2 px-5 py-3 text-sm font-bold uppercase tracking-wider border-2 border-[var(--color-text)] hover:bg-[var(--color-text)] hover:text-[var(--color-surface)]">
           ← Back to DryFit overview
         </a>
       </div>

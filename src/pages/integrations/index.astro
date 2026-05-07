@@ -15,6 +15,15 @@ const breadcrumbs = [
   { name: 'Home', url: SITE.url },
   { name: 'Integrations', url: `${SITE.url}/integrations/` },
 ];
+
+const itemList = {
+  name: 'Beton Integrations',
+  items: live.map((integration) => ({
+    name: integration.data.name,
+    url: `${SITE.url}/integrations/${integration.data.slug}/`,
+    description: integration.data.description,
+  })),
+};
 ---
 
 <PageLayout
@@ -22,6 +31,7 @@ const breadcrumbs = [
   description="Connect PostHog, Postgres, or Stripe as a data source. Route signals to Attio, Apollo, or any HTTPS endpoint via Webhooks. HubSpot ships next."
   canonicalPath="/integrations/"
   breadcrumbs={breadcrumbs}
+  itemList={itemList}
 >
   <section class="py-14 lg:py-20">
     <Container>

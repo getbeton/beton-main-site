@@ -18,9 +18,10 @@ interface Props {
   breadcrumbs?: { name: string; url: string }[];
   reviewData?: { name: string; role?: string; company?: string; quote: string }[];
   personData?: { name: string; role: string; bio?: string; social?: { twitter?: string; linkedin?: string; github?: string } }[];
+  itemList?: { name: string; items: { name: string; url: string; description?: string }[] };
 }
 
-const { title, description, ogImage, canonicalPath, noIndex, type, schemaType, faqData, breadcrumbs, reviewData, personData } = Astro.props;
+const { title, description, ogImage, canonicalPath, noIndex, type, schemaType, faqData, breadcrumbs, reviewData, personData, itemList } = Astro.props;
 ---
 
 <!doctype html>
@@ -38,6 +39,7 @@ const { title, description, ogImage, canonicalPath, noIndex, type, schemaType, f
       breadcrumbs={breadcrumbs}
       reviewData={reviewData}
       personData={personData}
+      itemList={itemList}
     />
   </head>
   <body class="min-h-screen flex flex-col overflow-x-hidden">

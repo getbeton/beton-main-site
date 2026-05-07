@@ -25,9 +25,9 @@ const related = allScenarios
 const breadcrumbs = [
   { name: 'Home', url: SITE.url },
   { name: 'Tools', url: `${SITE.url}/tools/` },
-  { name: 'DryFit', url: `${SITE.url}/tools/dryfit/` },
-  { name: 'Scenarios', url: `${SITE.url}/tools/dryfit/scenarios/` },
-  { name: d.name, url: `${SITE.url}/tools/dryfit/scenarios/${d.slug}/` },
+  { name: 'DryFit', url: `${SITE.url}/oss-tools/dryfit/` },
+  { name: 'Scenarios', url: `${SITE.url}/oss-tools/dryfit/scenarios/` },
+  { name: d.name, url: `${SITE.url}/oss-tools/dryfit/scenarios/${d.slug}/` },
 ];
 
 const metaTitle = `${d.name} — dryfit synthetic-data scenario`;
@@ -63,7 +63,7 @@ const faqData = [
 <PageLayout
   title={metaTitle}
   description={metaDescription}
-  canonicalPath={`/tools/dryfit/scenarios/${d.slug}/`}
+  canonicalPath={`/oss-tools/dryfit/scenarios/${d.slug}/`}
   breadcrumbs={breadcrumbs}
   faqData={faqData}
 >
@@ -72,9 +72,9 @@ const faqData = [
     <Container>
       <div class="max-w-4xl">
         <nav class="text-xs text-[var(--color-text-tertiary)] mb-6 flex flex-wrap gap-1">
-          <a href="/tools/dryfit/" class="hover:text-[var(--color-primary-600)] hover:underline">DryFit</a>
+          <a href="/oss-tools/dryfit/" class="hover:text-[var(--color-primary-600)] hover:underline">DryFit</a>
           <span aria-hidden="true">/</span>
-          <a href="/tools/dryfit/scenarios/" class="hover:text-[var(--color-primary-600)] hover:underline">Scenarios</a>
+          <a href="/oss-tools/dryfit/scenarios/" class="hover:text-[var(--color-primary-600)] hover:underline">Scenarios</a>
           <span aria-hidden="true">/</span>
           <span class="text-[var(--color-text-secondary)]">{d.name}</span>
         </nav>
@@ -268,7 +268,7 @@ const faqData = [
         <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
           {related.map((s) => (
             <a
-              href={`/tools/dryfit/scenarios/${s.data.slug}/`}
+              href={`/oss-tools/dryfit/scenarios/${s.data.slug}/`}
               class="group flex flex-col border-2 border-[var(--color-border)] bg-[var(--color-surface)] hover:border-[var(--color-text)] p-4"
             >
               <h3 class="text-sm font-semibold mb-1 group-hover:text-[var(--color-primary-600)]">{s.data.name}</h3>
@@ -279,7 +279,7 @@ const faqData = [
         </div>
 
         <div class="text-center mt-8">
-          <a href="/tools/dryfit/scenarios/" class="text-sm font-medium text-[var(--color-primary-600)] hover:underline">
+          <a href="/oss-tools/dryfit/scenarios/" class="text-sm font-medium text-[var(--color-primary-600)] hover:underline">
             Browse all scenarios →
           </a>
         </div>
