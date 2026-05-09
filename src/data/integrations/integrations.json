@@ -6,18 +6,27 @@
     "logo": "/images/logos/postgres.svg",
     "url": "https://www.postgresql.org/",
     "category": "source",
-    "description": "Connect any Postgres warehouse as a behavioral data source. Replicas, Supabase, self-hosted — Beton reads schema and discovers signals directly.",
+    "description": "Connect any Postgres warehouse as a behavioral data source. Replicas, Supabase, self-hosted \u2014 Beton reads schema and discovers signals directly.",
     "featured": true,
     "tagline": "Behavioral signal discovery on top of your raw warehouse",
     "howItWorks": [
-      { "step": "Connect a read-only role", "description": "Provide a connection string. Beton uses a single read-only role and never writes back. Your Postgres takes no extra load — Beton schedules its own scans on a quiet replica or off-peak window." },
-      { "step": "Beton proposes hypotheses", "description": "The agent reads schema (tables, columns, foreign keys) and proposes testable behavioral hypotheses tailored to YOUR table layout — no generic templates." },
-      { "step": "Backtest before promotion", "description": "Each hypothesis is validated against historical rows: precision, recall, lift over baseline. Promote only the ones that beat your bar." }
+      {
+        "step": "Connect a read-only role",
+        "description": "Provide a connection string. Beton uses a single read-only role and never writes back. Your Postgres takes no extra load \u2014 Beton schedules its own scans on a quiet replica or off-peak window."
+      },
+      {
+        "step": "Beton proposes hypotheses",
+        "description": "The agent reads schema (tables, columns, foreign keys) and proposes testable behavioral hypotheses tailored to YOUR table layout \u2014 no generic templates."
+      },
+      {
+        "step": "Backtest before promotion",
+        "description": "Each hypothesis is validated against historical rows: precision, recall, lift over baseline. Promote only the ones that beat your bar."
+      }
     ],
     "features": [
-      "Read-only connection — zero impact on production",
+      "Read-only connection \u2014 zero impact on production",
       "Works with managed Postgres (RDS, Cloud SQL), Supabase, and self-hosted",
-      "Automatic schema introspection — no manual table mapping",
+      "Automatic schema introspection \u2014 no manual table mapping",
       "Compatible with warehouse loaders like Fivetran, Segment, RudderStack",
       "Same hypothesis-and-backtest flow as PostHog",
       "No data export or migration required"
@@ -35,9 +44,57 @@
     },
     "blogPost": "beton-late-april-2026-update",
     "seo": {
-      "metaTitle": "Postgres Integration — Signal Discovery on Your Warehouse",
-      "metaDescription": "Connect any Postgres warehouse to Beton — replicas, Supabase, self-hosted. Read schema, discover signals, validate statistically. No data export needed."
-    }
+      "metaTitle": "Postgres Integration \u2014 Signal Discovery on Your Warehouse",
+      "metaDescription": "Connect any Postgres warehouse to Beton \u2014 replicas, Supabase, self-hosted. Read schema, discover signals, validate statistically. No data export needed."
+    },
+    "body": [
+      {
+        "type": "h2",
+        "text": "Why Postgres is a first-class data source for Beton"
+      },
+      {
+        "type": "p",
+        "text": "Many of the companies Beton works with don't keep their primary product data in PostHog at all \u2014 they keep it in their application database, often Postgres, and have a separate analytics tool that's a copy of a copy. For these teams, the most authentic signal source is the database that the product itself reads and writes against. Logins, feature usage, transactions, subscription state changes \u2014 they're all already there, with the schema discipline that production databases enforce and the query semantics that warehouse layers usually flatten."
+      },
+      {
+        "type": "p",
+        "text": "Beton connects to your Postgres warehouse (or a read replica) using a standard read-only connection string. The agent inspects your schema, identifies the tables that look like event streams or activity logs, and proposes hypotheses against the rows that already exist. You don't need to instrument anything; you don't need to run a separate ETL; the signals flow straight from the source of truth."
+      },
+      {
+        "type": "h2",
+        "text": "Common patterns in warehouse-style Postgres data"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Subscription state transitions \u2014 trial-to-paid, plan upgrades, downgrades, cancellations. The state-change rows are usually the highest-signal events in the database, and they're often the first table Beton flags as a hypothesis source.",
+          "API usage tables \u2014 request logs, rate-limit hits, error responses. For products with API surface, these tables capture the customer's actual usage trajectory in a way that no marketing dashboard does.",
+          "Per-user activity tables \u2014 login_events, action_logs, audit_trails. The granularity here is usually sufficient to detect activation depth, return cadence, and feature breadth without needing PostHog overlay.",
+          "Billing and invoicing tables \u2014 invoice_line_items, usage_meters, plan_history. Especially important for usage-based pricing models where the billing event is the buying signal.",
+          "Relational signals \u2014 joins between users, accounts, and feature usage that PostHog can't naturally express. Postgres lets the agent ask \"which accounts have at least three users who hit feature X\" as a single query, which is awkward to express in event-stream terms."
+        ]
+      },
+      {
+        "type": "h2",
+        "text": "Read-only and rate-aware"
+      },
+      {
+        "type": "p",
+        "text": "Beton's Postgres connector uses a read-only role and respects connection-pool limits. Sync runs as scheduled batched queries against the tables Beton has been authorized to read, not as a continuous stream against your live database. For teams that worry about analytical load on production, the pattern we recommend is connecting Beton to a read replica or a follower database \u2014 the same way most BI tools do \u2014 so production OLTP performance is unaffected."
+      },
+      {
+        "type": "h2",
+        "text": "When Postgres is the better choice over PostHog"
+      },
+      {
+        "type": "p",
+        "text": "Three cases come up regularly. First, when the product was built before product analytics tooling was standard, and the database has years of behavioral history that PostHog doesn't. Second, when subscription state and billing events live in the application DB but not in PostHog, and the most useful expansion signals are state-change rows rather than user actions. Third, when the team has compliance constraints that prevent product event data from leaving the application boundary \u2014 Beton's Postgres connector lets the analysis happen against the source database without copying anything to a third-party analytics platform."
+      },
+      {
+        "type": "p",
+        "text": "Connection takes minutes. Beton supports the standard connection pool patterns, schema introspection runs on first connect, and hypothesis backtesting starts as soon as the agent has a converter cohort to compare against. From there, the same pipeline that handles PostHog signals applies to Postgres-derived ones \u2014 proposed hypothesis, backtest, approve, route to your CRM."
+      }
+    ]
   },
   {
     "id": "posthog",
@@ -50,16 +107,25 @@
     "featured": true,
     "tagline": "Your product analytics, powering revenue intelligence",
     "howItWorks": [
-      { "step": "Connect your PostHog instance", "description": "Provide your PostHog project API key. Beton connects directly to your instance — Cloud or self-hosted. No data export, no migration." },
-      { "step": "Agent proposes signal hypotheses", "description": "The agent reads your event taxonomy and person/group properties, then proposes hypotheses (e.g. \"users who hit 5+ workspace events in their first session convert at 4× baseline\")." },
-      { "step": "Backtest before promotion", "description": "Each hypothesis is scored on your last 90 days of events: precision, recall, lift. Approve a hypothesis once it clears your bar — only then does it route signals." }
+      {
+        "step": "Connect your PostHog instance",
+        "description": "Provide your PostHog project API key. Beton connects directly to your instance \u2014 Cloud or self-hosted. No data export, no migration."
+      },
+      {
+        "step": "Agent proposes signal hypotheses",
+        "description": "The agent reads your event taxonomy and person/group properties, then proposes hypotheses (e.g. \"users who hit 5+ workspace events in their first session convert at 4\u00d7 baseline\")."
+      },
+      {
+        "step": "Backtest before promotion",
+        "description": "Each hypothesis is scored on your last 90 days of events: precision, recall, lift. Approve a hypothesis once it clears your bar \u2014 only then does it route signals."
+      }
     ],
     "features": [
-      "Direct API connection — no data export needed",
+      "Direct API connection \u2014 no data export needed",
       "Real-time event processing on a sync schedule (every few minutes)",
       "Supports all PostHog event types and properties",
       "Historical backtesting on the last 90 days of events",
-      "Zero impact on your PostHog performance — read-only, batched, rate-limit-aware",
+      "Zero impact on your PostHog performance \u2014 read-only, batched, rate-limit-aware",
       "Works with PostHog Cloud and self-hosted"
     ],
     "useCases": [
@@ -72,7 +138,7 @@
     "faq": [
       {
         "question": "Do I need to export my PostHog data to use Beton?",
-        "answer": "No. Beton reads events directly from your PostHog instance via the API — PostHog Cloud or self-hosted both work. Nothing is copied or migrated. You provide connection credentials and can revoke access at any time."
+        "answer": "No. Beton reads events directly from your PostHog instance via the API \u2014 PostHog Cloud or self-hosted both work. Nothing is copied or migrated. You provide connection credentials and can revoke access at any time."
       },
       {
         "question": "Does Beton slow down my PostHog instance?",
@@ -80,7 +146,7 @@
       },
       {
         "question": "Which PostHog event types does Beton analyze?",
-        "answer": "Beton reads standard event types (pageviews, custom events, group events, identify calls) plus person and group properties. The agent proposes hypotheses automatically — you don't need to pre-define which events matter."
+        "answer": "Beton reads standard event types (pageviews, custom events, group events, identify calls) plus person and group properties. The agent proposes hypotheses automatically \u2014 you don't need to pre-define which events matter."
       },
       {
         "question": "Does Beton store the raw PostHog events?",
@@ -89,9 +155,57 @@
     ],
     "blogPost": "we-rebuilt-beton-automated-signal",
     "seo": {
-      "metaTitle": "PostHog Integration — Backtested Signals from Product Events",
+      "metaTitle": "PostHog Integration \u2014 Backtested Signals from Product Events",
       "metaDescription": "Connect PostHog to Beton. The agent proposes signal hypotheses, backtests them on 90 days of your events, and promotes only the ones that beat your bar."
-    }
+    },
+    "body": [
+      {
+        "type": "h2",
+        "text": "PostHog as the primary signal source for revenue intelligence"
+      },
+      {
+        "type": "p",
+        "text": "PostHog is the system most product-led companies use to capture user behavior, and it's almost always the right place for Beton to start. Every event your product emits \u2014 pageview, feature use, identify, group association, custom events \u2014 already lives in PostHog with the timestamp and the person/group context Beton needs to look at conversion patterns. Pulling that data into a separate warehouse just to run signal detection adds a pipeline and a copy of your data without adding any signal that wasn't there to begin with."
+      },
+      {
+        "type": "p",
+        "text": "Beton's PostHog integration reads events directly from your instance \u2014 Cloud or self-hosted \u2014 using the standard PostHog API. The agent inspects your event taxonomy and person/group properties, proposes signal hypotheses, and backtests each one against the last 90 days of your data before any signal is allowed to route. You see precision, recall, and lift before you decide to promote. Hypotheses that don't beat your bar never fire; hypotheses that do flow into your CRM continuously as new events come in."
+      },
+      {
+        "type": "h2",
+        "text": "Patterns Beton typically surfaces in PostHog data"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Activation depth \u2014 users who explore three or more core features in their first session, beyond the one feature they signed up for. The breadth signal usually predicts conversion better than depth on any single feature.",
+          "Collaboration milestones \u2014 invitations sent, shared resources created, comments posted. The first invite is the strongest single predictor in most B2B PostHog data because it converts an individual evaluator into an organizational champion.",
+          "Integration adoption \u2014 connecting a third-party tool from your product (a Slack, a CRM, a GitHub). High-cost actions that almost always correlate with retention.",
+          "Return cadence \u2014 daily-active users in the first week of trial. The casual evaluator doesn't come back; the buyer does.",
+          "Plan-ceiling proximity \u2014 usage trajectories approaching tier thresholds. For usage-based pricing, this is the single highest-leverage expansion signal."
+        ]
+      },
+      {
+        "type": "h2",
+        "text": "What stays in PostHog, what leaves"
+      },
+      {
+        "type": "p",
+        "text": "Beton reads events, computes signals, and stores only the signal output \u2014 type, confidence score, and references to the event IDs that triggered it. The granular product analytics data stays in PostHog. Nothing is exported, nothing is duplicated to a separate warehouse, and the read load is a few batched queries per sync interval rather than a streaming firehose. Practically, this means the PostHog instance your product team relies on every day isn't affected \u2014 the dashboards keep their own performance characteristics, and Beton runs alongside as read-only consumer."
+      },
+      {
+        "type": "h2",
+        "text": "Why this beats rule-based scoring"
+      },
+      {
+        "type": "p",
+        "text": "Most teams that try to do this without Beton end up writing rule-based PQL scoring inside HubSpot or Pipedrive, or running a weekly Looker query against the PostHog event export. Both approaches break the same way: the rules drift the moment your product ships a new feature that changes what \"engaged\" looks like, and the maintenance cost outpaces the signal value. Beton's heuristic re-runs against the most recent converter cohort on a rolling basis, so when your product changes, the detection adapts without anyone having to re-tune."
+      },
+      {
+        "type": "p",
+        "text": "If you're already on PostHog, the integration is the natural starting point. Most teams have their first hypothesis backtested and a signal flowing into their CRM within an hour of connecting. From there, the only ongoing maintenance is approving or rejecting new hypothesis candidates as the agent surfaces them."
+      }
+    ]
   },
   {
     "id": "stripe",
@@ -100,16 +214,25 @@
     "logo": "/images/logos/stripe.svg",
     "url": "https://stripe.com",
     "category": "source",
-    "description": "Stripe billing events as a signal source. Trial-to-paid conversions, plan upgrades, payment failures, churn — joined with product behavior for sharper signals.",
+    "description": "Stripe billing events as a signal source. Trial-to-paid conversions, plan upgrades, payment failures, churn \u2014 joined with product behavior for sharper signals.",
     "featured": true,
     "tagline": "Revenue events as first-class signals",
     "howItWorks": [
-      { "step": "Add a Stripe restricted key", "description": "Generate a restricted API key (read-only on customers, subscriptions, invoices, charges, events). Paste it into Beton — no webhook setup required." },
-      { "step": "Beton joins billing with product behavior", "description": "Subscription state changes, plan switches, failed charges, and trial conversions are joined with PostHog/Postgres events on email or domain. Signals carry both contexts." },
-      { "step": "Backtest revenue-grade hypotheses", "description": "Hypotheses like \"trialists who hit feature X within 3 days convert at Y%\" are validated against actual paid conversions in your Stripe history." }
+      {
+        "step": "Add a Stripe restricted key",
+        "description": "Generate a restricted API key (read-only on customers, subscriptions, invoices, charges, events). Paste it into Beton \u2014 no webhook setup required."
+      },
+      {
+        "step": "Beton joins billing with product behavior",
+        "description": "Subscription state changes, plan switches, failed charges, and trial conversions are joined with PostHog/Postgres events on email or domain. Signals carry both contexts."
+      },
+      {
+        "step": "Backtest revenue-grade hypotheses",
+        "description": "Hypotheses like \"trialists who hit feature X within 3 days convert at Y%\" are validated against actual paid conversions in your Stripe history."
+      }
     ],
     "features": [
-      "Restricted-key OAuth — read-only, scoped, revocable",
+      "Restricted-key OAuth \u2014 read-only, scoped, revocable",
       "Subscription, invoice, charge, and customer events ingested",
       "Auto-joined with product analytics on email and domain",
       "Trial-conversion and expansion hypotheses validated on real revenue outcomes",
@@ -125,9 +248,61 @@
     "samplePayload": "{\n  \"signal_type\": \"trial_about_to_convert\",\n  \"confidence\": 0.88,\n  \"sources\": [\"stripe\", \"posthog\"],\n  \"account\": { \"email\": \"jane@acme.com\", \"domain\": \"acme.com\" },\n  \"stripe\": {\n    \"subscription_status\": \"trialing\",\n    \"trial_end\": \"2026-05-04\",\n    \"plan_amount\": 4900\n  },\n  \"product_events\": [\"workspace_invited_teammate\", \"api_key_created\", \"workflow_published\"]\n}",
     "blogPost": "billing-live-agent-wiring",
     "seo": {
-      "metaTitle": "Stripe Integration — Billing Events as Revenue Signals",
+      "metaTitle": "Stripe Integration \u2014 Billing Events as Revenue Signals",
       "metaDescription": "Join Stripe billing events with product behavior. Backtest trial-conversion, expansion, and churn hypotheses against actual MRR. Read-only restricted key."
-    }
+    },
+    "body": [
+      {
+        "type": "h2",
+        "text": "Stripe events as direct revenue signals"
+      },
+      {
+        "type": "p",
+        "text": "Most of Beton's signals work through behavioral inference \u2014 user did X, X correlates with conversion, route a signal. Stripe is different. Stripe events are direct revenue evidence: the customer paid, the customer downgraded, the customer's payment failed. There's no inference layer to backtest because the event itself is the outcome. What Beton adds is the pattern detection across many Stripe events over time, and the routing of those events into the CRM with enough context that the AE or CSM can act on them."
+      },
+      {
+        "type": "p",
+        "text": "Beton connects to your Stripe account via a restricted-permission API key (read access to customers, subscriptions, invoices, and events). The agent watches the event stream and surfaces patterns that matter for revenue ops: customers approaching usage limits, customers with rising MRR, customers who just had a failed payment, customers who downgraded after a sustained period of growth."
+      },
+      {
+        "type": "h2",
+        "text": "Patterns Beton typically surfaces in Stripe data"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Usage approaching plan limits \u2014 for usage-based pricing, the moment a customer crosses 70%, 80%, or 90% of their tier allotment is the most leverageable expansion moment of the quarter. The customer's decision window is narrow; if no one reaches out, they downgrade or work around.",
+          "MRR growth trajectory \u2014 customers whose monthly spend is trending up consistently for 60+ days are usually in business-growth mode, and that's the population most receptive to enterprise-tier conversations.",
+          "Payment failure patterns \u2014 a single failed payment is noise; a pattern of failed payments is a churn precursor. Beton flags the pattern so collections or CS can intervene before the subscription cancels.",
+          "Plan downgrades \u2014 the downgrade is usually the announcement of churn arriving in 60\u201390 days. Catching the downgrade in the CRM, with context about what the customer's usage looked like before, gives the CSM a chance to intervene.",
+          "New subscription patterns \u2014 first-purchase customers segmented by which plan they entered on, time-to-first-payment after trial, and which entry path correlates with retention."
+        ]
+      },
+      {
+        "type": "h2",
+        "text": "Why Stripe pairs especially well with PostHog"
+      },
+      {
+        "type": "p",
+        "text": "The two most useful signal pairs Beton routes are PostHog \u00d7 Stripe combinations. PostHog tells you the customer is hitting feature gates on the next plan tier; Stripe confirms they haven't yet upgraded. PostHog tells you the customer's usage is accelerating; Stripe confirms they're still on the starter plan. PostHog tells you a power user has dropped engagement; Stripe confirms the subscription is approaching renewal. None of these signals are useful in isolation \u2014 together they're the actual leading indicators of expansion or churn."
+      },
+      {
+        "type": "p",
+        "text": "When Beton routes a Stripe-derived signal to the CRM, the payload includes the relevant Stripe metadata \u2014 current plan, MRR trajectory, recent invoice history, payment health \u2014 so the AE or CSM doesn't have to context-switch to Stripe to understand what they're looking at. The signal arrives self-contained, in the workflow they already use."
+      },
+      {
+        "type": "h2",
+        "text": "What stays out"
+      },
+      {
+        "type": "p",
+        "text": "Beton never stores card numbers, never accesses payment method details beyond what's required to identify a payment failure, and never modifies anything in your Stripe account. The connection is read-only against the standard Stripe API, and the API key can be revoked at any time without affecting any other system."
+      },
+      {
+        "type": "p",
+        "text": "Connect with a restricted Stripe API key, point it at your CRM, and the first set of plan-ceiling-approaching signals usually flows in within a few minutes."
+      }
+    ]
   },
   {
     "id": "firecrawl",
@@ -136,13 +311,22 @@
     "logo": "/images/logos/firecrawl.svg",
     "url": "https://www.firecrawl.dev/",
     "category": "source",
-    "description": "Give Beton's agent business context by letting it crawl your own site (and soon your customers') — pricing, features, integrations, blog. Better context, sharper signals.",
+    "description": "Give Beton's agent business context by letting it crawl your own site (and soon your customers') \u2014 pricing, features, integrations, blog. Better context, sharper signals.",
     "featured": true,
-    "tagline": "Web context for the agent — your product, the way Google sees it",
+    "tagline": "Web context for the agent \u2014 your product, the way Google sees it",
     "howItWorks": [
-      { "step": "Add your Firecrawl API key", "description": "Drop your Firecrawl key into Beton settings. Beton uses it to crawl your own site." },
-      { "step": "Agent reads context", "description": "The agent ingests pricing pages, feature docs, blog posts, integration directories — building a working model of what your product does and how it monetizes." },
-      { "step": "Sharper hypotheses", "description": "When the agent looks at warehouse events, it interprets them in the context of your actual product, not in isolation." }
+      {
+        "step": "Add your Firecrawl API key",
+        "description": "Drop your Firecrawl key into Beton settings. Beton uses it to crawl your own site."
+      },
+      {
+        "step": "Agent reads context",
+        "description": "The agent ingests pricing pages, feature docs, blog posts, integration directories \u2014 building a working model of what your product does and how it monetizes."
+      },
+      {
+        "step": "Sharper hypotheses",
+        "description": "When the agent looks at warehouse events, it interprets them in the context of your actual product, not in isolation."
+      }
     ],
     "features": [
       "Bring your own Firecrawl API key (Cloud or self-hosted)",
@@ -157,9 +341,57 @@
     ],
     "blogPost": "firecrawl-pricing-teardown",
     "seo": {
-      "metaTitle": "Firecrawl Integration — Web Context for the Beton Agent",
-      "metaDescription": "Connect Firecrawl to Beton so the agent crawls your site for product context. Pricing, features, blog — fed directly into signal hypothesis generation."
-    }
+      "metaTitle": "Firecrawl Integration \u2014 Web Context for the Beton Agent",
+      "metaDescription": "Connect Firecrawl to Beton so the agent crawls your site for product context. Pricing, features, blog \u2014 fed directly into signal hypothesis generation."
+    },
+    "body": [
+      {
+        "type": "h2",
+        "text": "Web data as a signal layer for outbound and enrichment"
+      },
+      {
+        "type": "p",
+        "text": "The data sources Beton normally watches \u2014 PostHog, Postgres, Stripe \u2014 are about what customers are doing inside your product. Firecrawl is about what they're doing outside it. Sometimes the most valuable buying signal isn't visible in your event stream because the customer hasn't started using your product yet, or because the signal is something happening on their own website (a job posting, a press release, a pricing page change) that suggests they're now in the buying market."
+      },
+      {
+        "type": "p",
+        "text": "Beton's Firecrawl integration lets the agent crawl target accounts' websites \u2014 careers pages, blogs, pricing pages, product pages \u2014 and extract the kind of structured information that makes outbound copy land. Hiring patterns, technology stack mentions, product launch language, funding announcements. None of this is buying-intent in the strict sense, but combined with first-party signals it sharpens the picture of which accounts to prioritize and what to say when reaching out."
+      },
+      {
+        "type": "h2",
+        "text": "What this unlocks for outbound sequences"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Hiring-driven outreach \u2014 a prospect company posting a job for \"Head of RevOps\" is a different account context than the same company a quarter ago. Beton can fire a signal the moment the posting goes live so an AE can reach out with role-specific framing.",
+          "Tech-stack-aware messaging \u2014 a company that just listed PostHog or HubSpot in a job posting is likely actively integrating the tool. That's a different conversation than one with a prospect whose stack is unclear.",
+          "Pricing-page change detection \u2014 a competitor changing their pricing page is news. A target customer changing their pricing page is a signal of internal restructuring, often preceding tooling changes.",
+          "Product launch detection \u2014 companies announcing new product features or new business lines are entering periods of GTM rebuild, which is when revenue intelligence tooling has the most leverage.",
+          "Content-velocity tracking \u2014 companies suddenly increasing their blog or release cadence are usually scaling go-to-market, which often correlates with budget for tools."
+        ]
+      },
+      {
+        "type": "h2",
+        "text": "Crawl politely, route specifically"
+      },
+      {
+        "type": "p",
+        "text": "Beton's Firecrawl usage is rate-limited and respects robots.txt. Sites that ask not to be crawled aren't crawled; pages that aren't relevant to the signal Beton is looking for aren't fetched. The point isn't broad scraping \u2014 it's targeted retrieval of specific signal-bearing pages on target accounts the team has already identified."
+      },
+      {
+        "type": "h2",
+        "text": "Pairing with first-party data"
+      },
+      {
+        "type": "p",
+        "text": "Firecrawl-derived signals are most useful when combined with first-party PostHog or Postgres signals. A target account that's both hiring for a relevant role and showing buying-stage behavior on the product (signed up, used the trial, hit feature gates) is materially more interesting than either signal alone. Beton routes these combined signals as compound evidence in the CRM, so the AE sees \"company hiring Head of RevOps + their PostHog usage shows three new users this month + they've hit your free-tier ceiling\" as a single account update rather than three separate notifications they have to correlate themselves."
+      },
+      {
+        "type": "p",
+        "text": "For pure outbound (no first-party signal yet), Firecrawl-derived data still routes to the CRM as account context \u2014 useful for the SDR who needs to write a cold email that doesn't sound generic. The signal type is different (\"prospect signal\" rather than \"product signal\") but the routing path is the same."
+      }
+    ]
   },
   {
     "id": "attio",
@@ -172,17 +404,26 @@
     "featured": true,
     "tagline": "Turn product signals into Attio records automatically",
     "howItWorks": [
-      { "step": "Connect your Attio workspace", "description": "Authenticate with an Attio API key. Beton auto-discovers your objects, lists, and custom attributes — no manual schema setup." },
-      { "step": "Configure signal-to-attribute mapping", "description": "Map each signal type to specific Attio attributes (signal_type, confidence, events, detected_at). Optionally append entries to a list per signal." },
-      { "step": "Signals flow to Attio in real-time", "description": "When Beton detects a revenue signal, it upserts the matching Company/Person record by domain or email, appending signal context without touching fields you set manually." }
+      {
+        "step": "Connect your Attio workspace",
+        "description": "Authenticate with an Attio API key. Beton auto-discovers your objects, lists, and custom attributes \u2014 no manual schema setup."
+      },
+      {
+        "step": "Configure signal-to-attribute mapping",
+        "description": "Map each signal type to specific Attio attributes (signal_type, confidence, events, detected_at). Optionally append entries to a list per signal."
+      },
+      {
+        "step": "Signals flow to Attio in real-time",
+        "description": "When Beton detects a revenue signal, it upserts the matching Company/Person record by domain or email, appending signal context without touching fields you set manually."
+      }
     ],
     "features": [
       "Automatic Company and Person upsert by domain/email",
       "Custom attribute mapping for signal context",
       "Optional list-entry creation per signal type",
-      "Bi-directional ID linking — find the matching record in Attio from Beton",
+      "Bi-directional ID linking \u2014 find the matching record in Attio from Beton",
       "Configurable routing rules per signal type",
-      "Never overwrites user-entered data — append-only on existing fields"
+      "Never overwrites user-entered data \u2014 append-only on existing fields"
     ],
     "useCases": [
       "Auto-create deals when buying signals are detected",
@@ -209,9 +450,61 @@
       }
     ],
     "seo": {
-      "metaTitle": "Attio CRM Integration — Signal Routing",
-      "metaDescription": "Route revenue signals from Beton to Attio CRM. Automatically upsert Companies and People with signal context — never overwrites user-entered data."
-    }
+      "metaTitle": "Attio CRM Integration \u2014 Signal Routing",
+      "metaDescription": "Route revenue signals from Beton to Attio CRM. Automatically upsert Companies and People with signal context \u2014 never overwrites user-entered data."
+    },
+    "body": [
+      {
+        "type": "h2",
+        "text": "Attio as the modern revenue OS"
+      },
+      {
+        "type": "p",
+        "text": "Attio is where most of Beton's customers do their actual revenue work. Lists, deal records, account properties, sequences, tasks \u2014 the things AEs and AMs interact with every day. The product question Beton answers is whether the behavioral signal that fired three minutes ago in PostHog ends up in the right rep's Smart View this morning, or whether it stays buried in an analytics dashboard nobody opens. Attio is the answer for teams that have moved past Salesforce or HubSpot."
+      },
+      {
+        "type": "p",
+        "text": "Beton's Attio integration writes signals as account-level updates: notes, fields, or new deal records depending on the signal type. The integration uses the official Attio API and respects Attio's data model \u2014 fields are mapped to your schema, never overwritten without intent, and every signal includes a backtested confidence score and the underlying event references for audit."
+      },
+      {
+        "type": "h2",
+        "text": "Routing patterns Beton supports out of the box"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Auto-create or upsert account records when a new buying signal fires for a domain Attio doesn't yet know about. The deal lands in the right pipeline stage with the signal type as context.",
+          "Update existing account fields with current signal state \u2014 \"approaching plan ceiling,\" \"high-intent activation,\" \"churn risk\" \u2014 so Smart Views and sequences can filter on them.",
+          "Add timestamped notes to existing account or person records with the specific event references that triggered the signal, so the AE has the receipt without having to ask.",
+          "Trigger Attio sequences or tasks when high-confidence signals fire for accounts in qualifying pipeline stages.",
+          "Route different signal types to different team members based on Attio's ownership model \u2014 expansion signals to the AM, churn signals to CS, new-account signals to the SDR who owns the domain."
+        ]
+      },
+      {
+        "type": "h2",
+        "text": "Field-level mapping, not destructive sync"
+      },
+      {
+        "type": "p",
+        "text": "One of the most common failure modes with CRM integrations is that a sync overwrites manually entered data, and a rep loses notes from a phone call because an automation wrote on top of them. Beton's Attio integration is field-level explicit \u2014 you map which Beton signal types update which Attio fields, and Beton never writes outside that mapping. Notes are append-only; fields are upsert-with-scope; tasks are created not modified. Reps can keep editing their own data without worrying about losing it to the next signal sync."
+      },
+      {
+        "type": "h2",
+        "text": "What you don't have to retrain"
+      },
+      {
+        "type": "p",
+        "text": "Beton's design choice is that the signal lands in the CRM, not in a separate Beton dashboard. The rep's workflow is unchanged: they open Attio, they see a new note or a new field, they reach out. There's no second tool to learn, no separate alert system to monitor, and no \"Beton score\" to interpret in isolation \u2014 it's just account context the rep gets for free, alongside everything else they already track in Attio."
+      },
+      {
+        "type": "h2",
+        "text": "Why this combination outperforms"
+      },
+      {
+        "type": "p",
+        "text": "Most revenue intelligence tools are either CRM platforms with bolted-on analytics or analytics platforms with bolted-on CRM features. Beton + Attio is a different shape: Attio is the revenue OS, and Beton is the upstream signal layer that decides what shows up. The teams that adopt this pattern stop running weekly review meetings to find expansion candidates and start running sequences against signals as they fire \u2014 which is the difference between active revenue ops and reactive."
+      }
+    ]
   },
   {
     "id": "apollo",
@@ -224,14 +517,23 @@
     "featured": true,
     "tagline": "Enrich the signal before it routes",
     "howItWorks": [
-      { "step": "Add your Apollo API key", "description": "Drop in your Apollo key. Beton uses it for organization-enrich, people-search, and people-match." },
-      { "step": "Auto-enrich detected signals", "description": "When a signal fires for an account, Beton hits Apollo's organization-enrich and finds the matching ICP contacts (title filters, location filters, seniority). Reveal optional." },
-      { "step": "Route enriched records onward", "description": "Push the signal + enriched contact into your CRM (Attio), kick off an Apollo sequence, or webhook the full payload anywhere." }
+      {
+        "step": "Add your Apollo API key",
+        "description": "Drop in your Apollo key. Beton uses it for organization-enrich, people-search, and people-match."
+      },
+      {
+        "step": "Auto-enrich detected signals",
+        "description": "When a signal fires for an account, Beton hits Apollo's organization-enrich and finds the matching ICP contacts (title filters, location filters, seniority). Reveal optional."
+      },
+      {
+        "step": "Route enriched records onward",
+        "description": "Push the signal + enriched contact into your CRM (Attio), kick off an Apollo sequence, or webhook the full payload anywhere."
+      }
     ],
     "features": [
-      "Organization enrichment by domain — firmographic context per signal",
+      "Organization enrichment by domain \u2014 firmographic context per signal",
       "People search with ICP filters (title, seniority, location)",
-      "People match (reveal) — full contact data, 1 credit per reveal",
+      "People match (reveal) \u2014 full contact data, 1 credit per reveal",
       "Apollo-side sequence enrollment (paused or live)",
       "Cost-aware: respects your Apollo credit balance, with per-signal caps",
       "Works with both Apollo workspaces and Apollo individual plans"
@@ -245,9 +547,57 @@
     "samplePayload": "{\n  \"signal_type\": \"product_qualified_lead\",\n  \"account\": {\n    \"domain\": \"acme.com\",\n    \"name\": \"Acme Corp\"\n  },\n  \"apollo_enrichment\": {\n    \"industry\": \"SaaS\",\n    \"employee_count\": 142,\n    \"funding_stage\": \"Series B\",\n    \"primary_contact\": {\n      \"name\": \"Jane Doe\",\n      \"title\": \"VP of Revenue Ops\",\n      \"email\": \"jane@acme.com\",\n      \"linkedin\": \"https://linkedin.com/in/janedoe\"\n    }\n  },\n  \"sequence_enrolled\": \"plg-pql-q2\"\n}",
     "blogPost": "new-apollo-integration-faster-enrichment",
     "seo": {
-      "metaTitle": "Apollo Integration — Auto-Enrich Detected Signals",
-      "metaDescription": "Apollo enrichment on every Beton signal. Find the buyer, hit them with the right context, kick off a sequence — without manual research."
-    }
+      "metaTitle": "Apollo Integration \u2014 Auto-Enrich Detected Signals",
+      "metaDescription": "Apollo enrichment on every Beton signal. Find the buyer, hit them with the right context, kick off a sequence \u2014 without manual research."
+    },
+    "body": [
+      {
+        "type": "h2",
+        "text": "Apollo as the outbound execution layer for product signals"
+      },
+      {
+        "type": "p",
+        "text": "Apollo is where outbound sequences happen for most of the GTM teams Beton works with. A product-qualified lead with no Apollo sequence behind it is a missed opportunity; a sequence triggered against the wrong signal is a wasted touch. The job Beton does for Apollo users is making sure the signals that fire are routed into the right sequence at the right time, with the right context for personalization."
+      },
+      {
+        "type": "p",
+        "text": "The Apollo integration takes Beton's signals \u2014 PQL detected, expansion-ready, churn-risk, lookalike-account-identified \u2014 and uses them as triggers for Apollo's sequence enrollment, sequence step actions, or contact property updates. Beton handles the deduplication and the throttling so a sequence doesn't fire on stale signals or burn cooldowns by re-enrolling the same contact."
+      },
+      {
+        "type": "h2",
+        "text": "What changes when product data drives outbound"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Sequences enroll only contacts whose product behavior actually predicts buying readiness, not contacts whose form-fill heuristics matched. The contact pool is smaller; the conversion rate is meaningfully higher.",
+          "Sequence copy can reference what the prospect actually did inside the product. \"Saw you connected your PostHog instance and ran your first signal backtest yesterday\" lands differently than \"hope you're well.\" Beton ships the relevant context to Apollo so personalization tokens have something real to populate.",
+          "Cooldown logic respects product state. A contact in active expansion conversation with the AM doesn't simultaneously get an Apollo cold sequence \u2014 Beton's signal stream is the source of truth for what stage the account is in, and Apollo defers to it.",
+          "Sequences split by signal type rather than by industry list. Expansion signals trigger one sequence; churn-risk signals trigger another; net-new product-qualified signals trigger a third. The same contact might pass through different sequences as their product behavior evolves.",
+          "Bounce and unsubscribe data flows back to Beton, so signal routing learns which destinations are still healthy and which need re-verification."
+        ]
+      },
+      {
+        "type": "h2",
+        "text": "Throttle on mailbox capacity, not on signal volume"
+      },
+      {
+        "type": "p",
+        "text": "One of the failure modes Beton specifically guards against is over-enrollment. A high-firing signal can produce more contacts than your mailbox infrastructure can send to in a day, and dumping them all into Apollo at once burns sender reputation. Beton's Apollo integration paces enrollment against your mailbox capacity (sender limits, daily caps) rather than against signal volume, so the wave is paced rather than pulsed. First-in-first-out by signal timestamp; throttled by what your mailboxes can actually deliver without triggering provider rate limits."
+      },
+      {
+        "type": "h2",
+        "text": "Pairing with first-party data sources"
+      },
+      {
+        "type": "p",
+        "text": "The combinations that work best are PostHog signals \u00d7 Apollo execution, or Postgres warehouse signals \u00d7 Apollo execution. The product behavior tells you which contacts to prioritize; Apollo handles the actual sending. Without Beton in the middle, the team has to manually move contacts from PostHog dashboards into Apollo lists every week, which is the kind of manual work that quietly stops happening after the first month. With Beton in the middle, the routing is continuous and the prioritization keeps up with the product."
+      },
+      {
+        "type": "p",
+        "text": "Connect with an Apollo API key and a list of sequences you want signal-triggered. Beton handles the enrollment, deduplication, cooldown, and capacity throttling. The first wave of signal-triggered enrollments usually starts within an hour of the connection going live."
+      }
+    ]
   },
   {
     "id": "webhook",
@@ -260,9 +610,18 @@
     "featured": true,
     "tagline": "Send revenue signals anywhere with HTTPS webhooks",
     "howItWorks": [
-      { "step": "Configure your webhook endpoint", "description": "Provide an HTTPS URL plus an HMAC shared secret. Add custom headers for auth, tagging, or routing on your end." },
-      { "step": "Filter and shape the payload", "description": "Choose which signal types to forward and (optionally) transform the payload to match your system's expected shape." },
-      { "step": "Receive signals in real-time", "description": "Your endpoint receives a POST with full signal context every time a matching signal is detected. Failed deliveries retry with exponential backoff (10× / 24h)." }
+      {
+        "step": "Configure your webhook endpoint",
+        "description": "Provide an HTTPS URL plus an HMAC shared secret. Add custom headers for auth, tagging, or routing on your end."
+      },
+      {
+        "step": "Filter and shape the payload",
+        "description": "Choose which signal types to forward and (optionally) transform the payload to match your system's expected shape."
+      },
+      {
+        "step": "Receive signals in real-time",
+        "description": "Your endpoint receives a POST with full signal context every time a matching signal is detected. Failed deliveries retry with exponential backoff (10\u00d7 / 24h)."
+      }
     ],
     "features": [
       "Standard HTTP POST with JSON payloads",
@@ -270,7 +629,7 @@
       "Configurable custom headers and basic auth",
       "Signal type filtering",
       "Payload transformation and field mapping",
-      "Retry logic — exponential backoff, 10 attempts over 24 hours",
+      "Retry logic \u2014 exponential backoff, 10 attempts over 24 hours",
       "Delivery logs visible in the Signals dashboard"
     ],
     "useCases": [
@@ -291,7 +650,7 @@
       },
       {
         "question": "Can I use webhooks to talk to n8n, Zapier, or Make?",
-        "answer": "Yes — point the webhook URL at any of those services' webhook trigger endpoints. The standard JSON shape works out of the box for n8n trigger nodes, Zapier catch hooks, and Make scenarios."
+        "answer": "Yes \u2014 point the webhook URL at any of those services' webhook trigger endpoints. The standard JSON shape works out of the box for n8n trigger nodes, Zapier catch hooks, and Make scenarios."
       },
       {
         "question": "What does the webhook payload contain?",
@@ -299,9 +658,62 @@
       }
     ],
     "seo": {
-      "metaTitle": "Webhooks — Custom Signal Delivery (HMAC-Signed JSON)",
+      "metaTitle": "Webhooks \u2014 Custom Signal Delivery (HMAC-Signed JSON)",
       "metaDescription": "Send Beton revenue signals anywhere over HTTPS. HMAC-signed payloads, retries, delivery logs. Connect to n8n, Zapier, Make, or your own service."
-    }
+    },
+    "body": [
+      {
+        "type": "h2",
+        "text": "When the destination doesn't exist as a native integration"
+      },
+      {
+        "type": "p",
+        "text": "Beton has native integrations for the most common revenue destinations \u2014 Attio, HubSpot, Apollo, Pipedrive, Zoho \u2014 but the long tail of internal tools, custom dashboards, Slack alerting systems, ticketing platforms, and home-grown CRMs is enormous. Webhooks are the answer. Any HTTPS endpoint that can accept a POST body becomes a Beton signal destination, with no integration code on Beton's side."
+      },
+      {
+        "type": "p",
+        "text": "The webhook destination ships every fired signal as a JSON payload to the URL you configure, with the signal type, confidence score, the relevant person/account references, and the underlying event IDs that triggered it. From your endpoint, you can do whatever your stack does \u2014 open a Pipedrive deal, post to a Slack channel, file a ticket in Linear, kick off a workflow in n8n, route to your own internal alerts service."
+      },
+      {
+        "type": "h2",
+        "text": "Common destinations teams build against the webhook"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Slack channels for live signal alerts \u2014 a #revenue-signals channel where the AE on duty sees high-confidence signals as they fire, with a link back to the contact or account.",
+          "Internal CRMs and homegrown deal trackers that don't have public APIs Beton supports natively \u2014 the team writes a thin handler that maps the Beton payload to their internal schema and applies it.",
+          "n8n, Zapier, or Make workflows for teams already orchestrating cross-tool automation \u2014 Beton becomes one more event source in the existing automation graph.",
+          "Customer.io, Braze, or other lifecycle-marketing platforms when the team wants product signals to drive in-app messages or email lifecycle flows in addition to outbound.",
+          "Salesforce via a thin webhook bridge \u2014 for teams that haven't yet adopted a native Beton-supported destination but want signals in Salesforce today, a one-page handler running on Vercel or Cloudflare Workers gets it done.",
+          "PagerDuty or Opsgenie for high-severity signals like sudden churn risk on enterprise accounts, where a paging-style alert is the right escalation path."
+        ]
+      },
+      {
+        "type": "h2",
+        "text": "Payload shape and reliability"
+      },
+      {
+        "type": "p",
+        "text": "Every Beton webhook delivery is signed with an HMAC header derived from a shared secret, so your endpoint can verify the request came from Beton rather than from somewhere else. Retries follow exponential backoff on 5xx responses; 4xx responses are treated as permanent failures and logged for visibility. The signal payload is stable across releases \u2014 schema versioning is explicit, so handlers don't break silently when Beton ships a new field."
+      },
+      {
+        "type": "h2",
+        "text": "Multi-destination routing"
+      },
+      {
+        "type": "p",
+        "text": "The same signal can fire to multiple webhook destinations simultaneously, with optional per-destination filtering on signal type or confidence threshold. A high-confidence churn signal might go to both your CRM (full payload) and a Slack channel (one-line summary) and a PagerDuty endpoint (only when the affected account is on the enterprise plan). Beton handles the fan-out; your endpoints handle their own concerns."
+      },
+      {
+        "type": "h2",
+        "text": "When to reach for the webhook vs. wait for native"
+      },
+      {
+        "type": "p",
+        "text": "If the destination you need is on Beton's native integration list, use the native integration \u2014 it handles deduplication, retry, and idempotency in ways that custom handlers usually don't. If the destination isn't native, the webhook is the right answer, and most teams have a working signal flow into a custom destination within an hour of pointing the webhook at their endpoint. Native integrations roll out periodically; the webhook is the bridge until the one you need ships."
+      }
+    ]
   },
   {
     "id": "hubspot",
@@ -313,11 +725,11 @@
     "description": "Route signals to HubSpot CRM. Update contacts, create deals, and trigger workflows automatically. Ships next.",
     "featured": false,
     "comingSoon": true,
-    "tagline": "HubSpot routing — shipping next release",
+    "tagline": "HubSpot routing \u2014 shipping next release",
     "seo": {
       "noIndex": true,
-      "metaTitle": "HubSpot Integration (Coming Soon) — Beton",
-      "metaDescription": "HubSpot CRM routing for Beton signals — shipping in the next release. Join the waitlist for early access."
+      "metaTitle": "HubSpot Integration (Coming Soon) \u2014 Beton",
+      "metaDescription": "HubSpot CRM routing for Beton signals \u2014 shipping in the next release. Join the waitlist for early access."
     }
   },
   {
@@ -330,10 +742,10 @@
     "description": "Zoho CRM routing is on our roadmap. Today, route signals to Zoho via the generic Webhooks integration.",
     "featured": false,
     "comingSoon": true,
-    "tagline": "Zoho routing — on the roadmap (use Webhooks today)",
+    "tagline": "Zoho routing \u2014 on the roadmap (use Webhooks today)",
     "seo": {
       "noIndex": true,
-      "metaTitle": "Zoho CRM Integration (On Roadmap) — Beton",
+      "metaTitle": "Zoho CRM Integration (On Roadmap) \u2014 Beton",
       "metaDescription": "Native Zoho CRM routing is on Beton's roadmap. Today, route signals to Zoho via the generic Webhooks integration."
     }
   },
@@ -347,10 +759,10 @@
     "description": "Pipedrive routing is on our roadmap. Today, route signals to Pipedrive via the generic Webhooks integration.",
     "featured": false,
     "comingSoon": true,
-    "tagline": "Pipedrive routing — on the roadmap (use Webhooks today)",
+    "tagline": "Pipedrive routing \u2014 on the roadmap (use Webhooks today)",
     "seo": {
       "noIndex": true,
-      "metaTitle": "Pipedrive Integration (On Roadmap) — Beton",
+      "metaTitle": "Pipedrive Integration (On Roadmap) \u2014 Beton",
       "metaDescription": "Native Pipedrive routing is on Beton's roadmap. Today, route signals to Pipedrive via the generic Webhooks integration."
     }
   },
@@ -367,7 +779,7 @@
     "tagline": "n8n via Webhooks today; native node on the roadmap",
     "seo": {
       "noIndex": true,
-      "metaTitle": "n8n Integration — Use Webhooks Today",
+      "metaTitle": "n8n Integration \u2014 Use Webhooks Today",
       "metaDescription": "Trigger n8n workflows from Beton signals via the Webhooks integration. A native n8n trigger node is planned."
     }
   }

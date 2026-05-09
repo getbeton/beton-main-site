@@ -36,22 +36,37 @@ seo:
   metaDescription: "Revenue intelligence for SaaS companies. Detect buying signals, expansion opportunities, and churn risk from product usage data."
 ---
 
-## Why SaaS Companies Need Revenue Intelligence
+## The structural problem PLG SaaS companies share
 
-SaaS businesses generate enormous amounts of product usage data, but most of it never reaches the revenue team. Marketing qualified leads (MQLs) miss the product signals that actually predict buying behavior.
+Every product-led SaaS company eventually hits the same wall: the free or trial cohort grows faster than any reasonable sales team can review it, and the signals that actually predict conversion are buried in a PostHog dashboard nobody opens past month one. The MQLs that hit the CRM are filtered by form-fill heuristics that have nothing to do with how the user is behaving inside the product. The sales team gets handed leads that look qualified on paper and ignored every account that's quietly hitting all the buying-signal milestones in the dashboard.
 
-Beton bridges this gap by connecting your PostHog product analytics directly to your CRM, ensuring your sales and success teams always know which accounts need attention.
+This isn't a tooling problem you can solve by buying another point solution. It's the gap between "we have product analytics" and "the people who close deals have product context." Bridging that gap is what Beton does.
 
-## How Beton Works for SaaS
+## What "buying signals" actually look like in SaaS data
 
-1. **Connect** your PostHog instance to Beton
-2. **Detect** behavioral signals that indicate buying intent, expansion readiness, or churn risk
-3. **Route** signals to your CRM (Attio, HubSpot, Zoho, Pipedrive) for timely follow-up
+After enough cohort comparisons across PLG SaaS data, the same patterns keep showing up as the strongest predictors of conversion to paid:
 
-## Common SaaS Signals
+- The user invites at least one teammate within the first 48 hours of signup. The first invite is the strongest single signal in most B2B SaaS data — it converts an individual evaluator into an organizational champion before the buying conversation even starts.
+- The user combines two or more core features in the same session, not just the one feature they signed up for. Single-feature users churn at multiples of the multi-feature rate; the breadth signal beats depth on any one feature.
+- The user connects a third-party tool — a Slack, a CRM, a GitHub. Integration adoption is a high-cost action that almost always correlates with retention because it creates switching cost the user just paid in advance.
+- The user returns within 48 hours of signup. The casual evaluator doesn't come back; the buyer does. Daily-active early in the trial is one of the cleanest signals of intent.
 
-- Trial users completing core activation milestones
-- Free users hitting feature gates on premium functionality
-- Accounts adding seats or inviting team members
-- Power users reducing login frequency or feature usage
-- Customers approaching usage-based plan limits
+None of these are universal. The point is that *Beton finds the ones that are universal in your data* — backtested against your last 90 days of converters versus non-converters — and routes them to your CRM the moment they fire. Your team isn't guessing at which milestone matters; the heuristic tells you.
+
+## What changes when expansion signals reach the CRM
+
+Most SaaS companies don't have a missed-conversion problem so much as they have a missed-*expansion* problem. The cohort that already pays often has the most leverage left in it — and the moments when expansion is most likely to land are visible in usage data days or weeks before any human looks at the account.
+
+A workspace that suddenly grows from 5 to 12 active seats. A team that doubles its API call volume in a single week. A power user who starts hitting feature gates on the next tier. These aren't account-management dashboards anyone reviews proactively; they're patterns Beton watches continuously and routes to the AE or CSM the moment they cross threshold. The outreach that follows isn't *"would you like to upgrade,"* which reads like a billing email. It's *"I noticed your team's been growing — five new active users in the last two weeks. Wanted to flag that you'll likely hit the seat cap on your current plan around [date] at the current pace,"* which reads like an account owner doing their job.
+
+## The other side: catching churn before it happens
+
+Disengagement patterns precede churn by weeks. A power user who used to log in daily drops to once a week. A team that used to invite new seats every month stops inviting. A customer hits an error or rate limit and quietly stops using the feature instead of reaching out. None of these show up as "at risk" in a CRM until renewal time, but all of them are visible in the event stream the moment they happen.
+
+Beton's job is to treat these as first-class signals and route them to whoever owns the relationship — the CSM, the account owner, sometimes the founder. The intervention is usually small: a check-in email, an offer to walk through what changed. Catching the disengagement early enough that it's still a conversation, not a save call.
+
+## Where Beton fits relative to alternatives
+
+Most SaaS revenue teams have evaluated some combination of Pocus, MadKudu, Common Room, and a handful of in-house data scripts. The pattern we see most often is that the team picks one, gets it half-configured, and then quietly stops using it because the cost of keeping rules current outpaces the value of the signals fired. Beton is built on the assumption that the rule maintenance is the actual problem — so the heuristic re-runs against the most recent converter cohort on a rolling basis, and the team never has to re-tune.
+
+Open source under AGPLv3, self-hostable for free with your own LLM key, $0.50 per tracked user per month for the cloud version. Connect a PostHog instance, point it at your CRM, see signals in your existing workflow within an hour. That's the whole product, applied to the SaaS expansion and conversion case.
