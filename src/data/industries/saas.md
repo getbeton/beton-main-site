@@ -24,6 +24,13 @@ relatedUseCases:
   - "plg-conversion"
   - "expansion-revenue"
   - "churn-prevention"
+faq:
+  - question: "How does Beton fit into a typical SaaS GTM stack?"
+    answer: "Beton sits between PostHog (or another product analytics source) and your CRM (Attio, HubSpot, Zoho, Pipedrive). It detects behavioral signals — buying intent, expansion readiness, churn risk — and routes them as account updates so revenue teams act in their existing workflow."
+  - question: "What kind of SaaS companies get the most value out of Beton?"
+    answer: "Product-led companies whose free or trial cohort is too large to review by hand each week, where the activation patterns are subtle, and where the product is moving fast enough that static lead-scoring rules go stale. Beton replaces the SDR who used to read PostHog dashboards every Monday."
+  - question: "Do we need to migrate our data to use Beton?"
+    answer: "No. Beton reads from your existing PostHog instance and pushes signals to your existing CRM. There's no new data warehouse, no event re-instrumentation, and no granular product data leaves PostHog."
 seo:
   metaTitle: "SaaS Revenue Intelligence"
   metaDescription: "Revenue intelligence for SaaS companies. Detect buying signals, expansion opportunities, and churn risk from product usage data."

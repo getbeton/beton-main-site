@@ -104,6 +104,7 @@ const articleData = {
   type="article"
   breadcrumbs={breadcrumbs}
   faqData={faq}
+  speakableSelectors={['h1', '[data-speakable]', '.prose p:first-of-type']}
 >
   <article class="py-14 lg:py-20">
     <Container>
@@ -154,6 +155,7 @@ const articleData = {
           <aside
             class="mb-10 border-2 border-[var(--color-text)] bg-[var(--color-surface-raised)] shadow-[var(--shadow-card)] p-5 sm:p-6"
             aria-label="Quick answer"
+            data-speakable
           >
             <p class="text-xs font-bold uppercase tracking-wider text-[var(--color-primary-600)] mb-3">
               TL;DR
@@ -303,15 +305,19 @@ const articleData = {
     </section>
   )}
 
-  <!-- Article JSON-LD -->
+  <!-- Article JSON-LD. Pricing teardowns get TechArticle (more specific
+       than BlogPosting; the dependencies/proficiencyLevel fields signal
+       this is engineering-grade evaluation content rather than a stream
+       of consciousness). Everything else stays BlogPosting. -->
   <script type="application/ld+json" set:html={JSON.stringify({
     '@context': 'https://schema.org',
-    '@type': 'BlogPosting',
+    '@type': tags.includes('pricing teardown') ? 'TechArticle' : 'BlogPosting',
     headline: title,
     description,
     author: {
       '@type': 'Person',
       name: author,
+      ...(author === 'Vlad Nadymov' ? { url: `${SITE.url}/team/vlad-nadymov/` } : {}),
     },
     ...(reviewedBy && {
       reviewedBy: {
@@ -331,6 +337,16 @@ const articleData = {
     mainEntityOfPage: articleData.url,
     ...(coverImage && { image: coverImage.startsWith('http') ? coverImage : `${SITE.url}${coverImage}` }),
     keywords: tags.join(', '),
+    speakable: {
+      '@type': 'SpeakableSpecification',
+      cssSelector: ['h1', '[data-speakable]', '.prose p:first-of-type'],
+    },
+    ...(tags.includes('pricing teardown')
+      ? {
+          proficiencyLevel: 'Expert',
+          dependencies: 'Familiarity with SaaS pricing models and OSS licensing',
+        }
+      : {}),
   })} />
 
 </PageLayout>

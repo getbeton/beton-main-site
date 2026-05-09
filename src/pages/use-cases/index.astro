@@ -8,20 +8,33 @@ import UseCaseCard from '../../components/content/UseCaseCard.astro';
 import CTASection from '../../components/shared/CTASection.astro';
 import { SITE } from '../../utils/site';
 
-const useCases = (await getCollection('use-cases')).sort(
-  (a, b) => a.data.order - b.data.order
-);
+// Allowlist of published use-case slugs — keep in sync with [id].astro.
+const PUBLISHED = new Set(['pql-qualification', 'find-aha-moments', 'usage-based-upsell']);
+
+const useCases = (await getCollection('use-cases'))
+  .filter((uc) => PUBLISHED.has(uc.id))
+  .sort((a, b) => a.data.order - b.data.order);
 
 const breadcrumbs = [
   { name: 'Home', url: SITE.url },
   { name: 'Use Cases', url: `${SITE.url}/use-cases/` },
 ];
+
+const itemList = {
+  name: 'Beton use cases',
+  items: useCases.map((uc) => ({
+    name: uc.data.title,
+    url: `${SITE.url}/use-cases/${uc.id}/`,
+    description: uc.data.subtitle,
+  })),
+};
 ---
 
 <PageLayout
   title="Use Cases"
   description="See how teams use Beton to turn product signals into revenue. From PLG conversion to churn prevention."
   breadcrumbs={breadcrumbs}
+  itemList={itemList}
 >
   <Section>
     <Container>

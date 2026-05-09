@@ -21,6 +21,7 @@ const useCases = defineCollection({
     solution: z.string(),
     benefits: z.array(z.string()),
     integrations: z.array(z.string()).default([]),
+    faq: z.array(z.object({ question: z.string(), answer: z.string() })).optional(),
     seo: seoSchema.optional(),
   }),
 });
@@ -38,6 +39,7 @@ const industries = defineCollection({
     signals: z.array(z.string()),
     outcomes: z.array(z.string()),
     relatedUseCases: z.array(z.string()).default([]),
+    faq: z.array(z.object({ question: z.string(), answer: z.string() })).optional(),
     seo: seoSchema.optional(),
   }),
 });

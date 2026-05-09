@@ -23,6 +23,13 @@ outcomes:
 relatedUseCases:
   - "usage-based-upsell"
   - "plg-conversion"
+faq:
+  - question: "Does Beton handle two-sided marketplaces — both seller and buyer signals?"
+    answer: "Yes. Most marketplaces care about different signals on each side: seller listing velocity and transaction completion rates on the supply side, repeat purchase patterns and basket size growth on the demand side. Beton tracks both in parallel and routes each to the appropriate owner."
+  - question: "Can Beton flag power sellers ready for premium tools?"
+    answer: "Yes — that's one of the cleanest patterns in marketplace data. Power sellers exhibit a distinct usage trajectory (transaction velocity, listing volume, premium-feature exploration) before they self-identify as wanting more capability. Beton routes that signal so a seller-success rep can reach out at the right time."
+  - question: "What about VIP buyer programs?"
+    answer: "Same mechanic, different threshold. Marketplaces that operate buyer-tier programs (VIP, premium) usually have a clear pattern: basket-size growth, repeat purchase cadence, cross-category exploration. Beton can flag accounts that are close to qualifying so the program manager doesn't miss them."
 seo:
   metaTitle: "Marketplace Revenue Intelligence"
   metaDescription: "Revenue intelligence for marketplaces. Detect seller and buyer activation patterns and route monetization signals to your team."

@@ -100,6 +100,22 @@ const faqData = (faq || []).map((item) => ({
   question: item.question,
   answer: item.answer,
 }));
+
+// HowTo schema is built from `howItWorks` setup steps. Beton's product
+// surface is "connect PostHog/Stripe/etc., let signals fire, route to
+// Attio" — three structured steps per integration, perfect for HowTo
+// markup. The rich result for HowTo on desktop was sunset in 2023, but
+// the structured data still feeds AI Overviews and LLM citations
+// (which preferentially pull marked-up HowTo content for "how do I
+// connect X to Y" queries).
+const howToData =
+  howItWorks && howItWorks.length > 0
+    ? {
+        name: `How to connect ${name} to Beton`,
+        description: `Set up ${name} as a ${category.toLowerCase()} for Beton's revenue intelligence pipeline.`,
+        steps: howItWorks.map((s) => ({ name: s.step, text: s.description })),
+      }
+    : undefined;
 ---
 
 <PageLayout
@@ -109,6 +125,7 @@ const faqData = (faq || []).map((item) => ({
   noIndex={noIndex}
   breadcrumbs={breadcrumbs}
   faqData={faqData.length > 0 ? faqData : undefined}
+  howToData={howToData}
 >
   <!-- Hero -->
   <section class="relative py-14 lg:py-20 overflow-hidden">

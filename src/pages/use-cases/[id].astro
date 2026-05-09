@@ -6,20 +6,27 @@ import CTASection from '../../components/shared/CTASection.astro';
 import Button from '../../components/ui/Button.astro';
 import { SITE } from '../../utils/site';
 
+// Allowlist of published use-case slugs. The remaining markdown files in
+// src/data/use-cases/ stay hidden until they get a content-quality pass.
+const PUBLISHED_USE_CASES = new Set(['pql-qualification', 'find-aha-moments', 'usage-based-upsell']);
+
 export async function getStaticPaths() {
+  const allowed = new Set(['pql-qualification', 'find-aha-moments', 'usage-based-upsell']);
   const useCases = await getCollection('use-cases');
-  return useCases.map((uc) => ({
-    params: { id: uc.id },
-    props: { entry: uc },
-  }));
+  return useCases
+    .filter((uc) => allowed.has(uc.id))
+    .map((uc) => ({
+      params: { id: uc.id },
+      props: { entry: uc },
+    }));
 }
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
-const { title, subtitle, description, problem, solution, benefits, seo } = entry.data;
+const { title, subtitle, description, problem, solution, benefits, faq, seo } = entry.data;
 
 const relatedUseCases = (await getCollection('use-cases'))
-  .filter((uc) => uc.id !== entry.id)
+  .filter((uc) => uc.id !== entry.id && PUBLISHED_USE_CASES.has(uc.id))
   .sort((a, b) => a.data.order - b.data.order)
   .slice(0, 4);
 
@@ -40,6 +47,7 @@ const breadcrumbs = [
   description={seo?.metaDescription || description}
   canonicalPath={`/use-cases/${entry.id}`}
   breadcrumbs={breadcrumbs}
+  faqData={faq}
 >
   <!-- Structured sections -->
   <div class="mb-6 p-4 bg-[var(--color-surface-raised)] border-2 border-[var(--color-border)]">

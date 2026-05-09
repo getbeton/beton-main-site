@@ -16,12 +16,22 @@ const breadcrumbs = [
   { name: 'Home', url: SITE.url },
   { name: 'Industries', url: `${SITE.url}/industries/` },
 ];
+
+const itemList = {
+  name: 'Industries Beton serves',
+  items: industries.map((ind) => ({
+    name: ind.data.title,
+    url: `${SITE.url}/industries/${ind.id}/`,
+    description: ind.data.subtitle,
+  })),
+};
 ---
 
 <PageLayout
   title="Industries"
   description="Revenue intelligence for every industry. See how Beton helps SaaS, DevTools, Fintech, HealthTech, and Marketplace teams."
   breadcrumbs={breadcrumbs}
+  itemList={itemList}
 >
   <Section>
     <Container>
