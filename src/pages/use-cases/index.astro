@@ -19,12 +19,22 @@ const breadcrumbs = [
   { name: 'Home', url: SITE.url },
   { name: 'Use Cases', url: `${SITE.url}/use-cases/` },
 ];
+
+const itemList = {
+  name: 'Beton use cases',
+  items: useCases.map((uc) => ({
+    name: uc.data.title,
+    url: `${SITE.url}/use-cases/${uc.id}/`,
+    description: uc.data.subtitle,
+  })),
+};
 ---
 
 <PageLayout
   title="Use Cases"
   description="See how teams use Beton to turn product signals into revenue. From PLG conversion to churn prevention."
   breadcrumbs={breadcrumbs}
+  itemList={itemList}
 >
   <Section>
     <Container>

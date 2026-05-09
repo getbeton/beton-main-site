@@ -16,7 +16,7 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
-const { title, subtitle, description, challenges, signals, outcomes, seo } = entry.data;
+const { title, subtitle, description, challenges, signals, outcomes, faq, seo } = entry.data;
 
 const otherIndustries = (await getCollection('industries'))
   .filter((ind) => ind.id !== entry.id)
@@ -46,6 +46,7 @@ const breadcrumbs = [
   description={seo?.metaDescription || description}
   canonicalPath={`/industries/${entry.id}`}
   breadcrumbs={breadcrumbs}
+  faqData={faq}
 >
   <!-- Challenges -->
   {challenges.length > 0 && (

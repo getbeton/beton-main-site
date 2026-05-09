@@ -26,6 +26,20 @@ interface ItemListItem {
   description?: string;
 }
 
+interface HowToStep {
+  name: string;
+  text: string;
+}
+
+interface DatasetSpec {
+  name: string;
+  description: string;
+  keywords?: string[];
+  license?: string;
+  creator?: string;
+  variableMeasured?: string[];
+}
+
 interface Props {
   type?: string;
   title: string;
@@ -36,9 +50,25 @@ interface Props {
   reviewData?: ReviewItem[];
   personData?: PersonItem[];
   itemList?: { name: string; items: ItemListItem[] };
+  howToData?: { name: string; description: string; steps: HowToStep[] };
+  datasetData?: DatasetSpec;
+  profilePage?: boolean;
 }
 
-const { type, title, description, url, faqData, breadcrumbs, reviewData, personData, itemList } = Astro.props;
+const {
+  type,
+  title,
+  description,
+  url,
+  faqData,
+  breadcrumbs,
+  reviewData,
+  personData,
+  itemList,
+  howToData,
+  datasetData,
+  profilePage,
+} = Astro.props;
 
 const orgSchema = {
   '@type': 'Organization',
@@ -87,6 +117,26 @@ const webPageSchema = {
   primaryImageOfPage: { '@id': `${url.replace(/\/$/, '')}/#primaryimage` },
 };
 
+// Embed verified testimonials directly on SoftwareApplication.review when
+// reviewData is provided. Each Review needs a named author and a real quote
+// to be useful — we don't synthesize aggregateRating because there's no
+// audited numeric source for it.
+const reviewSchemas =
+  reviewData && reviewData.length > 0
+    ? reviewData.map((r) => ({
+        '@type': 'Review',
+        author: {
+          '@type': 'Person',
+          name: r.name,
+          ...(r.role || r.company
+            ? { jobTitle: [r.role, r.company].filter(Boolean).join(', ') }
+            : {}),
+        },
+        reviewBody: r.quote,
+        itemReviewed: { '@id': `${SITE.url}/#software` },
+      }))
+    : null;
+
 const softwareSchema =
   type === 'SoftwareApplication'
     ? {
@@ -127,6 +177,7 @@ const softwareSchema =
           'Apollo, Firecrawl, and Webhook destinations',
           'Self-hostable under AGPLv3',
         ],
+        ...(reviewSchemas ? { review: reviewSchemas } : {}),
       }
     : null;
 
@@ -178,6 +229,64 @@ const personSchemas =
       }))
     : null;
 
+// ProfilePage wrapper for /team/[id]/ — Google distinguishes
+// people-as-content (a profile of a real human) from incidental Person
+// markup, and ProfilePage is the explicit signal it looks for.
+const profilePageSchema =
+  profilePage && personSchemas && personSchemas.length === 1
+    ? {
+        '@type': 'ProfilePage',
+        '@id': `${url.replace(/\/$/, '')}/#profilepage`,
+        url,
+        mainEntity: personSchemas[0],
+        isPartOf: { '@id': `${SITE.url}/#website` },
+      }
+    : null;
+
+// HowTo for integration setup pages. Steps come from the integration's
+// `howItWorks` frontmatter array.
+const howToSchema =
+  howToData && howToData.steps.length > 0
+    ? {
+        '@type': 'HowTo',
+        name: howToData.name,
+        description: howToData.description,
+        totalTime: 'PT10M',
+        step: howToData.steps.map((s, i) => ({
+          '@type': 'HowToStep',
+          position: i + 1,
+          name: s.name,
+          text: s.text,
+        })),
+      }
+    : null;
+
+// Dataset for /oss-tools/dryfit/scenarios/<slug>/. Each scenario is a
+// synthetic-events dataset; this is the lowest-competition rich result on
+// the site (Google Dataset Search has near-zero B2B SaaS competition).
+const datasetSchema = datasetData
+  ? {
+      '@type': 'Dataset',
+      name: datasetData.name,
+      description: datasetData.description,
+      url,
+      ...(datasetData.keywords ? { keywords: datasetData.keywords } : {}),
+      ...(datasetData.license ? { license: datasetData.license } : {}),
+      creator: {
+        '@type': 'Organization',
+        name: datasetData.creator || SITE.name,
+        url: SITE.url,
+      },
+      ...(datasetData.variableMeasured ? { variableMeasured: datasetData.variableMeasured } : {}),
+      isAccessibleForFree: true,
+      includedInDataCatalog: {
+        '@type': 'DataCatalog',
+        name: 'dryfit synthetic-data scenarios',
+        url: `${SITE.url}/oss-tools/dryfit/scenarios/`,
+      },
+    }
+  : null;
+
 const itemListSchema =
   itemList && itemList.items.length > 0
     ? {
@@ -199,7 +308,13 @@ if (softwareSchema) graph.push(softwareSchema);
 if (faqSchema) graph.push(faqSchema);
 if (breadcrumbSchema) graph.push(breadcrumbSchema);
 if (itemListSchema) graph.push(itemListSchema);
-if (personSchemas) graph.push(...personSchemas);
+if (howToSchema) graph.push(howToSchema);
+if (datasetSchema) graph.push(datasetSchema);
+if (profilePageSchema) {
+  graph.push(profilePageSchema);
+} else if (personSchemas) {
+  graph.push(...personSchemas);
+}
 
 const consolidatedSchema = {
   '@context': 'https://schema.org',

@@ -23,6 +23,13 @@ outcomes:
 relatedUseCases:
   - "plg-conversion"
   - "trial-qualification"
+faq:
+  - question: "How does Beton identify developer champions inside an account?"
+    answer: "By tracking the individual usage patterns that historically precede team-wide adoption — API key creation, integration setup, documentation depth, multi-project use. The first user to hit those patterns at a new account is your champion; Beton flags them so sales can reach out before procurement."
+  - question: "Does Beton work for DevTools that aren't on PostHog?"
+    answer: "PostHog is the primary supported analytics source today. Postgres warehouse data is also supported. Other product analytics integrations (Amplitude, Mixpanel, Heap) are on the roadmap; the same heuristic works against any event stream."
+  - question: "Won't sales reaching out scare off the developer champion?"
+    answer: "It depends on how. Beton routes the signal with context — what they did, what they're likely evaluating — so the outreach can be helpful (offer office hours, share a relevant doc) rather than commercial. We've seen this work; cold 'do you want to upgrade' emails to developers don't."
 seo:
   metaTitle: "DevTools Revenue Intelligence"
   metaDescription: "Revenue intelligence for DevTool companies. Detect developer engagement signals and route buying intent to your sales team."

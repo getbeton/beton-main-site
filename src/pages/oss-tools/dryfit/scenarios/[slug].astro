@@ -58,6 +58,33 @@ const faqData = [
     answer: `Default scale is ${d.scale.accounts.toLocaleString()} accounts, ${d.scale.usersPerAccountMean} users per account on average, ${d.scale.sessionsPerUserMean} sessions per user, spread over ${d.scale.durationDays} days. Override any value in the config YAML.`,
   },
 ];
+
+// Dataset schema feeds Google Dataset Search. Each scenario is a synthetic
+// PostgreSQL events table + ground_truth.json — structurally a dataset.
+// Variables measured = the union of event names along positive/negative
+// signal paths plus the success event.
+const datasetVariables = Array.from(
+  new Set([
+    ...d.positiveSignals.flatMap((s) => s.path),
+    ...d.negativeSignals.flatMap((s) => s.path),
+    d.successEvent,
+  ]),
+);
+const datasetData = {
+  name: `${d.name} — dryfit synthetic events dataset`,
+  description: `${d.description} Includes ${d.positiveSignals.length} positive and ${d.negativeSignals.length} negative signal paths against the ${d.successEvent} success event.`,
+  keywords: [
+    'synthetic data',
+    'product analytics',
+    'PostHog',
+    d.scenarioKind,
+    d.useCaseKind,
+    'PLG signal detection',
+    'agent evaluation',
+  ],
+  license: 'https://opensource.org/licenses/MIT',
+  variableMeasured: datasetVariables,
+};
 ---
 
 <PageLayout
@@ -66,6 +93,7 @@ const faqData = [
   canonicalPath={`/oss-tools/dryfit/scenarios/${d.slug}/`}
   breadcrumbs={breadcrumbs}
   faqData={faqData}
+  datasetData={datasetData}
 >
   <!-- Hero -->
   <section class="py-12 lg:py-16 border-b-2 border-[var(--color-border)]">

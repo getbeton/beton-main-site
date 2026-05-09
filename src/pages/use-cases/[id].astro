@@ -23,7 +23,7 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
-const { title, subtitle, description, problem, solution, benefits, seo } = entry.data;
+const { title, subtitle, description, problem, solution, benefits, faq, seo } = entry.data;
 
 const relatedUseCases = (await getCollection('use-cases'))
   .filter((uc) => uc.id !== entry.id && PUBLISHED_USE_CASES.has(uc.id))
@@ -47,6 +47,7 @@ const breadcrumbs = [
   description={seo?.metaDescription || description}
   canonicalPath={`/use-cases/${entry.id}`}
   breadcrumbs={breadcrumbs}
+  faqData={faq}
 >
   <!-- Structured sections -->
   <div class="mb-6 p-4 bg-[var(--color-surface-raised)] border-2 border-[var(--color-border)]">

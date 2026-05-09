@@ -23,6 +23,13 @@ outcomes:
 relatedUseCases:
   - "expansion-revenue"
   - "usage-based-upsell"
+faq:
+  - question: "How does Beton handle the data sensitivity of fintech product usage?"
+    answer: "Beton reads events from PostHog and routes signals out — it doesn't store granular product analytics data on its end. Self-hosting and air-gapped deployment are supported for teams that need data residency or compliance constraints. The cloud version uses standard SOC2 controls."
+  - question: "What are typical enterprise-readiness signals in fintech?"
+    answer: "Transaction volume crossing certain thresholds, multi-product adoption (depositing and lending, or core and peripheral products), API integration depth for embedded-finance use cases, and activation of compliance-related features that smaller customers don't touch."
+  - question: "Can Beton route signals into our existing risk or compliance review pipeline?"
+    answer: "Yes — webhook destinations let you fire signals into any HTTPS endpoint, including internal review systems. The same signal that updates the CRM can simultaneously trigger a compliance flag if you've set the destination up that way."
 seo:
   metaTitle: "Fintech Revenue Intelligence"
   metaDescription: "Revenue intelligence for fintech companies. Detect financial product adoption patterns and route enterprise-ready signals to sales."

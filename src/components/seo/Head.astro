@@ -18,6 +18,9 @@ interface Props {
   reviewData?: { name: string; role?: string; company?: string; quote: string }[];
   personData?: { name: string; role: string; bio?: string; social?: { twitter?: string; linkedin?: string; github?: string } }[];
   itemList?: { name: string; items: { name: string; url: string; description?: string }[] };
+  howToData?: { name: string; description: string; steps: { name: string; text: string }[] };
+  datasetData?: { name: string; description: string; keywords?: string[]; license?: string; creator?: string; variableMeasured?: string[] };
+  profilePage?: boolean;
 }
 
 const {
@@ -33,6 +36,9 @@ const {
   reviewData,
   personData,
   itemList,
+  howToData,
+  datasetData,
+  profilePage,
 } = Astro.props;
 
 const pageTitle = buildTitle(title);
@@ -98,6 +104,9 @@ const markdownUrl = `${SITE.url.replace(/\/$/, '')}${markdownPath}`;
   reviewData={reviewData}
   personData={personData}
   itemList={itemList}
+  howToData={howToData}
+  datasetData={datasetData}
+  profilePage={profilePage}
 />
 
 <GTM />
