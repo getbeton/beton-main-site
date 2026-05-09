@@ -53,6 +53,7 @@ interface Props {
   howToData?: { name: string; description: string; steps: HowToStep[] };
   datasetData?: DatasetSpec;
   profilePage?: boolean;
+  speakableSelectors?: string[];
 }
 
 const {
@@ -68,6 +69,7 @@ const {
   howToData,
   datasetData,
   profilePage,
+  speakableSelectors,
 } = Astro.props;
 
 const orgSchema = {
@@ -93,6 +95,17 @@ const webSiteSchema = {
   url: SITE.url,
   description: SITE.description,
   publisher: { '@id': `${SITE.url}/#organization` },
+  // Sitelinks Searchbox. Backed by /search/ which reads ?q= and filters
+  // a build-time index of every public page (integrations, use-cases,
+  // industries, blog posts, oss-tools, dryfit scenarios, team).
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: {
+      '@type': 'EntryPoint',
+      urlTemplate: `${SITE.url}/search/?q={search_term_string}`,
+    },
+    'query-input': 'required name=search_term_string',
+  },
 };
 
 const ogImageUrl = buildOgImageUrl();
@@ -106,6 +119,14 @@ const imageSchema = {
   height: 630,
 };
 
+// Speakable points Google Assistant (and any audio surface that respects
+// the spec) at sections of the page suitable for text-to-speech playback.
+// Defaults work for any content-style page: the H1 and the prose lead
+// paragraph. Specific page types can override via speakableSelectors.
+const speakableCss = (speakableSelectors && speakableSelectors.length > 0)
+  ? speakableSelectors
+  : ['h1', '.prose p:first-of-type'];
+
 const webPageSchema = {
   '@type': 'WebPage',
   '@id': `${url.replace(/\/$/, '')}/#webpage`,
@@ -115,6 +136,10 @@ const webPageSchema = {
   isPartOf: { '@id': `${SITE.url}/#website` },
   publisher: { '@id': `${SITE.url}/#organization` },
   primaryImageOfPage: { '@id': `${url.replace(/\/$/, '')}/#primaryimage` },
+  speakable: {
+    '@type': 'SpeakableSpecification',
+    cssSelector: speakableCss,
+  },
 };
 
 // Embed verified testimonials directly on SoftwareApplication.review when

@@ -1,0 +1,243 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '../layouts/PageLayout.astro';
+import Container from '../components/ui/Container.astro';
+import Section from '../components/ui/Section.astro';
+import Heading from '../components/ui/Heading.astro';
+import { SITE } from '../utils/site';
+
+interface IndexEntry {
+  url: string;
+  title: string;
+  description: string;
+  type: string;
+  tags?: string[];
+}
+
+// Build the search index at compile time. Mirrors what's actually visible
+// in production: published use-cases, all industries, live integrations,
+// non-draft blog posts, oss-tools, plus the canonical static pages.
+const PUBLISHED_USE_CASES = new Set(['pql-qualification', 'find-aha-moments', 'usage-based-upsell']);
+
+const useCases = (await getCollection('use-cases'))
+  .filter((uc) => PUBLISHED_USE_CASES.has(uc.id));
+const industries = await getCollection('industries');
+const integrations = (await getCollection('integrations')).filter((i) => !i.data.comingSoon);
+const blogPosts = (await getCollection('blog', ({ data }) => !data.draft));
+const team = await getCollection('team');
+
+const index: IndexEntry[] = [
+  // Static pages
+  { url: '/', title: 'Beton — Open-Source Revenue Intelligence', description: SITE.description, type: 'page' },
+  { url: '/about/', title: 'About Beton', description: 'Open-source revenue intelligence built on top of your existing PostHog and CRM stack.', type: 'page' },
+  { url: '/pricing/', title: 'Pricing', description: 'Free self-hosted, $0.50/tracked user/month for cloud, custom enterprise pricing.', type: 'page' },
+  { url: '/team/', title: 'Team', description: 'The people building Beton.', type: 'page' },
+  { url: '/blog/', title: 'Blog', description: 'Engineering posts, pricing teardowns, and product updates from the Beton team.', type: 'page' },
+  { url: '/blog/teardowns/', title: 'OSS pricing teardowns', description: 'Deep-dive teardowns of open-source SaaS pricing models.', type: 'page' },
+  { url: '/integrations/', title: 'Integrations', description: 'Data sources and CRM destinations Beton supports.', type: 'page' },
+  { url: '/use-cases/', title: 'Use cases', description: 'How teams use Beton to turn product signals into revenue.', type: 'page' },
+  { url: '/industries/', title: 'Industries', description: 'Revenue intelligence for SaaS, DevTools, fintech, and marketplaces.', type: 'page' },
+  { url: '/oss-tools/', title: 'Open-source tools', description: 'OSS tools shipped by Beton: dryfit, openclaw GTM skills, seqd.', type: 'page' },
+  { url: '/oss-tools/dryfit/', title: 'dryfit — synthetic PostHog data generator', description: 'Generate realistic PostHog event streams with built-in ground truth for testing PLG signal-detection agents.', type: 'tool' },
+  { url: '/oss-tools/dryfit/scenarios/', title: 'dryfit scenarios', description: 'Pre-built business-model scenarios for dryfit synthetic data generation.', type: 'page' },
+  { url: '/oss-tools/openclaw-gtm-skills/', title: 'openclaw GTM skills', description: 'Open-source GTM automation skills for openclaw agents.', type: 'tool' },
+  { url: '/oss-tools/seqd/', title: 'seqd', description: 'CLI helpers for outbound sequencing.', type: 'tool' },
+  // Content collections
+  ...useCases.map((uc) => ({
+    url: `/use-cases/${uc.id}/`,
+    title: uc.data.title,
+    description: uc.data.description,
+    type: 'use-case',
+  })),
+  ...industries.map((ind) => ({
+    url: `/industries/${ind.id}/`,
+    title: ind.data.title,
+    description: ind.data.description,
+    type: 'industry',
+  })),
+  ...integrations.map((i) => ({
+    url: `/integrations/${i.data.slug}/`,
+    title: `${i.data.name} integration`,
+    description: i.data.description,
+    type: 'integration',
+  })),
+  ...blogPosts.map((p) => ({
+    url: `/blog/${p.id.replace(/\.md$/, '')}/`,
+    title: p.data.title,
+    description: p.data.description,
+    type: 'blog',
+    tags: p.data.tags,
+  })),
+  ...team.map((t) => ({
+    url: `/team/${t.id.replace(/\.md$/, '')}/`,
+    title: `${t.data.name} — ${t.data.role}`,
+    description: t.data.bio,
+    type: 'person',
+  })),
+];
+
+// Dryfit scenarios are loaded from a JSON file collection — pull each.
+const scenarios = await getCollection('dryfit-scenarios');
+for (const s of scenarios) {
+  index.push({
+    url: `/oss-tools/dryfit/scenarios/${s.data.slug}/`,
+    title: `${s.data.name} — dryfit scenario`,
+    description: s.data.description,
+    type: 'dataset',
+  });
+}
+
+const breadcrumbs = [
+  { name: 'Home', url: SITE.url },
+  { name: 'Search', url: `${SITE.url}/search/` },
+];
+---
+
+<PageLayout
+  title="Search"
+  description="Search across Beton's docs, integrations, use cases, industries, and blog."
+  canonicalPath="/search/"
+  breadcrumbs={breadcrumbs}
+>
+  <Section>
+    <Container>
+      <div class="max-w-3xl mx-auto">
+        <Heading as="h1">Search</Heading>
+        <p class="mt-3 text-lg text-[var(--color-text-secondary)]">
+          Search across integrations, use cases, industries, blog posts, and OSS tools.
+        </p>
+
+        <form id="search-form" class="mt-8" role="search" autocomplete="off">
+          <label for="search-input" class="sr-only">Search query</label>
+          <input
+            id="search-input"
+            name="q"
+            type="search"
+            placeholder="Search Beton…"
+            class="w-full px-4 py-3 text-base border-2 border-[var(--color-text)] bg-[var(--color-surface)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary-600)]"
+            spellcheck="false"
+          />
+        </form>
+
+        <div id="search-status" class="mt-6 text-sm text-[var(--color-text-tertiary)]" aria-live="polite"></div>
+        <ul id="search-results" class="mt-4 space-y-4" aria-label="Search results"></ul>
+
+        <div id="search-empty" class="mt-12 hidden text-center text-[var(--color-text-tertiary)]">
+          <p>No results. Try a broader term, or browse:</p>
+          <ul class="mt-4 flex flex-wrap justify-center gap-3 text-sm">
+            <li><a href="/integrations/" class="text-[var(--color-primary-600)] hover:underline">Integrations</a></li>
+            <li><a href="/use-cases/" class="text-[var(--color-primary-600)] hover:underline">Use cases</a></li>
+            <li><a href="/industries/" class="text-[var(--color-primary-600)] hover:underline">Industries</a></li>
+            <li><a href="/blog/" class="text-[var(--color-primary-600)] hover:underline">Blog</a></li>
+            <li><a href="/oss-tools/" class="text-[var(--color-primary-600)] hover:underline">OSS tools</a></li>
+          </ul>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <script type="application/json" id="search-index" set:html={JSON.stringify(index)} />
+
+  <script is:inline>
+    (function () {
+      const data = JSON.parse(document.getElementById('search-index').textContent || '[]');
+      const input = document.getElementById('search-input');
+      const form = document.getElementById('search-form');
+      const list = document.getElementById('search-results');
+      const status = document.getElementById('search-status');
+      const empty = document.getElementById('search-empty');
+
+      function rank(entry, terms) {
+        const haystack = (entry.title + ' ' + entry.description + ' ' + (entry.tags || []).join(' ')).toLowerCase();
+        let score = 0;
+        for (const t of terms) {
+          const titleHit = entry.title.toLowerCase().includes(t);
+          const tagHit = (entry.tags || []).some((tg) => tg.toLowerCase().includes(t));
+          const descHit = entry.description.toLowerCase().includes(t);
+          if (titleHit) score += 5;
+          if (tagHit) score += 3;
+          if (descHit) score += 1;
+          if (!titleHit && !tagHit && !descHit && !haystack.includes(t)) return 0;
+        }
+        return score;
+      }
+
+      function buildResultNode(entry) {
+        const li = document.createElement('li');
+        li.className = 'border-2 border-[var(--color-border)] bg-[var(--color-surface)] p-4 hover:shadow-[6px_6px_0_var(--color-text)] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all';
+        const a = document.createElement('a');
+        a.href = entry.url;
+        a.className = 'block';
+        const meta = document.createElement('div');
+        meta.className = 'text-xs uppercase tracking-wider text-[var(--color-text-tertiary)] mb-2';
+        meta.textContent = entry.type;
+        const h3 = document.createElement('h3');
+        h3.className = 'font-semibold text-[var(--color-text)] mb-1';
+        h3.textContent = entry.title;
+        const p = document.createElement('p');
+        p.className = 'text-sm text-[var(--color-text-secondary)] leading-relaxed';
+        p.textContent = entry.description;
+        a.appendChild(meta);
+        a.appendChild(h3);
+        a.appendChild(p);
+        li.appendChild(a);
+        return li;
+      }
+
+      function render(q) {
+        list.replaceChildren();
+        empty.classList.add('hidden');
+        const terms = q.toLowerCase().split(/\s+/).filter(Boolean);
+        if (terms.length === 0) {
+          status.textContent = 'Type to search.';
+          return;
+        }
+        const hits = data
+          .map((entry) => ({ entry, score: rank(entry, terms) }))
+          .filter((x) => x.score > 0)
+          .sort((a, b) => b.score - a.score)
+          .slice(0, 30);
+        status.textContent = hits.length
+          ? hits.length + ' result' + (hits.length === 1 ? '' : 's') + ' for "' + q + '"'
+          : 'No results for "' + q + '"';
+        if (hits.length === 0) {
+          empty.classList.remove('hidden');
+          return;
+        }
+        const frag = document.createDocumentFragment();
+        for (const { entry } of hits) frag.appendChild(buildResultNode(entry));
+        list.appendChild(frag);
+      }
+
+      // Read ?q= from URL on initial load.
+      const initial = new URLSearchParams(window.location.search).get('q') || '';
+      if (initial) {
+        input.value = initial;
+        render(initial);
+      } else {
+        status.textContent = 'Type to search.';
+      }
+
+      // Live filter as user types.
+      let timer;
+      input.addEventListener('input', () => {
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+          const q = input.value.trim();
+          render(q);
+          // Reflect query in URL so the result is shareable / matches SearchAction.
+          const params = new URLSearchParams(window.location.search);
+          if (q) params.set('q', q);
+          else params.delete('q');
+          const newUrl = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
+          window.history.replaceState(null, '', newUrl);
+        }, 80);
+      });
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        render(input.value.trim());
+      });
+    })();
+  </script>
+</PageLayout>
