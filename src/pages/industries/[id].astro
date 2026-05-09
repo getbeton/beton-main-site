@@ -22,8 +22,14 @@ const otherIndustries = (await getCollection('industries'))
   .filter((ind) => ind.id !== entry.id)
   .sort((a, b) => a.data.order - b.data.order);
 
+// Only link to use-cases that are actually published. Keep in sync with
+// the allowlist in src/pages/use-cases/[id].astro.
+const PUBLISHED_USE_CASES = new Set(['pql-qualification', 'find-aha-moments', 'usage-based-upsell']);
+
 const relatedUCs = entry.data.relatedUseCases?.length
-  ? (await getCollection('use-cases')).filter((uc) => entry.data.relatedUseCases.includes(uc.id))
+  ? (await getCollection('use-cases')).filter(
+      (uc) => entry.data.relatedUseCases.includes(uc.id) && PUBLISHED_USE_CASES.has(uc.id),
+    )
   : [];
 
 const breadcrumbs = [
@@ -99,7 +105,7 @@ const breadcrumbs = [
   <div class="mt-10 p-6 border-2 border-[var(--color-primary-600)] bg-[var(--color-surface-accent-primary)]">
     <h3 class="text-lg font-[family-name:var(--font-heading)] mb-2">Ready to get started?</h3>
     <p class="text-sm text-[var(--color-text-secondary)] mb-4">
-      Start detecting {title.toLowerCase()} revenue signals. Free forever for self-hosted. See our <a href="/pricing/" class="text-[var(--color-primary-600)] hover:underline">pricing</a> or explore <a href="/features/" class="text-[var(--color-primary-600)] hover:underline">all features</a>.
+      Start detecting {title.toLowerCase()} revenue signals. Free forever for self-hosted. See our <a href="/pricing/" class="text-[var(--color-primary-600)] hover:underline">pricing</a> or browse <a href="/integrations/" class="text-[var(--color-primary-600)] hover:underline">supported integrations</a>.
     </p>
     <div class="flex flex-col sm:flex-row gap-3">
       <Button href={SITE.external.app} variant="secondary" size="lg" data-track-cta={`industry-${entry.id}-inline`}>

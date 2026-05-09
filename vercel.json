@@ -90,16 +90,6 @@
       "permanent": true
     },
     {
-      "source": "/use-cases",
-      "destination": "/integrations/",
-      "permanent": true
-    },
-    {
-      "source": "/use-cases/",
-      "destination": "/integrations/",
-      "permanent": true
-    },
-    {
       "source": "/images/beton-og-image.png",
       "destination": "/og-default.png",
       "permanent": true
@@ -673,36 +663,6 @@
     {
       "source": "/integrations/zoominfo-integration",
       "destination": "/integrations/",
-      "permanent": true
-    },
-    {
-      "source": "/use-cases/:slug",
-      "destination": "/integrations/",
-      "permanent": true
-    },
-    {
-      "source": "/use-cases/:slug/",
-      "destination": "/integrations/",
-      "permanent": true
-    },
-    {
-      "source": "/industries",
-      "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/industries/",
-      "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/industries/:slug",
-      "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/industries/:slug/",
-      "destination": "/",
       "permanent": true
     },
     {
