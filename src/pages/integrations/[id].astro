@@ -14,7 +14,7 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-const { name, slug, logo, url, category, description, tagline, howItWorks, features, useCases, codeSnippet, samplePayload, blogPost, faq, seo, comingSoon } = entry.data;
+const { name, slug, logo, url, category, description, tagline, howItWorks, features, useCases, codeSnippet, samplePayload, blogPost, body, faq, seo, comingSoon } = entry.data;
 const noIndex = seo?.noIndex || comingSoon;
 
 const allIntegrations = (await getCollection('integrations')).filter(
@@ -177,6 +177,26 @@ const howToData =
       </div>
     </Container>
   </section>
+
+  {/* Editorial body — long-form prose specific to this integration. */}
+  {body && body.length > 0 && (
+    <section class="py-10 lg:py-16">
+      <Container>
+        <div class="prose max-w-3xl mx-auto">
+          {body.map((block) => {
+            if (block.type === 'h2') return <h2>{block.text}</h2>;
+            if (block.type === 'p') return <p>{block.text}</p>;
+            if (block.type === 'ul') return (
+              <ul>
+                {block.items.map((item) => <li>{item}</li>)}
+              </ul>
+            );
+            return null;
+          })}
+        </div>
+      </Container>
+    </section>
+  )}
 
   <!-- How it works -->
   {howItWorks && howItWorks.length > 0 && (

@@ -195,6 +195,11 @@ const integrations = defineCollection({
     }).optional(),
     samplePayload: z.string().optional(),
     blogPost: z.string().optional(),
+    body: z.array(z.union([
+      z.object({ type: z.literal('h2'), text: z.string() }),
+      z.object({ type: z.literal('p'), text: z.string() }),
+      z.object({ type: z.literal('ul'), items: z.array(z.string()) }),
+    ])).optional(),
     faq: z.array(z.object({
       question: z.string(),
       answer: z.string(),
