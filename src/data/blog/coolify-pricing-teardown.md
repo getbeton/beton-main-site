@@ -6,6 +6,29 @@ author: "Vlad Nadymov"
 tags: ["pricing teardown", "open source", "devops"]
 featured: false
 draft: true
+tldr: |
+  Coolify is an open-source, self-hostable PaaS — 52,600+ GitHub stars, Apache-2.0 licensed, with exactly two tiers. Self-hosted is free forever with the full feature set; Cloud is $5/month base for a managed Coolify dashboard that deploys to your own servers.
+
+  - Apache-2.0 across the board — no enterprise edition, no feature gating, no AGPL/BSL trap
+  - Self-hosted free forever: unlimited servers, deployments, and team members
+  - Cloud at $5/month (or $4/month annual) includes 2 connected servers; +$3/month per extra server
+  - "Bring your own servers" model — you pay for the control plane, your apps run on Hetzner/DO/AWS/Pi
+  - Built by a solo founder (Andras Bacsai) with 3,400+ cloud customers; roughly $17k–30k MRR
+faq:
+  - question: "Is Coolify open source?"
+    answer: "Yes — Apache-2.0 for the entire product. There is no enterprise edition and no features behind a paywall; the self-hosted version is identical to what Cloud runs."
+  - question: "What's the cheapest paid Coolify plan?"
+    answer: "$5/month on monthly billing, or $4/month effective on annual (20% savings). The base price includes 2 connected servers and unlimited deployments."
+  - question: "Do my apps run on Coolify's servers if I use Cloud?"
+    answer: "No. Coolify Cloud runs the managed dashboard on their infrastructure, but your applications deploy to servers you bring — Hetzner, DigitalOcean, AWS, bare metal, even a Raspberry Pi."
+  - question: "When does it make sense to pay for Coolify Cloud?"
+    answer: "When you don't want to maintain the Coolify instance itself. The feature set is identical to self-hosted, so $5/month is a convenience fee for updates, backups, and not babysitting the dashboard."
+pricingTable:
+  license: "Apache-2.0"
+  stars: "52,600+"
+  freeTier: "Self-hosted, unlimited"
+  cheapestPaid: "$5/mo (Cloud)"
+  verdict: "Self-host if you VPS; Cloud for convenience"
 seo:
   metaTitle: "Coolify Pricing Teardown — Apache 2.0 PaaS"
   metaDescription: "Coolify is a self-hosted PaaS with 52k+ GitHub stars. Cloud starts at $5/month for managed Coolify on your own servers. Full breakdown inside."

@@ -6,6 +6,31 @@ author: "Vlad Nadymov"
 tags: ["pricing teardown", "open source", "secrets management"]
 featured: false
 draft: true
+tldr: |
+  Infisical is the open-source secrets manager going after HashiCorp Vault from below — 25,700+ GitHub stars, MIT-licensed core, with enterprise features under a proprietary license inside `backend/src/ee/`. Pricing is identity-based at $18/month per identity, where an "identity" counts both humans and machines.
+
+  - Free tier covers 5 identities, 3 projects, all integrations, and self-hosting — genuinely usable for solo devs
+  - Pro at $18/month per identity unlocks SAML SSO, RBAC, secret versioning, IP allowlisting, and 90-day audit logs
+  - Enterprise (custom pricing) gates dynamic secrets, SCIM, LDAP, approval workflows, KMIP, and HSM support
+  - Identity-based billing scales faster than seat-based — 10 devs + 20 machine identities = $540/month
+  - Self-hosting is real on the MIT core, but enterprise features still need a license key that phones home
+faq:
+  - question: "Is Infisical open source?"
+    answer: "Yes — the core platform (API server, CLI, SDKs, Kubernetes operator, agent, dashboard UI, all integrations) is MIT-licensed. Everything under `backend/src/ee/` (800+ files) is covered by the proprietary Infisical Enterprise License and requires a paid subscription to run in production."
+  - question: "What counts as an 'identity' in Infisical pricing?"
+    answer: "Both humans and machines. A user, a service, a CI/CD pipeline, a Kubernetes service account, or an agent that authenticates to Infisical each counts as one identity at $18/month on the Pro tier."
+  - question: "What's the cheapest paid Infisical plan?"
+    answer: "Pro at $18/month per identity. The pricing-page slider runs from 1 to 50 identities; beyond that you're in Enterprise territory with custom pricing."
+  - question: "Can I self-host Infisical for free?"
+    answer: "Yes for the MIT core — full secrets management, all third-party integrations, Google and GitHub SSO, no licensing cost. But RBAC, SAML SSO, secret versioning, dynamic secrets, SCIM, and LDAP all require a Pro or Enterprise license key, even on your own infrastructure."
+  - question: "When does Infisical make sense vs. HashiCorp Vault?"
+    answer: "For growing teams (10–30 engineers) that don't want to hire a Vault specialist. A 15-engineer team with 25 machine identities pays $720/month for Pro — less than the fractional DevOps cost of operating Vault policies, token renewal, and seal/unseal ceremonies."
+pricingTable:
+  license: "MIT (core) + proprietary EE"
+  stars: "25,700+"
+  freeTier: "5 identities"
+  cheapestPaid: "$18/mo per identity (Pro)"
+  verdict: "Free for solo; Pro once you cross 5 identities"
 seo:
   metaTitle: "Infisical Pricing Teardown — MIT Core, EE Upsell"
   metaDescription: "Infisical charges $18/mo per identity — and identities include both humans and machines. Analysis of pricing, licensing, and the Vault alternative play."
