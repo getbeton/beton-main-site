@@ -6,6 +6,31 @@ author: "Vlad Nadymov"
 tags: ["pricing teardown", "open source", "notifications"]
 featured: false
 draft: true
+tldr: |
+  Novu is open-source notification infrastructure — ~36k GitHub stars, MIT-licensed, unifying email, SMS, push, in-app, and chat behind a single API. Free covers 10k workflow runs/month but only 24-hour activity retention, which makes it a dev environment, not a production one.
+
+  - Billing unit is "workflow runs," not messages — captures orchestration usage, not just delivery
+  - Free at $0 covers 10k runs/month, 2 environments, 3 team members, 24-hour retention
+  - Pro at $30/month is mostly a retention unlock (7 days), not a volume unlock
+  - Team at $250/month adds RBAC, 10 environments, 90-day retention, unlimited members — a steep jump from Pro
+  - MIT license means full self-hosting is on the table for teams that want to own the infra
+faq:
+  - question: "Is Novu open source?"
+    answer: "Yes, MIT-licensed. The full product is on GitHub at github.com/novuhq/novu with no license restrictions for commercial use, so self-hosting is a real option for teams in fintech or healthcare that need full ownership."
+  - question: "What does Novu charge for and how is usage measured?"
+    answer: "Novu bills per workflow run, not per message sent. A single trigger event passing through your workflow logic counts as one run, regardless of how many channels it fans out to."
+  - question: "What's the cheapest paid Novu plan?"
+    answer: "Pro starts at $30/month. It bumps you to 30,000+ workflow runs, extends retention to 7 days, and removes Novu branding."
+  - question: "Why is the free tier not usable in production?"
+    answer: "Activity log retention is capped at 24 hours. If a notification fails on Thursday, the logs are gone by Friday — there's no way to debug production incidents past a one-day window."
+  - question: "Does Novu replace SendGrid and Twilio?"
+    answer: "No. Novu is the orchestration layer, not the delivery layer. You still need SendGrid or Postmark for email and Twilio for SMS; Novu sits on top and gives you a unified API across them."
+pricingTable:
+  license: "MIT"
+  stars: "~36k"
+  freeTier: "10k runs/mo"
+  cheapestPaid: "$30/mo (Pro)"
+  verdict: "Pro the moment you're in production"
 seo:
   metaTitle: "Novu Pricing Teardown: Notification Infra"
   metaDescription: "Novu's free tier has 24-hour log retention, making it a dev environment, not a production one."

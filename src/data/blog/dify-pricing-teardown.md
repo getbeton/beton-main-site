@@ -7,6 +7,31 @@ tags: ["pricing teardown", "open source", "AI agents"]
 featured: false
 draft: false
 coverImage: "/images/blog/dify-pricing-cover.jpeg"
+tldr: |
+  Dify is the most-starred open source AI agent platform on GitHub — 139k stars, modified Apache 2.0 license, cloud from $0 to $159/month plus an Enterprise tier. The headline is "Apache 2.0," but a multi-tenant restriction makes it functionally a Sustainable Use license for anyone trying to resell it.
+
+  - Sandbox is a 200-credit lifetime demo, not a real free tier.
+  - Pro at $59/month (5k credits, 3 seats) is the right starting point for solo devs and 2–3 person teams.
+  - Team at $159/month unlocks 50 seats, unlimited triggers, and the Langfuse/Langsmith integration — the standard play for growing AI-native startups.
+  - Message credits meter underlying model calls, not user messages — budget 3–5x what you'd naively expect.
+  - Self-hosting Community Edition is fine for internal use; embedding Dify in a SaaS you sell requires a commercial license from LangGenius.
+faq:
+  - question: "Is Dify open source?"
+    answer: "Yes, but under a modified Apache 2.0 license. The modification adds two clauses: no multi-tenant use without written permission, and no removing the Dify logo from the console or apps."
+  - question: "What's the cheapest paid Dify plan?"
+    answer: "Pro at $59/month ($590/year with 17% off) — 5,000 message credits/month, 1 workspace, 3 team members, 50 apps, 500 knowledge documents, and 5GB knowledge storage."
+  - question: "Can I use the self-hosted Community Edition to build a SaaS on top of Dify?"
+    answer: "No. The modified Apache 2.0 license bans operating Dify in a multi-tenant environment without written permission from LangGenius. Internal self-hosting at one company is fine; reselling to external customers requires a commercial Enterprise license."
+  - question: "What is a Dify message credit?"
+    answer: "Roughly one LLM completion — a chatbot reply, an agent step, or a workflow execution that calls a model. A single multi-step agent conversation can burn 5–15 credits, so 5,000 Pro credits go faster than they look."
+  - question: "When should I upgrade from Pro to Team?"
+    answer: "When you hit the 3-seat cap, the 20k trigger cap, or need the Langsmith/Langfuse integration. Team at $159/month is a 2.7x price jump for 2x credits, but the seat and trigger limits are usually what force the upgrade, not the credits."
+pricingTable:
+  license: "Modified Apache 2.0"
+  stars: "139k"
+  freeTier: "200 credits (lifetime)"
+  cheapestPaid: "$59/mo (Pro)"
+  verdict: "Pro for solo, Team for startups, Enterprise to resell"
 seo:
   metaTitle: "Dify Pricing Teardown — Modified Apache 2.0"
   metaDescription: "Dify is a 139k-star agentic platform. Free Sandbox, $59 Pro, $159 Team — and a modified Apache 2.0 license with anti-SaaS clauses."

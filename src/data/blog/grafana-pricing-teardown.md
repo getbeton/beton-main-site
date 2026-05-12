@@ -6,6 +6,31 @@ author: "Vlad Nadymov"
 tags: ["pricing teardown", "open source", "observability"]
 featured: false
 draft: true
+tldr: |
+  Grafana is the observability stack most engineers have already touched — metrics, logs, traces, profiles, k6 load tests, all in one place. ~66k GitHub stars, AGPL on the core, and a cloud business explicitly positioned against Datadog bill shock. The pricing story is five usage meters, a generous free tier on volume but tight on retention, and a steep cliff from Pro to Enterprise.
+
+  - Free forever — all services, 14-day metric retention, 3-day log retention
+  - Pro starts at $19/month minimum + pay-as-you-go on five meters (metrics, logs, traces, profiles, k6)
+  - Enterprise starts at a $25,000/year spend commit with nothing in between Pro and Enterprise
+  - Adaptive metrics auto-drops unqueried series — the explicit answer to Datadog overage horror stories
+  - AGPL on core Grafana (Apache 2.0 on Agent/Alloy); enterprise plugins ship under separate commercial licenses
+faq:
+  - question: "Is Grafana open source?"
+    answer: "Core Grafana is AGPL. Grafana Agent and Alloy are Apache 2.0. AGPL means modifications to Grafana itself must be open-sourced if distributed, but running a private Grafana instance internally is fine. Some enterprise plugins ship under separate commercial licenses."
+  - question: "What does Grafana Cloud actually charge for?"
+    answer: "Five usage meters: metrics (per active series), logs (per GB ingested), traces (per GB ingested), profiles (per GB ingested), and k6 tests (per virtual user hour). Each meter is individually transparent with published per-unit rates."
+  - question: "How much is the cheapest paid plan?"
+    answer: "Pro starts at $19/month as the minimum, then pay-as-you-go above the free tier limits. You get 13 months of metrics retention and 30 days of logs retention."
+  - question: "Why is the jump from Pro to Enterprise so steep?"
+    answer: "There is no upper-mid-market tier. Enterprise SSO, advanced RBAC, data source permissions, and SLA all live behind a $25,000/year minimum spend commit. A mid-sized team that has outgrown Pro's self-service but doesn't need everything in Enterprise has no clean option."
+  - question: "How does Grafana position against Datadog?"
+    answer: "Explicitly on bill predictability. Adaptive metrics automatically drops series that aren't being queried, reducing active series count without manual cleanup. Per-meter rates are published so you can model costs — the opposite of Datadog's opaque overage model."
+pricingTable:
+  license: "AGPL (core), Apache 2.0 (Agent/Alloy)"
+  stars: "~66k"
+  freeTier: "All services, 14-day metrics / 3-day logs retention"
+  cheapestPaid: "$19/mo minimum (Pro) + usage"
+  verdict: "Pro for growing teams; Enterprise only if you'll commit $25k/year"
 seo:
   metaTitle: "Grafana Pricing Teardown: Observability Platform"
   metaDescription: "Grafana has five active billing meters and a $25k/year enterprise cliff with nothing in between."

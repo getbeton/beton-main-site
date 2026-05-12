@@ -6,6 +6,31 @@ author: "Vlad Nadymov"
 tags: ["pricing teardown", "open source", "workflow automation"]
 featured: false
 draft: true
+tldr: |
+  Windmill is open-source workflow automation and internal tooling — ~12k GitHub stars, MIT-licensed core. Pricing splits users into developers ($20/mo) and operators ($10/mo) on top of a $50/worker/month compute meter, which lines up neatly with how internal tools actually get used: a few builders, many runners.
+
+  - Self-hosted OSS is free for up to 10 users with SSO and unlimited script executions — genuinely usable, not crippled.
+  - Enterprise self-hosted starts around $120/month (seats + at least one worker).
+  - Operator seats at half the developer rate are the real differentiator — a 3 dev + 20 operator team lands at $260/mo in seats.
+  - Compute billed separately at $50/worker/month (2GB memory per worker) keeps heavy-automation and many-user teams from cross-subsidizing each other.
+  - Obvious migration target for teams stranded by the Airplane acquihire; OSS license means no acquisition risk.
+faq:
+  - question: "Is Windmill open source?"
+    answer: "Yes — the core is MIT-licensed. The Enterprise Edition has a separate commercial license for add-ons like audit logging, dedicated support, and SLA."
+  - question: "What's the free tier?"
+    answer: "Self-hosted OSS is free for up to 10 users with SSO and unlimited script executions. It's the same product as Enterprise minus the enterprise-only add-ons."
+  - question: "How does Windmill price seats?"
+    answer: "Two tiers: developers at $20/month (write scripts, build flows, create apps) and operators at $10/month (execute existing scripts and apps, can't create or modify)."
+  - question: "What are compute units?"
+    answer: "A worker is a process that executes your scripts, billed at $50/worker/month with 2GB memory per worker. Seats and compute are billed as separate dimensions."
+  - question: "When does Windmill beat Retool?"
+    answer: "Once you have a user base skewed toward runners. Retool charges the same seat rate for everyone, so a team of 20+ mostly-operator users gets expensive fast; Windmill halves the rate for that group."
+pricingTable:
+  license: "MIT (core)"
+  stars: "~12k"
+  freeTier: "10 users, unlimited executions"
+  cheapestPaid: "~$120/mo (Enterprise self-hosted)"
+  verdict: "Free tier for small teams; Enterprise for operator-heavy orgs"
 seo:
   metaTitle: "Windmill Pricing Teardown: Workflow Automation"
   metaDescription: "Windmill splits users into developers and operators at half the price -- smart for internal tools."

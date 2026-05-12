@@ -6,6 +6,29 @@ author: "Vlad Nadymov"
 tags: ["pricing teardown", "open source", "workflow orchestration"]
 featured: false
 draft: true
+tldr: |
+  Temporal is MIT-licensed workflow orchestration with ~12k GitHub stars, used in production by Stripe, Snap, and Coinbase. Temporal Cloud starts at $100/month with no free production tier — a deliberate signal that this is serious infrastructure, not a prototyping toy.
+
+  - Essentials at $100/month covers 1M actions, 1GB active storage, 40GB retained storage
+  - Business at $500/month adds SAML SSO, 2.5M actions, 2.5GB active, 100GB retained
+  - Enterprise starts at 10M actions, contact sales; pay-as-you-go is an alternative to flat plans
+  - Startup program gives $6,000 in credits to sub-$30M-funded companies — roughly 5 years of Essentials
+  - Billing by "actions" maps directly to workflow logic, which is more predictable than compute-time pricing
+faq:
+  - question: "Is Temporal open source?"
+    answer: "Yes. The Temporal server and SDKs are MIT licensed — you can self-host, fork, and run it commercially without restrictions. Temporal Cloud, the managed product, is proprietary."
+  - question: "What's the cheapest Temporal Cloud plan?"
+    answer: "Essentials at $100/month, which includes 1M actions, 1GB active storage, and 40GB retained storage. There is no free tier for production use beyond the startup credits program."
+  - question: "Why does Temporal bill by 'actions' instead of compute time or seats?"
+    answer: "Actions are discrete operations between your application and Temporal Cloud — scheduling an activity, completing a task, processing a signal. They scale linearly with your actual workflow logic, which makes cost modeling more predictable than compute-based pricing where a retry storm can eat your budget."
+  - question: "Should I self-host Temporal instead of paying for Cloud?"
+    answer: "You can — the OSS is MIT and fully functional. But operating the Temporal server with Cassandra or Elasticsearch backends is genuinely complex. For production workloads, $100/month for a managed, SLA-backed cluster is cheap against the engineering hours to maintain it yourself."
+pricingTable:
+  license: "MIT"
+  stars: "~12k"
+  freeTier: "None (startup credits only)"
+  cheapestPaid: "$100/mo (Essentials)"
+  verdict: "Self-host to prototype; Cloud for production"
 seo:
   metaTitle: "Temporal Pricing Teardown: Workflow Orchestration"
   metaDescription: "Temporal starts at $100/month with no free tier -- a signal that this is serious infrastructure."
