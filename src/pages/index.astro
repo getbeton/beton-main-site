@@ -22,8 +22,6 @@ import BuiltFor from '../components/home/BuiltFor.astro';
 import FoundersStrip from '../components/home/FoundersStrip.astro';
 import FAQ from '../components/home/FAQ.astro';
 import { howItWorksSteps } from '../data/how-it-works';
-import { builtForTools } from '../data/built-for-tools';
-import { SITE } from '../utils/site';
 
 const page = await getEntry('pages', 'home');
 const hero = page?.data.hero;
@@ -59,38 +57,6 @@ const personData = team
     bio: m.data.bio,
     social: m.data.social,
   }));
-
-// ItemList — one per homepage content strip: Integrations, Features, BuiltFor.
-const featuredIntegrations = (await getCollection('integrations'))
-  .filter((i) => i.data.featured)
-  .sort((a, b) => a.data.name.localeCompare(b.data.name));
-const featureEntries = (await getCollection('features')).sort(
-  (a, b) => a.data.order - b.data.order,
-);
-const itemList = [
-  {
-    name: 'Integrations',
-    items: featuredIntegrations.map((i) => ({
-      name: i.data.name,
-      url: `${SITE.url}/integrations/${i.data.slug}/`,
-      description: i.data.description,
-    })),
-  },
-  {
-    name: 'Built for Revenue Teams',
-    items: featureEntries.map((f) => ({
-      name: f.data.title,
-      description: f.data.description,
-    })),
-  },
-  {
-    name: 'Built for teams using these tools',
-    items: builtForTools.map((t) => ({
-      name: t.name,
-      url: `${SITE.url}${t.href}`,
-    })),
-  },
-];
 ---
 
 <PageLayout
@@ -101,7 +67,6 @@ const itemList = [
   faqData={faqData}
   howToData={howToData}
   personData={personData}
-  itemList={itemList}
 >
   <!-- Hero: two-column grid -->
   <section class="relative py-14 lg:py-24 overflow-hidden" data-track-section="hero">
