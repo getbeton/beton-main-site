@@ -20,6 +20,10 @@ import WhyBeton from '../components/home/WhyBeton.astro';
 import ProductScreenshots from '../components/home/ProductScreenshots.astro';
 import BuiltFor from '../components/home/BuiltFor.astro';
 import FoundersStrip from '../components/home/FoundersStrip.astro';
+import FAQ from '../components/home/FAQ.astro';
+import { howItWorksSteps } from '../data/how-it-works';
+import { builtForTools } from '../data/built-for-tools';
+import { SITE } from '../utils/site';
 
 const page = await getEntry('pages', 'home');
 const hero = page?.data.hero;
@@ -30,7 +34,63 @@ const reviewData = testimonials.map((t) => ({
   role: t.data.role,
   company: t.data.company,
   quote: t.data.quote,
+  rating: t.data.rating,
 }));
+
+// FAQ — content lives in home.md frontmatter; rendered visibly by <FAQ> and
+// emitted as FAQPage JSON-LD.
+const faqData = page?.data.faq ?? [];
+
+// HowTo — mirrors the visible HowItWorks section.
+const howToData = {
+  name: 'How Beton Works',
+  description: 'Four steps from product data to revenue action.',
+  steps: howItWorksSteps.map((s) => ({ name: s.title, text: s.description })),
+};
+
+// Person — the two technical co-founders surfaced on the homepage (E-E-A-T).
+const team = await getCollection('team');
+const personData = team
+  .filter((m) => ['Vlad Nadymov', 'Aleks Markelov'].includes(m.data.name))
+  .sort((a, b) => a.data.order - b.data.order)
+  .map((m) => ({
+    name: m.data.name,
+    role: m.data.role,
+    bio: m.data.bio,
+    social: m.data.social,
+  }));
+
+// ItemList — one per homepage content strip: Integrations, Features, BuiltFor.
+const featuredIntegrations = (await getCollection('integrations'))
+  .filter((i) => i.data.featured)
+  .sort((a, b) => a.data.name.localeCompare(b.data.name));
+const featureEntries = (await getCollection('features')).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+const itemList = [
+  {
+    name: 'Integrations',
+    items: featuredIntegrations.map((i) => ({
+      name: i.data.name,
+      url: `${SITE.url}/integrations/${i.data.slug}/`,
+      description: i.data.description,
+    })),
+  },
+  {
+    name: 'Built for Revenue Teams',
+    items: featureEntries.map((f) => ({
+      name: f.data.title,
+      description: f.data.description,
+    })),
+  },
+  {
+    name: 'Built for teams using these tools',
+    items: builtForTools.map((t) => ({
+      name: t.name,
+      url: `${SITE.url}${t.href}`,
+    })),
+  },
+];
 ---
 
 <PageLayout
@@ -38,6 +98,10 @@ const reviewData = testimonials.map((t) => ({
   description={page?.data.seo?.metaDescription}
   schemaType={page?.data.schemaType}
   reviewData={reviewData}
+  faqData={faqData}
+  howToData={howToData}
+  personData={personData}
+  itemList={itemList}
 >
   <!-- Hero: two-column grid -->
   <section class="relative py-14 lg:py-24 overflow-hidden" data-track-section="hero">
@@ -119,6 +183,9 @@ const reviewData = testimonials.map((t) => ({
 
   <!-- Blog posts -->
   <BlogPosts />
+
+  <!-- FAQ — visible accordion + FAQPage JSON-LD -->
+  <FAQ faqs={faqData} />
 
   <!-- Final CTA banner -->
   <CTABanner />

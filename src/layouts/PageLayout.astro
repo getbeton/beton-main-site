@@ -16,9 +16,9 @@ interface Props {
   schemaType?: string;
   faqData?: { question: string; answer: string }[];
   breadcrumbs?: { name: string; url: string }[];
-  reviewData?: { name: string; role?: string; company?: string; quote: string }[];
+  reviewData?: { name: string; role?: string; company?: string; quote: string; rating?: number }[];
   personData?: { name: string; role: string; bio?: string; social?: { twitter?: string; linkedin?: string; github?: string } }[];
-  itemList?: { name: string; items: { name: string; url: string; description?: string }[] };
+  itemList?: { name: string; items: { name: string; url?: string; description?: string }[] } | { name: string; items: { name: string; url?: string; description?: string }[] }[];
   howToData?: { name: string; description: string; steps: { name: string; text: string }[] };
   datasetData?: { name: string; description: string; keywords?: string[]; license?: string; creator?: string; variableMeasured?: string[] };
   profilePage?: boolean;

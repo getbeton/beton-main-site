@@ -64,6 +64,7 @@ const testimonials = defineCollection({
     company: z.string(),
     avatar: z.string().optional(),
     quote: z.string(),
+    rating: z.number().min(1).max(5).default(5),
     featured: z.boolean().default(false),
     order: z.number(),
   }),
@@ -166,6 +167,7 @@ const pages = defineCollection({
         secondaryCta: z.object({ label: z.string(), href: z.string() }).optional(),
       })
       .optional(),
+    faq: z.array(z.object({ question: z.string(), answer: z.string() })).optional(),
     schemaType: z.string().optional(),
   }),
 });

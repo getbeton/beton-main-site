@@ -7,6 +7,7 @@ interface ReviewItem {
   role?: string;
   company?: string;
   quote: string;
+  rating?: number;
 }
 
 interface PersonItem {
@@ -22,8 +23,13 @@ interface PersonItem {
 
 interface ItemListItem {
   name: string;
-  url: string;
+  url?: string;
   description?: string;
+}
+
+interface ItemListSpec {
+  name: string;
+  items: ItemListItem[];
 }
 
 interface HowToStep {
@@ -49,7 +55,7 @@ interface Props {
   breadcrumbs?: { name: string; url: string }[];
   reviewData?: ReviewItem[];
   personData?: PersonItem[];
-  itemList?: { name: string; items: ItemListItem[] };
+  itemList?: ItemListSpec | ItemListSpec[];
   howToData?: { name: string; description: string; steps: HowToStep[] };
   datasetData?: DatasetSpec;
   profilePage?: boolean;
@@ -143,9 +149,10 @@ const webPageSchema = {
 };
 
 // Embed verified testimonials directly on SoftwareApplication.review when
-// reviewData is provided. Each Review needs a named author and a real quote
-// to be useful — we don't synthesize aggregateRating because there's no
-// audited numeric source for it.
+// reviewData is provided. Each Review carries its own reviewRating; itemReviewed
+// is omitted because the review is nested under the item it reviews. The parent
+// SoftwareApplication gets an aggregateRating computed from these ratings —
+// Google requires aggregateRating whenever multiple reviews are present.
 const reviewSchemas =
   reviewData && reviewData.length > 0
     ? reviewData.map((r) => ({
@@ -158,8 +165,27 @@ const reviewSchemas =
             : {}),
         },
         reviewBody: r.quote,
-        itemReviewed: { '@id': `${SITE.url}/#software` },
+        reviewRating: {
+          '@type': 'Rating',
+          ratingValue: String(r.rating ?? 5),
+          bestRating: '5',
+          worstRating: '1',
+        },
       }))
+    : null;
+
+const aggregateRatingSchema =
+  reviewData && reviewData.length > 0
+    ? {
+        '@type': 'AggregateRating',
+        ratingValue: (
+          reviewData.reduce((sum, r) => sum + (r.rating ?? 5), 0) /
+          reviewData.length
+        ).toFixed(1),
+        reviewCount: String(reviewData.length),
+        bestRating: '5',
+        worstRating: '1',
+      }
     : null;
 
 const softwareSchema =
@@ -202,7 +228,9 @@ const softwareSchema =
           'Apollo, Firecrawl, and Webhook destinations',
           'Self-hostable under AGPLv3',
         ],
-        ...(reviewSchemas ? { review: reviewSchemas } : {}),
+        ...(reviewSchemas
+          ? { review: reviewSchemas, aggregateRating: aggregateRatingSchema }
+          : {}),
       }
     : null;
 
@@ -312,27 +340,33 @@ const datasetSchema = datasetData
     }
   : null;
 
-const itemListSchema =
-  itemList && itemList.items.length > 0
-    ? {
-        '@type': 'ItemList',
-        name: itemList.name,
-        numberOfItems: itemList.items.length,
-        itemListElement: itemList.items.map((item, i) => ({
-          '@type': 'ListItem',
-          position: i + 1,
-          name: item.name,
-          url: item.url,
-          ...(item.description && { description: item.description }),
-        })),
-      }
-    : null;
+// itemList accepts either a single list or several (the homepage emits one per
+// content strip). Normalize to an array and emit one ItemList node each.
+const itemListSpecs = itemList
+  ? Array.isArray(itemList)
+    ? itemList
+    : [itemList]
+  : [];
+const itemListSchemas = itemListSpecs
+  .filter((list) => list.items.length > 0)
+  .map((list) => ({
+    '@type': 'ItemList',
+    name: list.name,
+    numberOfItems: list.items.length,
+    itemListElement: list.items.map((item, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: item.name,
+      ...(item.url && { url: item.url }),
+      ...(item.description && { description: item.description }),
+    })),
+  }));
 
 const graph: Record<string, unknown>[] = [orgSchema, webSiteSchema, imageSchema, webPageSchema];
 if (softwareSchema) graph.push(softwareSchema);
 if (faqSchema) graph.push(faqSchema);
 if (breadcrumbSchema) graph.push(breadcrumbSchema);
-if (itemListSchema) graph.push(itemListSchema);
+if (itemListSchemas.length > 0) graph.push(...itemListSchemas);
 if (howToSchema) graph.push(howToSchema);
 if (datasetSchema) graph.push(datasetSchema);
 if (profilePageSchema) {
