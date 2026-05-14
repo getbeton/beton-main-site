@@ -2,17 +2,7 @@
 import Container from '../ui/Container.astro';
 import Section from '../ui/Section.astro';
 import Heading from '../ui/Heading.astro';
-
-// Tools we have real, shipped integrations for. Each is a deep link to its
-// integration page, which doubles as internal-linking for SEO.
-const tools = [
-  { name: 'PostHog', logo: '/images/logos/posthog.svg', href: '/integrations/posthog/' },
-  { name: 'Postgres', logo: '/images/logos/postgres.svg', href: '/integrations/postgres/' },
-  { name: 'Stripe', logo: '/images/logos/stripe.svg', href: '/integrations/stripe/' },
-  { name: 'Attio', logo: '/images/logos/attio.svg', href: '/integrations/attio/' },
-  { name: 'Apollo', logo: '/images/logos/apollo.svg', href: '/integrations/apollo/' },
-  { name: 'Firecrawl', logo: '/images/logos/firecrawl.svg', href: '/integrations/firecrawl/' },
-];
+import { builtForTools as tools } from '../../data/built-for-tools';
 ---
 
 <Section id="built-for" class="bg-[var(--color-surface-raised)] border-y-2 border-[var(--color-border)]">
