@@ -71,5 +71,150 @@ const { title, description, ogImage, canonicalPath, noIndex, type, schemaType, f
 
     <CookieConsent />
     <DataLayerEvents />
+
+    <!-- One-click copy button on every <pre> code block, site-wide.
+         All DOM nodes constructed via createElement / createElementNS;
+         no innerHTML with strings. -->
+    <script is:inline>
+      (function () {
+        var SVG_NS = 'http://www.w3.org/2000/svg';
+
+        function makeIcon() {
+          var svg = document.createElementNS(SVG_NS, 'svg');
+          svg.setAttribute('viewBox', '0 0 24 24');
+          svg.setAttribute('fill', 'none');
+          svg.setAttribute('stroke', 'currentColor');
+          svg.setAttribute('stroke-width', '2');
+          svg.setAttribute('stroke-linecap', 'round');
+          svg.setAttribute('stroke-linejoin', 'round');
+          svg.setAttribute('aria-hidden', 'true');
+
+          var rect = document.createElementNS(SVG_NS, 'rect');
+          rect.setAttribute('x', '9');
+          rect.setAttribute('y', '9');
+          rect.setAttribute('width', '11');
+          rect.setAttribute('height', '11');
+          rect.setAttribute('rx', '1');
+          svg.appendChild(rect);
+
+          var path = document.createElementNS(SVG_NS, 'path');
+          path.setAttribute('d', 'M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1');
+          svg.appendChild(path);
+          return svg;
+        }
+
+        function makeButton() {
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'code-block-copy';
+          btn.setAttribute('aria-label', 'Copy code');
+          btn.appendChild(makeIcon());
+          var label = document.createElement('span');
+          label.textContent = 'Copy';
+          btn.appendChild(label);
+          return btn;
+        }
+
+        function bind(pre) {
+          if (pre.dataset.copyBound === '1') return;
+          pre.dataset.copyBound = '1';
+
+          var wrap = document.createElement('div');
+          wrap.className = 'code-block-wrap';
+          pre.parentNode.insertBefore(wrap, pre);
+          wrap.appendChild(pre);
+
+          var btn = makeButton();
+          wrap.appendChild(btn);
+
+          btn.addEventListener('click', function () {
+            var code = pre.querySelector('code') || pre;
+            var text = code.innerText || code.textContent || '';
+            var label = btn.querySelector('span');
+            var done = function () {
+              btn.setAttribute('data-state', 'copied');
+              label.textContent = 'Copied';
+              setTimeout(function () {
+                btn.removeAttribute('data-state');
+                label.textContent = 'Copy';
+              }, 1800);
+            };
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              navigator.clipboard.writeText(text).then(done).catch(function () {
+                fallback(text, done);
+              });
+            } else {
+              fallback(text, done);
+            }
+          });
+        }
+
+        function fallback(text, done) {
+          var ta = document.createElement('textarea');
+          ta.value = text;
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.select();
+          try { document.execCommand('copy'); done(); } catch (e) {}
+          document.body.removeChild(ta);
+        }
+
+        function init() {
+          var pres = document.querySelectorAll('pre');
+          for (var i = 0; i < pres.length; i++) bind(pres[i]);
+        }
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', init);
+        } else {
+          init();
+        }
+      })();
+    </script>
+
+    <!-- Sidenote ↔ pointer hover pairing.
+         A .sidenote-ref[data-n="N"] hover/focus toggles .is-active on the
+         matching .sidenote[data-n="N"]. Click scrolls the sidenote into
+         view (useful on mobile where it stacks inline). -->
+    <script is:inline>
+      (function () {
+        function init() {
+          var refs = document.querySelectorAll('.sidenote-ref[data-n]');
+          if (!refs.length) return;
+          for (var i = 0; i < refs.length; i++) (function (ref) {
+            var n = ref.getAttribute('data-n');
+            var note = document.querySelector('.sidenote[data-n="' + n + '"]');
+            if (!note) return;
+
+            ref.addEventListener('mouseenter', function () { note.classList.add('is-active'); });
+            ref.addEventListener('mouseleave', function () { note.classList.remove('is-active'); });
+            ref.addEventListener('focus', function () { note.classList.add('is-active'); });
+            ref.addEventListener('blur', function () { note.classList.remove('is-active'); });
+
+            ref.setAttribute('tabindex', '0');
+            ref.setAttribute('role', 'button');
+            ref.setAttribute('aria-label', 'Sidenote ' + n);
+            ref.addEventListener('click', function () {
+              note.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              note.classList.add('is-active');
+              setTimeout(function () { note.classList.remove('is-active'); }, 1600);
+            });
+            ref.addEventListener('keydown', function (e) {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                ref.click();
+              }
+            });
+          })(refs[i]);
+        }
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', init);
+        } else {
+          init();
+        }
+      })();
+    </script>
   </body>
 </html>

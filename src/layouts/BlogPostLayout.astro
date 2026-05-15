@@ -2,6 +2,8 @@
 import PageLayout from './PageLayout.astro';
 import Container from '../components/ui/Container.astro';
 import NewsletterSignup from '../components/blog/NewsletterSignup.astro';
+import Breadcrumbs from '../components/global/Breadcrumbs.astro';
+import AuthorCard from '../components/blog/AuthorCard.astro';
 import { SITE } from '../utils/site';
 
 interface RelatedPost {
@@ -109,6 +111,11 @@ const articleData = {
   <article class="py-14 lg:py-20">
     <Container>
       <div class="max-w-3xl mx-auto">
+        <!-- Breadcrumbs (visible nav; matching JSON-LD lives in Head). -->
+        <div class="mb-6">
+          <Breadcrumbs items={breadcrumbs.map((c) => ({ name: c.name, url: c.url }))} />
+        </div>
+
         <!-- Header -->
         <header class="mb-10">
           <div class="flex flex-wrap items-center gap-2 mb-4">
@@ -128,7 +135,9 @@ const articleData = {
           </p>
 
           <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-[var(--color-text-tertiary)] border-t-2 border-b-2 border-[var(--color-border)] py-3">
-            <span class="font-medium text-[var(--color-text-secondary)]">{author}</span>
+            <a href={`/team/${author.toLowerCase().replace(/\s+/g, '-')}/`} class="font-medium text-[var(--color-text-secondary)] hover:underline">
+              {author}
+            </a>
             {reviewedBy && (
               <>
                 <span aria-hidden="true">&middot;</span>
@@ -246,6 +255,12 @@ const articleData = {
 
         <!-- Footer -->
         <footer class="mt-10 pt-8 border-t-2 border-[var(--color-border)]">
+          <!-- Author plaque (sourced from the 'team' collection). Renders
+               nothing if the author isn't a known team member. -->
+          <div class="mb-8">
+            <AuthorCard author={author} />
+          </div>
+
           <NewsletterSignup id="post-newsletter" />
 
           <div class="mt-8 text-center">
