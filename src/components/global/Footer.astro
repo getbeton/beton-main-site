@@ -20,13 +20,14 @@ const latestPosts = (await getCollection('blog', ({ data }) => !data.draft))
     <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-8">
       <!-- Brand -->
       <div class="col-span-2 md:col-span-4 lg:col-span-2">
-        <a href="/" class="inline-flex items-center gap-2 text-lg font-bold font-[family-name:'JetBrains_Mono']">
-          <svg width="24" height="24" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M246.5 220C246.5 220 230 150 280 110C330 70 410 130 380 180C350 230 280 200 280 200L250 235" stroke="currentColor" stroke-width="45" stroke-linecap="round"/>
-            <path d="M110 320L210 240L390 310L290 390L110 320Z" fill="currentColor"/>
-            <path d="M110 335L110 375L290 445L290 405L110 335Z" fill="currentColor"/>
+        <a href="/" class="inline-flex items-center gap-2.5" aria-label="Beton home">
+          <svg width="24" height="29" viewBox="0 0 153 184" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <g fill-rule="evenodd">
+              <path d="M 133 0 C 134.67 -0.17 139.17 -1 142 0 C 144.83 1 148.17 3.67 150 6 C 151.83 8.33 153 10.83 153 14 C 153 17.17 151.83 22 150 25 C 148.17 28 147.67 28.33 142 32 C 136.33 35.67 122.17 43.67 116 47 C 109.83 50.33 108.17 51 105 52 C 101.83 53 99 51.83 97 53 C 95 54.17 93.67 54.17 93 59 C 92.33 63.83 93.33 77.67 93 82 C 92.67 86.33 91 85 91 85 C 91 85 106.33 92.83 110 95 C 113.67 97.17 112.5 97.17 113 98 C 113.5 98.83 114 98.83 113 100 C 112 101.17 120.33 96.67 107 105 C 93.67 113.33 46 142.67 33 150 C 20 157.33 31.5 150.83 29 149 C 26.5 147.17 22.67 143.5 18 139 C 13.33 134.5 4 125.5 1 122 C -2 118.5 0 118 0 118 C 0 118 37.33 76.67 46 68 C 54.67 59.33 47.5 64.5 52 66 C 56.5 67.5 69 75.17 73 77 C 77 78.83 76 77 76 77 C 76 77 77.67 78.33 78 74 C 78.33 69.67 77.17 56.83 78 51 C 78.83 45.17 80.67 42.5 83 39 C 85.33 35.5 85 35.83 92 30 C 99 24.17 118.33 8.83 125 4 C 131.67 -0.83 130.67 1.67 132 1 C 133.33 0.33 131.33 0.17 133 0 Z"/>
+              <path d="M 113 114 C 113 114 113.33 125 113 128 C 112.67 131 123.67 122.67 111 132 C 98.33 141.33 50.17 175.33 37 184 C 23.83 192.67 38 189.17 32 184 C 26 178.83 6.33 160.67 1 153 C -4.33 145.33 0 138 0 138 C 0 138 20.33 157.67 25 162 C 29.67 166.33 26.67 163.67 28 164 C 29.33 164.33 19 172.17 33 164 C 47 155.83 98.67 123.33 112 115 C 125.33 106.67 113 114 113 114 Z"/>
+            </g>
           </svg>
-          Beton
+          <span class="text-lg font-bold tracking-[-0.02em] lowercase font-[family-name:'JetBrains_Mono',ui-monospace,monospace]">beton</span>
         </a>
         <p class="mt-3 text-sm text-[var(--color-text-secondary)] max-w-xs">
           Open-source revenue intelligence. The agent proposes signal hypotheses from your PostHog or Postgres data, backtests them, and routes winners to your CRM.

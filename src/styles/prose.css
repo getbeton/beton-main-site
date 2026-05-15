@@ -226,3 +226,256 @@
   line-height: 1.4;
   margin-top: 0.75rem;
 }
+
+/* -------------------------------------------------------------
+   Sidenote CTA — reusable in any blog post.
+
+   Pattern in markdown:
+
+     ...the freshness gap<sup class="sidenote-ref">[1]</sup> matters more...
+
+     <aside class="sidenote" data-n="1">
+       <span class="sidenote-text">Want to score events from your own warehouse?</span>
+       <a class="sidenote-link" href="https://getbeton.ai/?utm_source=blog&utm_content=sidenote-1">Start a Beton workspace</a>
+     </aside>
+
+   On desktop (>= 1024px) the .sidenote floats into the left gutter
+   alongside the prose paragraph that precedes it. On mobile it
+   stacks as a block. In email HTML it stacks too (no float).
+   ------------------------------------------------------------- */
+
+.prose .sidenote-ref {
+  display: inline-block;
+  margin: 0 0.15em;
+  padding: 0;
+  color: var(--color-primary-600);
+  font-weight: 700;
+  font-size: 0.72em;
+  vertical-align: super;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.prose .sidenote-ref:hover,
+.prose .sidenote-ref:focus-visible {
+  color: var(--color-primary-700);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  outline: none;
+}
+
+.prose .sidenote {
+  display: block;
+  position: relative;
+  margin: 1.5rem 0;
+  padding: 0.875rem 1rem 0.875rem 1.125rem;
+  border-left: 4px solid var(--color-primary-600);
+  background-color: var(--color-surface-raised);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+  transition: background-color 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+}
+
+/* Active (hovered via pointer or directly) state */
+.prose .sidenote.is-active,
+.prose .sidenote:hover {
+  background-color: var(--color-primary-bg);
+  border-left-color: var(--color-primary-700);
+  border-left-width: 6px;
+  padding-left: 1rem;
+}
+
+.prose .sidenote::before {
+  content: attr(data-n);
+  position: absolute;
+  top: 0.875rem;
+  left: -4px;
+  transform: translateX(-100%) translateX(-0.5rem);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  color: var(--color-primary-600);
+  background: var(--color-primary-bg);
+  padding: 0.15rem 0.4rem;
+  line-height: 1.2;
+  transition: background-color 0.18s ease, color 0.18s ease;
+}
+
+.prose .sidenote.is-active::before,
+.prose .sidenote:hover::before {
+  background: var(--color-primary-600);
+  color: white;
+}
+
+.prose .sidenote .sidenote-text {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--color-text);
+}
+
+.prose .sidenote .sidenote-link {
+  display: inline-block;
+  color: var(--color-primary-600);
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  font-size: 0.9375rem;
+  margin-top: 0;
+}
+
+.prose .sidenote .sidenote-link:hover {
+  text-decoration-thickness: 3px;
+}
+
+/* Desktop: float the sidenote into the RIGHT gutter. The article body
+   inside BlogPostLayout sits in a max-w-3xl (768px) column centered
+   in a max-w-7xl (1280px) container, so ~256px of right gutter is
+   available on screens >= 1280px. We push 260px into it. */
+@media (min-width: 1280px) {
+  .prose .sidenote {
+    float: right;
+    clear: right;
+    width: 230px;
+    margin-right: -260px;
+    margin-left: 1.25rem;
+    margin-top: 0.5rem;
+    padding: 0.75rem 0.875rem 0.75rem 0.875rem;
+    border-left: 4px solid var(--color-primary-600);
+    font-size: 0.8125rem;
+  }
+
+  .prose .sidenote.is-active,
+  .prose .sidenote:hover {
+    padding-left: 0.75rem;
+  }
+
+  .prose .sidenote::before {
+    top: -1.4rem;
+    left: -4px;
+    transform: none;
+  }
+
+  .prose .sidenote .sidenote-link {
+    font-size: 0.875rem;
+  }
+}
+
+/* -------------------------------------------------------------
+   Inline CTA card — used at section breaks inside a blog post.
+
+   <aside class="cta-card">
+     <span class="cta-eyebrow">Try Beton</span>
+     <p class="cta-body">One-line value prop.</p>
+     <a class="cta-button" href="https://getbeton.ai/?utm_source=blog&amp;utm_content=cta-N">Start a workspace</a>
+   </aside>
+   ------------------------------------------------------------- */
+
+.prose .cta-card {
+  display: block;
+  margin: 2.25rem 0;
+  padding: 1.25rem 1.5rem 1.375rem;
+  border: 2px solid var(--color-border);
+  background: var(--color-primary-bg);
+  box-shadow: var(--shadow-card);
+}
+
+.prose .cta-card .cta-eyebrow {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-primary-700);
+  margin-bottom: 0.5rem;
+}
+
+.prose .cta-card .cta-body {
+  margin: 0 0 0.875rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+.prose .cta-card .cta-button {
+  display: inline-block;
+  padding: 0.625rem 1.125rem;
+  background: var(--color-primary-600);
+  color: white;
+  border: 2px solid var(--color-primary-600);
+  font-weight: 700;
+  font-size: 0.9375rem;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.prose .cta-card .cta-button:hover {
+  background: white;
+  color: var(--color-primary-600);
+  text-decoration: none;
+}
+
+/* -------------------------------------------------------------
+   1-click copy button on code blocks — wired up by
+   /src/scripts/copy-button.ts (loaded in BaseLayout).
+   The script wraps each <pre> in a .code-block-wrap and injects
+   a button. Styles live here so they're scoped via .prose AND
+   any standalone .code-block-wrap on non-prose pages.
+   ------------------------------------------------------------- */
+
+.code-block-wrap {
+  position: relative;
+}
+
+.code-block-wrap > pre {
+  margin: 0;
+}
+
+.code-block-copy {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-neutral-100);
+  background: rgb(255 255 255 / 0.06);
+  border: 1px solid rgb(255 255 255 / 0.18);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+  z-index: 1;
+}
+
+.code-block-copy:hover {
+  background: rgb(255 255 255 / 0.14);
+  color: white;
+}
+
+.code-block-copy[data-state='copied'] {
+  background: var(--color-primary-600);
+  color: white;
+  border-color: var(--color-primary-600);
+}
+
+.code-block-copy svg {
+  width: 0.85rem;
+  height: 0.85rem;
+}
+
+/* The copy-button is meant to overlay the dark <pre> background.
+   If the project ever adds an inline-light code variant, scope
+   .code-block-copy differently. */

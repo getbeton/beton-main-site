@@ -1,0 +1,50 @@
+---
+// Visible breadcrumb nav. The same data is also rendered into JSON-LD
+// (see SchemaOrg.astro `BreadcrumbList`); both surfaces share the same
+// `breadcrumbs` array passed via layout props.
+
+interface Crumb {
+  name: string;
+  url: string;
+}
+
+interface Props {
+  items: Crumb[];
+}
+
+const { items } = Astro.props;
+---
+
+{items.length > 0 && (
+  <nav aria-label="Breadcrumb" class="text-sm">
+    <ol class="flex flex-wrap items-center gap-x-1.5 gap-y-1">
+      {items.map((crumb, i) => {
+        const last = i === items.length - 1;
+        return (
+          <li class="flex items-center gap-1.5 min-w-0">
+            {last ? (
+              <span
+                aria-current="page"
+                class="text-[var(--color-text-secondary)] truncate max-w-[60ch]"
+              >
+                {crumb.name}
+              </span>
+            ) : (
+              <a
+                href={crumb.url}
+                class="text-[var(--color-primary-600)] hover:underline underline-offset-2 truncate"
+              >
+                {crumb.name}
+              </a>
+            )}
+            {!last && (
+              <span aria-hidden="true" class="text-[var(--color-text-tertiary)] select-none">
+                /
+              </span>
+            )}
+          </li>
+        );
+      })}
+    </ol>
+  </nav>
+)}
