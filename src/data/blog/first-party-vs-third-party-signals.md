@@ -6,7 +6,7 @@ author: "Vlad Nadymov"
 tags: ["signals", "revops", "plg", "posthog", "postgres", "attio"]
 featured: true
 draft: false
-coverImage: "/images/blog/first-party-vs-third-party/infographic.png"
+coverImage: "/images/blog/first-party-vs-third-party/slide-1-comparison.png"
 tldr: |
   Third-party signals (web visits, hiring, intent feeds) tell you something happened in the buyer's category. First-party signals (clicks, billing events, API calls) tell you something happened in your product. If you sell to people who use the product before they buy, first-party is the higher-quality system on quality, freshness, and feedback. If you sell to enterprise buying committees on 18-month cycles, third-party still earns its seat. Most teams need one done well, not both done badly.
 
@@ -36,9 +36,13 @@ Third-party signals are what other people's data says about a company. Hiring ac
 
 Vendors selling this layer include 6sense, Demandbase, ZoomInfo, Bombora, G2's buyer-intent product, Apollo's intent feed, and Clearbit (now folded into HubSpot Breeze). Above them sit GTM platforms that combine third-party intent with community, web, and CRM data — Common Room, Unify, Salesmotion, MarketBetter, Warmly.
 
+![Third-party signals — six source types and the vendors selling them](/images/blog/first-party-vs-third-party/slide-3-third-party.png)
+
 First-party signals are what people did inside your product. Clicked the "Invite teammate" button three times. Started a trial and didn't add a card. Sent ten messages through your API in an afternoon. Hit a paywall on a Tuesday at 2 PM.
 
 Vendors building tooling on this layer include Pocus, Correlated, UserMotion, Toplyne, MadKudu, Reo.dev (developer activity specifically), Endgame, and Beton.
+
+![First-party signals — six source categories worth scoring and the vendors building on them](/images/blog/first-party-vs-third-party/slide-2-first-party.png)
 
 The third-party world is downstream of the buyer's decisions about who else's tool to use. The first-party world is the buyer using yours.
 
@@ -47,8 +51,6 @@ We have nothing against third-party data. The vendors above are real businesses 
 If you sell to enterprise marketing teams running 18-month deal cycles and need to know when the buying committee is researching solutions before they ever fill out a form, the third-party category has spent a decade building exactly for that shape of sale. The math is good when the deal shape matches.
 
 The problem starts when companies that don't sell that way buy a third-party tool anyway, then ask the data to behave like first-party data. It won't. The signal-to-noise ratio is wrong for the job.
-
-![Purchase intent signals — first-party vs third-party, the vendors selling each layer, and when to use which](/images/blog/first-party-vs-third-party/slide-1-comparison.png)
 
 ## Where first-party wins, mechanically
 
@@ -80,8 +82,6 @@ The third is feedback. When a third-party signal fires and the deal closes, you 
 When a first-party signal fires and the deal closes, you can ask the database. You know which event the user did, on which page, after how many sessions, and whether the other deals that closed had the same shape.
 
 Your scoring model improves because you can audit it.
-
-![First-party signals — six source categories worth scoring and the vendors building on them](/images/blog/first-party-vs-third-party/slide-2-first-party.png)
 
 ## What first-party signals are not
 
@@ -207,8 +207,6 @@ Most teams cannot answer it because they overwrote yesterday's score with today'
 If you sell to enterprise buyers and need to know when the buying committee is researching, you still need a third-party intent feed.
 
 6sense, Demandbase, ZoomInfo, Bombora, Common Room — pick the one that fits your buying motion and write the rest off. Buy it for that.
-
-![Third-party signals — six source types and the vendors selling them](/images/blog/first-party-vs-third-party/slide-3-third-party.png)
 
 If you sell to people who use a product before they buy — PLG, dev tools, modern SaaS, anything with a free trial — first-party signals are the higher-quality system.
 
