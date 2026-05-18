@@ -2,6 +2,7 @@
 title: "n8n Pricing Teardown"
 description: "n8n charges per workflow execution, not per step. Here's why that matters for complex automations with AI chains and conditional branching."
 publishedAt: "2026-03-25"
+updatedAt: "2026-05-18"
 author: "Vlad Nadymov"
 tags: ["pricing teardown", "open source", "automation"]
 featured: true
@@ -97,3 +98,5 @@ Individual contributors and small teams should begin with Community Edition self
 Migration to cloud Pro (EUR 50/month) makes sense upon requiring parallel executions or workflow history.
 
 One consideration: AI Workflow Builder credits function as a second metering mechanism layered atop executions. Currently limits remain generous enough to avoid impact, yet as agentic workflows dominate usage patterns, this represents the transparent next monetization lever.
+
+_Last verified 2026-05-18._

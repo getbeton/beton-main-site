@@ -2,6 +2,7 @@
 title: "Firecrawl Pricing Teardown"
 description: "Firecrawl has one of the smartest GTM setups in open source. The trick isn't in the pricing page — it's in the licensing."
 publishedAt: "2026-02-18"
+updatedAt: "2026-05-18"
 author: "Vlad Nadymov"
 tags: ["pricing teardown", "open source", "web scraping"]
 featured: true
@@ -125,3 +126,5 @@ For high-volume enrichment (think Clay or Apollo scale), this could get expensiv
 Firecrawl's bet is that freshness beats cheapness. Instead of stale database records, you get real-time data every time.
 
 Whether that tradeoff works depends on your volume and how much you care about data being current vs. data being cheap.
+
+_Last verified 2026-05-18._
