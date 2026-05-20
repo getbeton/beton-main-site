@@ -5,7 +5,8 @@ publishedAt: "2026-04-06"
 author: "Vlad Nadymov"
 tags: ["pricing teardown", "open source", "observability"]
 featured: false
-draft: true
+draft: false
+coverImage: "/images/blog/grafana-pricing-cover.jpeg"
 tldr: |
   Grafana is the observability stack most engineers have already touched — metrics, logs, traces, profiles, k6 load tests, all in one place. ~66k GitHub stars, AGPL on the core, and a cloud business explicitly positioned against Datadog bill shock. The pricing story is five usage meters, a generous free tier on volume but tight on retention, and a steep cliff from Pro to Enterprise.
 
