@@ -10,7 +10,7 @@
   --prose-quotes: var(--color-text-secondary);
   --prose-quote-borders: var(--color-border-strong);
   --prose-captions: var(--color-text-secondary);
-  --prose-code: var(--color-text);
+  --prose-code: oklch(0.52 0.2 25); /* red, reads on light-grey code bg */
   --prose-code-bg: var(--color-neutral-100);
   --prose-pre-bg: var(--color-neutral-900);
   --prose-pre-code: var(--color-neutral-100);
@@ -25,6 +25,7 @@
 
 [data-theme='dark'] .prose {
   --prose-links: var(--color-primary-400);
+  --prose-code: oklch(0.7 0.19 25); /* brighter red, reads on dark-grey code bg */
   --prose-code-bg: var(--color-neutral-800);
   --prose-pre-bg: var(--color-neutral-950);
 }
@@ -32,6 +33,7 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) .prose {
     --prose-links: var(--color-primary-400);
+    --prose-code: oklch(0.7 0.19 25);
     --prose-code-bg: var(--color-neutral-800);
     --prose-pre-bg: var(--color-neutral-950);
   }
@@ -446,34 +448,53 @@
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  padding: 0.3rem 0.6rem;
+  padding: 0.4rem;
   font-family: var(--font-mono);
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--color-neutral-100);
-  background: rgb(255 255 255 / 0.06);
+  background: rgb(20 20 20 / 0.92);
   border: 1px solid rgb(255 255 255 / 0.18);
   cursor: pointer;
-  transition: background 0.15s ease, color 0.15s ease;
+  opacity: 0;
+  transition: opacity 0.15s ease, background 0.15s ease, color 0.15s ease;
   z-index: 1;
 }
 
-.code-block-copy:hover {
-  background: rgb(255 255 255 / 0.14);
+/* Icon-only at rest; the text label only appears on the "copied" confirmation. */
+.code-block-copy span {
+  display: none;
+}
+
+/* Faint hint when the reader hovers anywhere over the code block. */
+.code-block-wrap:hover .code-block-copy {
+  opacity: 0.1;
+}
+
+/* Solid and fully legible on direct hover / keyboard focus / right after copying,
+   so the icon (and label) sit on an opaque chip and code never bleeds through. */
+.code-block-copy:hover,
+.code-block-copy:focus-visible,
+.code-block-copy[data-state='copied'] {
+  opacity: 1;
+  background: rgb(20 20 20 / 0.98);
   color: white;
 }
 
 .code-block-copy[data-state='copied'] {
   background: var(--color-primary-600);
-  color: white;
   border-color: var(--color-primary-600);
 }
 
+.code-block-copy[data-state='copied'] span {
+  display: inline;
+}
+
 .code-block-copy svg {
-  width: 0.85rem;
-  height: 0.85rem;
+  width: 0.95rem;
+  height: 0.95rem;
 }
 
 /* The copy-button is meant to overlay the dark <pre> background.
