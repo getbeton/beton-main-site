@@ -4,7 +4,6 @@ import sitemap from '@astrojs/sitemap';
 import vercel from '@astrojs/vercel';
 import fs from 'node:fs';
 import path from 'node:path';
-import { execFileSync } from 'node:child_process';
 
 // Build blog date map from frontmatter at config load time
 const blogDir = 'src/data/blog';
@@ -77,20 +76,17 @@ function urlToSourceFile(url) {
   return null;
 }
 
-const gitMtimeCache = new Map();
+// Per-source git edit dates, precomputed by scripts/gen-lastmod.mjs and
+// committed as src/data/lastmod.json (repo-relative POSIX path → ISO date).
+// Read here instead of shelling out to `git log` at build time, which only
+// returns accurate dates on a full clone — Vercel does a shallow --depth=10
+// clone, so non-blog pages would otherwise fall back to build time.
+const lastmodMap = fs.existsSync('src/data/lastmod.json')
+  ? JSON.parse(fs.readFileSync('src/data/lastmod.json', 'utf-8'))
+  : {};
+
 function gitMtime(file) {
-  if (gitMtimeCache.has(file)) return gitMtimeCache.get(file);
-  let result = null;
-  try {
-    const out = execFileSync('git', ['log', '-1', '--format=%cI', '--', file], {
-      encoding: 'utf-8',
-    }).trim();
-    if (out) result = out;
-  } catch {
-    // git not available or file untracked — fall through
-  }
-  gitMtimeCache.set(file, result);
-  return result;
+  return lastmodMap[file] ?? null;
 }
 
 export default defineConfig({
