@@ -7,7 +7,9 @@
     "dev": "astro dev",
     "build": "astro build && node scripts/post-build-sitemap.mjs && node scripts/indexnow.mjs",
     "preview": "astro preview",
-    "check": "astro check"
+    "check": "astro check",
+    "lastmod": "node scripts/gen-lastmod.mjs",
+    "prebuild": "node scripts/gen-lastmod.mjs"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.6",
