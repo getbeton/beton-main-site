@@ -12,6 +12,13 @@ const INDEXNOW_KEY = '1301c50ed3d8186d4e6d44152327634c';
 const INDEXNOW_ENDPOINT = 'https://api.indexnow.org/indexnow';
 
 async function submitUrls() {
+  // `--only-prod` (used by the build hook): skip unless this is a Vercel production
+  // build, so preview/branch deploys and local builds don't ping search engines.
+  if (process.argv.includes('--only-prod') && process.env.VERCEL_ENV !== 'production') {
+    console.log(`[IndexNow] --only-prod: VERCEL_ENV=${process.env.VERCEL_ENV || '(unset)'} — skipping.`);
+    return;
+  }
+
   // Read the generated sitemap — Astro 5 + Vercel adapter outputs to dist/client/
   const candidates = [resolve('dist/client/sitemap.xml'), resolve('dist/sitemap.xml')];
   let sitemapXml;
