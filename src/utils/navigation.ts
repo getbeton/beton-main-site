@@ -4,6 +4,7 @@ export interface NavLink {
   label: string;
   href: string;
   external?: boolean;
+  nofollow?: boolean;
 }
 
 export const mainNav: NavLink[] = [
@@ -37,7 +38,7 @@ export const footerNav = {
   resources: [
     { label: 'Pricing teardowns', href: '/blog/teardowns/' },
     { label: 'GitHub', href: SITE.social.github, external: true },
-    { label: 'App', href: SITE.external.app, external: true },
+    { label: 'App', href: SITE.external.app, external: true, nofollow: true },
     { label: 'llms.txt', href: '/llms.txt' },
     { label: 'Sell to Scientists', href: 'https://www.selltoscientists.com', external: true },
     { label: 'Sell to State', href: 'https://www.selltostate.com', external: true },

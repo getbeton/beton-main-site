@@ -19,6 +19,8 @@ const {
 } = Astro.props;
 
 const isGitHubLink = secondaryCta.href.includes('github.com');
+// App / external CTAs are not SEO targets — nofollow so crawlers don't enter the noindex app.
+const primaryRel = /^https?:\/\//.test(primaryCta.href) ? 'nofollow' : undefined;
 ---
 
 <section class="py-10 lg:py-16 bg-[var(--color-primary-600)] border-y-4 border-[var(--color-text)]" data-track-section={trackId}>
@@ -35,6 +37,7 @@ const isGitHubLink = secondaryCta.href.includes('github.com');
       <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
         <a
           href={primaryCta.href}
+          rel={primaryRel}
           class="inline-flex items-center px-6 py-3 text-base font-bold uppercase tracking-wider bg-white text-[var(--color-primary-700)] border-2 border-white hover:bg-[var(--color-primary-700)] hover:text-white transition-all duration-150"
           data-track-cta={`${trackId}-primary`}
         >

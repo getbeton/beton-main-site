@@ -14,10 +14,16 @@ const {
   size = 'md',
   fullWidth = false,
   class: className,
+  rel,
   ...rest
 } = Astro.props;
 
 const Tag = href ? 'a' : 'button';
+
+// External links (app subdomain, demo booking, etc.) are CTAs, not SEO targets —
+// nofollow them so crawlers don't follow into the noindex app. Internal links stay followed.
+const isExternal = typeof href === 'string' && /^https?:\/\//.test(href);
+const relAttr = rel ?? (isExternal ? 'nofollow' : undefined);
 
 const baseClasses =
   'inline-flex items-center justify-center font-bold border-2 uppercase tracking-wider transition-all duration-150 touch-action-manipulation focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-primary-500)] active:translate-x-0 active:translate-y-0 active:shadow-none';
@@ -40,6 +46,7 @@ const sizeClasses = {
 
 <Tag
   href={href}
+  rel={relAttr}
   class:list={[
     baseClasses,
     variantClasses[variant],

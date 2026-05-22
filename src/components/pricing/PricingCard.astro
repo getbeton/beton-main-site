@@ -47,7 +47,7 @@ const { tier } = Astro.props;
   <a
     href={tier.cta.href}
     target={tier.cta.href.startsWith('http') ? '_blank' : undefined}
-    rel={tier.cta.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+    rel={tier.cta.href.includes('inspector.getbeton.ai') ? 'noopener noreferrer nofollow' : (tier.cta.href.startsWith('http') ? 'noopener noreferrer' : undefined)}
     class:list={[
       'block w-full text-center px-4 py-2.5 font-bold uppercase tracking-wider border-2 mb-6',
       tier.highlighted
