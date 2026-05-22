@@ -109,7 +109,7 @@ const latestPosts = (await getCollection('blog', ({ data }) => !data.draft))
               <a
                 href={link.href}
                 target={link.external ? '_blank' : undefined}
-                rel={link.external ? 'noopener noreferrer' : undefined}
+                rel={link.external ? (link.nofollow ? 'noopener noreferrer nofollow' : 'noopener noreferrer') : undefined}
                 class="text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text)]"
               >
                 {link.label}

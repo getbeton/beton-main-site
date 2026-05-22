@@ -157,7 +157,7 @@ different verticals, but the underlying ask is the same: a company has behaviora
 you're an hour away from new retention drivers – just sign up, set up your account and wait for the agent to go through your data.
 
 <div style="margin:32px 0;text-align:center">
-  <a href="https://inspector.getbeton.ai" style="display:inline-block;padding:14px 28px;border:2px solid #111;background:#2563eb;color:#ffffff;font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:0.05em;text-decoration:none;">try Beton free →</a>
+  <a href="https://inspector.getbeton.ai" rel="nofollow" style="display:inline-block;padding:14px 28px;border:2px solid #111;background:#2563eb;color:#ffffff;font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:0.05em;text-decoration:none;">try Beton free →</a>
 </div>
 
 ## ask
