@@ -14,14 +14,22 @@ export const GET: APIRoute = async ({ url }) => {
   const email = url.searchParams.get('e') || 'anonymous';
 
   // Validate target URL
+  let parsed: URL;
   try {
-    const parsed = new URL(target);
+    parsed = new URL(target);
     if (!ALLOWED_HOSTS.some(h => parsed.hostname === h || parsed.hostname.endsWith(`.${h}`))) {
       return Response.redirect('https://www.getbeton.ai', 302);
     }
   } catch {
     return Response.redirect('https://www.getbeton.ai', 302);
   }
+
+  // Force canonical newsletter UTMs so PostHog classifies the visit as Email
+  // ($channel_type=Email requires utm_medium=email). The link label becomes utm_content.
+  parsed.searchParams.set('utm_source', 'newsletter');
+  parsed.searchParams.set('utm_medium', 'email');
+  parsed.searchParams.set('utm_campaign', campaign);
+  if (label && label !== 'unknown') parsed.searchParams.set('utm_content', label);
 
   await fetch(`${POSTHOG_HOST}/capture/`, {
     method: 'POST',
@@ -41,5 +49,5 @@ export const GET: APIRoute = async ({ url }) => {
     }),
   }).catch(() => {});
 
-  return Response.redirect(target, 302);
+  return Response.redirect(parsed.toString(), 302);
 };
