@@ -26,6 +26,7 @@ export const footerNav = {
     { label: 'Team', href: '/team/' },
     { label: 'Blog', href: '/blog/' },
     { label: 'Pricing teardowns', href: '/blog/teardowns/' },
+    { label: 'Crunchbase', href: SITE.social.crunchbase, external: true },
   ] as NavLink[],
   tools: [
     { label: 'All OSS tools', href: '/oss-tools/' },
@@ -36,7 +37,8 @@ export const footerNav = {
   ] as NavLink[],
   resources: [
     { label: 'Pricing teardowns', href: '/blog/teardowns/' },
-    { label: 'GitHub', href: SITE.social.github, external: true },
+    { label: 'Inspector (GitHub)', href: SITE.repos.inspector, external: true },
+    { label: 'ML backend (GitHub)', href: SITE.repos.mlBackend, external: true },
     { label: 'App', href: SITE.external.app, external: true },
     { label: 'llms.txt', href: '/llms.txt' },
     { label: 'Sell to Scientists', href: 'https://www.selltoscientists.com', external: true },
