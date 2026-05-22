@@ -10,6 +10,11 @@ export const SITE = {
     github: 'https://github.com/getbeton/inspector',
     linkedin: 'https://linkedin.com/company/getbeton',
     twitter: 'https://x.com/getbeton',
+    crunchbase: 'https://www.crunchbase.com/organization/beton-a436',
+  },
+  repos: {
+    inspector: 'https://github.com/getbeton/inspector',
+    mlBackend: 'https://github.com/getbeton/inspector-ml-backend',
   },
   external: {
     blog: '/blog/',
