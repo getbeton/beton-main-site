@@ -2,6 +2,7 @@
 title: "Plane Pricing Teardown"
 description: "Plane is an open-source Jira/Linear alternative you can self-host. Integrations are positioned as a deliberate growth lever — here's how the pricing works."
 publishedAt: "2026-02-28"
+updatedAt: "2026-05-25"
 author: "Vlad Nadymov"
 tags: ["pricing teardown", "open source", "project management"]
 featured: false
@@ -78,3 +79,5 @@ A 10-person Pro team costs $720 annually versus $1,200 on Linear — 40% savings
 The upgrade trigger occurs when integration needs emerge, custom fields become necessary, or team size exceeds 12 users. For a 20-person team, $1,440 annually provides integrations, epics, dashboards, and time tracking — less expensive than engineering effort to build workarounds.
 
 **Strategic positioning**: While the free tier remains legitimately functional, treating integrations as a premium feature represents deliberate growth leverage, compelling expansion once external workflow connections become essential.
+
+_Last verified 2026-05-25._

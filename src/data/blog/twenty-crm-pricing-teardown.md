@@ -2,6 +2,7 @@
 title: "Twenty CRM Pricing Teardown"
 description: "Twenty CRM at $9/user/month exposes how much of Salesforce and HubSpot pricing is brand tax."
 publishedAt: "2026-04-06"
+updatedAt: "2026-05-25"
 author: "Vlad Nadymov"
 tags: ["pricing teardown", "open source", "CRM"]
 featured: false
@@ -83,3 +84,5 @@ At $9/user/month, this is one of the better deals in B2B software. If your team 
 This post is a part of series on commercial open source software pricing. See full list of articles [here](/blog/).
 
 *I build [Beton](https://getbeton.ai?utm_source=learninglate&utm_campaign=twenty-crm_teardown&utm_medium=substack) — open source revenue intelligence for B2B SaaS.*
+
+_Last verified 2026-05-25._
