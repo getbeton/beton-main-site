@@ -91,7 +91,7 @@ function resolveSlug(target) {
 const SLUG = resolveSlug(TARGET);
 const CAMPAIGN = CAMPAIGN_OVERRIDE || SLUG;
 const BLOG_URL = `${SITE}/blog/${SLUG}/`;
-const UTM = `utm_source=substack&utm_medium=email&utm_campaign=${CAMPAIGN}`;
+const UTM = `utm_source=newsletter&utm_medium=email&utm_campaign=${CAMPAIGN}`;
 const TRACKER_BASE = `${SITE}/api/track`;
 
 const FROM = 'Vlad from Beton <newsletter@getbeton.ai>';
@@ -183,6 +183,8 @@ function renderBody(bodyMd, email) {
     '<div style="border-left:3px solid #2563eb;background:#f8f9fa;padding:12px 16px;margin:22px 0;font-size:14px;color:#555;line-height:1.6">');
   html = html.replace(/<\/aside>/g, '</div>');
   html = html.replace(/<sup class="sidenote-ref"[^>]*>/g, '<sup style="color:#2563eb;font-weight:700">');
+  // Email clients can't resolve root-relative links — make them absolute first.
+  html = html.replace(/href="\/([^"]*)"/g, `href="${SITE}/$1"`);
   html = html.replace(/<a\s+([^>]*?)href="(https?:\/\/[^"]+)"([^>]*)>/g,
     (_m, before, url, after) =>
       `<a ${before}href="${clickUrl(url, 'body-link', email)}"${after} style="color:#2563eb;text-decoration:underline">`);
@@ -216,9 +218,11 @@ function buildHtml(article, email) {
   // (Vlad's layout); otherwise fall back to the top, under the title.
   let bodyHtml = renderBody(body, email);
   const tldrHtml = renderTldr(fm.tldr, email);
+  // Place the TL;DR after the intro and right before the first section, so the
+  // email opens with the intro text. Fall back to the top if there's no <h2>.
   let topTldr = '';
-  if (tldrHtml && bodyHtml.includes('data-email-signup')) {
-    bodyHtml = bodyHtml.replace('<div data-email-signup', `${tldrHtml}<div data-email-signup`);
+  if (tldrHtml && /<h2/.test(bodyHtml)) {
+    bodyHtml = bodyHtml.replace(/<h2/, `${tldrHtml}<h2`);
   } else {
     topTldr = tldrHtml;
   }
@@ -227,7 +231,8 @@ function buildHtml(article, email) {
 <body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:16px;line-height:1.7;color:#1a1a1a;max-width:600px;margin:0 auto;padding:20px;text-align:left">
 ${hero}
 <h1 style="font-size:26px;font-weight:700;line-height:1.25;margin:0 0 22px;color:#111">${fm.title}</h1>
-<p style="margin:0 0 16px">Hi, it's Vlad, founder of Beton,</p>
+<p style="margin:0 0 8px">Hi, it's Vlad, founder of Beton,</p>
+<p style="margin:0 0 16px;font-size:14px;color:#555">Links to all 20 teardowns are at the bottom of this email.</p>
 ${topTldr}
 ${bodyHtml}
 ${renderFaq(fm.faq, email)}
