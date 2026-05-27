@@ -5,6 +5,8 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
+    "lastmod": "node scripts/gen-lastmod.mjs",
+    "prebuild": "node scripts/gen-lastmod.mjs",
     "build": "astro build && node scripts/post-build-sitemap.mjs && node scripts/indexnow.mjs --only-prod",
     "preview": "astro preview",
     "check": "astro check",
