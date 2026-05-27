@@ -10,6 +10,17 @@ import { SITE } from '../../utils/site';
 const posts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => new Date(b.data.publishedAt).getTime() - new Date(a.data.publishedAt).getTime());
 
+const featured = posts.filter((p) => p.data.featured);
+const rest = featured.length ? posts.filter((p) => !p.data.featured) : posts;
+
+// Tag chips → /blog/tags/<slug>/ (pages also combine with "+", e.g. open-source+pricing-teardown)
+const tagSlug = (t) => t.toLowerCase().trim().replace(/\s+/g, '-');
+const tagCounts = new Map();
+for (const p of posts) for (const t of (p.data.tags || [])) tagCounts.set(t, (tagCounts.get(t) || 0) + 1);
+const tags = [...tagCounts.entries()]
+  .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+  .map(([name, count]) => ({ name, count, slug: tagSlug(name) }));
+
 const breadcrumbs = [
   { name: 'Home', url: SITE.url },
   { name: 'Blog', url: `${SITE.url}/blog/` },
@@ -49,21 +60,62 @@ const itemList = {
         </div>
       </div>
 
-      {posts.length > 0 ? (
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {posts.map((post) => (
-            <BlogPostCard post={{
-              id: post.id,
-              title: post.data.title,
-              link: `/blog/${post.id}/`,
-              pubDate: post.data.publishedAt,
-              description: post.data.description,
-              thumbnail: post.data.coverImage,
-              author: post.data.author,
-              tags: post.data.tags,
-            }} />
-          ))}
+      {featured.length > 0 && (
+        <div class="mb-12">
+          <h2 class="text-sm font-bold uppercase tracking-[0.18em] text-[var(--color-text-tertiary)] mb-5">Featured</h2>
+          <div class="grid md:grid-cols-2 gap-6">
+            {featured.map((post) => (
+              <BlogPostCard post={{
+                id: post.id,
+                title: post.data.title,
+                link: `/blog/${post.id}/`,
+                pubDate: post.data.publishedAt,
+                description: post.data.description,
+                thumbnail: post.data.coverImage,
+                author: post.data.author,
+                tags: post.data.tags,
+              }} />
+            ))}
+          </div>
         </div>
+      )}
+
+      {tags.length > 0 && (
+        <div class="mb-12 border-t-2 border-b-2 border-[var(--color-border)] py-6">
+          <div class="flex flex-wrap items-baseline gap-x-3 gap-y-2 mb-3">
+            <h2 class="text-sm font-bold uppercase tracking-[0.18em] text-[var(--color-text-tertiary)]">Browse by topic</h2>
+            <span class="text-xs text-[var(--color-text-tertiary)]">combine tags in the URL with <code class="text-[var(--color-primary-600)]">+</code> — e.g. <a href="/blog/tags/open-source+pricing-teardown/" class="text-[var(--color-primary-600)] hover:underline">open-source+pricing-teardown</a></span>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            {tags.map((t) => (
+              <a href={`/blog/tags/${t.slug}/`} class="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium tracking-wide uppercase border-2 border-[var(--color-border)] bg-[var(--color-surface-raised)] hover:bg-[var(--color-surface)] hover:border-[var(--color-primary-600)] transition-colors">
+                {t.name}<span class="text-[var(--color-text-tertiary)]">{t.count}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {rest.length > 0 ? (
+        <>
+          {featured.length > 0 && (
+            <h2 class="text-sm font-bold uppercase tracking-[0.18em] text-[var(--color-text-tertiary)] mb-5">All posts</h2>
+          )}
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {rest.map((post) => (
+              <BlogPostCard post={{
+                id: post.id,
+                title: post.data.title,
+                link: `/blog/${post.id}/`,
+                pubDate: post.data.publishedAt,
+                description: post.data.description,
+                thumbnail: post.data.coverImage,
+                author: post.data.author,
+                tags: post.data.tags,
+              }} />
+            ))}
+          </div>
+        </>
       ) : (
         <p class="text-center text-[var(--color-text-tertiary)]">No posts yet. Check back soon.</p>
       )}
