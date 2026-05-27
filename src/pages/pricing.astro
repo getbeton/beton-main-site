@@ -48,6 +48,42 @@ const breadcrumbs = [
     </Container>
   </Section>
 
+  <!-- How pricing works — unique explainer (readers + indexable text) -->
+  <Section id="how-pricing-works" class="border-t border-[var(--color-border)]">
+    <Container>
+      <div class="max-w-3xl mx-auto">
+        <Heading as="h2">How the pricing works</Heading>
+        <div class="mt-6 space-y-4 text-[var(--color-text-secondary)] leading-relaxed">
+          <p>
+            You pay per tracked user, not per seat. A tracked user is one unique email in
+            your PostHog instance that Beton watches for signals. Add ten salespeople and the
+            bill doesn't move — it tracks your product's user base, not your headcount.
+          </p>
+          <p>
+            Self-hosted is free. It's AGPLv3: clone the repo, bring your own LLM key, run it on
+            your own infrastructure. No tracked-user cap, no card. What you trade is the work of
+            running it yourself.
+          </p>
+          <p>
+            Cloud is $0.50 per tracked user per month. We run the agent, ship the upgrades, and
+            manage the LLM key. Connect PostHog and a CRM, and scored accounts start landing in
+            seconds. Free trial, no card.
+          </p>
+          <p>
+            Beton reads your PostHog events and routes signals to your CRM — it doesn't store a
+            second copy of your product data. The bill grows with the users you track, not with a
+            warehouse you have to feed.
+          </p>
+          <p>
+            Self-host when you want full control or an air-gapped deployment. Pick cloud when
+            you'd rather skip the ops and have it running in minutes. Enterprise add-ons — RBAC,
+            air-gapped deployment, white-glove onboarding — sit on top of either.
+          </p>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
   <!-- Feature Comparison -->
   <Section id="compare" class="border-t border-[var(--color-border)]">
     <Container>

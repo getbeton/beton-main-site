@@ -36,6 +36,7 @@ export const footerNav = {
     { label: 'seqd', href: '/oss-tools/seqd/' },
   ] as NavLink[],
   resources: [
+    { label: 'Alternatives', href: '/alternatives/' },
     { label: 'Pricing teardowns', href: '/blog/teardowns/' },
     { label: 'GitHub', href: SITE.social.github, external: true },
     { label: 'App', href: SITE.external.app, external: true, nofollow: true },

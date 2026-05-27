@@ -45,6 +45,29 @@ const personData = members.map((m) => ({
           <TeamCard member={member} />
         ))}
       </div>
+
+      <!-- Why we build it — unique founder-voice prose (readers + indexable text) -->
+      <div class="max-w-3xl mx-auto mt-16 border-t border-[var(--color-border)] pt-12">
+        <Heading as="h2">Why we're building Beton</Heading>
+        <div class="mt-6 space-y-4 text-[var(--color-text-secondary)] leading-relaxed">
+          <p>
+            We kept watching product-led companies sit on PostHog data that never reached their
+            sales team. The buying signal was right there in the events — a user hit the paywall,
+            added a fifth seat, ran the API hard — and nobody saw it until the deal had already
+            gone cold.
+          </p>
+          <p>
+            So we built the open-source version of the pipeline most teams try to assemble
+            in-house: read the product data, score the accounts, route the signal to the CRM. It's
+            AGPLv3 — self-host it for free with your own LLM key, or run it on our cloud and skip
+            the ops.
+          </p>
+          <p>
+            Small team, named humans, public code. If you'd rather read how it works before you
+            trust it, the source is on <a href="https://github.com/getbeton" class="underline">GitHub</a>.
+          </p>
+        </div>
+      </div>
     </Container>
   </Section>
 
