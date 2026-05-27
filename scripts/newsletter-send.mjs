@@ -188,6 +188,9 @@ function renderBody(bodyMd, email) {
   html = html.replace(/<a\s+([^>]*?)href="(https?:\/\/[^"]+)"([^>]*)>/g,
     (_m, before, url, after) =>
       `<a ${before}href="${clickUrl(url, 'body-link', email)}"${after} style="color:#2563eb;text-decoration:underline">`);
+  // Email-only: append the "links at the bottom" sentence to the intro paragraph.
+  html = html.replace(/(public on GitHub<\/a>\.)<\/p>/,
+    '$1 Links to all 20 teardowns are at the bottom of this email.</p>');
   return html;
 }
 
@@ -231,8 +234,7 @@ function buildHtml(article, email) {
 <body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:16px;line-height:1.7;color:#1a1a1a;max-width:600px;margin:0 auto;padding:20px;text-align:left">
 ${hero}
 <h1 style="font-size:26px;font-weight:700;line-height:1.25;margin:0 0 22px;color:#111">${fm.title}</h1>
-<p style="margin:0 0 8px">Hi, it's Vlad, founder of Beton,</p>
-<p style="margin:0 0 16px;font-size:14px;color:#555">Links to all 20 teardowns are at the bottom of this email.</p>
+<p style="margin:0 0 16px">Hi, it's Vlad, founder of Beton,</p>
 ${topTldr}
 ${bodyHtml}
 ${renderFaq(fm.faq, email)}
