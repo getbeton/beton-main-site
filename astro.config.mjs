@@ -4,7 +4,6 @@ import sitemap from '@astrojs/sitemap';
 import vercel from '@astrojs/vercel';
 import fs from 'node:fs';
 import path from 'node:path';
-import { execFileSync } from 'node:child_process';
 
 // Build blog date map from frontmatter at config load time
 const blogDir = 'src/data/blog';
@@ -77,21 +76,16 @@ function urlToSourceFile(url) {
   return null;
 }
 
-const gitMtimeCache = new Map();
-function gitMtime(file) {
-  if (gitMtimeCache.has(file)) return gitMtimeCache.get(file);
-  let result = null;
-  try {
-    const out = execFileSync('git', ['log', '-1', '--format=%cI', '--', file], {
-      encoding: 'utf-8',
-    }).trim();
-    if (out) result = out;
-  } catch {
-    // git not available or file untracked — fall through
-  }
-  gitMtimeCache.set(file, result);
-  return result;
-}
+// Per-source git edit dates, precomputed by scripts/gen-lastmod.mjs into
+// src/data/lastmod.json and committed. Read here instead of shelling out to
+// `git log` per URL at build time — that spawned ~one git process per sitemap
+// entry (slow) AND returned nothing on Vercel's shallow clone, so lastmod fell
+// back to build time (a fake freshness signal). The committed manifest is fast
+// and accurate on a shallow clone. Refresh with `npm run lastmod`.
+const lastmodPath = 'src/data/lastmod.json';
+const lastmodMap = fs.existsSync(lastmodPath)
+  ? JSON.parse(fs.readFileSync(lastmodPath, 'utf-8'))
+  : {};
 
 export default defineConfig({
   site: 'https://www.getbeton.ai',
@@ -119,7 +113,7 @@ export default defineConfig({
         }
 
         const source = urlToSourceFile(item.url);
-        const mtime = source && gitMtime(source);
+        const mtime = source && lastmodMap[source];
         if (mtime) {
           item.lastmod = mtime;
         } else {
