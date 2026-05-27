@@ -37,6 +37,7 @@ export const footerNav = {
   ] as NavLink[],
   resources: [
     { label: 'Alternatives', href: '/alternatives/' },
+    { label: 'Beton for AI agents', href: '/for/' },
     { label: 'Pricing teardowns', href: '/blog/teardowns/' },
     { label: 'GitHub', href: SITE.social.github, external: true },
     { label: 'App', href: SITE.external.app, external: true, nofollow: true },
