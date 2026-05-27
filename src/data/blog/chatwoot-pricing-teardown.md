@@ -121,4 +121,4 @@ Chatwoot bills per agent. The Startups tier ($19/agent) scales cheaply, but SSO/
 
 This post is a part of series on commercial open source software pricing. See full list of articles [here](/blog/teardowns/).
 
-*I build [Beton](https://getbeton.ai?utm_source=learninglate&utm_campaign=chatwoot_teardown&utm_medium=substack) — open source revenue intelligence for B2B SaaS.*
+*I build [Beton](https://getbeton.ai) — open source revenue intelligence for B2B SaaS.*

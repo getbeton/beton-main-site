@@ -16,10 +16,12 @@ tldr: |
   - SSO, RBAC, audit logs, and SLAs gate the top tier almost everywhere, from $9/seat (Twenty) to $25k/year (Grafana)
   - Strong copyleft (AGPL-3.0) is now nearly as common as MIT; usage-based pricing rivals per-seat
 faq:
-  - question: "What is this based on?"
-    answer: "Twenty pricing teardowns we published in 2026, each verified against the vendor's live page, plus 2023 figures pulled from Wayback Machine snapshots of the same vendors' pricing pages."
+  - question: "What is a pricing teardown?"
+    answer: "A plain-language breakdown of a commercial open-source product's pricing: every plan tier with real numbers, the license analysis (what the open-source version actually lets you do), and a verdict on whether the paid tier is worth it. This series applies the same lens to every tool we cover."
+  - question: "What is this article based on?"
+    answer: "The pricing teardowns in this series — each verified against the vendor's live pricing page — plus 2023 figures pulled from Wayback Machine snapshots of those same pages."
   - question: "How are the 2023 numbers verified?"
-    answer: "Each 2023 figure is quoted from an archived snapshot of the vendor's own pricing page from 2023 — not from memory. Eight of the twenty tools have a 2023 baseline; the rest are new to this volume."
+    answer: "Each 2023 figure is quoted from an archived snapshot of the vendor's own pricing page from 2023 — not from memory. Tools that existed in 2023 have a baseline; newer ones are flagged as new to this volume rather than guessed."
   - question: "What changed most since 2023?"
     answer: "Usage-based metering spread beyond databases, AI credits became a standard line item, per-unit prices fell where metering matured, and SSO/compliance features drifted into higher, pricier tiers."
   - question: "What is the SSO tax?"

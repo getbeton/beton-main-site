@@ -103,4 +103,4 @@ Novu's Free tier covers 10k runs; Pro ($30) is mostly a retention unlock, and Te
 
 This post is a part of series on commercial open source software pricing. See full list of articles [here](/blog/teardowns/).
 
-*I build [Beton](https://getbeton.ai?utm_source=learninglate&utm_campaign=novu_teardown&utm_medium=substack) — open source revenue intelligence for B2B SaaS.*
+*I build [Beton](https://getbeton.ai) — open source revenue intelligence for B2B SaaS.*

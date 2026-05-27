@@ -117,7 +117,7 @@ The math turns harder at scale. PostHog's calculator puts 51M identified events/
 
 The add-on cliff is real. SSO or an SLA jumps you from $0 to $250–$2,000/month. The pricing page doesn't enumerate the feature boundaries, so you can't tell when you'd need Scale vs. Boost without a sales call.
 
-Beton integrates with PostHog directly — [PostHog → Beton](https://getbeton.ai/integrations/posthog?utm_source=learninglate&utm_campaign=posthog_teardown&utm_medium=blog) turns product events into PQL signals.
+Beton integrates with PostHog directly — [PostHog → Beton](https://getbeton.ai/integrations/posthog) turns product events into PQL signals.
 
 ---
 
@@ -133,4 +133,4 @@ PostHog meters identified events, and the marginal rate drops ~200× as volume c
 
 This post is a part of series on commercial open source software pricing. See full list of articles [here](/blog/teardowns/).
 
-*I build [Beton](https://getbeton.ai?utm_source=learninglate&utm_campaign=posthog_teardown&utm_medium=substack) — open source revenue intelligence for B2B SaaS.*
+*I build [Beton](https://getbeton.ai) — open source revenue intelligence for B2B SaaS.*

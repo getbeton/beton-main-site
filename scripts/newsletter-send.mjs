@@ -35,6 +35,7 @@ import { readFileSync, writeFileSync, existsSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { micromark } from 'micromark';
+import { gfm, gfmHtml } from 'micromark-extension-gfm';
 import yaml from 'js-yaml';
 import { makeNewsletterDb } from './lib/newsletter-db.mjs';
 
@@ -134,7 +135,22 @@ async function loadArticle() {
 
 // ── Markdown body -> email-safe HTML ──────────────────────────────
 function renderBody(bodyMd, email) {
-  let html = micromark(bodyMd, { allowDangerousHtml: true });
+  let html = micromark(bodyMd, {
+    allowDangerousHtml: true,
+    extensions: [gfm()],
+    htmlExtensions: [gfmHtml()],
+  });
+  // In email the inline signup form is dead (no JS) and redundant (recipients
+  // are already subscribed) — swap it for a "read on the blog" CTA. The TL;DR
+  // is injected right before it (see buildHtml).
+  html = html.replace(
+    /<div class="not-prose"[\s\S]*?data-inline-subscribe[\s\S]*?data-sub-err[\s\S]*?<\/p>\s*<\/div>/g,
+    `<div data-email-signup style="margin:28px 0;padding:20px 22px;border:2px solid #111;background:#f8f9fa">
+      <div style="font-size:17px;font-weight:700;color:#111;margin:0 0 6px">Get every pricing teardown in your inbox</div>
+      <div style="font-size:14px;color:#555;margin:0 0 14px">You're already on the list — forward this to someone who builds with open source.</div>
+      <a href="${clickUrl(BLOG_URL, 'inline-cta', email)}" style="display:inline-block;background:#2563eb;color:#fff;padding:10px 20px;text-decoration:none;border-radius:4px;font-weight:700;font-size:14px">Read the full research →</a>
+    </div>`
+  );
   // Charts ship as inline SVG on the web (email clients strip SVG); swap each
   // tagged <figure data-email-img="..."> for a hosted PNG + its caption.
   html = html.replace(
@@ -161,6 +177,12 @@ function renderBody(bodyMd, email) {
   html = html.replace(/<ul>/g, '<ul style="margin:0 0 16px;padding-left:22px">');
   html = html.replace(/<ol>/g, '<ol style="margin:0 0 16px;padding-left:22px">');
   html = html.replace(/<li>/g, '<li style="margin:0 0 7px">');
+  // GFM tables — style for email (no external CSS).
+  html = html.replace(/<table>/g, '<table role="presentation" style="width:100%;border-collapse:collapse;margin:18px 0;font-size:13px;line-height:1.45">');
+  html = html.replace(/<th>/g, '<th style="text-align:left;border:1px solid #e2e2e2;padding:7px 9px;background:#f4f6fb;font-weight:700;color:#111">');
+  html = html.replace(/<th align="(left|right|center)">/g, '<th style="text-align:$1;border:1px solid #e2e2e2;padding:7px 9px;background:#f4f6fb;font-weight:700;color:#111">');
+  html = html.replace(/<td>/g, '<td style="border:1px solid #e2e2e2;padding:7px 9px;color:#333;vertical-align:top">');
+  html = html.replace(/<td align="(left|right|center)">/g, '<td style="text-align:$1;border:1px solid #e2e2e2;padding:7px 9px;color:#333;vertical-align:top">');
   html = html.replace(/<aside class="sidenote"[^>]*>/g,
     '<div style="border-left:3px solid #2563eb;background:#f8f9fa;padding:12px 16px;margin:22px 0;font-size:14px;color:#555;line-height:1.6">');
   html = html.replace(/<\/aside>/g, '</div>');
@@ -194,14 +216,24 @@ function buildHtml(article, email) {
   const hero = heroSrc
     ? `<a href="${clickUrl(BLOG_URL, 'hero-image', email)}"><img src="${heroSrc}" alt="${fm.title}" style="width:100%;max-width:600px;height:auto;border-radius:8px;margin-bottom:14px" /></a>`
     : '';
+  // Render body, then place the TL;DR right above the signup block if present
+  // (Vlad's layout); otherwise fall back to the top, under the title.
+  let bodyHtml = renderBody(body, email);
+  const tldrHtml = renderTldr(fm.tldr, email);
+  let topTldr = '';
+  if (tldrHtml && bodyHtml.includes('data-email-signup')) {
+    bodyHtml = bodyHtml.replace('<div data-email-signup', `${tldrHtml}<div data-email-signup`);
+  } else {
+    topTldr = tldrHtml;
+  }
   return `<!DOCTYPE html>
 <html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
 <body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:16px;line-height:1.7;color:#1a1a1a;max-width:600px;margin:0 auto;padding:20px;text-align:left">
 ${hero}
 <p style="font-size:12px;color:#888;margin:0 0 18px">got this forwarded? ${link(`${SITE}/blog`, 'forward-subscribe', 'subscribe here')}</p>
 <h1 style="font-size:26px;font-weight:700;line-height:1.25;margin:0 0 22px;color:#111">${fm.title}</h1>
-${renderTldr(fm.tldr, email)}
-${renderBody(body, email)}
+${topTldr}
+${bodyHtml}
 <div style="margin:34px 0 8px;line-height:1.2">
   <a href="${clickUrl(BLOG_URL, 'cta-blog', email)}" style="display:inline-block;background:#2563eb;color:#ffffff;padding:12px 24px;text-decoration:none;border-radius:4px;font-weight:bold;font-size:14px">read it on the blog</a>
 </div>
