@@ -221,13 +221,17 @@ function buildHtml(article, email) {
   // (Vlad's layout); otherwise fall back to the top, under the title.
   let bodyHtml = renderBody(body, email);
   const tldrHtml = renderTldr(fm.tldr, email);
-  // Place the TL;DR after the intro and right before the first section, so the
-  // email opens with the intro text. Fall back to the top if there's no <h2>.
-  let topTldr = '';
+  const ctaButtons = `<div style="margin:20px 0 28px;line-height:1.3">
+  <a href="${clickUrl(BLOG_URL, 'cta-blog', email)}" style="display:inline-block;background:#2563eb;color:#ffffff;padding:12px 24px;text-decoration:none;border-radius:4px;font-weight:bold;font-size:14px;margin:0 10px 10px 0">Read on the blog →</a>
+  <a href="${clickUrl('https://github.com/getbeton/oss-pricing-data', 'cta-github', email)}" style="display:inline-block;background:#111;color:#ffffff;padding:12px 24px;text-decoration:none;border-radius:4px;font-weight:bold;font-size:14px;margin:0 10px 10px 0">See data on GitHub</a>
+</div>`;
+  // Place the TL;DR (with the CTA buttons right below it) after the intro and
+  // before the first section. Fall back to the top if there's no <h2>.
+  let topBlock = '';
   if (tldrHtml && /<h2/.test(bodyHtml)) {
-    bodyHtml = bodyHtml.replace(/<h2/, `${tldrHtml}<h2`);
+    bodyHtml = bodyHtml.replace(/<h2/, `${tldrHtml}${ctaButtons}<h2`);
   } else {
-    topTldr = tldrHtml;
+    topBlock = tldrHtml + ctaButtons;
   }
   return `<!DOCTYPE html>
 <html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
@@ -235,14 +239,10 @@ function buildHtml(article, email) {
 ${hero}
 <h1 style="font-size:26px;font-weight:700;line-height:1.25;margin:0 0 22px;color:#111">${fm.title}</h1>
 <p style="margin:0 0 16px">Hi, it's Vlad, founder of Beton,</p>
-${topTldr}
+${topBlock}
 ${bodyHtml}
 ${renderFaq(fm.faq, email)}
-<div style="margin:34px 0 10px;line-height:1.3">
-  <a href="${clickUrl(BLOG_URL, 'cta-blog', email)}" style="display:inline-block;background:#2563eb;color:#ffffff;padding:12px 24px;text-decoration:none;border-radius:4px;font-weight:bold;font-size:14px;margin:0 10px 10px 0">Read on the blog →</a>
-  <a href="${clickUrl('https://github.com/getbeton/oss-pricing-data', 'cta-github', email)}" style="display:inline-block;background:#111;color:#ffffff;padding:12px 24px;text-decoration:none;border-radius:4px;font-weight:bold;font-size:14px;margin:0 10px 10px 0">See data on GitHub</a>
-</div>
-<p style="margin:18px 0 0">– Vlad</p>
+<p style="margin:30px 0 0">– Vlad</p>
 <p style="font-size:12px;color:#888;margin:24px 0 0">got this forwarded? ${link(`${SITE}/blog`, 'forward-subscribe', 'subscribe here')}</p>
 <p style="border-top:1px solid #e5e5e5;padding-top:16px;margin-top:36px;color:#666;font-size:13px">
 ${link(`${SITE}/blog`, 'subscribe', 'subscribe')} for articles on sales and revenue tooling
