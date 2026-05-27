@@ -664,36 +664,6 @@
       "source": "/integrations/zoominfo-integration",
       "destination": "/integrations/",
       "permanent": true
-    },
-    {
-      "source": "/for",
-      "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/for/",
-      "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/for/:slug",
-      "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/for/:slug/",
-      "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/compare/:slug",
-      "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/compare/:slug/",
-      "destination": "/",
-      "permanent": true
     }
   ]
 }
