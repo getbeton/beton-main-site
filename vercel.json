@@ -686,42 +686,12 @@
       "permanent": true
     },
     {
-      "source": "/alternatives",
-      "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/alternatives/",
-      "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/alternatives/:slug",
-      "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/alternatives/:slug/",
-      "destination": "/",
-      "permanent": true
-    },
-    {
       "source": "/compare/:slug",
       "destination": "/",
       "permanent": true
     },
     {
       "source": "/compare/:slug/",
-      "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/vs/:slug",
-      "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/vs/:slug/",
       "destination": "/",
       "permanent": true
     }
