@@ -1,5 +1,5 @@
 ---
-title: "Dify Pricing Teardown"
+title: "Dify Pricing Teardown 2026"
 description: "Dify has 139k GitHub stars and a modified Apache 2.0 license that quietly bans multi-tenant use. Here's how the cloud pricing actually works — and why the licensing is the real story."
 publishedAt: "2026-04-28"
 author: "Vlad Nadymov"
@@ -42,6 +42,16 @@ Hey, it's Vlad, founder of Beton.
 Dify is the most-starred AI agent platform on GitHub. 139k stars, growing fast, and basically every team building an LLM-powered product has at least clicked through their docs. They sit somewhere between a no-code workflow builder and a full agentic backend — RAG pipelines, prompt management, tool calls, MCP integrations, chat UIs, the whole stack in a single Docker compose.
 
 What's interesting from a pricing standpoint isn't the cloud tiers. It's the license. Dify ships under "modified Apache 2.0" — which sounds friendly, until you read the modification.
+
+
+## How Dify pricing scales
+
+Dify scales in flat tiers, gated mostly by seats, apps, and message credits rather than usage volume.
+
+<figure class="my-8">
+<svg viewBox="0 0 560 100" role="img" aria-label="pricing tiers" style="width:100%;height:auto;font-family:Inter, ui-sans-serif, system-ui, -apple-system, sans-serif"><text x="0" y="24" fill="var(--color-text)" font-size="14">Sandbox</text><rect x="150" y="10" width="2" height="18" fill="var(--color-text-tertiary)" rx="1"></rect><text x="160" y="24" fill="var(--color-text-secondary)" font-size="13" font-weight="600">$0</text><text x="0" y="54" fill="var(--color-text)" font-size="14">Pro</text><rect x="150" y="40" width="119" height="18" fill="var(--color-primary-600)" rx="1"></rect><text x="277" y="54" fill="var(--color-text-secondary)" font-size="13" font-weight="600">$59/mo (3 seats, 5k credits)</text><text x="0" y="84" fill="var(--color-text)" font-size="14">Team</text><rect x="150" y="70" width="320" height="18" fill="var(--color-primary-600)" rx="1"></rect><text x="478" y="84" fill="var(--color-text-secondary)" font-size="13" font-weight="600">$159/mo (50 seats)</text></svg>
+<figcaption>Dify pricing by tier (Enterprise is custom).</figcaption>
+</figure>
 
 *This post is a part of series on commercial open source software pricing.*
 

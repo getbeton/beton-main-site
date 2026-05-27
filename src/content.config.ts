@@ -152,6 +152,16 @@ const blog = defineCollection({
       })
       .optional(),
     seo: seoSchema.optional(),
+    datasets: z
+      .array(
+        z.object({
+          name: z.string(),
+          description: z.string(),
+          keywords: z.array(z.string()).optional(),
+          url: z.string().optional(),
+        })
+      )
+      .optional(),
   }),
 });
 

@@ -1,11 +1,12 @@
 ---
-title: "Windmill Pricing Teardown"
+title: "Windmill Pricing Teardown 2026"
 description: "Windmill splits users into developers and operators at half the price -- a smart model for internal tools."
 publishedAt: "2026-04-06"
 author: "Vlad Nadymov"
 tags: ["pricing teardown", "open source", "workflow automation"]
 featured: false
-draft: true
+draft: false
+coverImage: "/images/blog/windmill-pricing-cover.jpeg"
 tldr: |
   Windmill is open-source workflow automation and internal tooling — ~12k GitHub stars, MIT-licensed core. Pricing splits users into developers ($20/mo) and operators ($10/mo) on top of a $50/worker/month compute meter, which lines up neatly with how internal tools actually get used: a few builders, many runners.
 
@@ -36,7 +37,7 @@ seo:
   metaDescription: "Windmill splits users into developers and operators at half the price -- smart for internal tools."
 ---
 
-This post is a part of series on commercial open source software pricing. See full list of articles [here](/blog/).
+This post is a part of series on commercial open source software pricing. See full list of articles [here](/blog/teardowns/).
 
 Windmill is an open-source platform for building internal tools and automating workflows — scripts, flows, apps, all from a single UI. Think Airplane or Retool, but self-hostable and actually affordable. ~12k GitHub stars. It solves the "our data team wants to run a SQL script on a schedule and the engineering team won't build a UI for it" problem that every company with 10+ people eventually faces.
 
@@ -93,6 +94,16 @@ If you have any internal automation needs, the free self-hosted tier is worth se
 
 ---
 
-This post is a part of series on commercial open source software pricing. See full list of articles [here](/blog/).
 
-*I build [Beton](https://getbeton.ai?utm_source=learninglate&utm_campaign=windmill_teardown&utm_medium=substack) — open source revenue intelligence for B2B SaaS.*
+## How Windmill pricing scales
+
+Windmill splits seats into developers ($20) and operators ($10, half price), plus a $50/worker compute meter — so a few builders and many runners stays cheap.
+
+<figure class="my-8">
+<svg viewBox="0 0 560 130" role="img" aria-label="pricing tiers" style="width:100%;height:auto;font-family:Inter, ui-sans-serif, system-ui, -apple-system, sans-serif"><text x="0" y="24" fill="var(--color-text)" font-size="14">Operator seat</text><rect x="150" y="10" width="27" height="18" fill="var(--color-primary-600)" rx="1"></rect><text x="185" y="24" fill="var(--color-text-secondary)" font-size="13" font-weight="600">$10/mo</text><text x="0" y="54" fill="var(--color-text)" font-size="14">Developer seat</text><rect x="150" y="40" width="53" height="18" fill="var(--color-primary-600)" rx="1"></rect><text x="211" y="54" fill="var(--color-text-secondary)" font-size="13" font-weight="600">$20/mo</text><text x="0" y="84" fill="var(--color-text)" font-size="14">Worker (compute)</text><rect x="150" y="70" width="133" height="18" fill="var(--color-primary-600)" rx="1"></rect><text x="291" y="84" fill="var(--color-text-secondary)" font-size="13" font-weight="600">$50/mo</text><text x="0" y="114" fill="var(--color-text)" font-size="14">Enterprise floor</text><rect x="150" y="100" width="320" height="18" fill="var(--color-primary-600)" rx="1"></rect><text x="478" y="114" fill="var(--color-text-secondary)" font-size="13" font-weight="600">~$120/mo</text></svg>
+<figcaption>Windmill unit prices. Operators cost half a developer; compute is metered separately per worker.</figcaption>
+</figure>
+
+This post is a part of series on commercial open source software pricing. See full list of articles [here](/blog/teardowns/).
+
+*I build [Beton](https://getbeton.ai) — open source revenue intelligence for B2B SaaS.*

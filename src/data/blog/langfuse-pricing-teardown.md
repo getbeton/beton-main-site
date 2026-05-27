@@ -1,5 +1,5 @@
 ---
-title: "Langfuse Pricing Teardown"
+title: "Langfuse Pricing Teardown 2026"
 description: "Langfuse open sourced almost everything under MIT. The cloud pricing is usage-based with a $170 cliff between Core and Pro — here's what you're actually paying for."
 publishedAt: "2026-04-20"
 author: "Vlad Nadymov"
@@ -39,6 +39,16 @@ Hey, it's Vlad, founder of Beton.
 Langfuse is one of those tools that every AI team ends up looking at eventually. You're shipping an LLM-powered feature, something goes wrong, and suddenly you realize you have zero visibility into what your model is actually doing. That's the gap Langfuse fills.
 
 What makes it interesting from a pricing standpoint is the licensing move they made in mid-2025 — they open sourced nearly everything under MIT. The commercial gating is now razor-thin. Let's break it down.
+
+
+## How Langfuse pricing scales
+
+Langfuse's tiers climb steeply: Core ($29) → Pro ($199) for the same usage, then SSO sits behind a $499 Teams add-on and SCIM/SLA behind $2,499 Enterprise.
+
+<figure class="my-8">
+<svg viewBox="0 0 560 160" role="img" aria-label="pricing tiers" style="width:100%;height:auto;font-family:Inter, ui-sans-serif, system-ui, -apple-system, sans-serif"><text x="0" y="24" fill="var(--color-text)" font-size="14">Hobby</text><rect x="150" y="10" width="2" height="18" fill="var(--color-text-tertiary)" rx="1"></rect><text x="160" y="24" fill="var(--color-text-secondary)" font-size="13" font-weight="600">$0</text><text x="0" y="54" fill="var(--color-text)" font-size="14">Core</text><rect x="150" y="40" width="4" height="18" fill="var(--color-primary-600)" rx="1"></rect><text x="162" y="54" fill="var(--color-text-secondary)" font-size="13" font-weight="600">$29/mo</text><text x="0" y="84" fill="var(--color-text)" font-size="14">Pro</text><rect x="150" y="70" width="25" height="18" fill="var(--color-primary-600)" rx="1"></rect><text x="183" y="84" fill="var(--color-text-secondary)" font-size="13" font-weight="600">$199/mo</text><text x="0" y="114" fill="var(--color-text)" font-size="14">Teams</text><rect x="150" y="100" width="64" height="18" fill="var(--color-primary-600)" rx="1"></rect><text x="222" y="114" fill="var(--color-text-secondary)" font-size="13" font-weight="600">$499/mo (SSO)</text><text x="0" y="144" fill="var(--color-text)" font-size="14">Enterprise</text><rect x="150" y="130" width="320" height="18" fill="var(--color-primary-600)" rx="1"></rect><text x="478" y="144" fill="var(--color-text-secondary)" font-size="13" font-weight="600">$2,499/mo</text></svg>
+<figcaption>Langfuse pricing by tier. SSO and compliance gate the top, pricey tiers.</figcaption>
+</figure>
 
 *This post is a part of series on commercial open source software pricing.*
 

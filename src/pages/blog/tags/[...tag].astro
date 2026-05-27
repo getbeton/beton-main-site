@@ -1,0 +1,130 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '../../../layouts/PageLayout.astro';
+import Container from '../../../components/ui/Container.astro';
+import Heading from '../../../components/ui/Heading.astro';
+import { SITE } from '../../../utils/site';
+
+export async function getStaticPaths() {
+  // Defined inside getStaticPaths — Astro runs it isolated from other
+  // module-scope declarations during path collection.
+  const slugify = (t) => t.toLowerCase().trim().replace(/\s+/g, '-');
+  // All non-empty subsets of an array (powerset minus the empty set).
+  const subsets = (arr) => {
+    const out = [];
+    for (let mask = 1; mask < 1 << arr.length; mask++) {
+      const s = [];
+      arr.forEach((v, i) => { if (mask & (1 << i)) s.push(v); });
+      out.push(s);
+    }
+    return out;
+  };
+
+  const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+    (a, b) => new Date(b.data.publishedAt).getTime() - new Date(a.data.publishedAt).getTime()
+  );
+
+  // A page exists for every AND-combination of tags that co-occurs on >=1 post.
+  // Key = sorted tag-slugs joined by '+'. This keeps the generated set finite
+  // and guarantees every link from a post resolves.
+  const combos = new Map<string, { tags: string[]; slugSet: string[] }>();
+  for (const p of posts) {
+    const tags = [...new Set(p.data.tags || [])];
+    for (const sub of subsets(tags)) {
+      const slugSet = sub.map(slugify).sort();
+      const key = slugSet.join('+');
+      if (!combos.has(key)) combos.set(key, { tags: sub.slice().sort(), slugSet });
+    }
+  }
+
+  return [...combos.values()].map(({ tags, slugSet }) => {
+    const matched = posts.filter((p) => {
+      const ps = new Set((p.data.tags || []).map(slugify));
+      return slugSet.every((s) => ps.has(s));
+    });
+    return {
+      params: { tag: slugSet.join('+') },
+      props: { tagLabels: tags, slugSet, posts: matched },
+    };
+  });
+}
+
+const { tagLabels, slugSet, posts } = Astro.props;
+const heading = tagLabels.join(' + ');
+const canonical = `/blog/tags/${slugSet.join('+')}/`;
+
+const breadcrumbs = [
+  { name: 'Home', url: SITE.url },
+  { name: 'Blog', url: `${SITE.url}/blog/` },
+  { name: heading, url: `${SITE.url}${canonical}` },
+];
+
+const itemList = {
+  name: `Posts tagged ${heading}`,
+  items: posts.map((p) => ({ name: p.data.title, url: `${SITE.url}/blog/${p.id}/`, description: p.data.description })),
+};
+
+function fmtDate(iso: string) {
+  return new Date(iso).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+}
+---
+
+<PageLayout
+  title={`Posts tagged ${heading} — Beton`}
+  description={`Every Beton blog post tagged ${heading}.`}
+  canonicalPath={canonical}
+  breadcrumbs={breadcrumbs}
+  itemList={itemList}
+>
+  <section class="py-14 lg:py-20">
+    <Container>
+      <div class="max-w-3xl mx-auto mb-10">
+        <p class="text-sm text-[var(--color-text-tertiary)] uppercase tracking-wider mb-2">Tag</p>
+        <Heading as="h1">{heading}</Heading>
+        <p class="mt-3 text-base text-[var(--color-text-secondary)]">
+          {posts.length} {posts.length === 1 ? 'post' : 'posts'}
+          {slugSet.length > 1 ? ` matching all of: ${tagLabels.join(', ')}` : ''}.
+        </p>
+        {slugSet.length > 1 && (
+          <p class="mt-2 text-sm text-[var(--color-text-tertiary)]">
+            Narrowing by multiple tags (AND). Remove one to broaden:
+            {slugSet.map((s, i) => (
+              <a href={`/blog/tags/${slugSet.filter((_, j) => j !== i).join('+')}/`} class="text-[var(--color-primary-600)] hover:underline ml-1">
+                −{tagLabels[i]}
+              </a>
+            ))}
+          </p>
+        )}
+      </div>
+
+      {posts.length > 0 ? (
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          {posts.map((post) => (
+            <article class="flex flex-col border-2 border-[var(--color-text)] bg-[var(--color-surface)] shadow-[var(--shadow-card)] hover:shadow-[6px_6px_0_var(--color-text)] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all">
+              {post.data.coverImage && (
+                <a href={`/blog/${post.id}/`} class="block aspect-[16/9] border-b-2 border-[var(--color-text)] overflow-hidden">
+                  <img src={post.data.coverImage} alt={post.data.title} width="640" height="360" loading="lazy" class="w-full h-full object-cover" />
+                </a>
+              )}
+              <div class="p-5 flex-1 flex flex-col">
+                <time datetime={post.data.publishedAt} class="text-xs text-[var(--color-text-tertiary)] uppercase tracking-wider mb-2">
+                  {fmtDate(post.data.updatedAt || post.data.publishedAt)}
+                </time>
+                <h2 class="text-lg font-semibold mb-2">
+                  <a href={`/blog/${post.id}/`} class="hover:text-[var(--color-primary-600)]">{post.data.title}</a>
+                </h2>
+                <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed flex-1">{post.data.description}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      ) : (
+        <p class="text-center text-[var(--color-text-secondary)]">No posts with this tag combination.</p>
+      )}
+
+      <div class="text-center mt-14 pt-10 border-t-2 border-[var(--color-border)] max-w-2xl mx-auto">
+        <a href="/blog/" class="inline-flex items-center text-sm font-semibold text-[var(--color-primary-600)] hover:underline">← All blog posts</a>
+      </div>
+    </Container>
+  </section>
+</PageLayout>

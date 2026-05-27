@@ -1,5 +1,5 @@
 ---
-title: "Twenty CRM Pricing Teardown"
+title: "Twenty CRM Pricing Teardown 2026"
 description: "Twenty CRM at $9/user/month exposes how much of Salesforce and HubSpot pricing is brand tax."
 publishedAt: "2026-04-06"
 author: "Vlad Nadymov"
@@ -34,7 +34,7 @@ seo:
   metaDescription: "Twenty CRM at $9/user/month exposes how much of Salesforce and HubSpot pricing is brand tax."
 ---
 
-This post is a part of series on commercial open source software pricing. See full list of articles [here](/blog/).
+This post is a part of series on commercial open source software pricing. See full list of articles [here](/blog/teardowns/).
 
 Twenty is an open-source CRM gunning directly at Salesforce and HubSpot — full contact management, custom objects, API access, email integration. It's hit ~30k GitHub stars, which for a CRM (a category dominated by entrenched incumbents) is impressive. The pitch is: same functionality, fraction of the price, you own the data.
 
@@ -80,6 +80,16 @@ At $9/user/month, this is one of the better deals in B2B software. If your team 
 
 ---
 
-This post is a part of series on commercial open source software pricing. See full list of articles [here](/blog/).
 
-*I build [Beton](https://getbeton.ai?utm_source=learninglate&utm_campaign=twenty-crm_teardown&utm_medium=substack) — open source revenue intelligence for B2B SaaS.*
+## How Twenty CRM pricing scales
+
+Twenty bills per seat and treats SSO as nearly table stakes — Organization ($19/seat) is only ~2× Pro ($9/seat), versus the 3–5× jumps elsewhere in this series.
+
+<figure class="my-8">
+<svg viewBox="0 0 760 296" role="img" aria-label="pricing scales by seats" style="width:100%;height:auto;font-family:Inter, ui-sans-serif, system-ui, -apple-system, sans-serif"><line x1="64" y1="250.0" x2="560" y2="250.0" stroke="var(--color-border)" stroke-width="1"></line><text x="56" y="254.0" fill="var(--color-text-secondary)" font-size="12" text-anchor="end">$0</text><line x1="64" y1="194.0" x2="560" y2="194.0" stroke="var(--color-border)" stroke-width="1"></line><text x="56" y="198.0" fill="var(--color-text-secondary)" font-size="12" text-anchor="end">$250</text><line x1="64" y1="138.0" x2="560" y2="138.0" stroke="var(--color-border)" stroke-width="1"></line><text x="56" y="142.0" fill="var(--color-text-secondary)" font-size="12" text-anchor="end">$500</text><line x1="64" y1="82.0" x2="560" y2="82.0" stroke="var(--color-border)" stroke-width="1"></line><text x="56" y="86.0" fill="var(--color-text-secondary)" font-size="12" text-anchor="end">$750</text><line x1="64" y1="26.0" x2="560" y2="26.0" stroke="var(--color-border)" stroke-width="1"></line><text x="56" y="30.0" fill="var(--color-text-secondary)" font-size="12" text-anchor="end">$1,000</text><text x="64.0" y="272" fill="var(--color-text-secondary)" font-size="12" text-anchor="middle">1 seats</text><text x="188.0" y="272" fill="var(--color-text-secondary)" font-size="12" text-anchor="middle">5 seats</text><text x="312.0" y="272" fill="var(--color-text-secondary)" font-size="12" text-anchor="middle">10 seats</text><text x="436.0" y="272" fill="var(--color-text-secondary)" font-size="12" text-anchor="middle">25 seats</text><text x="560.0" y="272" fill="var(--color-text-secondary)" font-size="12" text-anchor="middle">50 seats</text><polyline points="64.0,248.0 188.0,239.9 312.0,229.8 436.0,199.6 560.0,149.2" fill="none" stroke="var(--color-primary-600)" stroke-width="2.5"></polyline><circle cx="64.0" cy="248.0" r="3.5" fill="var(--color-primary-600)"></circle><circle cx="188.0" cy="239.9" r="3.5" fill="var(--color-primary-600)"></circle><circle cx="312.0" cy="229.8" r="3.5" fill="var(--color-primary-600)"></circle><circle cx="436.0" cy="199.6" r="3.5" fill="var(--color-primary-600)"></circle><circle cx="560.0" cy="149.2" r="3.5" fill="var(--color-primary-600)"></circle><text x="568" y="153.2" fill="var(--color-primary-600)" font-size="12" font-weight="600">Pro $9/seat</text><polyline points="64.0,245.7 188.0,228.7 312.0,207.4 436.0,143.6 560.0,37.2" fill="none" stroke="var(--color-text-tertiary)" stroke-width="2.5"></polyline><circle cx="64.0" cy="245.7" r="3.5" fill="var(--color-text-tertiary)"></circle><circle cx="188.0" cy="228.7" r="3.5" fill="var(--color-text-tertiary)"></circle><circle cx="312.0" cy="207.4" r="3.5" fill="var(--color-text-tertiary)"></circle><circle cx="436.0" cy="143.6" r="3.5" fill="var(--color-text-tertiary)"></circle><circle cx="560.0" cy="37.2" r="3.5" fill="var(--color-text-tertiary)"></circle><text x="568" y="41.2" fill="var(--color-text-tertiary)" font-size="12" font-weight="600">Organization $19/seat (SSO)</text></svg>
+<figcaption>Monthly cost as Twenty scales by seat. The SSO tier is only ~2× — cheap by this series' standards.</figcaption>
+</figure>
+
+This post is a part of series on commercial open source software pricing. See full list of articles [here](/blog/teardowns/).
+
+*I build [Beton](https://getbeton.ai) — open source revenue intelligence for B2B SaaS.*

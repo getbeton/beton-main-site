@@ -1,11 +1,12 @@
 ---
-title: "Temporal Pricing Teardown"
+title: "Temporal Pricing Teardown 2026"
 description: "Temporal starts at $100/month with no free tier -- a deliberate signal that this is serious infrastructure."
 publishedAt: "2026-04-06"
 author: "Vlad Nadymov"
 tags: ["pricing teardown", "open source", "workflow orchestration"]
 featured: false
-draft: true
+draft: false
+coverImage: "/images/blog/temporal-pricing-cover.jpeg"
 tldr: |
   Temporal is MIT-licensed workflow orchestration with ~12k GitHub stars, used in production by Stripe, Snap, and Coinbase. Temporal Cloud starts at $100/month with no free production tier — a deliberate signal that this is serious infrastructure, not a prototyping toy.
 
@@ -34,7 +35,7 @@ seo:
   metaDescription: "Temporal starts at $100/month with no free tier -- a signal that this is serious infrastructure."
 ---
 
-This post is a part of series on commercial open source software pricing. See full list of articles [here](/blog/).
+This post is a part of series on commercial open source software pricing. See full list of articles [here](/blog/teardowns/).
 
 Temporal is a workflow orchestration engine — it lets you write durable, fault-tolerant business processes in regular code. Your workflow can run for days, survive server crashes, and resume exactly where it left off. ~12k GitHub stars, used by Stripe, Snap, Coinbase, and a bunch of other companies where reliability actually matters. They raised a $300M Series D at a $5B valuation, which tells you something about how seriously the market takes this.
 
@@ -86,6 +87,16 @@ If you're running anything in production where workflow failures cost real money
 
 ---
 
-This post is a part of series on commercial open source software pricing. See full list of articles [here](/blog/).
 
-*I build [Beton](https://getbeton.ai?utm_source=learninglate&utm_campaign=temporal_teardown&utm_medium=substack) — open source revenue intelligence for B2B SaaS.*
+## How Temporal pricing scales
+
+Temporal has no free production tier — it starts at $100/month, and SAML SSO forces the $500/month Business tier.
+
+<figure class="my-8">
+<svg viewBox="0 0 560 70" role="img" aria-label="pricing tiers" style="width:100%;height:auto;font-family:Inter, ui-sans-serif, system-ui, -apple-system, sans-serif"><text x="0" y="24" fill="var(--color-text)" font-size="14">Essentials</text><rect x="150" y="10" width="64" height="18" fill="var(--color-primary-600)" rx="1"></rect><text x="222" y="24" fill="var(--color-text-secondary)" font-size="13" font-weight="600">$100/mo</text><text x="0" y="54" fill="var(--color-text)" font-size="14">Business</text><rect x="150" y="40" width="320" height="18" fill="var(--color-primary-600)" rx="1"></rect><text x="478" y="54" fill="var(--color-text-secondary)" font-size="13" font-weight="600">$500/mo (SSO)</text></svg>
+<figcaption>Temporal pricing by tier. SSO lives on Business at 5× Essentials.</figcaption>
+</figure>
+
+This post is a part of series on commercial open source software pricing. See full list of articles [here](/blog/teardowns/).
+
+*I build [Beton](https://getbeton.ai) — open source revenue intelligence for B2B SaaS.*
