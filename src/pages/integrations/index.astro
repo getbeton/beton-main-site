@@ -98,6 +98,31 @@ const itemList = {
         </div>
       </div>
 
+      <!-- How connections work — unique explainer (readers + indexable text) -->
+      <div class="max-w-3xl mx-auto mb-12 border-t border-[var(--color-border)] pt-12">
+        <h2 class="text-lg font-[family-name:var(--font-heading)] tracking-wide mb-6 text-center">
+          How Beton connects to your stack
+        </h2>
+        <div class="space-y-4 text-[var(--color-text-secondary)] leading-relaxed">
+          <p>
+            Beton sits between your data and your CRM. A <strong>source</strong> feeds it raw
+            behavior — PostHog events, Postgres rows, Stripe billing. Beton scores accounts from
+            that behavior and pushes the result to a <strong>destination</strong> — Attio, Apollo,
+            or any endpoint over Webhooks.
+          </p>
+          <p>
+            It reads; it doesn't move your data. Sources connect through a single read-only role,
+            Beton scans on its own schedule, and it never writes back. Only the signal leaves — a
+            scored account and the events behind it — routed to the destination in seconds.
+          </p>
+          <p>
+            No native connector for your tool yet? The <a href="/integrations/webhook/" class="underline">Webhooks</a>
+            destination sends the same payload to any HTTPS endpoint, so anything that accepts a
+            POST already works.
+          </p>
+        </div>
+      </div>
+
       {/* Coming-soon row — explicit so visitors see the roadmap and we don't
           ship a marketing claim of "supports X" for an unbuilt integration. */}
       {comingSoon.length > 0 && (

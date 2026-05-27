@@ -6,9 +6,10 @@ import Button from '../../components/ui/Button.astro';
 import ComparisonTable from '../../components/competitors/ComparisonTable.astro';
 import CTASection from '../../components/shared/CTASection.astro';
 import { SITE } from '../../utils/site';
+import { launchedOnly } from '../../utils/competitors';
 
 export async function getStaticPaths() {
-  const competitors = await getCollection('competitors');
+  const competitors = launchedOnly(await getCollection('competitors'));
   return competitors.map((entry) => ({
     params: { id: entry.data.slug },
     props: { entry },
@@ -18,7 +19,7 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { name, slug, description, comparison, whySwitch, faq, seo, limitations } = entry.data;
 
-const allCompetitors = await getCollection('competitors');
+const allCompetitors = launchedOnly(await getCollection('competitors'));
 const otherAlternatives = allCompetitors
   .filter((c) => c.data.slug !== slug)
   .slice(0, 4);
@@ -62,7 +63,7 @@ const breadcrumbs = [
         </h1>
 
         <p class="text-lg sm:text-xl text-[var(--color-text-secondary)] leading-relaxed mb-8">
-          {description} Beton offers a different approach — open-source, self-hostable, and powered by AI autopilot detection.
+          {description} Beton offers a different approach — open-source, self-hostable, and powered by autopilot signal discovery.
         </p>
 
         <div class="grid sm:grid-cols-2 gap-4 mb-8">
@@ -86,7 +87,7 @@ const breadcrumbs = [
               </li>
               <li class="flex items-start gap-2 text-sm">
                 <svg class="w-4 h-4 text-[var(--color-accent-500)] shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
-                AI autopilot — no manual rules
+                Autopilot — no manual rules
               </li>
               <li class="flex items-start gap-2 text-sm">
                 <svg class="w-4 h-4 text-[var(--color-accent-500)] shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>

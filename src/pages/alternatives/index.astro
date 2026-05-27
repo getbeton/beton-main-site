@@ -5,8 +5,9 @@ import Container from '../../components/ui/Container.astro';
 import Button from '../../components/ui/Button.astro';
 import CTASection from '../../components/shared/CTASection.astro';
 import { SITE } from '../../utils/site';
+import { launchedOnly } from '../../utils/competitors';
 
-const competitors = await getCollection('competitors');
+const competitors = launchedOnly(await getCollection('competitors'));
 
 const breadcrumbs = [
   { name: 'Home', url: SITE.url },
@@ -16,7 +17,7 @@ const breadcrumbs = [
 
 <PageLayout
   title="Open-Source Alternatives to Lead Scoring Tools"
-  description="Compare Beton to popular lead scoring and revenue intelligence platforms. Open-source, self-hostable, and AI-powered signal detection — free to start."
+  description="Compare Beton to popular lead scoring and revenue intelligence platforms. Open-source, self-hostable, autopilot signal discovery — free to start."
   canonicalPath="/alternatives/"
   breadcrumbs={breadcrumbs}
 >
@@ -32,7 +33,7 @@ const breadcrumbs = [
           Beton Alternatives & Comparisons
         </h1>
         <p class="text-lg sm:text-xl text-[var(--color-text-secondary)] leading-relaxed mb-8">
-          See how Beton compares to popular lead scoring and revenue intelligence platforms. Open-source, self-hostable, and powered by AI autopilot.
+          See how Beton compares to popular lead scoring and revenue intelligence platforms. Open-source, self-hostable, and powered by autopilot signal discovery.
         </p>
         <Button href={SITE.external.app} size="lg" data-track-cta="alt-index-hero">
           Try Beton Free
@@ -97,8 +98,8 @@ const breadcrumbs = [
           <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed">GPL-licensed code you can inspect, modify, and self-host. No vendor lock-in, ever. <a href="https://github.com/getbeton/inspector" target="_blank" rel="noopener noreferrer" class="text-[var(--color-primary-600)] hover:underline">View on GitHub</a>.</p>
         </div>
         <div class="border-2 border-[var(--color-text)] p-6 shadow-[var(--shadow-card)]">
-          <h3 class="text-lg font-bold mb-2">AI Autopilot</h3>
-          <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed">Beton's AI detects revenue signals automatically — no manual rules, no playbook configuration. See all <a href="/features/" class="text-[var(--color-primary-600)] hover:underline">features</a>.</p>
+          <h3 class="text-lg font-bold mb-2">Autopilot</h3>
+          <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed">Beton detects revenue signals automatically — no manual rules, no playbook configuration. See all <a href="/features/" class="text-[var(--color-primary-600)] hover:underline">features</a>.</p>
         </div>
         <div class="border-2 border-[var(--color-text)] p-6 shadow-[var(--shadow-card)]">
           <h3 class="text-lg font-bold mb-2">Free to Start</h3>
