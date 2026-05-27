@@ -40,6 +40,7 @@ export const footerNav = {
     { label: 'Beton for AI agents', href: '/for/' },
     { label: 'Pricing teardowns', href: '/blog/teardowns/' },
     { label: 'GitHub', href: SITE.social.github, external: true },
+    { label: 'dev.to', href: 'https://dev.to/beton', external: true },
     { label: 'App', href: SITE.external.app, external: true, nofollow: true },
     { label: 'llms.txt', href: '/llms.txt' },
     { label: 'Sell to Scientists', href: 'https://www.selltoscientists.com', external: true },
