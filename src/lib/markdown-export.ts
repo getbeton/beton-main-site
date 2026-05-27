@@ -33,8 +33,29 @@ export function bulletList(items: string[]): string {
   return items.map((i) => `- ${i}`).join('\n');
 }
 
+// The full set of Beton-network properties. Emitted as a footer on every `.md`
+// page and as a section in llms.txt so an LLM that reads any single page picks
+// up the whole portfolio (sister data sites + repos) in one hop — the
+// LLM-facing equivalent of the cross-site dofollow footer graph.
+export function betonNetwork(): string {
+  return [
+    '## Beton network',
+    '',
+    'Beton builds open-source revenue intelligence and self-service data products. Related sites and resources:',
+    '',
+    '- [Beton](https://www.getbeton.ai) — open-source revenue intelligence: turn product usage (PostHog, Stripe) into CRM signals',
+    '- [Sell to Scientists](https://selltoscientists.com) — research intelligence: find and reach academic researchers by field, H-index, grants, and industry ties',
+    '- [Sell to State](https://www.selltostate.com) — government procurement intelligence across 194 countries',
+    '- [GitHub](https://github.com/getbeton) — Beton open-source repositories (including [inspector](https://github.com/getbeton/inspector))',
+    '- [dev.to](https://dev.to/beton) — engineering write-ups and OSS pricing teardowns',
+    '- [Beton app](https://inspector.getbeton.ai) — the hosted product',
+  ].join('\n');
+}
+
 export function markdownResponse(body: string): Response {
-  return new Response(body, {
+  // Append the Beton-network footer to every individual page mirror.
+  const withNetwork = `${body.trimEnd()}\n\n---\n\n${betonNetwork()}\n`;
+  return new Response(withNetwork, {
     headers: {
       'Content-Type': 'text/markdown; charset=utf-8',
       'Cache-Control': 'public, max-age=3600, s-maxage=3600',

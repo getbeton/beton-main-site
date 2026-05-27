@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
-import { plainTextResponse } from '../lib/markdown-export';
+import { plainTextResponse, betonNetwork } from '../lib/markdown-export';
 
 const SITE = 'https://www.getbeton.ai';
 
@@ -94,6 +94,9 @@ export const GET: APIRoute = async () => {
       `- [${p.data.title}](${SITE}/blog/${p.id}.md) (${p.data.publishedAt}): ${p.data.description}`
     );
   });
+  parts.push('');
+
+  parts.push(betonNetwork());
   parts.push('');
 
   parts.push('## Links');
