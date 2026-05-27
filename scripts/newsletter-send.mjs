@@ -140,16 +140,12 @@ function renderBody(bodyMd, email) {
     extensions: [gfm()],
     htmlExtensions: [gfmHtml()],
   });
-  // In email the inline signup form is dead (no JS) and redundant (recipients
-  // are already subscribed) — swap it for a "read on the blog" CTA. The TL;DR
-  // is injected right before it (see buildHtml).
+  // The inline signup form is web-only (dead in email + recipients already
+  // subscribed). Strip it; the email is framed as a personal note with the
+  // CTA buttons + signoff at the end (see buildHtml).
   html = html.replace(
     /<div class="not-prose"[\s\S]*?data-inline-subscribe[\s\S]*?data-sub-err[\s\S]*?<\/p>\s*<\/div>/g,
-    `<div data-email-signup style="margin:28px 0;padding:20px 22px;border:2px solid #111;background:#f8f9fa">
-      <div style="font-size:17px;font-weight:700;color:#111;margin:0 0 6px">Get every pricing teardown in your inbox</div>
-      <div style="font-size:14px;color:#555;margin:0 0 14px">You're already on the list — forward this to someone who builds with open source.</div>
-      <a href="${clickUrl(BLOG_URL, 'inline-cta', email)}" style="display:inline-block;background:#2563eb;color:#fff;padding:10px 20px;text-decoration:none;border-radius:4px;font-weight:700;font-size:14px">Read the full research →</a>
-    </div>`
+    ''
   );
   // Charts ship as inline SVG on the web (email clients strip SVG); swap each
   // tagged <figure data-email-img="..."> for a hosted PNG + its caption.
@@ -230,14 +226,17 @@ function buildHtml(article, email) {
 <html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
 <body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:16px;line-height:1.7;color:#1a1a1a;max-width:600px;margin:0 auto;padding:20px;text-align:left">
 ${hero}
-<p style="font-size:12px;color:#888;margin:0 0 18px">got this forwarded? ${link(`${SITE}/blog`, 'forward-subscribe', 'subscribe here')}</p>
 <h1 style="font-size:26px;font-weight:700;line-height:1.25;margin:0 0 22px;color:#111">${fm.title}</h1>
+<p style="margin:0 0 16px">Hi, it's Vlad, founder of Beton,</p>
 ${topTldr}
 ${bodyHtml}
-<div style="margin:34px 0 8px;line-height:1.2">
-  <a href="${clickUrl(BLOG_URL, 'cta-blog', email)}" style="display:inline-block;background:#2563eb;color:#ffffff;padding:12px 24px;text-decoration:none;border-radius:4px;font-weight:bold;font-size:14px">read it on the blog</a>
-</div>
 ${renderFaq(fm.faq, email)}
+<div style="margin:34px 0 10px;line-height:1.3">
+  <a href="${clickUrl(BLOG_URL, 'cta-blog', email)}" style="display:inline-block;background:#2563eb;color:#ffffff;padding:12px 24px;text-decoration:none;border-radius:4px;font-weight:bold;font-size:14px;margin:0 10px 10px 0">Read on the blog →</a>
+  <a href="${clickUrl('https://github.com/getbeton/oss-pricing-data', 'cta-github', email)}" style="display:inline-block;background:#111;color:#ffffff;padding:12px 24px;text-decoration:none;border-radius:4px;font-weight:bold;font-size:14px;margin:0 10px 10px 0">See data on GitHub</a>
+</div>
+<p style="margin:18px 0 0">– Vlad</p>
+<p style="font-size:12px;color:#888;margin:24px 0 0">got this forwarded? ${link(`${SITE}/blog`, 'forward-subscribe', 'subscribe here')}</p>
 <p style="border-top:1px solid #e5e5e5;padding-top:16px;margin-top:36px;color:#666;font-size:13px">
 ${link(`${SITE}/blog`, 'subscribe', 'subscribe')} for articles on sales and revenue tooling
 </p>
