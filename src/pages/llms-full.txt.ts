@@ -6,6 +6,7 @@ import {
   bulletList,
   integrationToMarkdown,
   scenarioToMarkdown,
+  betonNetwork,
 } from '../lib/markdown-export';
 
 const SITE = 'https://www.getbeton.ai';
@@ -165,6 +166,8 @@ export const GET: APIRoute = async () => {
     lines.push(body);
     sections.push(lines.join('\n').trimEnd());
   }
+
+  sections.push(betonNetwork());
 
   return plainTextResponse(sections.join(SEPARATOR) + '\n');
 };
