@@ -1,5 +1,5 @@
 ---
-title: "Infisical Pricing Teardown"
+title: "Infisical Pricing Teardown 2026"
 description: "Infisical uses MIT for the core and a proprietary license for enterprise features. The clever part is what counts as an 'identity.'"
 publishedAt: "2026-04-06"
 author: "Vlad Nadymov"
@@ -41,6 +41,16 @@ Hey, it's Vlad, founder of Beton.
 Infisical is the open-source secrets manager that's been eating into HashiCorp Vault's territory from below. The pitch is simple: Vault is powerful but painful. Infisical is Vault for teams that don't want to hire a dedicated Vault engineer.
 
 25,700+ GitHub stars, founded in 2022, growing fast in the DevOps/platform engineering space. Let's look at how they make money.
+
+
+## How Infisical pricing scales
+
+Infisical bills per identity — and an identity is any human OR machine (a CI pipeline, a service account, an agent). Machine identities usually outnumber people, so the bill scales faster than headcount suggests.
+
+<figure class="my-8">
+<svg viewBox="0 0 760 296" role="img" aria-label="pricing scales by identities" style="width:100%;height:auto;font-family:Inter, ui-sans-serif, system-ui, -apple-system, sans-serif"><line x1="64" y1="250.0" x2="560" y2="250.0" stroke="var(--color-border)" stroke-width="1"></line><text x="56" y="254.0" fill="var(--color-text-secondary)" font-size="12" text-anchor="end">$0</text><line x1="64" y1="194.0" x2="560" y2="194.0" stroke="var(--color-border)" stroke-width="1"></line><text x="56" y="198.0" fill="var(--color-text-secondary)" font-size="12" text-anchor="end">$225</text><line x1="64" y1="138.0" x2="560" y2="138.0" stroke="var(--color-border)" stroke-width="1"></line><text x="56" y="142.0" fill="var(--color-text-secondary)" font-size="12" text-anchor="end">$450</text><line x1="64" y1="82.0" x2="560" y2="82.0" stroke="var(--color-border)" stroke-width="1"></line><text x="56" y="86.0" fill="var(--color-text-secondary)" font-size="12" text-anchor="end">$675</text><line x1="64" y1="26.0" x2="560" y2="26.0" stroke="var(--color-border)" stroke-width="1"></line><text x="56" y="30.0" fill="var(--color-text-secondary)" font-size="12" text-anchor="end">$900</text><text x="64.0" y="272" fill="var(--color-text-secondary)" font-size="12" text-anchor="middle">1 identities</text><text x="188.0" y="272" fill="var(--color-text-secondary)" font-size="12" text-anchor="middle">5 identities</text><text x="312.0" y="272" fill="var(--color-text-secondary)" font-size="12" text-anchor="middle">10 identities</text><text x="436.0" y="272" fill="var(--color-text-secondary)" font-size="12" text-anchor="middle">25 identities</text><text x="560.0" y="272" fill="var(--color-text-secondary)" font-size="12" text-anchor="middle">50 identities</text><polyline points="64.0,245.5 188.0,227.6 312.0,205.2 436.0,138.0 560.0,26.0" fill="none" stroke="var(--color-primary-600)" stroke-width="2.5"></polyline><circle cx="64.0" cy="245.5" r="3.5" fill="var(--color-primary-600)"></circle><circle cx="188.0" cy="227.6" r="3.5" fill="var(--color-primary-600)"></circle><circle cx="312.0" cy="205.2" r="3.5" fill="var(--color-primary-600)"></circle><circle cx="436.0" cy="138.0" r="3.5" fill="var(--color-primary-600)"></circle><circle cx="560.0" cy="26.0" r="3.5" fill="var(--color-primary-600)"></circle><text x="568" y="30.0" fill="var(--color-primary-600)" font-size="12" font-weight="600">Pro $18/identity</text></svg>
+<figcaption>Monthly cost as Infisical scales by identity (humans + machines all count).</figcaption>
+</figure>
 
 *This post is a part of series on commercial open source software pricing.*
 

@@ -1,5 +1,5 @@
 ---
-title: "Grafana Pricing Teardown"
+title: "Grafana Pricing Teardown 2026"
 description: "Grafana has five active billing meters and a $25k/year enterprise cliff with nothing in between."
 publishedAt: "2026-04-06"
 author: "Vlad Nadymov"
@@ -37,7 +37,7 @@ seo:
   metaDescription: "Grafana has five active billing meters and a $25k/year enterprise cliff with nothing in between."
 ---
 
-This post is a part of series on commercial open source software pricing. See full list of articles [here](/blog/).
+This post is a part of series on commercial open source software pricing. See full list of articles [here](/blog/teardowns/).
 
 Grafana is the observability platform most engineers have used without realizing it — metrics visualization, log aggregation, distributed tracing, all in one place. ~66k GitHub stars, which puts it in the "foundational infrastructure" category alongside tools like Kubernetes and Prometheus. Grafana Labs has built a full cloud observability stack (Loki for logs, Tempo for traces, Mimir for metrics) to compete directly with Datadog, New Relic, and Dynatrace.
 
@@ -94,6 +94,16 @@ Free tier is a good starting point and genuinely usable for small/medium project
 
 ---
 
-This post is a part of series on commercial open source software pricing. See full list of articles [here](/blog/).
+
+## How Grafana pricing scales
+
+Grafana's Pro tier starts at a $19/month minimum then meters five separate signals; the next step is a $25,000/year Enterprise commit (~$2,083/month) with nothing in between.
+
+<figure class="my-8">
+<svg viewBox="0 0 560 100" role="img" aria-label="pricing tiers" style="width:100%;height:auto;font-family:Inter, ui-sans-serif, system-ui, -apple-system, sans-serif"><text x="0" y="24" fill="var(--color-text)" font-size="14">Free</text><rect x="150" y="10" width="2" height="18" fill="var(--color-text-tertiary)" rx="1"></rect><text x="160" y="24" fill="var(--color-text-secondary)" font-size="13" font-weight="600">$0</text><text x="0" y="54" fill="var(--color-text)" font-size="14">Pro</text><rect x="150" y="40" width="3" height="18" fill="var(--color-primary-600)" rx="1"></rect><text x="161" y="54" fill="var(--color-text-secondary)" font-size="13" font-weight="600">$19/mo min + usage</text><text x="0" y="84" fill="var(--color-text)" font-size="14">Enterprise</text><rect x="150" y="70" width="320" height="18" fill="var(--color-primary-600)" rx="1"></rect><text x="478" y="84" fill="var(--color-text-secondary)" font-size="13" font-weight="600">$25k/yr (~$2,083/mo)</text></svg>
+<figcaption>Grafana pricing by tier. The Pro→Enterprise cliff is the steepest in the series.</figcaption>
+</figure>
+
+This post is a part of series on commercial open source software pricing. See full list of articles [here](/blog/teardowns/).
 
 *I build [Beton](https://getbeton.ai?utm_source=learninglate&utm_campaign=grafana_teardown&utm_medium=substack) — open source revenue intelligence for B2B SaaS.*

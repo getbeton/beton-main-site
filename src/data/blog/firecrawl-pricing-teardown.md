@@ -1,5 +1,5 @@
 ---
-title: "Firecrawl Pricing Teardown"
+title: "Firecrawl Pricing Teardown 2026"
 description: "Firecrawl has one of the smartest GTM setups in open source. The trick isn't in the pricing page — it's in the licensing."
 publishedAt: "2026-02-18"
 author: "Vlad Nadymov"
@@ -41,6 +41,16 @@ I've had a habit of writing on pricing of COSS (commercial open source software)
 First one is Firecrawl.
 
 Firecrawl has one of the smartest GTM setups I've seen in open source. The trick isn't in the pricing page — it's in the licensing.
+
+
+## How Firecrawl pricing scales
+
+Firecrawl scales by credits in flat tiers, plus a separate AI-Extract subscription that's easy to miss when budgeting.
+
+<figure class="my-8">
+<svg viewBox="0 0 560 130" role="img" aria-label="pricing tiers" style="width:100%;height:auto;font-family:Inter, ui-sans-serif, system-ui, -apple-system, sans-serif"><text x="0" y="24" fill="var(--color-text)" font-size="14">Free</text><rect x="150" y="10" width="2" height="18" fill="var(--color-text-tertiary)" rx="1"></rect><text x="160" y="24" fill="var(--color-text-secondary)" font-size="13" font-weight="600">$0 (500 cr)</text><text x="0" y="54" fill="var(--color-text)" font-size="14">Hobby</text><rect x="150" y="40" width="15" height="18" fill="var(--color-primary-600)" rx="1"></rect><text x="173" y="54" fill="var(--color-text-secondary)" font-size="13" font-weight="600">$16/mo (3k cr)</text><text x="0" y="84" fill="var(--color-text)" font-size="14">Standard</text><rect x="150" y="70" width="86" height="18" fill="var(--color-primary-600)" rx="1"></rect><text x="244" y="84" fill="var(--color-text-secondary)" font-size="13" font-weight="600">~$90/mo (100k cr)</text><text x="0" y="114" fill="var(--color-text)" font-size="14">Growth</text><rect x="150" y="100" width="320" height="18" fill="var(--color-primary-600)" rx="1"></rect><text x="478" y="114" fill="var(--color-text-secondary)" font-size="13" font-weight="600">$333/mo (500k cr)</text></svg>
+<figcaption>Firecrawl pricing by tier (credit-based). AI Extract is billed separately from $89/mo.</figcaption>
+</figure>
 
 *This post is a part of series on commercial open source software pricing.*
 

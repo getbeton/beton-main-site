@@ -1,5 +1,5 @@
 ---
-title: "Documenso Pricing Teardown"
+title: "Documenso Pricing Teardown 2026"
 description: "Documenso has 12.7k GitHub stars, AGPL-3.0 licensing, and a $250/month Platform tier that quietly bets on DocuSign's per-envelope pricing being the competitor's biggest weakness. Here's how it actually works."
 publishedAt: "2026-04-28"
 author: "Vlad Nadymov"
@@ -125,5 +125,15 @@ For internal-use deployments at a single company, self-hosting is right once you
 The honest take: Documenso's pricing is built around one strategic bet — that DocuSign's per-envelope billing is the category's biggest weakness for technical buyers, and that AGPL is a clean enough fence to monetize the people who want to escape it. For internal-use customers, Teams is the obvious win. For builders, Platform's $250/month against unlimited envelopes is one of the better deals in dev tools — as long as you understand the actual product you're buying is a license, not a feature set.
 
 ---
+
+
+## How Documenso pricing scales
+
+Documenso's tiers climb gently until the $250 Platform plan — which you pay not for features but for permission to embed under a non-AGPL license.
+
+<figure class="my-8">
+<svg viewBox="0 0 560 130" role="img" aria-label="pricing tiers" style="width:100%;height:auto;font-family:Inter, ui-sans-serif, system-ui, -apple-system, sans-serif"><text x="0" y="24" fill="var(--color-text)" font-size="14">Free</text><rect x="150" y="10" width="2" height="18" fill="var(--color-text-tertiary)" rx="1"></rect><text x="160" y="24" fill="var(--color-text-secondary)" font-size="13" font-weight="600">$0</text><text x="0" y="54" fill="var(--color-text)" font-size="14">Individual</text><rect x="150" y="40" width="32" height="18" fill="var(--color-primary-600)" rx="1"></rect><text x="190" y="54" fill="var(--color-text-secondary)" font-size="13" font-weight="600">$25/mo</text><text x="0" y="84" fill="var(--color-text)" font-size="14">Teams</text><rect x="150" y="70" width="51" height="18" fill="var(--color-primary-600)" rx="1"></rect><text x="209" y="84" fill="var(--color-text-secondary)" font-size="13" font-weight="600">$40/mo (5 users)</text><text x="0" y="114" fill="var(--color-text)" font-size="14">Platform</text><rect x="150" y="100" width="320" height="18" fill="var(--color-primary-600)" rx="1"></rect><text x="478" y="114" fill="var(--color-text-secondary)" font-size="13" font-weight="600">$250/mo (embed license)</text></svg>
+<figcaption>Documenso pricing by tier. Platform is the AGPL escape hatch, not a feature jump.</figcaption>
+</figure>
 
 *I build [Beton](https://getbeton.ai?utm_source=blog&utm_campaign=documenso_teardown&utm_medium=organic) — open source revenue intelligence for B2B SaaS.*

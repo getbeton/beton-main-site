@@ -35,7 +35,9 @@ interface Props {
   relatedPosts?: RelatedPost[];
 }
 
-const { title, description, publishedAt, updatedAt, author, reviewedBy, tags, coverImage, slug, tldr, faq, seo, relatedPosts = [] } = Astro.props;
+const { title, description, publishedAt, updatedAt, author, reviewedBy, tags, coverImage, slug, tldr, faq, seo, datasets, relatedPosts = [] } = Astro.props;
+
+const tagSlug = (t) => t.toLowerCase().trim().replace(/\s+/g, '-');
 
 // Best-effort slug for reviewer link (matches /team/<slug>/ when team detail
 // pages exist; harmless if not yet — Markelov's bio page lands in Batch F).
@@ -80,9 +82,17 @@ const readingTime = Math.ceil(
   (Astro.slots.has('default') ? 1000 : 200) / 200
 );
 
+const isTeardown = (tags || []).includes('pricing teardown');
+// The series hub places its own signup inline (above the first section); other
+// teardowns get the layout-level one before the content.
+const isSeriesHub = slug === 'commercial-open-source-pricing-2026';
+
 const breadcrumbs = [
   { name: 'Home', url: SITE.url },
   { name: 'Blog', url: `${SITE.url}/blog/` },
+  ...(isTeardown
+    ? [{ name: 'Pricing Teardowns', url: `${SITE.url}/blog/teardowns/` }]
+    : []),
   { name: title, url: `${SITE.url}/blog/${slug}/` },
 ];
 
@@ -120,9 +130,9 @@ const articleData = {
         <header class="mb-10">
           <div class="flex flex-wrap items-center gap-2 mb-4">
             {tags.map((tag) => (
-              <span class="inline-flex items-center px-2.5 py-0.5 text-xs font-medium tracking-wide uppercase border-2 border-[var(--color-border)] bg-[var(--color-surface-raised)]">
+              <a href={`/blog/tags/${tagSlug(tag)}/`} class="inline-flex items-center px-2.5 py-0.5 text-xs font-medium tracking-wide uppercase border-2 border-[var(--color-border)] bg-[var(--color-surface-raised)] hover:bg-[var(--color-surface)] hover:border-[var(--color-primary-600)] transition-colors">
                 {tag}
-              </span>
+              </a>
             ))}
           </div>
 
@@ -191,6 +201,18 @@ const articleData = {
               width="896"
               height="448"
               class="w-full h-auto"
+            />
+          </div>
+        )}
+
+        <!-- Signup block before the pricing breakdown (teardowns only; the
+             series hub injects its own inline, above the first section). -->
+        {isTeardown && !isSeriesHub && (
+          <div class="mb-10">
+            <NewsletterSignup
+              id="teardown-top-newsletter"
+              heading="Get every pricing teardown in your inbox"
+              description="We tear down open-source pricing — what it really costs, what the license allows, whether it's worth paying for. No spam."
             />
           </div>
         )}
@@ -363,5 +385,50 @@ const articleData = {
         }
       : {}),
   })} />
+
+  {/* Each data table/chart on the page is published as a schema.org Dataset. */}
+  {datasets && datasets.length > 0 && (
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@graph': datasets.map((d) => ({
+        '@type': 'Dataset',
+        name: d.name,
+        description: d.description,
+        ...(d.keywords && { keywords: d.keywords.join(', ') }),
+        license: 'https://creativecommons.org/licenses/by/4.0/',
+        creator: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+        isPartOf: { '@type': 'TechArticle', '@id': articleData.url },
+        ...(d.url && { distribution: { '@type': 'DataDownload', encodingFormat: 'text/csv', contentUrl: d.url } }),
+      })),
+    })} />
+  )}
+
+  {/* Wire any in-content signup form (e.g. the series hub's inline block). */}
+  <script type="module" is:inline set:html={`
+    document.querySelectorAll('form[data-inline-subscribe]').forEach((form) => {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = form.email.value;
+        const btn = form.querySelector('button');
+        const ok = form.querySelector('[data-sub-ok]');
+        const err = form.querySelector('[data-sub-err]');
+        btn.disabled = true; btn.textContent = 'Subscribing...';
+        ok && ok.classList.add('hidden'); err && err.classList.add('hidden');
+        try {
+          const { createClient } = await import('https://esm.sh/@supabase/supabase-js@2');
+          const sb = createClient(
+            document.querySelector('meta[name="x-supabase-url"]')?.content,
+            document.querySelector('meta[name="x-supabase-key"]')?.content);
+          const { error } = await sb.auth.signInWithOtp({ email, options: {
+            emailRedirectTo: window.location.origin + '/blog/',
+            data: { source: 'blog_inline', newsletter: true, signup_url: window.location.href } } });
+          if (error) throw error;
+          fetch('/api/subscribe', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email }) }).catch(() => {});
+          ok && ok.classList.remove('hidden'); form.reset();
+        } catch (e2) { console.error(e2); err && err.classList.remove('hidden'); }
+        finally { btn.disabled = false; btn.textContent = 'Subscribe'; }
+      });
+    });
+  `} />
 
 </PageLayout>

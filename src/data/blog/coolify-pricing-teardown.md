@@ -1,5 +1,5 @@
 ---
-title: "Coolify Pricing Teardown"
+title: "Coolify Pricing Teardown 2026"
 description: "Coolify flips the PaaS model: you pay $5/month but your apps run on your own servers. Here's why the 'bring your own infra' play works."
 publishedAt: "2026-04-06"
 author: "Vlad Nadymov"
@@ -37,6 +37,16 @@ seo:
 Hey, it's Vlad, founder of Beton.
 
 Coolify is the open source project I wish existed when I was setting up my first VPS five years ago. It's a self-hosted PaaS that replaces Heroku, Vercel, and Netlify — and the pricing model is unlike anything else in the space.
+
+
+## How Coolify pricing scales
+
+Coolify barely scales by price: self-hosting is free forever, and Cloud is a flat $5/month convenience fee (+$3/month per extra server beyond two).
+
+<figure class="my-8">
+<svg viewBox="0 0 560 70" role="img" aria-label="pricing tiers" style="width:100%;height:auto;font-family:Inter, ui-sans-serif, system-ui, -apple-system, sans-serif"><text x="0" y="24" fill="var(--color-text)" font-size="14">Self-hosted</text><rect x="150" y="10" width="2" height="18" fill="var(--color-text-tertiary)" rx="1"></rect><text x="160" y="24" fill="var(--color-text-secondary)" font-size="13" font-weight="600">$0 forever</text><text x="0" y="54" fill="var(--color-text)" font-size="14">Cloud</text><rect x="150" y="40" width="320" height="18" fill="var(--color-primary-600)" rx="1"></rect><text x="478" y="54" fill="var(--color-text-secondary)" font-size="13" font-weight="600">$5/mo (+$3/server)</text></svg>
+<figcaption>Coolify pricing by tier. The feature set is identical; Cloud is a flat convenience fee.</figcaption>
+</figure>
 
 *This post is a part of series on commercial open source software pricing.*
 

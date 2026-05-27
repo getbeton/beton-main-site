@@ -135,6 +135,14 @@ async function loadArticle() {
 // ── Markdown body -> email-safe HTML ──────────────────────────────
 function renderBody(bodyMd, email) {
   let html = micromark(bodyMd, { allowDangerousHtml: true });
+  // Charts ship as inline SVG on the web (email clients strip SVG); swap each
+  // tagged <figure data-email-img="..."> for a hosted PNG + its caption.
+  html = html.replace(
+    /<figure[^>]*data-email-img="([^"]+)"[^>]*>[\s\S]*?<figcaption>([\s\S]*?)<\/figcaption>[\s\S]*?<\/figure>/g,
+    (_m, src, caption) =>
+      `<img src="${SITE}${src}" alt="${caption.replace(/"/g, '&quot;')}" style="width:100%;max-width:600px;height:auto;display:block;margin:24px 0 6px" />` +
+      `<div style="font-size:12px;color:#888;margin:0 0 24px;line-height:1.5">${caption}</div>`
+  );
   html = html.replace(
     /<img src="(\/images\/[^"]+)" alt="([^"]*)"[^>]*\/?>/g,
     (_m, src, alt) =>

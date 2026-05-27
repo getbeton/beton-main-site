@@ -1,5 +1,5 @@
 ---
-title: "Novu Pricing Teardown"
+title: "Novu Pricing Teardown 2026"
 description: "Novu's free tier has 24-hour log retention, making it a dev environment, not a production one."
 publishedAt: "2026-04-06"
 author: "Vlad Nadymov"
@@ -36,7 +36,7 @@ seo:
   metaDescription: "Novu's free tier has 24-hour log retention, making it a dev environment, not a production one."
 ---
 
-This post is a part of series on commercial open source software pricing. See full list of articles [here](/blog/).
+This post is a part of series on commercial open source software pricing. See full list of articles [here](/blog/teardowns/).
 
 Novu is open-source notification infrastructure — a unified API for sending email, SMS, push notifications, in-app notifications, and chat messages from a single platform. ~36k GitHub stars. The problem it solves: every growing product eventually builds a notification system, then rebuilds it, then rebuilds it again. Novu is the "just use this" answer instead of duct-taping together SendGrid, Twilio, and a custom in-app notification table.
 
@@ -91,6 +91,16 @@ Pro at $30/month is worth it the moment you're in production — purely for the 
 
 ---
 
-This post is a part of series on commercial open source software pricing. See full list of articles [here](/blog/).
+
+## How Novu pricing scales
+
+Novu's Free tier covers 10k runs; Pro ($30) is mostly a retention unlock, and Team ($250) is a steep jump for RBAC and longer retention.
+
+<figure class="my-8">
+<svg viewBox="0 0 560 100" role="img" aria-label="pricing tiers" style="width:100%;height:auto;font-family:Inter, ui-sans-serif, system-ui, -apple-system, sans-serif"><text x="0" y="24" fill="var(--color-text)" font-size="14">Free</text><rect x="150" y="10" width="2" height="18" fill="var(--color-text-tertiary)" rx="1"></rect><text x="160" y="24" fill="var(--color-text-secondary)" font-size="13" font-weight="600">$0 (10k runs)</text><text x="0" y="54" fill="var(--color-text)" font-size="14">Pro</text><rect x="150" y="40" width="38" height="18" fill="var(--color-primary-600)" rx="1"></rect><text x="196" y="54" fill="var(--color-text-secondary)" font-size="13" font-weight="600">$30/mo</text><text x="0" y="84" fill="var(--color-text)" font-size="14">Team</text><rect x="150" y="70" width="320" height="18" fill="var(--color-primary-600)" rx="1"></rect><text x="478" y="84" fill="var(--color-text-secondary)" font-size="13" font-weight="600">$250/mo</text></svg>
+<figcaption>Novu pricing by tier. The Pro→Team jump is steep for what's mostly RBAC + retention.</figcaption>
+</figure>
+
+This post is a part of series on commercial open source software pricing. See full list of articles [here](/blog/teardowns/).
 
 *I build [Beton](https://getbeton.ai?utm_source=learninglate&utm_campaign=novu_teardown&utm_medium=substack) — open source revenue intelligence for B2B SaaS.*
