@@ -5,7 +5,8 @@ publishedAt: "2026-04-06"
 author: "Vlad Nadymov"
 tags: ["pricing teardown", "open source", "devops"]
 featured: false
-draft: true
+draft: false
+coverImage: "/images/blog/coolify-pricing-cover.jpeg"
 tldr: |
   Coolify is an open-source, self-hostable PaaS — 52,600+ GitHub stars, Apache-2.0 licensed, with exactly two tiers. Self-hosted is free forever with the full feature set; Cloud is $5/month base for a managed Coolify dashboard that deploys to your own servers.
 

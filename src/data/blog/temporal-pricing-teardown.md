@@ -5,7 +5,8 @@ publishedAt: "2026-04-06"
 author: "Vlad Nadymov"
 tags: ["pricing teardown", "open source", "workflow orchestration"]
 featured: false
-draft: true
+draft: false
+coverImage: "/images/blog/temporal-pricing-cover.jpeg"
 tldr: |
   Temporal is MIT-licensed workflow orchestration with ~12k GitHub stars, used in production by Stripe, Snap, and Coinbase. Temporal Cloud starts at $100/month with no free production tier — a deliberate signal that this is serious infrastructure, not a prototyping toy.
 

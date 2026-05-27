@@ -5,7 +5,8 @@ publishedAt: "2026-04-06"
 author: "Vlad Nadymov"
 tags: ["pricing teardown", "open source", "notifications"]
 featured: false
-draft: true
+draft: false
+coverImage: "/images/blog/novu-pricing-cover.jpeg"
 tldr: |
   Novu is open-source notification infrastructure — ~36k GitHub stars, MIT-licensed, unifying email, SMS, push, in-app, and chat behind a single API. Free covers 10k workflow runs/month but only 24-hour activity retention, which makes it a dev environment, not a production one.
 

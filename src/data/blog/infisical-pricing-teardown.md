@@ -5,7 +5,8 @@ publishedAt: "2026-04-06"
 author: "Vlad Nadymov"
 tags: ["pricing teardown", "open source", "secrets management"]
 featured: false
-draft: true
+draft: false
+coverImage: "/images/blog/infisical-pricing-cover.jpeg"
 tldr: |
   Infisical is the open-source secrets manager going after HashiCorp Vault from below — 25,700+ GitHub stars, MIT-licensed core, with enterprise features under a proprietary license inside `backend/src/ee/`. Pricing is identity-based at $18/month per identity, where an "identity" counts both humans and machines.
 

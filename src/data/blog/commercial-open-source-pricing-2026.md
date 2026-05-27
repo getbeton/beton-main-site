@@ -5,7 +5,7 @@ publishedAt: "2026-05-26"
 author: "Vlad Nadymov"
 tags: ["pricing teardown", "open source", "saas"]
 featured: true
-draft: true
+draft: false
 coverImage: "/images/blog/commercial-open-source-pricing-2026-cover.jpeg"
 tldr: |
   Two years after the first round of teardowns, we re-analyzed how 20 commercial open-source tools price — and pulled the 2023 numbers from Wayback to measure the change.

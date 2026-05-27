@@ -5,7 +5,8 @@ publishedAt: "2026-04-06"
 author: "Vlad Nadymov"
 tags: ["pricing teardown", "open source", "workflow automation"]
 featured: false
-draft: true
+draft: false
+coverImage: "/images/blog/windmill-pricing-cover.jpeg"
 tldr: |
   Windmill is open-source workflow automation and internal tooling — ~12k GitHub stars, MIT-licensed core. Pricing splits users into developers ($20/mo) and operators ($10/mo) on top of a $50/worker/month compute meter, which lines up neatly with how internal tools actually get used: a few builders, many runners.
 
