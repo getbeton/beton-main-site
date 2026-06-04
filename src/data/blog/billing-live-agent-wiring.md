@@ -9,7 +9,7 @@ draft: false
 coverImage: "/images/blog/billing-live-cover.png"
 seo:
   metaTitle: "Billing Live, Agent Wiring & First Signups"
-  metaDescription: "Stripe billing live, PostHog/Attio integrations operational, agent wiring in progress with 7 MVP signups."
+  metaDescription: "Stripe billing live, PostHog and Attio integrations operational, agent wiring in progress with session-level authorization, and 7 MVP signups."
 ---
 
 ## What's Going On

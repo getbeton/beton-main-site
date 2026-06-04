@@ -20,6 +20,7 @@ interface Props {
   itemList?: { name: string; items: { name: string; url: string; description?: string }[] };
   howToData?: { name: string; description: string; steps: { name: string; text: string }[] };
   datasetData?: { name: string; description: string; keywords?: string[]; license?: string; creator?: string; variableMeasured?: string[] };
+  softwareApp?: { name: string; description: string; category?: string; operatingSystem?: string };
   profilePage?: boolean;
   speakableSelectors?: string[];
 }
@@ -39,6 +40,7 @@ const {
   itemList,
   howToData,
   datasetData,
+  softwareApp,
   profilePage,
   speakableSelectors,
 } = Astro.props;
@@ -108,6 +110,7 @@ const markdownUrl = `${SITE.url.replace(/\/$/, '')}${markdownPath}`;
   itemList={itemList}
   howToData={howToData}
   datasetData={datasetData}
+  softwareApp={softwareApp}
   profilePage={profilePage}
   speakableSelectors={speakableSelectors}
 />

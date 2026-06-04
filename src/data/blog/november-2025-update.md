@@ -1,5 +1,5 @@
 ---
-title: "November 2025 Update"
+title: "November 2025 Update: SEO Pages and Scraper"
 description: "Experiment with AI-assisted weekly updates. SEO work with 100+ integration pages, GitHub scraper development, and strategy thinking."
 publishedAt: "2025-11-25"
 author: "Vlad Nadymov"

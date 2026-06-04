@@ -32,7 +32,7 @@ pricingTable:
   verdict: "Self-host to prototype; Cloud for production"
 seo:
   metaTitle: "Temporal Pricing Teardown: Workflow Orchestration"
-  metaDescription: "Temporal starts at $100/month with no free tier -- a signal that this is serious infrastructure."
+  metaDescription: "Temporal Cloud starts at $100/month with no free production tier, a signal that this is serious infrastructure rather than a prototyping toy."
 ---
 
 This post is a part of series on commercial open source software pricing. See full list of articles [here](/blog/teardowns/).

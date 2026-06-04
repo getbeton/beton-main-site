@@ -17,7 +17,7 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-const { name, slug, description, category, pricing, keyFeatures, limitations, idealFor, comparison, faq, seo } = entry.data;
+const { name, slug, category, pricing, keyFeatures, limitations, idealFor, comparison, faq, seo } = entry.data;
 
 const allCompetitors = launchedOnly(await getCollection('competitors'));
 const otherComparisons = allCompetitors
@@ -41,7 +41,7 @@ const breadcrumbs = [
 
 <PageLayout
   title={seo?.metaTitle ? seo.metaTitle.replace('Alternative', `Comparison`) : `Beton vs ${name} | Beton`}
-  description={seo?.metaDescription || `An honest comparison of Beton and ${name}. See how they differ on pricing, features, deployment, and more.`}
+  description={`Beton vs ${name}: an honest side-by-side on pricing, features, deployment, and data ownership — and where each tool actually fits your team.`}
   canonicalPath={`/vs/${slug}`}
   breadcrumbs={breadcrumbs}
   faqData={faq}

@@ -30,7 +30,7 @@ faq:
   - question: "What if our usage limits are enforced at the account level, not per-user?"
     answer: "Beton handles both. Aggregations happen at whatever entity you specify (user, account, workspace). The signal can reference 'workspace approaching seat ceiling' just as easily as 'individual user approaching API quota'."
 seo:
-  metaTitle: "Usage-Based Upsell — Beton Revenue Intelligence"
+  metaTitle: "Usage-Based Upsell Signals for PLG Teams"
   metaDescription: "Trigger sales outreach when customers hit usage milestones. Detect upsell moments in PostHog data and route them to your CRM in real time."
 ---
 

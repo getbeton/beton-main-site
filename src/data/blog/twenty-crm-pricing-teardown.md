@@ -31,7 +31,7 @@ pricingTable:
   verdict: "Switch from HubSpot/Salesforce when inertia is the only reason to stay"
 seo:
   metaTitle: "Twenty CRM Pricing Teardown: Open Source CRM"
-  metaDescription: "Twenty CRM at $9/user/month exposes how much of Salesforce and HubSpot pricing is brand tax."
+  metaDescription: "Twenty CRM at $9 per user a month exposes how much of Salesforce and HubSpot pricing is brand tax and ecosystem lock-in, not software value."
 ---
 
 This post is a part of series on commercial open source software pricing. See full list of articles [here](/blog/teardowns/).

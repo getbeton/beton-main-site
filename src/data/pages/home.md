@@ -2,7 +2,7 @@
 title: "Beton - Revenue Intelligence on Your Own Data"
 subtitle: "Find buying signals in your own data. Backtested."
 seo:
-  metaTitle: "Revenue Intelligence — Buying Signals in Your Own Data"
+  metaTitle: "Revenue Intelligence — Buying Signals in Your Data"
   metaDescription: "Beton's agent finds buying signals in your data warehouse, backtests them, and routes the revenue-driving ones to your CRM. Open source under AGPLv3."
 hero:
   headline: "Find the buying signals already in your data"

@@ -34,7 +34,7 @@ pricingTable:
   verdict: "Pro for growing teams; Enterprise only if you'll commit $25k/year"
 seo:
   metaTitle: "Grafana Pricing Teardown: Observability Platform"
-  metaDescription: "Grafana has five active billing meters and a $25k/year enterprise cliff with nothing in between."
+  metaDescription: "Grafana has five active usage meters, a free tier tight on retention, and a $25k/year enterprise cliff with nothing in between Pro and Enterprise."
 ---
 
 This post is a part of series on commercial open source software pricing. See full list of articles [here](/blog/teardowns/).

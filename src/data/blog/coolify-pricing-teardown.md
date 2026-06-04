@@ -147,4 +147,4 @@ For users, this is the dream scenario. A genuinely free, genuinely full-featured
 
 ---
 
-*I build [Beton](https://getbeton.com) — open source revenue intelligence for B2B SaaS.*
+*I build [Beton](https://getbeton.ai) — open source revenue intelligence for B2B SaaS.*

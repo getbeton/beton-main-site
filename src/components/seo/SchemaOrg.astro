@@ -41,6 +41,16 @@ interface DatasetSpec {
   variableMeasured?: string[];
 }
 
+// A SoftwareApplication node scoped to a specific page (e.g. an integration
+// page), distinct from the global product `#software` node. Used so
+// /integrations/<x>/ carries a SoftwareApplication describing "Beton + X".
+interface SoftwareAppSpec {
+  name: string;
+  description: string;
+  category?: string;
+  operatingSystem?: string;
+}
+
 interface Props {
   type?: string;
   title: string;
@@ -53,6 +63,7 @@ interface Props {
   itemList?: { name: string; items: ItemListItem[] };
   howToData?: { name: string; description: string; steps: HowToStep[] };
   datasetData?: DatasetSpec;
+  softwareApp?: SoftwareAppSpec;
   profilePage?: boolean;
   speakableSelectors?: string[];
 }
@@ -69,9 +80,17 @@ const {
   itemList,
   howToData,
   datasetData,
+  softwareApp,
   profilePage,
   speakableSelectors,
 } = Astro.props;
+
+// WebPage subtypes Google recognises as more specific page kinds. Pages opt
+// in by passing schemaType (e.g. 'AboutPage' on /about/, 'CollectionPage' on
+// /blog/). Anything else stays a plain WebPage. (SoftwareApplication is NOT a
+// WebPage subtype — it stays 'WebPage' here and gets its own node below.)
+const webPageType =
+  type === 'AboutPage' || type === 'CollectionPage' ? type : 'WebPage';
 
 const orgSchema = {
   '@type': 'Organization',
@@ -129,7 +148,7 @@ const speakableCss = (speakableSelectors && speakableSelectors.length > 0)
   : ['h1', '.prose p:first-of-type'];
 
 const webPageSchema = {
-  '@type': 'WebPage',
+  '@type': webPageType,
   '@id': `${url.replace(/\/$/, '')}/#webpage`,
   name: title,
   description,
@@ -228,6 +247,31 @@ const softwareSchema =
           : {}),
       }
     : null;
+
+// Page-scoped SoftwareApplication for integration pages ("Beton + X"). Lives
+// under the page's own @id (not the global product #software node) and is
+// declared part of the Beton product. The free Offer keeps it eligible for
+// rich results (SoftwareApplication needs offers, review, or aggregateRating).
+const integrationSoftwareSchema = softwareApp
+  ? {
+      '@type': 'SoftwareApplication',
+      '@id': `${url.replace(/\/$/, '')}/#software`,
+      name: softwareApp.name,
+      applicationCategory: softwareApp.category || 'BusinessApplication',
+      operatingSystem: softwareApp.operatingSystem || 'Web',
+      description: softwareApp.description,
+      url,
+      isPartOf: { '@id': `${SITE.url}/#software` },
+      publisher: { '@id': `${SITE.url}/#organization` },
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'USD',
+        availability: 'https://schema.org/InStock',
+        url: `${SITE.url}/pricing/`,
+      },
+    }
+  : null;
 
 const faqSchema =
   faqData && faqData.length > 0
@@ -353,6 +397,7 @@ const itemListSchema =
 
 const graph: Record<string, unknown>[] = [orgSchema, webSiteSchema, imageSchema, webPageSchema];
 if (softwareSchema) graph.push(softwareSchema);
+if (integrationSoftwareSchema) graph.push(integrationSoftwareSchema);
 if (faqSchema) graph.push(faqSchema);
 if (breadcrumbSchema) graph.push(breadcrumbSchema);
 if (itemListSchema) graph.push(itemListSchema);
