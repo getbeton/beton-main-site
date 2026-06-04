@@ -1,8 +1,8 @@
 ---
 title: "Privacy Policy"
 seo:
-  metaTitle: "Privacy Policy - Beton"
-  metaDescription: "Privacy Policy for Beton revenue intelligence platform. Learn how we handle your data, cookies, and privacy rights."
+  metaTitle: "Privacy Policy — How Beton Handles Your Data"
+  metaDescription: "Privacy Policy for the Beton revenue intelligence platform — how we collect, use, and protect your data, cookies, and your privacy rights."
 ---
 
 **Last updated: February 2026**

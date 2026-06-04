@@ -1,7 +1,7 @@
 ---
 title: "Terms and Conditions"
 seo:
-  metaTitle: "Terms and Conditions - Beton"
+  metaTitle: "Terms & Conditions — Beton Platform Usage"
   metaDescription: "Read the Terms and Conditions for Beton, the open-source revenue intelligence platform. Covers self-hosted, cloud, and enterprise service usage policies."
 ---
 

@@ -34,7 +34,7 @@ pricingTable:
   cheapestPaid: "$19/agent/month (Startups, annual billing)"
   verdict: "Strong MIT core for teams under 20 agents; enterprise features cost the same whether cloud or self-hosted"
 seo:
-  metaTitle: "Chatwoot Pricing Teardown: Open-Source Customer Support"
+  metaTitle: "Chatwoot Pricing Teardown: Open-Source Inbox"
   metaDescription: "Chatwoot is MIT for almost everything except the enterprise directory, which needs a separate commercial license to run in production."
 ---
 

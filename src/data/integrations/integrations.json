@@ -44,7 +44,7 @@
     },
     "blogPost": "beton-late-april-2026-update",
     "seo": {
-      "metaTitle": "Postgres Integration \u2014 Signal Discovery on Your Warehouse",
+      "metaTitle": "Postgres Integration \u2014 Warehouse Signals",
       "metaDescription": "Connect any Postgres warehouse to Beton \u2014 replicas, Supabase, self-hosted. Read schema, discover signals, validate statistically. No data export needed."
     },
     "body": [
@@ -155,7 +155,7 @@
     ],
     "blogPost": "we-rebuilt-beton-automated-signal",
     "seo": {
-      "metaTitle": "PostHog Integration \u2014 Backtested Signals from Product Events",
+      "metaTitle": "PostHog Integration \u2014 Backtested Product Signals",
       "metaDescription": "Connect PostHog to Beton. The agent proposes signal hypotheses, backtests them on 90 days of your events, and promotes only the ones that beat your bar."
     },
     "body": [
@@ -244,7 +244,7 @@
     ],
     "blogPost": "firecrawl-pricing-teardown",
     "seo": {
-      "metaTitle": "Firecrawl Integration \u2014 Web Context for the Beton Agent",
+      "metaTitle": "Firecrawl Integration \u2014 Web Context for the Agent",
       "metaDescription": "Connect Firecrawl to Beton so the agent crawls your site for product context. Pricing, features, blog \u2014 fed directly into signal hypothesis generation."
     },
     "body": [

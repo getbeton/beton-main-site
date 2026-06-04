@@ -1,0 +1,123 @@
+---
+import { getCollection, render } from 'astro:content';
+import PageLayout from '../../layouts/PageLayout.astro';
+import Container from '../../components/ui/Container.astro';
+import Section from '../../components/ui/Section.astro';
+import Heading from '../../components/ui/Heading.astro';
+import CTASection from '../../components/shared/CTASection.astro';
+import { SITE } from '../../utils/site';
+
+// Render order of the four feature categories, with section copy. Anything not
+// in this map still renders (appended last) but won't get a heading blurb.
+const CATEGORY_ORDER = ['detection', 'routing', 'integration', 'platform'] as const;
+const CATEGORY_META: Record<string, { label: string; blurb: string }> = {
+  detection: {
+    label: 'Signal Detection',
+    blurb: 'The agent reads your schema, proposes behavioral hypotheses, and backtests each one before it ever fires.',
+  },
+  routing: {
+    label: 'Routing & Delivery',
+    blurb: 'When a signal fires, Beton pushes it where revenue work already happens — CRM records, webhooks, your stack.',
+  },
+  integration: {
+    label: 'Integrations',
+    blurb: 'Connect the data sources Beton reads from and the destinations it routes to. No ETL to maintain.',
+  },
+  platform: {
+    label: 'Platform',
+    blurb: 'Open-source, self-hostable, and built to run on data you already own.',
+  },
+};
+
+const features = (await getCollection('features')).sort(
+  (a, b) => a.data.order - b.data.order
+);
+
+// Pre-render each feature's markdown body so we can show the long-form prose
+// inline (features have no detail pages — this page is the canonical surface).
+const rendered = await Promise.all(
+  features.map(async (entry) => ({
+    entry,
+    Content: (await render(entry)).Content,
+  }))
+);
+
+const grouped = CATEGORY_ORDER.map((cat) => ({
+  cat,
+  meta: CATEGORY_META[cat],
+  items: rendered.filter((r) => r.entry.data.category === cat),
+})).filter((g) => g.items.length > 0);
+
+const breadcrumbs = [
+  { name: 'Home', url: SITE.url },
+  { name: 'Features', url: `${SITE.url}/features/` },
+];
+
+const itemList = {
+  name: 'Beton features',
+  items: features.map((f) => ({
+    name: f.data.title,
+    url: `${SITE.url}/features/#${f.id}`,
+    description: f.data.description,
+  })),
+};
+---
+
+<PageLayout
+  title="Features — Detect & Route Revenue Signals"
+  description="Beton's feature set: automatic behavioral signal discovery on your PostHog and Postgres data, statistical backtests, and CRM routing to Attio and beyond."
+  canonicalPath="/features/"
+  schemaType="CollectionPage"
+  breadcrumbs={breadcrumbs}
+  itemList={itemList}
+>
+  <Section>
+    <Container>
+      <div class="text-center mb-12 lg:mb-16 max-w-3xl mx-auto">
+        <Heading as="h1">Features</Heading>
+        <p class="mt-4 text-lg text-[var(--color-text-secondary)]">
+          Beton detects revenue signals in your product data automatically — no rule-writing, no playbook configuration — and routes them to your CRM. Here's what's under the hood.
+        </p>
+      </div>
+
+      <div class="space-y-16 lg:space-y-20 max-w-5xl mx-auto">
+        {grouped.map((group) => (
+          <div>
+            <div class="mb-8 border-b-2 border-[var(--color-border)] pb-4">
+              <h2 class="text-xl sm:text-2xl font-[family-name:var(--font-heading)] tracking-wide">
+                {group.meta.label}
+              </h2>
+              <p class="mt-2 text-base text-[var(--color-text-secondary)] max-w-2xl">
+                {group.meta.blurb}
+              </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+              {group.items.map(({ entry, Content }) => (
+                <article
+                  id={entry.id}
+                  class="flex flex-col border-2 border-[var(--color-text)] bg-[var(--color-surface)] shadow-[var(--shadow-card)] p-6"
+                >
+                  <h3 class="text-lg font-bold mb-2">{entry.data.title}</h3>
+                  <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed mb-4">
+                    {entry.data.description}
+                  </p>
+                  <div class="prose prose-sm max-w-none text-[var(--color-text-secondary)]">
+                    <Content />
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <CTASection
+    headline="See Beton detect signals on your data"
+    description="Connect PostHog or Postgres and the agent proposes its first signals in minutes. Free to self-host."
+    secondaryCta={{ label: 'View pricing', href: '/pricing/' }}
+    trackId="features-cta"
+  />
+</PageLayout>

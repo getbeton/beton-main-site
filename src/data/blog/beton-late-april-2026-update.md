@@ -23,7 +23,7 @@ faq:
   - question: "What's the difference between field mapping and entity linking?"
     answer: "Field mapping sets attribute values on a CRM record. Entity linking is the harder part — when a signal fires, who is this about and what records need to exist. Beton handles both: people resolved by email, companies by domain, account owner by workspace member, plus search-picker for specific records."
 seo:
-  metaTitle: "Beton late April 2026 — Postgres, workspaces, agent rewire"
+  metaTitle: "Beton late April 2026: workspaces and agent rewire"
   metaDescription: "Postgres source, multi-user workspaces, Firecrawl, design refresh just shipped. Editable field mapping and multi-subagent agent rewrite are next."
 ---
 

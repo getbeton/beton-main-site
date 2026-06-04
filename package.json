@@ -7,9 +7,11 @@
     "dev": "astro dev",
     "lastmod": "node scripts/gen-lastmod.mjs",
     "prebuild": "node scripts/gen-lastmod.mjs",
-    "build": "astro build && node scripts/post-build-sitemap.mjs && node scripts/indexnow.mjs --only-prod",
+    "build": "astro build && node scripts/post-build-sitemap.mjs && node scripts/seo-meta-check.mjs && node scripts/seo-link-check.mjs && node scripts/indexnow.mjs --only-prod",
     "preview": "astro preview",
     "check": "astro check",
+    "seo:check": "node scripts/seo-meta-check.mjs && node scripts/seo-link-check.mjs",
+    "seo:report": "node scripts/seo-meta-check.mjs --report && node scripts/seo-link-check.mjs --report",
     "heroes": "node scripts/gen-blog-heroes.mjs"
   },
   "devDependencies": {

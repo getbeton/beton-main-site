@@ -24,14 +24,23 @@ const related = allScenarios
 
 const breadcrumbs = [
   { name: 'Home', url: SITE.url },
-  { name: 'Tools', url: `${SITE.url}/tools/` },
+  { name: 'OSS Tools', url: `${SITE.url}/oss-tools/` },
   { name: 'DryFit', url: `${SITE.url}/oss-tools/dryfit/` },
   { name: 'Scenarios', url: `${SITE.url}/oss-tools/dryfit/scenarios/` },
   { name: d.name, url: `${SITE.url}/oss-tools/dryfit/scenarios/${d.slug}/` },
 ];
 
 const metaTitle = `${d.name} — dryfit scenario`;
-const metaDescription = `${d.description} Success event: ${d.successEvent}. ${d.scale.accounts.toLocaleString()} accounts, ${d.scale.durationDays} days. MIT licensed.`;
+// Keep the meta description in the ~120–160 band: append scale/licensing detail
+// to short scenario blurbs, and clamp long ones at a word boundary.
+const metaDescription = (() => {
+  let md = `${d.description}`.replace(/\s+/g, ' ').trim();
+  if (md.length < 120) {
+    md = `${md} Success event: ${d.successEvent}; ${d.scale.accounts.toLocaleString()} accounts over ${d.scale.durationDays} days. MIT-licensed dryfit dataset.`;
+  }
+  if (md.length > 160) md = md.slice(0, 157).replace(/\s+\S*$/, '').trim() + '…';
+  return md;
+})();
 
 const quickstart = `# Dockerized Postgres (recommended for inspection)
 docker compose up -d

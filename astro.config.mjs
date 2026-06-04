@@ -98,8 +98,11 @@ export default defineConfig({
       // /404 is non-content; /oss-tools/seqd/ is deprecated (noindex,follow) — drop
       // both from the sitemap so we don't dilute the property's quality signal.
       // comingSoon integrations are placeholder pages — also drop.
+      // Multi-tag blog combination pages (/blog/tags/a+b/) are thin and noindexed
+      // (see [...tag].astro) — drop them too; single-tag pages stay.
       filter: (page) => {
         if (page.includes('/404') || page.includes('/oss-tools/seqd/')) return false;
+        if (/\/blog\/tags\/[^/]*(\+|%2B)/.test(page)) return false;
         for (const slug of comingSoonSlugs) {
           if (page.endsWith(slug)) return false;
         }

@@ -43,7 +43,7 @@ export const footerNav = {
     { label: 'dev.to', href: 'https://dev.to/beton', external: true },
     { label: 'App', href: SITE.external.app, external: true, nofollow: true },
     { label: 'llms.txt', href: '/llms.txt' },
-    { label: 'Sell to Scientists', href: 'https://www.selltoscientists.com', external: true },
+    { label: 'Sell to Scientists', href: 'https://selltoscientists.com', external: true },
     { label: 'Sell to State', href: 'https://www.selltostate.com', external: true },
   ] as NavLink[],
   legal: [

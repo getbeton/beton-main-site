@@ -35,7 +35,7 @@ pricingTable:
   verdict: "Self-host for cost control; Cloud makes sense only if you're paying for operational simplicity"
 seo:
   metaTitle: "ClickHouse Pricing Teardown: Cloud Plans Explained"
-  metaDescription: "ClickHouse Cloud starts at $66/month for Basic and $499/month for Scale — with a free trial but no permanent free tier."
+  metaDescription: "ClickHouse Cloud starts at $66/month for Basic and $499/month for Scale, with a 30-day free trial but no permanent free tier."
 ---
 
 This post is a part of series on commercial open source software pricing. See full list of articles [here](/blog/teardowns/).

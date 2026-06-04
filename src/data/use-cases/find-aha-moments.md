@@ -31,7 +31,7 @@ faq:
   - question: "Can Beton tell me which users are stuck before reaching the aha moment?"
     answer: "Yes — that's actually the higher-leverage signal. Beton emits both 'approaching the aha moment' (so CS can nudge contextually) and 'stalled before the aha moment' (so reps can intervene before churn). Most teams over-invest in churn rescue and under-invest in acceleration."
 seo:
-  metaTitle: "Find Aha Moments — Beton Revenue Intelligence"
+  metaTitle: "Find Aha Moments That Predict Conversion"
   metaDescription: "Detect the moments users first experience product value. Beton identifies aha moments that predict conversion so you can get every user there faster."
 ---
 

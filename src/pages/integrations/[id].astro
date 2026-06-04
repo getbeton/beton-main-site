@@ -116,6 +116,15 @@ const howToData =
         steps: howItWorks.map((s) => ({ name: s.step, text: s.description })),
       }
     : undefined;
+
+// SoftwareApplication describing the "Beton + <name>" integration as a free
+// add-on of the Beton product. Distinct from the global product #software node.
+const softwareApp = {
+  name: `Beton + ${name}`,
+  description: tagline || description,
+  category: 'BusinessApplication',
+  operatingSystem: 'Web',
+};
 ---
 
 <PageLayout
@@ -126,6 +135,7 @@ const howToData =
   breadcrumbs={breadcrumbs}
   faqData={faqData.length > 0 ? faqData : undefined}
   howToData={howToData}
+  softwareApp={softwareApp}
 >
   <!-- Hero -->
   <section class="relative py-14 lg:py-20 overflow-hidden">

@@ -40,6 +40,7 @@ const itemList = {
   title="Revenue Intelligence Blog — Teardowns, PLG & Signals"
   description="Open-source pricing teardowns, product-led growth playbooks, and behavioral signal research from the Beton team. New posts most weeks."
   canonicalPath="/blog/"
+  schemaType="CollectionPage"
   breadcrumbs={breadcrumbs}
   itemList={itemList}
 >
@@ -84,7 +85,6 @@ const itemList = {
         <div class="mb-12 border-t-2 border-b-2 border-[var(--color-border)] py-6">
           <div class="flex flex-wrap items-baseline gap-x-3 gap-y-2 mb-3">
             <h2 class="text-sm font-bold uppercase tracking-[0.18em] text-[var(--color-text-tertiary)]">Browse by topic</h2>
-            <span class="text-xs text-[var(--color-text-tertiary)]">combine tags in the URL with <code class="text-[var(--color-primary-600)]">+</code> — e.g. <a href="/blog/tags/open-source+pricing-teardown/" class="text-[var(--color-primary-600)] hover:underline">open-source+pricing-teardown</a></span>
           </div>
           <div class="flex flex-wrap gap-2">
             {tags.map((t) => (

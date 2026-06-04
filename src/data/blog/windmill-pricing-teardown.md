@@ -34,7 +34,7 @@ pricingTable:
   verdict: "Free tier for small teams; Enterprise for operator-heavy orgs"
 seo:
   metaTitle: "Windmill Pricing Teardown: Workflow Automation"
-  metaDescription: "Windmill splits users into developers and operators at half the price -- smart for internal tools."
+  metaDescription: "Windmill prices operator seats at half the developer rate on top of a per-worker compute meter, a smart split for how internal tools get used."
 ---
 
 This post is a part of series on commercial open source software pricing. See full list of articles [here](/blog/teardowns/).

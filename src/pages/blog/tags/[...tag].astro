@@ -53,6 +53,17 @@ const { tagLabels, slugSet, posts } = Astro.props;
 const heading = tagLabels.join(' + ');
 const canonical = `/blog/tags/${slugSet.join('+')}/`;
 
+// Multi-tag AND-combination pages are thin and orphaned — keep them reachable
+// (links from posts/tag pages still resolve) but noindex them and drop them
+// from the sitemap (see astro.config.mjs). Only single-tag pages are indexable.
+const isCombo = slugSet.length > 1;
+
+// Single-tag pages are indexable, so they need a meta description that clears
+// the ~120-char floor. Combo pages are noindexed, so length is irrelevant.
+const metaDescription = isCombo
+  ? `Every Beton blog post tagged ${heading}.`
+  : `Beton blog posts tagged ${heading}: open-source pricing teardowns, product-led growth playbooks, and behavioral-signal research from the team.`;
+
 const breadcrumbs = [
   { name: 'Home', url: SITE.url },
   { name: 'Blog', url: `${SITE.url}/blog/` },
@@ -70,9 +81,10 @@ function fmtDate(iso: string) {
 ---
 
 <PageLayout
-  title={`Posts tagged ${heading} — Beton`}
-  description={`Every Beton blog post tagged ${heading}.`}
+  title={`All blog posts tagged ${heading}`}
+  description={metaDescription}
   canonicalPath={canonical}
+  noIndex={isCombo}
   breadcrumbs={breadcrumbs}
   itemList={itemList}
 >

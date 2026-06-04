@@ -214,4 +214,4 @@ Buy a warehouse you trust, instrument honestly, and route the events. We built B
 
 The category has spent five years convincing the market that you need both. Most teams need one of them, done well.
 
-If you want to see what this looks like against your own PostHog and Postgres data, [start a workspace at getbeton.ai](https://getbeton.ai/?utm_source=blog&utm_medium=cta&utm_campaign=first-party-vs-third-party&utm_content=footer). The agent is open source under AGPLv3 if you'd rather read the scoring code first — [inspector-ml-backend on GitHub](https://github.com/get-beton).
+If you want to see what this looks like against your own PostHog and Postgres data, [start a workspace at getbeton.ai](https://getbeton.ai/?utm_source=blog&utm_medium=cta&utm_campaign=first-party-vs-third-party&utm_content=footer). The agent is open source under AGPLv3 if you'd rather read the scoring code first — [inspector-ml-backend on GitHub](https://github.com/getbeton/inspector-ml-backend).

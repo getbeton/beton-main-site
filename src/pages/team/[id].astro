@@ -42,11 +42,16 @@ const personData = [{
 function fmtDate(iso: string) {
   return new Date(iso).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
 }
+
+// Bios run long; clamp the meta description to the ~160-char ceiling at a word
+// boundary (full bio still renders in the page body).
+const metaDescription =
+  bio.length > 160 ? bio.slice(0, 157).replace(/\s+\S*$/, '').trim() + '…' : bio;
 ---
 
 <PageLayout
   title={`${name} — ${role} at Beton`}
-  description={bio}
+  description={metaDescription}
   canonicalPath={`/team/${entry.id.replace(/\.md$/, '')}/`}
   breadcrumbs={breadcrumbs}
   personData={personData}

@@ -34,7 +34,7 @@ pricingTable:
   verdict: "Pro the moment you're in production"
 seo:
   metaTitle: "Novu Pricing Teardown: Notification Infra"
-  metaDescription: "Novu's free tier has 24-hour log retention, making it a dev environment, not a production one."
+  metaDescription: "Novu's free tier covers 10k workflow runs a month but only 24-hour log retention, which makes it a dev environment, not a production one."
 ---
 
 This post is a part of series on commercial open source software pricing. See full list of articles [here](/blog/teardowns/).
