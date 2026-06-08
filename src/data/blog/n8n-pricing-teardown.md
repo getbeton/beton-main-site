@@ -2,6 +2,7 @@
 title: "n8n Pricing Teardown 2026"
 description: "n8n charges per workflow execution, not per step. Here's why that matters for complex automations with AI chains and conditional branching."
 publishedAt: "2026-03-25"
+updatedAt: "2026-06-08"
 author: "Vlad Nadymov"
 tags: ["pricing teardown", "open source", "automation"]
 featured: true
@@ -106,3 +107,5 @@ n8n bills by workflow executions in flat tiers. The Community edition self-hosts
 <svg viewBox="0 0 560 70" role="img" aria-label="pricing tiers" style="width:100%;height:auto;font-family:Inter, ui-sans-serif, system-ui, -apple-system, sans-serif"><text x="0" y="24" fill="var(--color-text)" font-size="14">Community</text><rect x="150" y="10" width="2" height="18" fill="var(--color-text-tertiary)" rx="1"></rect><text x="160" y="24" fill="var(--color-text-secondary)" font-size="13" font-weight="600">$0 (self-host)</text><text x="0" y="54" fill="var(--color-text)" font-size="14">Starter</text><rect x="150" y="40" width="320" height="18" fill="var(--color-primary-600)" rx="1"></rect><text x="478" y="54" fill="var(--color-text-secondary)" font-size="13" font-weight="600">~EUR 20/mo</text></svg>
 <figcaption>n8n entry pricing. Business/Enterprise (SSO, Git, multi-env) sit well above Starter.</figcaption>
 </figure>
+
+_Last verified 2026-06-08._
