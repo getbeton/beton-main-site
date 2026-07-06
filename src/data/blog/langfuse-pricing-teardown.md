@@ -2,6 +2,7 @@
 title: "Langfuse Pricing Teardown 2026"
 description: "Langfuse open sourced almost everything under MIT. The cloud pricing is usage-based with a $170 cliff between Core and Pro — here's what you're actually paying for."
 publishedAt: "2026-04-20"
+updatedAt: "2026-07-06"
 author: "Vlad Nadymov"
 tags: ["pricing teardown", "open source", "LLM observability"]
 featured: false
@@ -166,3 +167,5 @@ The honest take: Langfuse's pricing is reasonable for what it is, but the real s
 ---
 
 *I build [Beton](https://getbeton.ai) — open source revenue intelligence for B2B SaaS.*
+
+_Last verified 2026-07-06._
