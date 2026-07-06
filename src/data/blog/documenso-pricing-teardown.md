@@ -2,6 +2,7 @@
 title: "Documenso Pricing Teardown 2026"
 description: "Documenso has 12.7k GitHub stars, AGPL-3.0 licensing, and a $250/month Platform tier that quietly bets on DocuSign's per-envelope pricing being the competitor's biggest weakness. Here's how it actually works."
 publishedAt: "2026-04-28"
+updatedAt: "2026-07-06"
 author: "Vlad Nadymov"
 tags: ["pricing teardown", "open source", "e-signature"]
 featured: false
@@ -137,3 +138,5 @@ Documenso's tiers climb gently until the $250 Platform plan — which you pay no
 </figure>
 
 *I build [Beton](https://getbeton.ai?utm_source=blog&utm_campaign=documenso_teardown&utm_medium=organic) — open source revenue intelligence for B2B SaaS.*
+
+_Last verified 2026-07-06._
