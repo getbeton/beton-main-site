@@ -15,10 +15,12 @@
  *   INVESTOR_FROM                   — display name + sender, e.g. 'Vlad Nadymov <v@getbeton.ai>'
  *
  * Before running:
- *   1. Set CAMPAIGN, SUBJECT, BLOG_URL below for the current edition.
+ *   1. Set CAMPAIGN, SUBJECT below for the current edition.
  *   2. Edit buildHtml() to drop in the actual investor-update copy.
- *   3. Run --dry-run first; verify recipient list + sample HTML.
- *   4. Live send.
+ *   3. Tracker is https://track.getbeton.org (NOT www.getbeton.ai — that host is 402).
+ *   4. Run --dry-run first; verify recipient list + sample HTML.
+ *   5. --test nadyyym@gmail.com, then live send once.
+ *      This script has no claim-guard. A second live run re-sends everyone.
  */
 
 import fs from 'node:fs';
@@ -50,60 +52,136 @@ if (!API_KEY || !AUDIENCE_ID) {
 }
 
 const DRY_RUN = process.argv.includes('--dry-run');
+const testIdx = process.argv.indexOf('--test');
+const TEST_TO = testIdx !== -1 ? process.argv[testIdx + 1] : null;
 const SEND_DELAY_MS = 200;
 
 // ── Campaign ──────────────────────────────────────────────────────
 // EDIT EACH EDITION:
-const CAMPAIGN = 'beton-investor-2026-04';
-const SUBJECT = 'beton — april 2026 investor update';
-const BLOG_URL = 'https://www.getbeton.ai/blog/beton-april-2026-update';
-
-// ── Tracking (same redirector as general newsletter) ──────────────
-const TRACKER_BASE = 'https://www.getbeton.ai/api/track';
+const CAMPAIGN = 'beton-investor-2026-08';
+const SUBJECT = 'beton august investor newsletter';
 const UTM = `utm_source=newsletter&utm_medium=email&utm_campaign=${CAMPAIGN}`;
+const withUtm = (url) => url + (url.includes('?') ? '&' : '?') + UTM;
+
+// First-party tracker on Cloudflare (www.getbeton.ai is 402).
+const TRACKER_BASE = process.env.NEWSLETTER_TRACKER_BASE || 'https://track.getbeton.org';
+const POSTHOG_KEY = process.env.POSTHOG_API_KEY || process.env.POSTHOG_PROJECT_TOKEN || '';
+const POSTHOG_HOST = (process.env.POSTHOG_HOST || 'https://us.i.posthog.com').replace(/\/$/, '');
 
 function clickUrl(target, label, email) {
-  const u = encodeURIComponent(target + (target.includes('?') ? '&' : '?') + UTM);
-  return `${TRACKER_BASE}/click?u=${u}&c=${CAMPAIGN}&l=${encodeURIComponent(label)}&e=${encodeURIComponent(email)}`;
+  const dest = withUtm(target);
+  const u = encodeURIComponent(dest);
+  return `${TRACKER_BASE}/click?u=${u}&c=${encodeURIComponent(CAMPAIGN)}&l=${encodeURIComponent(label)}&e=${encodeURIComponent(email)}`;
+}
+function pixelUrl(email) {
+  return `${TRACKER_BASE}/pixel.png?c=${encodeURIComponent(CAMPAIGN)}&e=${encodeURIComponent(email)}`;
 }
 
-function pixelUrl(email) {
-  return `${TRACKER_BASE}/pixel.png?c=${CAMPAIGN}&e=${encodeURIComponent(email)}`;
-}
+const STS_DEST = 'https://selltostate.com/';
+const VOBO_DEST = 'https://vobo.dev/';
+const VOBO_APP_DEST = 'https://app.vobo.dev/auth';
+const CAL_DEST = 'https://cal.com/beton/programmatic-seo-discovery-call';
 
 // ── Email HTML — investor edition ─────────────────────────────────
-// Investor letters are personal; keep typography clean, no dense lists.
+// Copy from Google Doc "beton august investor newsletter"
+// https://docs.google.com/document/d/1R-JI_5aZv_e01In96MohTxFfG-o_tskAiUZV_OeAUPQ/edit
 function buildHtml(email) {
-  const link = (url, label, text) =>
-    `<a href="${clickUrl(url, label, email)}" style="color:#2563eb">${text}</a>`;
+  const h1 = 'margin:30px 0 8px;font-size:17px;font-weight:700;line-height:1.35';
+  const ul = 'padding-left:20px;margin:8px 0';
+  const a = 'color:#2563eb';
+  const STS_LINK = clickUrl(STS_DEST, 'sts', email);
+  const CAL_LINK = clickUrl(CAL_DEST, 'cal', email);
 
   return `<!DOCTYPE html>
 <html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"></head>
 <body style="font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;font-size:15px;line-height:1.65;color:#1a1a1a;max-width:620px;margin:0 auto;padding:24px">
 
-<p>hi —</p>
+<p>hey,</p>
 
-<p>quick beton investor update for april. <em>(replace this paragraph with the actual update copy — keep it under ~400 words, lead with the most material thing first.)</em></p>
+<p>it's Vlad. august update on Beton, <a href="${STS_LINK}" style="${a}">Sell to State</a>, and a new product.</p>
 
-<p><b>highlights</b></p>
-<ul style="padding-left:20px">
-  <li>placeholder bullet</li>
-  <li>placeholder bullet</li>
-  <li>placeholder bullet</li>
+<p>tl;dr: grew traffic and got first 3 subscriptions at $49. 2 consulting customers pay the bills. we got into AltaLab</p>
+
+<p style="${h1}">traffic</p>
+
+<p>totals:</p>
+<ul style="${ul}">
+  <li>visitors 1.5x (4.6K → 7.0K), ~233 a day vs 155 in july</li>
+  <li>signups 106, down from 118</li>
+  <li>75 people searched (466 searches, ~6 per user), up from 61</li>
+  <li>50% signups check pricing, 12% signups proceed to check out</li>
 </ul>
 
-<p><b>asks</b></p>
-<p>placeholder — specific introductions, hiring help, or feedback we'd value.</p>
+<p>google organic dipped due to bugs, but rebounded:</p>
+<ul style="${ul}">
+  <li>impressions 0.86x (361K → 312K)</li>
+  <li>clicks 0.87x (3,169 → 2,748)</li>
+  <li>CTR flat at 0.9%</li>
+</ul>
 
-<p>full deck/post: ${link(BLOG_URL, 'investor-deck', 'getbeton.ai/blog/beton-april-2026-update')}</p>
+<p>tested google ads for $100: ~$10 per signup, no revenue. will repeat once we have more cash in the bank</p>
 
-<p>as always — replies welcome.</p>
+<p>LLMs: went from 174 to 313 visitors signup rate 2.2x higher than google organic (4.7% vs 2.1%).</p>
 
-<p>— vlad<br>
-${link('https://www.getbeton.ai', 'homepage', 'getbeton.ai')}</p>
+<p>google organic is still the useful engine: 2.5K first-touch, 51 signups. crawl budget is still the ceiling there. the extra humans are LLMs + that direct bucket, not more google clicks.</p>
+
+<p style="${h1}">money</p>
+
+<p><a href="${STS_LINK}" style="${a}">selltostate.com</a> got 3 subs at $49/mo each. broke the ice, not repeatable revenue yet</p>
+
+<p>programmatic SEO consulting keeps us afloat – two customers, $6K/mo total</p>
+
+<p style="${h1}">investments</p>
+
+<p>we got into AltaLab by AltaIR Capital program starts 7 sep. we don't get any funding or give up any equity</p>
+
+<p style="${h1}">september plans</p>
+<ul style="${ul}">
+  <li><a href="${STS_LINK}" style="${a}">selltostate.com</a>: get more backlinks</li>
+  <li>agency: deliver the two accounts + get 2 more customers so we have money for marketing the product</li>
+  <li>AltaLab: absorb as much as we can, get into stage 2</li>
+</ul>
+
+<p style="${h1}">the ask</p>
+
+<p>same as july: intros to portco CMOs who need programmatic SEO. the machine is built. happy to point it at someone else's business.</p>
+
+<p>forward this to one of them — they can book here:</p>
+
+<p style="margin:18px 0 24px">
+  <a href="${CAL_LINK}" style="display:inline-block;background:#1a1a1a;color:#ffffff;text-decoration:none;font-weight:600;font-size:15px;padding:12px 22px;border-radius:6px">boost SEO traffic</a>
+</p>
+
+<p>have a good september,</p>
+
+<p>Vlad</p>
 
 <img src="${pixelUrl(email)}" width="1" height="1" alt="" style="display:none">
 </body></html>`;
+}
+
+async function captureSent(email) {
+  if (!POSTHOG_KEY) return;
+  try {
+    await fetch(`${POSTHOG_HOST}/capture/`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        api_key: POSTHOG_KEY,
+        event: 'newsletter_sent',
+        distinct_id: email.toLowerCase(),
+        properties: {
+          campaign: CAMPAIGN,
+          source: 'send-script',
+          $set: {
+            email: email.toLowerCase(),
+            newsletter_subscriber: true,
+            last_newsletter_campaign: CAMPAIGN,
+          },
+        },
+      }),
+    });
+  } catch { /* never block the send */ }
 }
 
 // ── Resend API ────────────────────────────────────────────────────
@@ -136,6 +214,7 @@ async function sendEmail(to, html) {
       reply_to: REPLY_TO,
       subject: SUBJECT,
       html,
+      tags: [{ name: 'campaign', value: CAMPAIGN }],
     }),
   });
   if (!res.ok) {
@@ -154,7 +233,18 @@ async function main() {
   console.log(`From:      ${FROM}`);
   console.log(`Reply-to:  ${REPLY_TO}`);
   console.log(`Audience:  ${AUDIENCE_ID}`);
-  console.log(`Dry run:   ${DRY_RUN}\n`);
+  console.log(`Tracker:   ${TRACKER_BASE}`);
+  console.log(`Dry run:   ${DRY_RUN}`);
+  console.log(`Test to:   ${TEST_TO || '(none)'}\n`);
+
+  // ── Test mode: one copy to a single address, skip audience + guard ──
+  if (TEST_TO) {
+    console.log(`Sending TEST copy to ${TEST_TO} ...`);
+    const res = await sendEmail(TEST_TO, buildHtml(TEST_TO));
+    await captureSent(TEST_TO);
+    console.log(`✓ sent — Resend id: ${res.id}`);
+    return;
+  }
 
   const contacts = await fetchContacts();
   console.log(`Subscribed contacts: ${contacts.length}\n`);
@@ -172,6 +262,7 @@ async function main() {
     try {
       const html = buildHtml(contact.email);
       await sendEmail(contact.email, html);
+      await captureSent(contact.email);
       sent++;
       console.log(`✓ ${sent}/${contacts.length} ${contact.email}`);
     } catch (err) {
